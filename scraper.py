@@ -185,18 +185,27 @@ def parse_harvest(html: str) -> dict:
 def parse_evolve(html: str) -> dict:
     soup = BeautifulSoup(html, "lxml")
     holdings = {}
-    table = soup.select_one("table.holdings, .fund-holdings table")
+    table = soup.select_one("#portfolio-holdings")
     if not table:
         raise ValueError("holdings table not found — page structure may have changed")
-    for row in table.select("tbody tr"):
+    rows = table.select("tr")
+    for row in rows[1:]:
         cells = [c.get_text(strip=True) for c in row.select("td")]
-        if len(cells) >= 2:
-            ticker, weight = cells[0], cells[-1]
-            try:
-                holdings[ticker] = float(weight.replace("%", "").replace(",", ""))
-            except ValueError:
-                continue
+        if len(cells) < 3:
+            continue
+        weight, ticker_raw = cells[1], cells[2]
+        ticker = ticker_raw.split()[0] if ticker_raw else ""
+        if not ticker or not weight:
+            continue
+        try:
+            w = float(weight.replace("%", "").replace(",", ""))
+        except ValueError:
+            continue
+        if w <= 0:
+            continue
+        holdings[ticker] = w
     return holdings
+
 
 
 def parse_globalx_us(html: str) -> dict:
