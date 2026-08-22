@@ -108,7 +108,7 @@ FUND_REGISTRY: list[Fund] = [
     Fund("BDAY", "Hamilton Enhanced Bitcoin DayMAX ETF", "Hamilton ETFs", "CAD",
          "https://hamiltonetfs.com/etf/bday/", "hamilton"),
 
-  Fund("ZWB", "BMO Covered Call Canadian Banks ETF", "BMO ETFs", "CAD",
+    Fund("ZWB", "BMO Covered Call Canadian Banks ETF", "BMO ETFs", "CAD",
          "https://www.bmoetfs.ca/en/products/zwb", "bmo"),
     Fund("ZWC", "BMO Canadian High Dividend Covered Call ETF", "BMO ETFs", "CAD",
          "https://www.bmoetfs.ca/en/products/zwc", "bmo"),
@@ -118,6 +118,7 @@ FUND_REGISTRY: list[Fund] = [
     Fund("HHL", "Harvest Healthcare Leaders Income ETF", "Harvest ETFs", "CAD",
          "https://harvestportfolios.com/etfs/hhl/", "harvest"),
     Fund("HTA", "Harvest Tech Achievers Growth & Income ETF", "Harvest ETFs", "CAD",
+         "https://harvestportfolios.com/etf/hta/", "harvest"),
     Fund("HBF", "Harvest US Equity Leaders Income ETF", "Harvest ETFs", "CAD",
          "https://harvestportfolios.com/etf/hbf/", "harvest"),
     Fund("HUTL", "Harvest Utilities Leaders Income ETF", "Harvest ETFs", "CAD",
