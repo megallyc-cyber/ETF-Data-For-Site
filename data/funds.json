@@ -2601,270 +2601,216 @@
     "name": "Purpose SpaceX Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "SPCX": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "TDY": {
     "name": "Purpose TD Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "TD": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "RBCY": {
     "name": "Purpose RBC Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "RY": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "BNSY": {
     "name": "Purpose Scotiabank Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "BNS": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "ENBY": {
     "name": "Purpose Enbridge Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "ENB": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "SHPY": {
     "name": "Purpose Shopify Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "SHOP": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "CNQY": {
     "name": "Purpose Canadian Natural Resources Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "CNQ": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "TY": {
     "name": "Purpose TELUS Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "T": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "DOLY": {
     "name": "Purpose Dollarama Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "DOL": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "ATDY": {
     "name": "Purpose Couche-Tard Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "ATD": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "BNY": {
     "name": "Purpose Brookfield Yield Shares ETF",
     "issuer": "Purpose Investments",
     "region": "CAD",
-    "holdings": {
-      "BN": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YMAG": {
     "name": "Tech Innovators Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "AVGO": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YCST": {
     "name": "Costco Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "COST": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YNET": {
     "name": "Netflix Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "NFLX": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YAVG": {
     "name": "Broadcom Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "AVGO": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YCON": {
     "name": "Coinbase Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "COIN": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YPLT": {
     "name": "Palantir Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "PLTR": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YUNH": {
     "name": "UnitedHealth Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "UNH": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YAMD": {
     "name": "AMD Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "AMD": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YMET": {
     "name": "META Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "META": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YNVD": {
     "name": "NVIDIA Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "NVDA": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "MSFY": {
     "name": "Microsoft Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "MSFT": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YTSL": {
     "name": "Tesla Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "TSLA": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YAMZ": {
     "name": "Amazon Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "AMZN": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "APLY": {
     "name": "Apple Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "AAPL": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "YGOG": {
     "name": "Alphabet Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "GOOGL": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   },
   "BRKY": {
     "name": "Berkshire Hathaway Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "BRK": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "could not find underlying ticker in Purpose fund page title"
   }
 }
