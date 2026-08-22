@@ -2711,11 +2711,9 @@
     "name": "Tech Innovators Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
     "region": "US",
-    "holdings": {
-      "AVGO": 100.0
-    },
-    "fetched_ok": true,
-    "error": ""
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "'purpose_multi_unsupported'"
   },
   "YCST": {
     "name": "Costco Yield Shares Purpose ETF",
