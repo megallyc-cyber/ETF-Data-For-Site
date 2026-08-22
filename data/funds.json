@@ -1082,7 +1082,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/bank/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787421885"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -1091,7 +1091,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/cfin/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787421889"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -1100,7 +1100,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/utes/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787421894"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -1109,7 +1109,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/oily/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787421901"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -1118,7 +1118,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/cute/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787421906"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -1127,7 +1127,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/espx/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787421912"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -1136,7 +1136,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/etsx/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787421918"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -1145,7 +1145,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/life/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787421925"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -1154,7 +1154,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/qqqy/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787421931"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -1163,7 +1163,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/ebnk/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787421937"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
@@ -1172,7 +1172,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/call/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787421944"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -1181,7 +1181,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/base/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787421950"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -1190,7 +1190,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/lead/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787421956"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -1199,7 +1199,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/bond/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787421961"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -1208,7 +1208,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/agg/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787421966"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -1217,7 +1217,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/midb/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787421971"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
@@ -1226,7 +1226,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/bigy/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787421976"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -1235,7 +1235,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/cany/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787421982"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -1244,7 +1244,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/sixy/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787421987"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -1253,7 +1253,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/inty/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787421994"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -1262,7 +1262,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/easy/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787421999"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -1271,7 +1271,7 @@
     "holdings": {},
     "stats": {},
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/product/tecy/"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787422003"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
