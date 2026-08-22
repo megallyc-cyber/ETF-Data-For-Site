@@ -32,6 +32,7 @@ Install:
 """
 
 import json
+from datetime import datetime, timezone
 import time
 import logging
 from dataclasses import dataclass, field
@@ -90,6 +91,8 @@ class Fund:
     parser: str          # key into PARSERS
     holdings: dict = field(default_factory=dict)  # ticker -> weight_pct
     stats: dict = field(default_factory=dict)     # aum_musd, nav, yield, mer, ...
+    as_of: str = ""      # UTC date this fund's data was last successfully fetched
+    stale: bool = False  # True when we're serving the previous run's data
     fetched_ok: bool = False
     needs_browser: bool = False  # True if the issuer's page requires JS rendering
     error: str = ""
@@ -979,7 +982,36 @@ def collect_stats(fund: Fund, holdings_html: str) -> dict:
         return {}
 
 
+def load_previous(path: Path = OUTPUT_PATH) -> dict:
+    """The previous run's output, used to carry a fund forward when today's
+    fetch fails. An issuer blocking us for a day is not the same event as a
+    fund ceasing to exist, and the site shouldn't render them identically."""
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text())
+    except Exception as exc:  # noqa: BLE001
+        log.warning("Could not read previous %s: %s", path, exc)
+        return {}
+
+
+def carry_forward(fund: Fund, previous: dict) -> None:
+    """Keep the last good holdings/stats and mark them stale, so the fund page
+    shows real numbers with an honest 'as of' date instead of going blank."""
+    prev = previous.get(fund.ticker)
+    if not prev or not prev.get("holdings"):
+        return
+    fund.holdings = prev.get("holdings", {})
+    fund.stats = prev.get("stats", {}) or {}
+    fund.as_of = prev.get("as_of", "") or prev.get("last_seen", "")
+    fund.stale = True
+    log.info("  -> carrying forward %d holdings from %s",
+             len(fund.holdings), fund.as_of or "an earlier run")
+
+
 def run(registry: list[Fund]) -> list[Fund]:
+    previous = load_previous()
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     for fund in registry:
         log.info("Fetching %s (%s) from %s", fund.ticker, fund.issuer, fund.holdings_url)
         html = None
@@ -995,14 +1027,19 @@ def run(registry: list[Fund]) -> list[Fund]:
             parser = PARSERS[fund.parser]
             fund.holdings = parser(html)
             fund.fetched_ok = bool(fund.holdings)
-            if not fund.fetched_ok:
+            if fund.fetched_ok:
+                fund.as_of = today
+                fund.stale = False
+                fund.stats = collect_stats(fund, html)
+            else:
                 fund.error = "parser ran but returned no holdings"
-            fund.stats = collect_stats(fund, html)
+                carry_forward(fund, previous)
         except Exception as exc:  # noqa: BLE001 — log and continue, don't kill the whole run
             fund.fetched_ok = False
             fund.error = str(exc)
             log.warning("  -> FAILED: %s", exc)
             log.warning("  -> %s", describe_response(html))
+            carry_forward(fund, previous)
         time.sleep(DELAY_BETWEEN_REQUESTS)
     return registry
 
@@ -1030,17 +1067,22 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
             "region": fund.region,
             "holdings": fund.holdings,
             "stats": fund.stats,
+            "as_of": fund.as_of,
+            "stale": fund.stale,
             "fetched_ok": fund.fetched_ok,
             "error": fund.error,
         }
     path.write_text(json.dumps(payload, indent=2))
     ok = sum(1 for f in registry if f.fetched_ok)
     with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
-    failures = [f.ticker for f in registry if not f.fetched_ok]
-    if failures:
-        log.warning("Did not fetch: %s", ", ".join(failures))
-    log.info("Wrote %s — %d/%d funds fetched successfully, %d with AUM",
-             path, ok, len(registry), with_aum)
+    carried = [f.ticker for f in registry if f.stale and f.holdings]
+    empty = [f.ticker for f in registry if not f.holdings]
+    if carried:
+        log.warning("Carried forward (issuer unreachable today): %s", ", ".join(carried))
+    if empty:
+        log.warning("No data at all: %s", ", ".join(empty))
+    log.info("Wrote %s — %d/%d fetched live, %d carried forward, %d with AUM",
+             path, ok, len(registry), len(carried), with_aum)
 
 
 def select(registry: list[Fund], only: str) -> list[Fund]:
