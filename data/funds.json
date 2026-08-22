@@ -9762,7 +9762,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787439734"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787442293"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -9790,7 +9790,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787439746"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787442305"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -9820,7 +9820,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787439758"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787442317"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -9850,7 +9850,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787439770"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787442329"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -9878,7 +9878,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787439782"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787442342"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -10403,7 +10403,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787439797"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787442355"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -10483,7 +10483,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787439811"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787442367"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -10523,7 +10523,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787439825"
+    "error": "Page.goto: Timeout 20000ms exceeded.\nCall log:\n  - navigating to \"https://evolveetfs.com/product/life/\", waiting until \"domcontentloaded\"\n"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -10591,7 +10591,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787439837"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787442405"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -10631,7 +10631,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787439850"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787442418"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
@@ -10671,7 +10671,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787439864"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787442432"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -10711,7 +10711,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787439877"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787442446"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -10771,7 +10771,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787439891"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787442459"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -10793,7 +10793,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787439903"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787442471"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -10813,7 +10813,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787439918"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787442483"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -10834,7 +10834,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787439930"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787442495"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
@@ -10875,7 +10875,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787439942"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787442506"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -10914,7 +10914,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787439953"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787442518"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -10938,7 +10938,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787439965"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787442530"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -10968,7 +10968,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787439976"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787442541"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -11042,7 +11042,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787439988"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787442553"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -11108,7 +11108,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787439999"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787442564"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
@@ -13138,9 +13138,255 @@
       "yield_label": "30-day sec yield",
       "mer": "0.68%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.68%"
+      "mgmt_fee": "0.68%",
+      "last_amount": 0.5423,
+      "last_ex_date": "2026-08-19",
+      "count": 48,
+      "ttm_total": 6.3335,
+      "ttm_payments": 12
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-08-19",
+        "amount": 0.5423,
+        "pay_date": "2026-08-21"
+      },
+      {
+        "ex_date": "2026-07-22",
+        "amount": 0.53,
+        "pay_date": "2026-07-24"
+      },
+      {
+        "ex_date": "2026-06-16",
+        "amount": 0.531,
+        "pay_date": "2026-06-18"
+      },
+      {
+        "ex_date": "2026-05-20",
+        "amount": 0.5353,
+        "pay_date": "2026-05-22"
+      },
+      {
+        "ex_date": "2026-04-22",
+        "amount": 0.5247,
+        "pay_date": "2026-04-24"
+      },
+      {
+        "ex_date": "2026-03-18",
+        "amount": 0.5104,
+        "pay_date": "2026-03-20"
+      },
+      {
+        "ex_date": "2026-02-18",
+        "amount": 0.5219,
+        "pay_date": "2026-02-20"
+      },
+      {
+        "ex_date": "2026-01-21",
+        "amount": 0.5309,
+        "pay_date": "2026-01-23"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.5316,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 0.5216,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 0.5268,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 0.527,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 0.5176,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 0.5112,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 0.5047,
+        "pay_date": "2025-06-27"
+      },
+      {
+        "ex_date": "2025-05-21",
+        "amount": 0.5063,
+        "pay_date": "2025-05-23"
+      },
+      {
+        "ex_date": "2025-04-23",
+        "amount": 0.4616,
+        "pay_date": "2025-04-25"
+      },
+      {
+        "ex_date": "2025-03-26",
+        "amount": 0.5065,
+        "pay_date": "2025-03-28"
+      },
+      {
+        "ex_date": "2025-02-26",
+        "amount": 0.5142,
+        "pay_date": "2025-02-28"
+      },
+      {
+        "ex_date": "2025-01-22",
+        "amount": 0.5167,
+        "pay_date": "2025-01-24"
+      },
+      {
+        "ex_date": "2024-12-24",
+        "amount": 0.5164,
+        "pay_date": "2024-12-26"
+      },
+      {
+        "ex_date": "2024-11-20",
+        "amount": 0.5206,
+        "pay_date": "2024-11-21"
+      },
+      {
+        "ex_date": "2024-10-23",
+        "amount": 0.5196,
+        "pay_date": "2024-10-24"
+      },
+      {
+        "ex_date": "2024-09-25",
+        "amount": 0.5147,
+        "pay_date": "2024-09-26"
+      },
+      {
+        "ex_date": "2024-08-21",
+        "amount": 0.5564,
+        "pay_date": "2024-08-22"
+      },
+      {
+        "ex_date": "2024-07-24",
+        "amount": 0.5088,
+        "pay_date": "2024-07-25"
+      },
+      {
+        "ex_date": "2024-06-26",
+        "amount": 0.5051,
+        "pay_date": "2024-06-27"
+      },
+      {
+        "ex_date": "2024-05-23",
+        "amount": 0.4997,
+        "pay_date": "2024-05-24"
+      },
+      {
+        "ex_date": "2024-04-25",
+        "amount": 0.4892,
+        "pay_date": "2024-04-26"
+      },
+      {
+        "ex_date": "2024-03-21",
+        "amount": 0.5014,
+        "pay_date": "2024-03-22"
+      },
+      {
+        "ex_date": "2024-02-22",
+        "amount": 0.4967,
+        "pay_date": "2024-02-23"
+      },
+      {
+        "ex_date": "2024-01-25",
+        "amount": 0.4896,
+        "pay_date": "2024-01-26"
+      },
+      {
+        "ex_date": "2023-12-20",
+        "amount": 0.4849,
+        "pay_date": "2023-12-22"
+      },
+      {
+        "ex_date": "2023-11-22",
+        "amount": 0.4783,
+        "pay_date": "2023-11-27"
+      },
+      {
+        "ex_date": "2023-10-25",
+        "amount": 0.465,
+        "pay_date": "2023-10-27"
+      },
+      {
+        "ex_date": "2023-09-20",
+        "amount": 0.4895,
+        "pay_date": "2023-09-22"
+      },
+      {
+        "ex_date": "2023-08-23",
+        "amount": 0.4864,
+        "pay_date": "2023-08-25"
+      },
+      {
+        "ex_date": "2023-07-26",
+        "amount": 0.5047,
+        "pay_date": "2023-07-28"
+      },
+      {
+        "ex_date": "2023-06-22",
+        "amount": 0.4966,
+        "pay_date": "2023-06-26"
+      },
+      {
+        "ex_date": "2023-05-24",
+        "amount": 0.4865,
+        "pay_date": "2023-05-26"
+      },
+      {
+        "ex_date": "2023-04-26",
+        "amount": 0.4823,
+        "pay_date": "2023-04-28"
+      },
+      {
+        "ex_date": "2023-03-22",
+        "amount": 0.466,
+        "pay_date": "2023-03-24"
+      },
+      {
+        "ex_date": "2023-02-23",
+        "amount": 0.4716,
+        "pay_date": "2023-02-27"
+      },
+      {
+        "ex_date": "2023-01-25",
+        "amount": 0.4755,
+        "pay_date": "2023-01-27"
+      },
+      {
+        "ex_date": "2022-12-23",
+        "amount": 0.4615,
+        "pay_date": "2022-12-28"
+      },
+      {
+        "ex_date": "2022-11-23",
+        "amount": 0.4782,
+        "pay_date": "2022-11-28"
+      },
+      {
+        "ex_date": "2022-10-26",
+        "amount": 0.4647,
+        "pay_date": "2022-10-28"
+      },
+      {
+        "ex_date": "2022-09-21",
+        "amount": 0.4853,
+        "pay_date": "2022-09-23"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -13262,9 +13508,170 @@
       "yield_label": "30-day sec yield",
       "mer": "0.68%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.68%"
+      "mgmt_fee": "0.68%",
+      "last_amount": 0.6518,
+      "last_ex_date": "2026-08-19",
+      "count": 31,
+      "ttm_total": 7.6483,
+      "ttm_payments": 12
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-08-19",
+        "amount": 0.6518,
+        "pay_date": "2026-08-21"
+      },
+      {
+        "ex_date": "2026-07-22",
+        "amount": 0.6346,
+        "pay_date": "2026-07-24"
+      },
+      {
+        "ex_date": "2026-06-16",
+        "amount": 0.6572,
+        "pay_date": "2026-06-18"
+      },
+      {
+        "ex_date": "2026-05-20",
+        "amount": 0.6589,
+        "pay_date": "2026-05-22"
+      },
+      {
+        "ex_date": "2026-04-22",
+        "amount": 0.6297,
+        "pay_date": "2026-04-24"
+      },
+      {
+        "ex_date": "2026-03-18",
+        "amount": 0.6089,
+        "pay_date": "2026-03-20"
+      },
+      {
+        "ex_date": "2026-02-18",
+        "amount": 0.614,
+        "pay_date": "2026-02-20"
+      },
+      {
+        "ex_date": "2026-01-21",
+        "amount": 0.6359,
+        "pay_date": "2026-01-23"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.6413,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 0.6304,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 0.6445,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 0.6411,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 0.6285,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 0.6366,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 0.6282,
+        "pay_date": "2025-06-27"
+      },
+      {
+        "ex_date": "2025-05-21",
+        "amount": 0.6374,
+        "pay_date": "2025-05-23"
+      },
+      {
+        "ex_date": "2025-04-23",
+        "amount": 0.5309,
+        "pay_date": "2025-04-25"
+      },
+      {
+        "ex_date": "2025-03-26",
+        "amount": 0.5867,
+        "pay_date": "2025-03-28"
+      },
+      {
+        "ex_date": "2025-02-26",
+        "amount": 0.6138,
+        "pay_date": "2025-02-28"
+      },
+      {
+        "ex_date": "2025-01-22",
+        "amount": 0.6241,
+        "pay_date": "2025-01-24"
+      },
+      {
+        "ex_date": "2024-12-24",
+        "amount": 0.6216,
+        "pay_date": "2024-12-26"
+      },
+      {
+        "ex_date": "2024-11-20",
+        "amount": 0.6116,
+        "pay_date": "2024-11-21"
+      },
+      {
+        "ex_date": "2024-10-23",
+        "amount": 0.6098,
+        "pay_date": "2024-10-24"
+      },
+      {
+        "ex_date": "2024-09-25",
+        "amount": 0.6022,
+        "pay_date": "2024-09-26"
+      },
+      {
+        "ex_date": "2024-08-21",
+        "amount": 0.6443,
+        "pay_date": "2024-08-22"
+      },
+      {
+        "ex_date": "2024-07-24",
+        "amount": 0.6186,
+        "pay_date": "2024-07-25"
+      },
+      {
+        "ex_date": "2024-06-26",
+        "amount": 0.6233,
+        "pay_date": "2024-06-27"
+      },
+      {
+        "ex_date": "2024-05-23",
+        "amount": 0.6129,
+        "pay_date": "2024-05-24"
+      },
+      {
+        "ex_date": "2024-04-25",
+        "amount": 0.5867,
+        "pay_date": "2024-04-26"
+      },
+      {
+        "ex_date": "2024-03-21",
+        "amount": 0.6045,
+        "pay_date": "2024-03-22"
+      },
+      {
+        "ex_date": "2024-02-22",
+        "amount": 0.5939,
+        "pay_date": "2024-02-23"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -13285,9 +13692,150 @@
       "yield_label": "30-day sec yield",
       "mer": "0.76%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.68%"
+      "mgmt_fee": "0.68%",
+      "last_amount": 0.6373,
+      "last_ex_date": "2026-08-19",
+      "count": 27,
+      "ttm_total": 7.2368,
+      "ttm_payments": 12
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-08-19",
+        "amount": 0.6373,
+        "pay_date": "2026-08-21"
+      },
+      {
+        "ex_date": "2026-07-22",
+        "amount": 0.625,
+        "pay_date": "2026-07-24"
+      },
+      {
+        "ex_date": "2026-06-16",
+        "amount": 0.6277,
+        "pay_date": "2026-06-18"
+      },
+      {
+        "ex_date": "2026-05-20",
+        "amount": 0.6046,
+        "pay_date": "2026-05-22"
+      },
+      {
+        "ex_date": "2026-04-22",
+        "amount": 0.612,
+        "pay_date": "2026-04-24"
+      },
+      {
+        "ex_date": "2026-03-18",
+        "amount": 0.571,
+        "pay_date": "2026-03-20"
+      },
+      {
+        "ex_date": "2026-02-18",
+        "amount": 0.6018,
+        "pay_date": "2026-02-20"
+      },
+      {
+        "ex_date": "2026-01-21",
+        "amount": 0.6082,
+        "pay_date": "2026-01-23"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.5991,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 0.5732,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 0.5901,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 0.5868,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 0.5617,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 0.5616,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 0.5573,
+        "pay_date": "2025-06-27"
+      },
+      {
+        "ex_date": "2025-05-21",
+        "amount": 0.5534,
+        "pay_date": "2025-05-23"
+      },
+      {
+        "ex_date": "2025-04-23",
+        "amount": 0.498,
+        "pay_date": "2025-04-25"
+      },
+      {
+        "ex_date": "2025-03-26",
+        "amount": 0.5685,
+        "pay_date": "2025-03-28"
+      },
+      {
+        "ex_date": "2025-02-26",
+        "amount": 0.5833,
+        "pay_date": "2025-02-28"
+      },
+      {
+        "ex_date": "2025-01-22",
+        "amount": 0.6086,
+        "pay_date": "2025-01-24"
+      },
+      {
+        "ex_date": "2024-12-24",
+        "amount": 0.6108,
+        "pay_date": "2024-12-26"
+      },
+      {
+        "ex_date": "2024-11-20",
+        "amount": 0.6344,
+        "pay_date": "2024-11-21"
+      },
+      {
+        "ex_date": "2024-10-23",
+        "amount": 0.6239,
+        "pay_date": "2024-10-24"
+      },
+      {
+        "ex_date": "2024-09-25",
+        "amount": 0.6233,
+        "pay_date": "2024-09-26"
+      },
+      {
+        "ex_date": "2024-08-21",
+        "amount": 0.6579,
+        "pay_date": "2024-08-22"
+      },
+      {
+        "ex_date": "2024-07-24",
+        "amount": 0.6016,
+        "pay_date": "2024-07-25"
+      },
+      {
+        "ex_date": "2024-06-26",
+        "amount": 0.545,
+        "pay_date": "2024-06-27"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -13309,9 +13857,130 @@
       "yield_label": "30-day sec yield",
       "mer": "0.99%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.98%"
+      "mgmt_fee": "0.98%",
+      "last_amount": 0.6289,
+      "last_ex_date": "2026-08-19",
+      "count": 23,
+      "ttm_total": 10.7575,
+      "ttm_payments": 12
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-08-19",
+        "amount": 0.6289,
+        "pay_date": "2026-08-21"
+      },
+      {
+        "ex_date": "2026-07-22",
+        "amount": 0.6458,
+        "pay_date": "2026-07-24"
+      },
+      {
+        "ex_date": "2026-06-16",
+        "amount": 0.6525,
+        "pay_date": "2026-06-18"
+      },
+      {
+        "ex_date": "2026-05-20",
+        "amount": 0.7934,
+        "pay_date": "2026-05-22"
+      },
+      {
+        "ex_date": "2026-04-22",
+        "amount": 0.7982,
+        "pay_date": "2026-04-24"
+      },
+      {
+        "ex_date": "2026-03-18",
+        "amount": 0.7804,
+        "pay_date": "2026-03-20"
+      },
+      {
+        "ex_date": "2026-02-18",
+        "amount": 0.7608,
+        "pay_date": "2026-02-20"
+      },
+      {
+        "ex_date": "2026-01-21",
+        "amount": 1.0427,
+        "pay_date": "2026-01-23"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.9967,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 1.0181,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 1.2999,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 1.3401,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 1.4153,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 1.4716,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 1.3978,
+        "pay_date": "2025-06-27"
+      },
+      {
+        "ex_date": "2025-05-21",
+        "amount": 1.5145,
+        "pay_date": "2025-05-23"
+      },
+      {
+        "ex_date": "2025-04-23",
+        "amount": 1.2591,
+        "pay_date": "2025-04-25"
+      },
+      {
+        "ex_date": "2025-03-26",
+        "amount": 1.335,
+        "pay_date": "2025-03-28"
+      },
+      {
+        "ex_date": "2025-02-26",
+        "amount": 1.4319,
+        "pay_date": "2025-02-28"
+      },
+      {
+        "ex_date": "2025-01-22",
+        "amount": 1.5718,
+        "pay_date": "2025-01-24"
+      },
+      {
+        "ex_date": "2024-12-24",
+        "amount": 1.4578,
+        "pay_date": "2024-12-26"
+      },
+      {
+        "ex_date": "2024-11-20",
+        "amount": 1.4081,
+        "pay_date": "2024-11-21"
+      },
+      {
+        "ex_date": "2024-10-23",
+        "amount": 1.1253,
+        "pay_date": "2024-10-24"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -13433,9 +14102,170 @@
       "yield_label": "30-day sec yield",
       "mer": "0.68%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.68%"
+      "mgmt_fee": "0.68%",
+      "last_amount": 0.4023,
+      "last_ex_date": "2026-07-29",
+      "count": 31,
+      "ttm_total": 4.4951,
+      "ttm_payments": 11
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-07-29",
+        "amount": 0.4023,
+        "pay_date": "2026-07-31"
+      },
+      {
+        "ex_date": "2026-06-24",
+        "amount": 0.4219,
+        "pay_date": "2026-06-26"
+      },
+      {
+        "ex_date": "2026-05-27",
+        "amount": 0.4198,
+        "pay_date": "2026-05-29"
+      },
+      {
+        "ex_date": "2026-04-29",
+        "amount": 0.4076,
+        "pay_date": "2026-05-01"
+      },
+      {
+        "ex_date": "2026-03-25",
+        "amount": 0.3923,
+        "pay_date": "2026-03-27"
+      },
+      {
+        "ex_date": "2026-02-25",
+        "amount": 0.3992,
+        "pay_date": "2026-02-27"
+      },
+      {
+        "ex_date": "2026-01-28",
+        "amount": 0.411,
+        "pay_date": "2026-01-30"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.4116,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 0.4062,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 0.4127,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 0.4105,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 0.4199,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 0.4258,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 0.4155,
+        "pay_date": "2025-06-27"
+      },
+      {
+        "ex_date": "2025-05-21",
+        "amount": 0.4112,
+        "pay_date": "2025-05-23"
+      },
+      {
+        "ex_date": "2025-04-23",
+        "amount": 0.3444,
+        "pay_date": "2025-04-25"
+      },
+      {
+        "ex_date": "2025-03-26",
+        "amount": 0.3751,
+        "pay_date": "2025-03-28"
+      },
+      {
+        "ex_date": "2025-02-26",
+        "amount": 0.39,
+        "pay_date": "2025-02-28"
+      },
+      {
+        "ex_date": "2025-01-22",
+        "amount": 0.1931,
+        "pay_date": "2025-01-24"
+      },
+      {
+        "ex_date": "2024-12-24",
+        "amount": 0.1896,
+        "pay_date": "2024-12-26"
+      },
+      {
+        "ex_date": "2024-11-20",
+        "amount": 0.1866,
+        "pay_date": "2024-11-21"
+      },
+      {
+        "ex_date": "2024-10-23",
+        "amount": 0.1672,
+        "pay_date": "2024-10-24"
+      },
+      {
+        "ex_date": "2024-09-25",
+        "amount": 0.1673,
+        "pay_date": "2024-09-26"
+      },
+      {
+        "ex_date": "2024-08-21",
+        "amount": 0.1638,
+        "pay_date": "2024-08-22"
+      },
+      {
+        "ex_date": "2024-07-24",
+        "amount": 0.1654,
+        "pay_date": "2024-07-25"
+      },
+      {
+        "ex_date": "2024-06-26",
+        "amount": 0.1631,
+        "pay_date": "2024-06-27"
+      },
+      {
+        "ex_date": "2024-05-23",
+        "amount": 0.1563,
+        "pay_date": "2024-05-24"
+      },
+      {
+        "ex_date": "2024-04-25",
+        "amount": 0.148,
+        "pay_date": "2024-04-26"
+      },
+      {
+        "ex_date": "2024-03-21",
+        "amount": 0.1528,
+        "pay_date": "2024-03-22"
+      },
+      {
+        "ex_date": "2024-02-22",
+        "amount": 0.1504,
+        "pay_date": "2024-02-23"
+      },
+      {
+        "ex_date": "2024-01-25",
+        "amount": 0.1504,
+        "pay_date": "2024-01-26"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -13934,9 +14764,95 @@
       "yield_label": "30-day sec yield",
       "mer": "0.68%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.68%"
+      "mgmt_fee": "0.68%",
+      "last_amount": 0.3611,
+      "last_ex_date": "2026-07-29",
+      "count": 16,
+      "ttm_total": 3.9482,
+      "ttm_payments": 11
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-07-29",
+        "amount": 0.3611,
+        "pay_date": "2026-07-31"
+      },
+      {
+        "ex_date": "2026-06-24",
+        "amount": 0.3638,
+        "pay_date": "2026-06-26"
+      },
+      {
+        "ex_date": "2026-05-27",
+        "amount": 0.3662,
+        "pay_date": "2026-05-29"
+      },
+      {
+        "ex_date": "2026-04-29",
+        "amount": 0.359,
+        "pay_date": "2026-05-01"
+      },
+      {
+        "ex_date": "2026-03-25",
+        "amount": 0.3468,
+        "pay_date": "2026-03-27"
+      },
+      {
+        "ex_date": "2026-02-25",
+        "amount": 0.3579,
+        "pay_date": "2026-02-27"
+      },
+      {
+        "ex_date": "2026-01-28",
+        "amount": 0.3626,
+        "pay_date": "2026-01-30"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.3613,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 0.3549,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 0.3576,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 0.357,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 0.3498,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 0.3452,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 0.3366,
+        "pay_date": "2025-06-27"
+      },
+      {
+        "ex_date": "2025-05-21",
+        "amount": 0.3343,
+        "pay_date": "2025-05-23"
+      },
+      {
+        "ex_date": "2025-04-23",
+        "amount": 0.2559,
+        "pay_date": "2025-04-25"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -13976,9 +14892,60 @@
       "yield_label": "30-day sec yield",
       "mer": "0.68%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.68%"
+      "mgmt_fee": "0.68%",
+      "last_amount": 0.6402,
+      "last_ex_date": "2026-08-19",
+      "count": 9,
+      "ttm_total": 6.0188,
+      "ttm_payments": 9
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-08-19",
+        "amount": 0.6402,
+        "pay_date": "2026-08-21"
+      },
+      {
+        "ex_date": "2026-07-22",
+        "amount": 0.6834,
+        "pay_date": "2026-07-24"
+      },
+      {
+        "ex_date": "2026-06-16",
+        "amount": 0.6576,
+        "pay_date": "2026-06-18"
+      },
+      {
+        "ex_date": "2026-05-20",
+        "amount": 0.7038,
+        "pay_date": "2026-05-22"
+      },
+      {
+        "ex_date": "2026-04-22",
+        "amount": 0.6667,
+        "pay_date": "2026-04-24"
+      },
+      {
+        "ex_date": "2026-03-18",
+        "amount": 0.68,
+        "pay_date": "2026-03-20"
+      },
+      {
+        "ex_date": "2026-02-18",
+        "amount": 0.6739,
+        "pay_date": "2026-02-20"
+      },
+      {
+        "ex_date": "2026-01-21",
+        "amount": 0.6608,
+        "pay_date": "2026-01-23"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.6524,
+        "pay_date": "2025-12-26"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -14058,9 +15025,115 @@
       "yield_label": "30-day sec yield",
       "mer": "0.68%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.68%"
+      "mgmt_fee": "0.68%",
+      "last_amount": 0.4461,
+      "last_ex_date": "2026-08-19",
+      "count": 20,
+      "ttm_total": 5.4014,
+      "ttm_payments": 12
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-08-19",
+        "amount": 0.4461,
+        "pay_date": "2026-08-21"
+      },
+      {
+        "ex_date": "2026-07-22",
+        "amount": 0.4526,
+        "pay_date": "2026-07-24"
+      },
+      {
+        "ex_date": "2026-06-16",
+        "amount": 0.4489,
+        "pay_date": "2026-06-18"
+      },
+      {
+        "ex_date": "2026-05-20",
+        "amount": 0.4405,
+        "pay_date": "2026-05-22"
+      },
+      {
+        "ex_date": "2026-04-22",
+        "amount": 0.4509,
+        "pay_date": "2026-04-24"
+      },
+      {
+        "ex_date": "2026-03-18",
+        "amount": 0.4432,
+        "pay_date": "2026-03-20"
+      },
+      {
+        "ex_date": "2026-02-18",
+        "amount": 0.455,
+        "pay_date": "2026-02-20"
+      },
+      {
+        "ex_date": "2026-01-21",
+        "amount": 0.4505,
+        "pay_date": "2026-01-23"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.4399,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 0.446,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 0.4637,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 0.4641,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 0.4572,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 0.4703,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 0.4663,
+        "pay_date": "2025-06-27"
+      },
+      {
+        "ex_date": "2025-05-21",
+        "amount": 0.4817,
+        "pay_date": "2025-05-23"
+      },
+      {
+        "ex_date": "2025-04-23",
+        "amount": 0.4821,
+        "pay_date": "2025-04-25"
+      },
+      {
+        "ex_date": "2025-03-26",
+        "amount": 0.5137,
+        "pay_date": "2025-03-28"
+      },
+      {
+        "ex_date": "2025-02-26",
+        "amount": 0.5087,
+        "pay_date": "2025-02-28"
+      },
+      {
+        "ex_date": "2025-01-22",
+        "amount": 0.5005,
+        "pay_date": "2025-01-24"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
@@ -14081,9 +15154,90 @@
       "yield_label": "30-day sec yield",
       "mer": "0.79%",
       "mer_label": "total annual fund operating expenses",
-      "mgmt_fee": "0.78%"
+      "mgmt_fee": "0.78%",
+      "last_amount": 0.5182,
+      "last_ex_date": "2026-08-19",
+      "count": 15,
+      "ttm_total": 6.7923,
+      "ttm_payments": 12
     },
-    "distributions": [],
+    "distributions": [
+      {
+        "ex_date": "2026-08-19",
+        "amount": 0.5182,
+        "pay_date": "2026-08-21"
+      },
+      {
+        "ex_date": "2026-07-22",
+        "amount": 0.4855,
+        "pay_date": "2026-07-24"
+      },
+      {
+        "ex_date": "2026-06-16",
+        "amount": 0.5129,
+        "pay_date": "2026-06-18"
+      },
+      {
+        "ex_date": "2026-05-20",
+        "amount": 0.5551,
+        "pay_date": "2026-05-22"
+      },
+      {
+        "ex_date": "2026-04-22",
+        "amount": 0.5861,
+        "pay_date": "2026-04-24"
+      },
+      {
+        "ex_date": "2026-03-18",
+        "amount": 0.6129,
+        "pay_date": "2026-03-20"
+      },
+      {
+        "ex_date": "2026-02-18",
+        "amount": 0.6202,
+        "pay_date": "2026-02-20"
+      },
+      {
+        "ex_date": "2026-01-21",
+        "amount": 0.6092,
+        "pay_date": "2026-01-23"
+      },
+      {
+        "ex_date": "2025-12-24",
+        "amount": 0.5975,
+        "pay_date": "2025-12-26"
+      },
+      {
+        "ex_date": "2025-11-26",
+        "amount": 0.5706,
+        "pay_date": "2025-11-28"
+      },
+      {
+        "ex_date": "2025-10-22",
+        "amount": 0.5807,
+        "pay_date": "2025-10-24"
+      },
+      {
+        "ex_date": "2025-09-24",
+        "amount": 0.5434,
+        "pay_date": "2025-09-26"
+      },
+      {
+        "ex_date": "2025-08-20",
+        "amount": 0.5113,
+        "pay_date": "2025-08-22"
+      },
+      {
+        "ex_date": "2025-07-23",
+        "amount": 0.5204,
+        "pay_date": "2025-07-25"
+      },
+      {
+        "ex_date": "2025-06-25",
+        "amount": 0.5224,
+        "pay_date": "2025-06-27"
+      }
+    ],
     "as_of": "2026-08-22",
     "stale": false,
     "fetched_ok": true,
