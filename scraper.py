@@ -104,9 +104,10 @@ FUND_REGISTRY: list[Fund] = [
          "https://www.globalxetfs.com/funds/ryld/", "globalx_us"),
 
     Fund("JEPI", "JPMorgan Equity Premium Income ETF", "J.P. Morgan Asset Management", "US",
-         "https://am.jpmorgan.com/us/en/asset-management/adv/products/jpmorgan-equity-premium-income-etf-jepi", "jpmorgan"),
+         "https://am.jpmorgan.com/us/en/asset-management/adv/products/jpmorgan-equity-premium-income-etf-etf-shares-46641q332", "jpmorgan"),
     Fund("JEPQ", "JPMorgan Nasdaq Equity Premium Income ETF", "J.P. Morgan Asset Management", "US",
-         "https://am.jpmorgan.com/us/en/asset-management/adv/products/jpmorgan-nasdaq-equity-premium-income-etf-jepq", "jpmorgan"),
+         "https://am.jpmorgan.com/us/en/asset-management/adv/products/jpmorgan-nasdaq-equity-premium-income-etf-etf-shares-46654q203", "jpmorgan"),
+  
 
     # Keep adding: Purpose, CI, Brompton, Global X CAD broader lineup,
     # YieldMax (30+ single-stock funds), Simplify, Innovator, NEOS, Amplify...
