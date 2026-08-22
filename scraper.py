@@ -63,6 +63,7 @@ class Fund:
     parser: str          # key into PARSERS
     holdings: dict = field(default_factory=dict)  # ticker -> weight_pct
     fetched_ok: bool = False
+    needs_browser: bool = False  # True if the issuer's page requires JS rendering
     error: str = ""
 
 
@@ -271,6 +272,65 @@ FUND_REGISTRY: list[Fund] = [
          "https://www.purposeinvest.com/funds/alphabet-yield-shares-purpose-etf", "purpose_single"),
     Fund("BRKY", "Berkshire Hathaway Yield Shares Purpose ETF", "Purpose Investments", "US",
          "https://www.purposeinvest.com/funds/berkshire-hathaway-yield-shares-purpose-etf", "purpose_single"),
+    Fund("JEPI", "JPMorgan Equity Premium Income ETF", "J.P. Morgan Asset Management", "US",
+         "https://am.jpmorgan.com/FundsMarketingHandler/excel?type=dailyETFHoldings&cusip=46641Q332&country=us&role=adv&fundType=N_ETF&locale=en-US&isUnderlyingHolding=false&isProxyHolding=false", "jpmorgan_xls"),
+    Fund("JEPQ", "JPMorgan Nasdaq Equity Premium Income ETF", "J.P. Morgan Asset Management", "US",
+         "https://am.jpmorgan.com/FundsMarketingHandler/excel?type=dailyETFHoldings&cusip=46654Q203&country=us&role=adv&fundType=N_ETF&locale=en-US&isUnderlyingHolding=false&isProxyHolding=false", "jpmorgan_xls"),
+    Fund("SPYI", "NEOS S&P 500 High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=SPYI", "neos_csv"),
+    Fund("QQQI", "NEOS Nasdaq-100 High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=QQQI", "neos_csv"),
+    Fund("IWMI", "NEOS Russell 2000 High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=IWMI", "neos_csv"),
+    Fund("BTCI", "NEOS Bitcoin High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=BTCI", "neos_csv"),
+    Fund("QQQH", "NEOS Nasdaq-100 Hedged Equity Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=QQQH", "neos_csv"),
+    Fund("SPYH", "NEOS S&P 500 Hedged Equity Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=SPYH", "neos_csv"),
+    Fund("MLPI", "NEOS MLP & Energy Infrastructure High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=MLPI", "neos_csv"),
+    Fund("IYRI", "NEOS Real Estate High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=IYRI", "neos_csv"),
+    Fund("IAUI", "NEOS Gold High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=IAUI", "neos_csv"),
+    Fund("DIVO", "Amplify CWP Enhanced Dividend Income ETF", "Amplify ETFs", "US",
+         "https://amplifyetfs.com/divo-holdings/", "amplify_rendered", needs_browser=True),
+    Fund("IDVO", "Amplify CWP International Enhanced Dividend Income ETF", "Amplify ETFs", "US",
+         "https://amplifyetfs.com/idvo-holdings/", "amplify_rendered", needs_browser=True),
+    Fund("QDVO", "Amplify CWP Growth & Income ETF", "Amplify ETFs", "US",
+         "https://amplifyetfs.com/qdvo-holdings/", "amplify_rendered", needs_browser=True),
+    Fund("CNCC", "Global X S&P/TSX 60 Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/cncc", "globalx_ca_rendered", needs_browser=True),
+    Fund("CNCL", "Global X Enhanced S&P/TSX 60 Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/cncl", "globalx_ca_rendered", needs_browser=True),
+    Fund("BKCC", "Global X Equal Weight Canadian Bank Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/bkcc", "globalx_ca_rendered", needs_browser=True),
+    Fund("BKCL", "Global X Enhanced Equal Weight Canadian Banks Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/bkcl", "globalx_ca_rendered", needs_browser=True),
+    Fund("EACC", "Global X MSCI EAFE Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/eacc", "globalx_ca_rendered", needs_browser=True),
+    Fund("EACL", "Global X Enhanced MSCI EAFE Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/eacl", "globalx_ca_rendered", needs_browser=True),
+    Fund("EMCC", "Global X MSCI Emerging Markets Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/emcc", "globalx_ca_rendered", needs_browser=True),
+    Fund("EMCL", "Global X Enhanced MSCI Emerging Markets Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/emcl", "globalx_ca_rendered", needs_browser=True),
+    Fund("ENCC", "Global X Canadian Oil and Gas Equity Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/encc", "globalx_ca_rendered", needs_browser=True),
+    Fund("ENCL", "Global X Enhanced Canadian Oil and Gas Equity Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/encl", "globalx_ca_rendered", needs_browser=True),
+    Fund("EQCC", "Global X All-Equity Asset Allocation Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/eqcc", "globalx_ca_rendered", needs_browser=True),
+    Fund("EQCL", "Global X Enhanced All-Equity Asset Allocation Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/eqcl", "globalx_ca_rendered", needs_browser=True),
+    Fund("GLCC", "Global X Gold Producer Equity Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/glcc", "globalx_ca_rendered", needs_browser=True),
+    Fund("GLCL", "Global X Enhanced Gold Producer Equity Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/glcl", "globalx_ca_rendered", needs_browser=True),
+    Fund("GRCC", "Global X Growth Asset Allocation Covered Call ETF", "Global X Canada", "CAD",
+         "https://www.globalx.ca/product/grcc", "globalx_ca_rendered", needs_browser=True),
+  
 ]
 
 
@@ -449,12 +509,126 @@ def parse_globalx_us(html: str) -> dict:
         raise ValueError(f"CSV fetched from {csv_url} but no rows parsed")
     return holdings
 
-def parse_jpmorgan(html: str) -> dict:
-    """JPMorgan fund pages are heavily JS-rendered. A static requests.get()
-    will likely return an empty shell. This issuer needs a headless browser
-    (playwright/selenium) or their public holdings CSV feed if one exists."""
-    raise ValueError("JPMorgan fund pages are JS-rendered — use playwright "
-                      "or locate their direct CSV/API feed instead of static fetch")
+def parse_jpmorgan_xls(html: str) -> dict:
+    """JPMorgan publishes a 'Download all holdings (XLS)' export as a real .xlsx
+    file behind a static, parameterized URL — no JS rendering needed. This
+    function is called with the RAW BYTES of that xlsx (see fetch_binary in
+    run()), passed through as a latin-1 decoded string so it can flow through
+    the same str-based parser interface as every other issuer."""
+    import io
+    import re
+    from openpyxl import load_workbook
+    raw_bytes = html.encode("latin-1")
+    wb = load_workbook(io.BytesIO(raw_bytes), data_only=True, read_only=True)
+    ws = wb.active
+    rows = list(ws.iter_rows(values_only=True))
+    header_idx = None
+    sym_col = pct_col = None
+    for i, row in enumerate(rows):
+        cells = [str(c).strip().lower() if c is not None else "" for c in row]
+        if "symbol" in cells and any("net assets" in c for c in cells):
+            header_idx = i
+            sym_col = cells.index("symbol")
+            pct_col = next(j for j, c in enumerate(cells) if "net assets" in c)
+            break
+    if header_idx is None:
+        raise ValueError("could not find a 'Symbol' + '% of Net Assets' header row in the xlsx")
+    holdings = {}
+    ticker_re = re.compile(r"^[A-Z]{1,6}([./][A-Z]{1,3})?$")
+    for row in rows[header_idx + 1:]:
+        if row is None or len(row) <= max(sym_col, pct_col):
+            continue
+        ticker = str(row[sym_col]).strip() if row[sym_col] is not None else ""
+        pct_raw = row[pct_col]
+        if not ticker or not ticker_re.match(ticker) or pct_raw is None:
+            continue
+        try:
+            w = float(pct_raw) * (100 if float(pct_raw) <= 1 else 1)
+        except (TypeError, ValueError):
+            continue
+        if w <= 0:
+            continue
+        holdings[ticker] = round(w, 2)
+    if not holdings:
+        raise ValueError("xlsx parsed but no holdings rows matched")
+    return holdings
+
+def parse_neos_csv(html: str) -> dict:
+    """NEOS publishes a plain-text CSV export at a static admin-ajax URL
+    (columns: Date, Account, StockTicker, Cusip, SecurityName, Shares, Price,
+    MarketValue, Weightings, ...). No JS rendering needed."""
+    import csv
+    import re
+    reader = csv.DictReader(html.splitlines())
+    holdings = {}
+    ticker_re = re.compile(r"^[A-Z]{1,6}([./][A-Z]{1,3})?$")
+    for row in reader:
+        ticker = (row.get("StockTicker") or "").strip()
+        weight_raw = (row.get("Weightings") or "").strip()
+        if not ticker or not weight_raw or not ticker_re.match(ticker):
+            continue
+        try:
+            w = float(weight_raw.replace("%", "").replace(",", ""))
+        except ValueError:
+            continue
+        if w <= 0:
+            continue
+        holdings[ticker] = round(w, 2)
+    if not holdings:
+        raise ValueError("NEOS csv fetched but no holdings rows parsed")
+    return holdings
+
+def parse_amplify_rendered(html: str) -> dict:
+    """Amplify's holdings pages populate a table client-side from Firestore —
+    this parser receives already-RENDERED html (see fetch_rendered in run())
+    with the table already populated. Table columns: Name | Ticker |
+    Market Value (%) | CUSIP | Shares | Market Value ($)."""
+    import re
+    soup = BeautifulSoup(html, "lxml")
+    table = soup.select_one("table")
+    if not table:
+        raise ValueError("holdings table not found in rendered page")
+    rows = table.select("tr")
+    holdings = {}
+    ticker_re = re.compile(r"^[A-Z]{1,6}([./][A-Z]{1,3})?$")
+    for row in rows[1:]:
+        cells = [c.get_text(strip=True) for c in row.select("td")]
+        if len(cells) < 3:
+            continue
+        ticker, weight = cells[1], cells[2]
+        if not ticker or not weight or not ticker_re.match(ticker):
+            continue
+        try:
+            w = float(weight.replace("%", "").replace(",", ""))
+        except ValueError:
+            continue
+        if w <= 0:
+            continue
+        holdings[ticker] = round(w, 2)
+    if not holdings:
+        raise ValueError("rendered page fetched but no holdings rows parsed")
+    return holdings
+
+def parse_globalx_ca_rendered(html: str) -> dict:
+    """Global X Canada's Holdings tab is client-rendered and, worse, its
+    'Top Underlying Holdings' section lists company NAMES, not tickers —
+    unusable for ticker-based overlap without a name->ticker map. Instead we
+    read the 'Top Holdings' section just above it, which lists the actual
+    wrapped fund/ticker this ETF holds, e.g. 'GLOBAL X S&P/TSX 60 INDEX ETF
+    (CNDX)  100.00%'. This gives one real ticker per fund rather than
+    dozens of unmatched names — a genuine, if partial, overlap signal."""
+    import re
+    match = re.search(r"\(([A-Z]{1,6})\)\s+([\d.]+)%", html)
+    if not match:
+        raise ValueError("could not find a wrapped-ticker top holding in rendered page")
+    ticker, weight = match.group(1), match.group(2)
+    w = float(weight)
+    if w <= 0:
+        raise ValueError("parsed a zero-weight top holding")
+    return {ticker: round(w, 2)}
+  
+
+
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
@@ -463,7 +637,10 @@ PARSERS: dict[str, Callable[[str], dict]] = {
     "harvest": parse_harvest,
     "evolve": parse_evolve,
     "globalx_us": parse_globalx_us,
-    "jpmorgan": parse_jpmorgan,
+    "jpmorgan_xls": parse_jpmorgan_xls,
+    "neos_csv": parse_neos_csv,
+    "amplify_rendered": parse_amplify_rendered,
+    "globalx_ca_rendered": parse_globalx_ca_rendered,
     "purpose_single": parse_purpose_single,
 }
 
@@ -477,12 +654,49 @@ def fetch(url: str) -> str:
     resp.raise_for_status()
     return resp.text
 
+def fetch_binary(url: str) -> str:
+    """For endpoints that return a binary file (e.g. JPMorgan's .xlsx export).
+    Returns the raw bytes decoded as latin-1 (a lossless 1:1 byte mapping),
+    so the bytes can be re-encoded exactly by the parser and every parser
+    can keep the same str-in/dict-out signature."""
+    resp = requests.get(url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
+    resp.raise_for_status()
+    return resp.content.decode("latin-1")
+
+def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 4000) -> str:
+    """For pages that only populate their holdings table via client-side JS
+    (Amplify's Firestore-backed holdings pages, Global X Canada's Holdings
+    tab). Uses a headless Chromium via Playwright, waits for either a given
+    CSS selector to appear or a flat delay, then returns the fully-rendered
+    page HTML, which the matching parser then reads with BeautifulSoup
+    exactly like a normal static fetch."""
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page(user_agent=REQUEST_HEADERS["User-Agent"])
+        try:
+            page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="networkidle")
+            if wait_selector:
+                page.wait_for_selector(wait_selector, timeout=wait_ms)
+            else:
+                page.wait_for_timeout(wait_ms)
+            return page.content()
+        finally:
+            browser.close()
+
+
+
 
 def run(registry: list[Fund]) -> list[Fund]:
     for fund in registry:
         log.info("Fetching %s (%s) from %s", fund.ticker, fund.issuer, fund.holdings_url)
         try:
-            html = fetch(fund.holdings_url)
+            if fund.parser == "jpmorgan_xls":
+                html = fetch_binary(fund.holdings_url)
+            elif fund.needs_browser:
+                html = fetch_rendered(fund.holdings_url)
+            else:
+                html = fetch(fund.holdings_url)
             parser = PARSERS[fund.parser]
             fund.holdings = parser(html)
             fund.fetched_ok = bool(fund.holdings)
