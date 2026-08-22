@@ -1,1 +1,26 @@
+name: Update ETF holdings data
 
+on:
+  schedule:
+    - cron: '0 13 * * 1'
+  workflow_dispatch: {}
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml
+      - run: python scraper.py
+      - name: Commit updated data
+        run: |
+          git config user.name "ledger-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/funds.json
+          git diff --quiet --cached || git commit -m "Update fund holdings data"
+          git push
