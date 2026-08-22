@@ -543,7 +543,9 @@ def parse_jpmorgan_xls(html: str) -> dict:
         if not ticker or not ticker_re.match(ticker) or pct_raw is None:
             continue
         try:
-            w = float(pct_raw) * (100 if float(pct_raw) <= 1 else 1)
+            pct_str = str(pct_raw).replace("%", "").strip()
+            w_val = float(pct_str)
+            w = w_val
         except (TypeError, ValueError):
             continue
         if w <= 0:
@@ -618,7 +620,7 @@ def parse_globalx_ca_rendered(html: str) -> dict:
     (CNDX)  100.00%'. This gives one real ticker per fund rather than
     dozens of unmatched names — a genuine, if partial, overlap signal."""
     import re
-    match = re.search(r"\(([A-Z]{1,6})\)\s+([\d.]+)%", html)
+        match = re.search(r"\(([A-Z]{1,6})\)[\s\S]{1,500}?(\d+\.\d+)%", html)
     if not match:
         raise ValueError("could not find a wrapped-ticker top holding in rendered page")
     ticker, weight = match.group(1), match.group(2)
