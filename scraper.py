@@ -620,7 +620,7 @@ def parse_globalx_ca_rendered(html: str) -> dict:
     (CNDX)  100.00%'. This gives one real ticker per fund rather than
     dozens of unmatched names — a genuine, if partial, overlap signal."""
     import re
-        match = re.search(r"\(([A-Z]{1,6})\)[\s\S]{1,500}?(\d+\.\d+)%", html)
+    match = re.search(r"\(([A-Z]{1,6})\)[\s\S]{1,500}?(\d+\.\d+)%", html)
     if not match:
         raise ValueError("could not find a wrapped-ticker top holding in rendered page")
     ticker, weight = match.group(1), match.group(2)
