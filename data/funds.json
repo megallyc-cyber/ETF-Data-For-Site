@@ -145,7 +145,7 @@
     "region": "CAD",
     "holdings": {},
     "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "error": "parser ran but returned no holdings"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -153,7 +153,7 @@
     "region": "CAD",
     "holdings": {},
     "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "error": "parser ran but returned no holdings"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
