@@ -675,7 +675,7 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> 
         browser = p.chromium.launch()
         page = browser.new_page(user_agent=REQUEST_HEADERS["User-Agent"])
         try:
-                page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="domcontentloaded")
+            page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="domcontentloaded")
             if wait_selector:
                 page.wait_for_selector(wait_selector, timeout=wait_ms)
             else:
