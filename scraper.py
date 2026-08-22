@@ -240,7 +240,7 @@ FUND_REGISTRY: list[Fund] = [
     Fund("BNY", "Purpose Brookfield Yield Shares ETF", "Purpose Investments", "CAD",
          "https://www.purposeinvest.com/funds/purpose-brookfield-yield-shares-etf", "purpose_single"),
     Fund("YMAG", "Tech Innovators Yield Shares Purpose ETF", "Purpose Investments", "US",
-         "https://www.purposeinvest.com/funds/tech-innovators-yield-shares-purpose-etf", "purpose_single"),
+         "https://www.purposeinvest.com/funds/tech-innovators-yield-shares-purpose-etf", "purpose_multi_unsupported"),
     Fund("YCST", "Costco Yield Shares Purpose ETF", "Purpose Investments", "US",
          "https://www.purposeinvest.com/funds/costco-yield-shares-purpose-etf", "purpose_single"),
     Fund("YNET", "Netflix Yield Shares Purpose ETF", "Purpose Investments", "US",
