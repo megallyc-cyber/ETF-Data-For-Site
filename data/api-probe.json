@@ -1,0 +1,179 @@
+{
+  "generated": "2026-08-22T21:30:21+00:00",
+  "sampled": [
+    "HDIV (TSX)",
+    "HYLD (TSX)",
+    "HMAX (TSX)",
+    "CMAX (TSX)",
+    "IMAX (TSX)",
+    "YCST (NEO)",
+    "YNET (NEO)",
+    "YAVG (NEO)",
+    "YCON (NEO)",
+    "YPLT (NEO)",
+    "CALL (US)",
+    "BIGY (US)",
+    "QYLD (US)",
+    "XYLD (US)",
+    "RYLD (US)"
+  ],
+  "twelvedata": {
+    "quotes_ok": 4,
+    "quotes_tried": 15,
+    "detail": {
+      "HDIV": {
+        "venue": "TSX",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "HYLD": {
+        "venue": "TSX",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "HMAX": {
+        "venue": "TSX",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "CMAX": {
+        "venue": "TSX",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "IMAX": {
+        "venue": "TSX",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "YCST": {
+        "venue": "NEO",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "YNET": {
+        "venue": "NEO",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "YAVG": {
+        "venue": "NEO",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "YCON": {
+        "venue": "NEO",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "YPLT": {
+        "venue": "NEO",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "CALL": {
+        "venue": "US",
+        "ok": false,
+        "why": "HTTP Error 404: Not Found"
+      },
+      "BIGY": {
+        "venue": "US",
+        "ok": true,
+        "close": "52.32900",
+        "currency": "USD",
+        "name": "YieldMax Target 12 Big 50 Option Income ETF"
+      },
+      "QYLD": {
+        "venue": "US",
+        "ok": true,
+        "close": "18.32000",
+        "currency": "USD",
+        "name": "Global X Nasdaq 100 Covered Call ETF"
+      },
+      "XYLD": {
+        "venue": "US",
+        "ok": true,
+        "close": "41.64000",
+        "currency": "USD",
+        "name": "Global X S&P 500 Covered Call ETF"
+      },
+      "RYLD": {
+        "venue": "US",
+        "ok": true,
+        "close": "16.43000",
+        "currency": "USD",
+        "name": "Global X Russell 2000 Covered Call ETF"
+      }
+    },
+    "dividends": {
+      "HDIV": "{\"_error\": \"HTTP Error 403: Forbidden\"}",
+      "RYLD": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+    }
+  },
+  "fmp": {
+    "ok": 0,
+    "tried": 15,
+    "detail": {
+      "HDIV.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "HYLD.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "HMAX.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "CMAX.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "IMAX.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "YCST.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "YNET.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "YAVG.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "YCON.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "YPLT.TO": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "CALL": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "BIGY": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "QYLD": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "XYLD": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      },
+      "RYLD": {
+        "ok": false,
+        "why": "{\"_error\": \"HTTP Error 403: Forbidden\"}"
+      }
+    }
+  }
+}
