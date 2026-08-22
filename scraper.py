@@ -217,10 +217,77 @@ FUND_REGISTRY: list[Fund] = [
 
     # Keep adding: Purpose, CI, Brompton, Global X CAD broader lineup,
     # YieldMax (30+ single-stock funds), Simplify, Innovator, NEOS, Amplify...
+    Fund("SPXY", "Purpose SpaceX Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/SPXY-yield-shares-purpose-etf", "purpose_single"),
+    Fund("TDY", "Purpose TD Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-td-yield-shares-etf", "purpose_single"),
+    Fund("RBCY", "Purpose RBC Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-rbc-yield-shares-etf", "purpose_single"),
+    Fund("BNSY", "Purpose Scotiabank Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-scotiabank-yield-shares-etf", "purpose_single"),
+    Fund("ENBY", "Purpose Enbridge Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-enbridge-yield-shares-etf", "purpose_single"),
+    Fund("SHPY", "Purpose Shopify Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-shopify-yield-shares-etf", "purpose_single"),
+    Fund("CNQY", "Purpose Canadian Natural Resources Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-canadian-natural-resources-yield-shares-etf", "purpose_single"),
+    Fund("TY", "Purpose TELUS Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-telus-yield-shares-etf", "purpose_single"),
+    Fund("DOLY", "Purpose Dollarama Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-dollarama-yield-shares-etf", "purpose_single"),
+    Fund("ATDY", "Purpose Couche-Tard Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-couche-tard-yield-shares-etf", "purpose_single"),
+    Fund("BNY", "Purpose Brookfield Yield Shares ETF", "Purpose Investments", "CAD",
+         "https://www.purposeinvest.com/funds/purpose-brookfield-yield-shares-etf", "purpose_single"),
+    Fund("YMAG", "Tech Innovators Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/tech-innovators-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YCST", "Costco Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/costco-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YNET", "Netflix Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/netflix-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YAVG", "Broadcom Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/broadcom-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YCON", "Coinbase Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/coinbase-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YPLT", "Palantir Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/palantir-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YUNH", "UnitedHealth Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/unitedhealth-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YAMD", "AMD Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/amd-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YMET", "META Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/meta-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YNVD", "NVIDIA Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/nvidia-yield-shares-purpose-etf", "purpose_single"),
+    Fund("MSFY", "Microsoft Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/microsoft-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YTSL", "Tesla Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/tesla-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YAMZ", "Amazon Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/amazon-yield-shares-purpose-etf", "purpose_single"),
+    Fund("APLY", "Apple Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/apple-yield-shares-purpose-etf", "purpose_single"),
+    Fund("YGOG", "Alphabet Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/alphabet-yield-shares-purpose-etf", "purpose_single"),
+    Fund("BRKY", "Berkshire Hathaway Yield Shares Purpose ETF", "Purpose Investments", "US",
+         "https://www.purposeinvest.com/funds/berkshire-hathaway-yield-shares-purpose-etf", "purpose_single"),
 ]
 
 
 # ---------------------------------------------------------------------------
+
+def parse_purpose_single(html: str) -> dict:
+    """Purpose Yield Shares are single-stock covered call funds — holdings are
+    essentially 100% the underlying stock plus written call options. The
+    underlying ticker appears in the page title in parentheses, e.g.
+    'Apple (AAPL) Yield Shares Purpose ETF'."""
+    import re
+    match = re.search(r"\(([A-Z]{1,5})\)\s+Yield Shares", html)
+    if not match:
+        raise ValueError("could not find underlying ticker in Purpose fund page title")
+    return {match.group(1): 100.0}
+
+
 # 2. PER-ISSUER PARSERS
 # Each issuer publishes holdings differently. Write one small function per
 # issuer. Return {ticker: weight_pct}. Keep these easy to fix in isolation —
@@ -395,6 +462,7 @@ PARSERS: dict[str, Callable[[str], dict]] = {
     "evolve": parse_evolve,
     "globalx_us": parse_globalx_us,
     "jpmorgan": parse_jpmorgan,
+    "purpose_single": parse_purpose_single,
 }
 
 
