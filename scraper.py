@@ -216,16 +216,24 @@ def parse_globalx_us(html: str) -> dict:
 
     reader = csv.DictReader(lines[header_idx:])
     holdings = {}
+    ticker_re = re.compile(r"^[A-Z]{1,6}([./][A-Z]{1,3})?$")
+    skip_names = ("cash", "payable", "receivable", "future", "index", "swap")
     for row in reader:
         ticker = (row.get("Ticker") or "").strip()
+        name = (row.get("Name") or "").strip().lower()
         weight_raw = (row.get("% of Net Assets") or row.get("\ufeff% of Net Assets") or "").strip()
-        if not ticker or not weight_raw:
+        if not ticker or not weight_raw or not ticker_re.match(ticker):
+            continue
+        if any(bad in name for bad in skip_names):
             continue
         try:
-            holdings[ticker] = float(weight_raw.replace("%", "").replace(",", ""))
+            w = float(weight_raw.replace("%", "").replace(",", ""))
         except ValueError:
             continue
-
+        if w <= 0:
+            continue
+        holdings[ticker] = w
+      
     if not holdings:
         raise ValueError(f"CSV fetched from {csv_url} but no rows parsed")
     return holdings
