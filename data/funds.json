@@ -19,6 +19,8 @@
       "nav": "$23.74",
       "mgmt_fee": "0.00%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -43,6 +45,8 @@
       "nav": "$15.87",
       "mgmt_fee": "0.00%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -66,6 +70,8 @@
       "nav": "$17.39",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -85,6 +91,8 @@
       "nav": "$16.34",
       "mgmt_fee": "0.00%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -100,6 +108,8 @@
       "nav": "$16.44",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -138,6 +148,8 @@
       "nav": "$22.16",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -164,6 +176,8 @@
       "nav": "$13.09",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -192,6 +206,8 @@
       "nav": "$24.61",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -220,6 +236,8 @@
       "nav": "$37.69",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -253,6 +271,8 @@
       "nav": "$17.75",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -286,6 +306,8 @@
       "nav": "$14.21",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -319,6 +341,8 @@
       "nav": "$17.71",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -354,6 +378,8 @@
       "yield_label": "yield %",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -369,6 +395,8 @@
       "nav": "$27.45",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -384,6 +412,8 @@
       "nav": "$24.18",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -399,6 +429,8 @@
       "nav": "$27.94",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -414,6 +446,8 @@
       "nav": "$27.47",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -423,6 +457,8 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
     "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwb"
   },
@@ -432,6 +468,8 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
     "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwc"
   },
@@ -441,6 +479,8 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
     "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwu"
   },
@@ -481,6 +521,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -521,6 +563,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -561,6 +605,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.75%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -610,6 +656,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.50%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -654,6 +702,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -693,6 +743,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -728,6 +780,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.75%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -776,6 +830,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -824,6 +880,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.75%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -863,6 +921,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.75%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -890,6 +950,8 @@
       "yield": "8.53%",
       "yield_label": "current yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -913,6 +975,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.45%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -934,6 +998,8 @@
       "yield_label": "current yield",
       "mgmt_fee": "0.45%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -965,6 +1031,8 @@
       "yield": "7.82%",
       "yield_label": "current yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -982,6 +1050,8 @@
       "yield": "12.18%",
       "yield_label": "current yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -999,6 +1069,8 @@
       "yield": "10.26%",
       "yield_label": "current yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -1016,6 +1088,8 @@
       "yield": "9.89%",
       "yield_label": "current yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -1046,6 +1120,8 @@
       "yield": "9.95%",
       "yield_label": "current yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -1072,6 +1148,8 @@
       "yield": "11.13%",
       "yield_label": "current yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -1081,8 +1159,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787421885"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787423828"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -1090,8 +1170,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787421889"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787423833"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -1099,8 +1181,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787421894"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787423838"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -1108,8 +1192,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787421901"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787423844"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -1117,8 +1203,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787421906"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787423849"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -1126,8 +1214,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787421912"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787423855"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -1135,8 +1225,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787421918"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787423860"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -1144,8 +1236,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787421925"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787423868"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -1153,8 +1247,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787421931"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787423873"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -1162,8 +1258,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787421937"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787423880"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
@@ -1171,8 +1269,10 @@
     "region": "US",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787421944"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787423887"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -1180,8 +1280,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787421950"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787423895"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -1189,8 +1291,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787421956"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787423902"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -1198,8 +1302,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787421961"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787423908"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -1207,8 +1313,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787421966"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787423913"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -1216,8 +1324,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787421971"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787423917"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
@@ -1225,8 +1335,10 @@
     "region": "US",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787421976"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787423922"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -1234,8 +1346,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787421982"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787423926"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -1243,8 +1357,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787421987"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787423931"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -1252,8 +1368,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787421994"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787423935"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -1261,8 +1379,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787421999"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787423941"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -1270,8 +1390,10 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787422003"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787423946"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
@@ -1388,6 +1510,8 @@
       "yield": "0.02%",
       "yield_label": "30-day sec yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -1907,6 +2031,8 @@
       "yield": "0.51%",
       "yield_label": "30-day sec yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -1924,6 +2050,8 @@
       "yield": "0.57%",
       "yield_label": "30-day sec yield"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2054,6 +2182,8 @@
       "BBY": 0.05
     },
     "stats": {},
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2159,6 +2289,8 @@
       "MSTR": 0.04
     },
     "stats": {},
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2175,6 +2307,8 @@
       "nav": "$15.45",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2193,6 +2327,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2211,6 +2347,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2229,6 +2367,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2247,6 +2387,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2265,6 +2407,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2283,6 +2427,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2301,6 +2447,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2319,6 +2467,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2337,6 +2487,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2355,6 +2507,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2364,6 +2518,8 @@
     "region": "US",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
     "error": "'purpose_multi_unsupported'"
   },
@@ -2384,6 +2540,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2404,6 +2562,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2424,6 +2584,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2444,6 +2606,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2464,6 +2628,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2484,6 +2650,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2504,6 +2672,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2524,6 +2694,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2544,6 +2716,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2564,6 +2738,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2584,6 +2760,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2604,6 +2782,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2624,6 +2804,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2644,6 +2826,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -2664,6 +2848,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.40%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -3185,6 +3371,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.68%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -3306,6 +3494,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.68%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -3326,6 +3516,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.68%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -3347,6 +3539,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.98%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -3468,6 +3662,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.68%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -3966,6 +4162,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.68%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4005,6 +4203,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.68%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4084,6 +4284,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.68%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4104,6 +4306,8 @@
       "mer_label": "total annual fund operating expenses",
       "mgmt_fee": "0.78%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4153,6 +4357,8 @@
       "mer": "0.56%",
       "mer_label": "total expense ratio"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4228,6 +4434,8 @@
       "mer": "0.65%",
       "mer_label": "total expense ratio"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4285,6 +4493,8 @@
       "mer": "0.56%",
       "mer_label": "total expense ratio"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4305,6 +4515,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.39%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4325,6 +4537,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4345,6 +4559,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.39%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4354,6 +4570,8 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
     "error": "could not find a wrapped-ticker top holding in rendered page"
   },
@@ -4374,6 +4592,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.49%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4394,6 +4614,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.75%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4414,6 +4636,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4434,6 +4658,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4454,6 +4680,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4463,6 +4691,8 @@
     "region": "CAD",
     "holdings": {},
     "stats": {},
+    "as_of": "",
+    "stale": false,
     "fetched_ok": false,
     "error": "could not find a wrapped-ticker top holding in rendered page"
   },
@@ -4483,6 +4713,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.49%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4503,6 +4735,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.75%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4523,6 +4757,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.65%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4543,6 +4779,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.85%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   },
@@ -4563,6 +4801,8 @@
       "mer_label": "management expense ratio",
       "mgmt_fee": "0.49%"
     },
+    "as_of": "2026-08-22",
+    "stale": false,
     "fetched_ok": true,
     "error": ""
   }
