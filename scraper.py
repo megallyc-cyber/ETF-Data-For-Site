@@ -32,7 +32,7 @@ Install:
 """
 
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import time
 import logging
 from dataclasses import dataclass, field
@@ -91,6 +91,7 @@ class Fund:
     parser: str          # key into PARSERS
     holdings: dict = field(default_factory=dict)  # ticker -> weight_pct
     stats: dict = field(default_factory=dict)     # aum_musd, nav, yield, mer, ...
+    distributions: list = field(default_factory=list)  # newest-first payment history
     as_of: str = ""      # UTC date this fund's data was last successfully fetched
     stale: bool = False  # True when we're serving the previous run's data
     fetched_ok: bool = False
@@ -189,50 +190,50 @@ FUND_REGISTRY: list[Fund] = [
          "https://harvestportfolios.com/etf/hta/", "harvest"),
 
     Fund("BANK", "Evolve Canadian Banks and Lifecos Enhanced Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/bank/", "evolve"),
+         "https://evolveetfs.com/product/bank/", "evolve", needs_browser=True),
     Fund("CFIN", "Evolve Canadian Financials Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/cfin/", "evolve"),
+         "https://evolveetfs.com/product/cfin/", "evolve", needs_browser=True),
 
     Fund("UTES", "Evolve Canadian Utilities Enhanced Yield Index Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/utes/", "evolve"),
+         "https://evolveetfs.com/product/utes/", "evolve", needs_browser=True),
     Fund("OILY", "Evolve Canadian Energy Enhanced Yield Index Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/oily/", "evolve"),
+         "https://evolveetfs.com/product/oily/", "evolve", needs_browser=True),
     Fund("CUTE", "Evolve Canadian Utilities Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/cute/", "evolve"),
+         "https://evolveetfs.com/product/cute/", "evolve", needs_browser=True),
     Fund("ESPX", "Evolve S&P 500 Enhanced Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/espx/", "evolve"),
+         "https://evolveetfs.com/product/espx/", "evolve", needs_browser=True),
     Fund("ETSX", "Evolve S&P/TSX 60 Enhanced Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/etsx/", "evolve"),
+         "https://evolveetfs.com/product/etsx/", "evolve", needs_browser=True),
     Fund("LIFE", "Evolve Global Healthcare Enhanced Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/life/", "evolve"),
+         "https://evolveetfs.com/product/life/", "evolve", needs_browser=True),
     Fund("QQQY", "Evolve NASDAQ Technology Enhanced Yield Index Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/qqqy/", "evolve"),
+         "https://evolveetfs.com/product/qqqy/", "evolve", needs_browser=True),
     Fund("EBNK", "Evolve European Banks Enhanced Yield ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/ebnk/", "evolve"),
+         "https://evolveetfs.com/product/ebnk/", "evolve", needs_browser=True),
     Fund("CALL", "Evolve US Banks Enhanced Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/call/", "evolve"),
+         "https://evolveetfs.com/product/call/", "evolve", needs_browser=True),
     Fund("BASE", "Evolve Global Materials & Mining Enhanced Yield Index ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/base/", "evolve"),
+         "https://evolveetfs.com/product/base/", "evolve", needs_browser=True),
     Fund("LEAD", "Evolve Future Leadership Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/lead/", "evolve"),
+         "https://evolveetfs.com/product/lead/", "evolve", needs_browser=True),
     Fund("BOND", "Evolve Enhanced Yield Bond Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/bond/", "evolve"),
+         "https://evolveetfs.com/product/bond/", "evolve", needs_browser=True),
     Fund("AGG", "Evolve Canadian Aggregate Bond Enhanced Yield Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/agg/", "evolve"),
+         "https://evolveetfs.com/product/agg/", "evolve", needs_browser=True),
     Fund("MIDB", "Evolve Enhanced Yield Mid Term Bond Fund", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/midb/", "evolve"),
+         "https://evolveetfs.com/product/midb/", "evolve", needs_browser=True),
     Fund("BIGY", "Evolve US Equity UltraYield ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/bigy/", "evolve"),
+         "https://evolveetfs.com/product/bigy/", "evolve", needs_browser=True),
     Fund("CANY", "Evolve Canadian Equity UltraYield ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/cany/", "evolve"),
+         "https://evolveetfs.com/product/cany/", "evolve", needs_browser=True),
     Fund("SIXY", "Evolve Big Six Canadian Banks UltraYield Index ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/sixy/", "evolve"),
+         "https://evolveetfs.com/product/sixy/", "evolve", needs_browser=True),
     Fund("INTY", "Evolve International Equity UltraYield ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/inty/", "evolve"),
+         "https://evolveetfs.com/product/inty/", "evolve", needs_browser=True),
     Fund("EASY", "Evolve All-in-One UltraYield ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/easy/", "evolve"),
+         "https://evolveetfs.com/product/easy/", "evolve", needs_browser=True),
     Fund("TECY", "Evolve NASDAQ Technology UltraYield ETF", "Evolve ETFs", "CAD",
-         "https://evolveetfs.com/product/tecy/", "evolve"),
+         "https://evolveetfs.com/product/tecy/", "evolve", needs_browser=True),
 
     Fund("QYLD", "Global X Nasdaq 100 Covered Call ETF", "Global X", "US",
          "https://www.globalxetfs.com/funds/qyld/", "globalx_us"),
@@ -953,6 +954,118 @@ def describe_response(html) -> str:
         return f"body was {len(html)} chars, could not be parsed for diagnostics"
 
 
+DATE_RE = re.compile(r"(20\d{2})[/\-](\d{1,2})[/\-](\d{1,2})|(\d{1,2})/(\d{1,2})/(20\d{2})")
+AMOUNT_RE = re.compile(r"\$\s?([\d,]+\.\d{2,6})")
+
+
+def _iso_date(text: str):
+    m = DATE_RE.search(text or "")
+    if not m:
+        return None
+    if m.group(1):
+        y, mo, d = m.group(1), m.group(2), m.group(3)
+    else:
+        mo, d, y = m.group(4), m.group(5), m.group(6)
+    try:
+        return "%04d-%02d-%02d" % (int(y), int(mo), int(d))
+    except ValueError:
+        return None
+
+
+def parse_distributions(html: str) -> list:
+    """Pull distribution history out of whatever table the issuer put it in.
+
+    Issuers vary wildly: Harvest splits history across a dozen per-year tables
+    (tablepress-hhl_distributions, -no-2, -no-3 ...), Hamilton uses a single
+    table, and column order differs everywhere. So rather than per-issuer
+    selectors, find any table whose header mentions a distribution-ish date and
+    an amount, then read columns by header name.
+
+    Returns newest-first [{ex_date, pay_date, amount, frequency}], de-duplicated
+    on ex_date, capped at 60 rows (five years of monthly payers) so a fund with
+    a decade of history doesn't bloat funds.json.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    rows_out = {}
+
+    for table in soup.find_all("table"):
+        head_cells = table.find("tr")
+        if not head_cells:
+            continue
+        headers = [c.get_text(" ", strip=True).lower()
+                   for c in head_cells.find_all(["th", "td"])]
+        joined = " ".join(headers)
+        if not any(k in joined for k in ("ex-dividend", "ex dividend", "ex-distribution", "ex date")):
+            continue
+        if not any(k in joined for k in ("amount", "cash", "distribution", "class a", "per unit", "$")):
+            continue
+
+        def col(*names):
+            for i, h in enumerate(headers):
+                if any(nm in h for nm in names):
+                    return i
+            return None
+
+        i_ex = col("ex-dividend", "ex dividend", "ex-distribution", "ex date")
+        i_pay = col("payment date", "pay date", "payable")
+        i_amt = col("class a", "amount", "per unit", "cash distribution")
+        i_freq = col("frequency")
+
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+            if not cells or i_ex is None or i_ex >= len(cells):
+                continue
+            ex = _iso_date(cells[i_ex])
+            if not ex:
+                continue
+            amt = None
+            if i_amt is not None and i_amt < len(cells):
+                m = AMOUNT_RE.search(cells[i_amt])
+                if m:
+                    amt = float(m.group(1).replace(",", ""))
+            if amt is None:  # fall back to the first money-looking cell
+                for c in cells:
+                    m = AMOUNT_RE.search(c)
+                    if m:
+                        amt = float(m.group(1).replace(",", ""))
+                        break
+            if amt is None:
+                continue
+            rec = {"ex_date": ex, "amount": round(amt, 6)}
+            pay = _iso_date(cells[i_pay]) if (i_pay is not None and i_pay < len(cells)) else None
+            if pay:
+                rec["pay_date"] = pay
+            if i_freq is not None and i_freq < len(cells) and cells[i_freq]:
+                rec["frequency"] = cells[i_freq]
+            rows_out.setdefault(ex, rec)   # first table wins on duplicates
+
+    out = sorted(rows_out.values(), key=lambda r: r["ex_date"], reverse=True)
+    return out[:60]
+
+
+def distribution_summary(dists: list) -> dict:
+    """Trailing-12-month total and the latest payment — the two numbers an
+    income investor actually looks at. Deliberately NOT a yield: that needs a
+    price, and dividing by NAV would silently produce a different figure from
+    the issuer's own published yield."""
+    if not dists:
+        return {}
+    latest = dists[0]
+    cutoff = (datetime.now(timezone.utc).date() - timedelta(days=365)).isoformat()
+    ttm = [d["amount"] for d in dists if d["ex_date"] >= cutoff]
+    out = {
+        "last_amount": latest["amount"],
+        "last_ex_date": latest["ex_date"],
+        "count": len(dists),
+    }
+    if latest.get("frequency"):
+        out["frequency"] = latest["frequency"]
+    if ttm:
+        out["ttm_total"] = round(sum(ttm), 4)
+        out["ttm_payments"] = len(ttm)
+    return out
+
+
 def collect_stats(fund: Fund, holdings_html: str) -> dict:
     """Key facts live on the issuer's fund page, which for most issuers is the
     same page we just fetched for holdings — reuse it rather than hitting the
@@ -1003,6 +1116,7 @@ def carry_forward(fund: Fund, previous: dict) -> None:
         return
     fund.holdings = prev.get("holdings", {})
     fund.stats = prev.get("stats", {}) or {}
+    fund.distributions = prev.get("distributions", []) or []
     fund.as_of = prev.get("as_of", "") or prev.get("last_seen", "")
     fund.stale = True
     log.info("  -> carrying forward %d holdings from %s",
@@ -1031,6 +1145,14 @@ def run(registry: list[Fund]) -> list[Fund]:
                 fund.as_of = today
                 fund.stale = False
                 fund.stats = collect_stats(fund, html)
+                try:
+                    fund.distributions = parse_distributions(html)
+                    if fund.distributions:
+                        fund.stats.update(distribution_summary(fund.distributions))
+                        log.info("  -> %d distributions, latest %s",
+                                 len(fund.distributions), fund.distributions[0]["ex_date"])
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("  -> distributions FAILED: %s", exc)
             else:
                 fund.error = "parser ran but returned no holdings"
                 carry_forward(fund, previous)
@@ -1067,6 +1189,7 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
             "region": fund.region,
             "holdings": fund.holdings,
             "stats": fund.stats,
+            "distributions": fund.distributions,
             "as_of": fund.as_of,
             "stale": fund.stale,
             "fetched_ok": fund.fetched_ok,
@@ -1075,14 +1198,15 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
     path.write_text(json.dumps(payload, indent=2))
     ok = sum(1 for f in registry if f.fetched_ok)
     with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
+    with_dist = sum(1 for f in registry if f.distributions)
     carried = [f.ticker for f in registry if f.stale and f.holdings]
     empty = [f.ticker for f in registry if not f.holdings]
     if carried:
         log.warning("Carried forward (issuer unreachable today): %s", ", ".join(carried))
     if empty:
         log.warning("No data at all: %s", ", ".join(empty))
-    log.info("Wrote %s — %d/%d fetched live, %d carried forward, %d with AUM",
-             path, ok, len(registry), len(carried), with_aum)
+    log.info("Wrote %s — %d/%d fetched live, %d carried forward, %d with AUM, %d with distributions",
+             path, ok, len(registry), len(carried), with_aum, with_dist)
 
 
 def select(registry: list[Fund], only: str) -> list[Fund]:
