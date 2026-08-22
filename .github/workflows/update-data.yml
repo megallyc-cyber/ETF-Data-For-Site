@@ -3,7 +3,12 @@ name: Update ETF holdings data
 on:
   schedule:
     - cron: '0 13 * * 1'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Tickers, issuers or parsers to scrape (blank = all 120)'
+        required: false
+        default: ''
 
 jobs:
   scrape:
@@ -17,7 +22,15 @@ jobs:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml openpyxl playwright
       - run: playwright install --with-deps chromium
-      - run: python scraper.py
+      - name: Scrape holdings
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+        run: |
+          if [ -n "$ONLY" ]; then
+            python scraper.py --only="$ONLY"
+          else
+            python scraper.py
+          fi
       - name: Commit updated data
         run: |
           git config user.name "ledger-bot"
