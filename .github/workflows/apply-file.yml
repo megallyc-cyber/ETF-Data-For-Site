@@ -1,0 +1,48 @@
+name: Apply file
+
+# Writes one file from a gzip+base64 payload and commits it. Exists because
+# pasting large files into the web editor is unreliable; a plain text input is not.
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: 'Repo path to write'
+        required: true
+      payload:
+        description: 'base64 of gzipped file contents'
+        required: true
+      message:
+        description: 'Commit message'
+        required: false
+        default: 'Apply file update'
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Write file
+        env:
+          TARGET: ${{ github.event.inputs.path }}
+          PAYLOAD: ${{ github.event.inputs.payload }}
+        run: |
+          python - <<'PY'
+          import base64, gzip, os, pathlib
+          target = os.environ["TARGET"]
+          data = gzip.decompress(base64.b64decode(os.environ["PAYLOAD"]))
+          p = pathlib.Path(target)
+          p.parent.mkdir(parents=True, exist_ok=True)
+          p.write_bytes(data)
+          print("wrote", len(data), "bytes to", target)
+          PY
+      - name: Commit
+        env:
+          MSG: ${{ github.event.inputs.message }}
+        run: |
+          git config user.name "ledger-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          git diff --quiet --cached || git commit -m "$MSG"
+          git push
