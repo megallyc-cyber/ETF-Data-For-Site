@@ -1117,6 +1117,34 @@ def collect_stats(fund: Fund, page_html: str) -> dict:
         return {}
 
 
+def load_previous(path: Path = OUTPUT_PATH) -> dict:
+    """The previous run's output, used to carry a fund forward when today's
+    fetch fails. An issuer blocking us for a day is not the same event as a
+    fund ceasing to exist, and the site shouldn't render them identically."""
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text())
+    except Exception as exc:  # noqa: BLE001
+        log.warning("Could not read previous %s: %s", path, exc)
+        return {}
+
+
+def carry_forward(fund: Fund, previous: dict) -> None:
+    """Keep the last good holdings/stats and mark them stale, so the fund page
+    shows real numbers with an honest 'as of' date instead of going blank."""
+    prev = previous.get(fund.ticker)
+    if not prev or not prev.get("holdings"):
+        return
+    fund.holdings = prev.get("holdings", {})
+    fund.stats = prev.get("stats", {}) or {}
+    fund.distributions = prev.get("distributions", []) or []
+    fund.as_of = prev.get("as_of", "") or prev.get("last_seen", "")
+    fund.stale = True
+    log.info("  -> carrying forward %d holdings from %s",
+             len(fund.holdings), fund.as_of or "an earlier run")
+
+
 def run(registry: list[Fund]) -> list[Fund]:
     previous = load_previous()
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
