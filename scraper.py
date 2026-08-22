@@ -187,16 +187,48 @@ def parse_evolve(html: str) -> dict:
 
 
 def parse_globalx_us(html: str) -> dict:
-    """Global X US funds publish a daily holdings CSV export — look for it
-    rather than scraping the JS-rendered fund page directly."""
-    soup = BeautifulSoup(html, "lxml")
-    csv_link = soup.select_one("a[href*='holdings'][href*='.csv']")
-    if csv_link:
-        raise ValueError(f"holdings served as CSV at {csv_link.get('href')} — "
-                          f"fetch and parse that URL directly instead of the HTML page")
-    raise ValueError("CSV export link not found — fund page may be JS-rendered; "
-                      "consider a headless browser (playwright) for this issuer")
+    """Confirmed CSV schema (Aug 2026): % of Net Assets,Ticker,Name,SEDOL,
+    Market Price ($), Shares Held, Market Value ($), with a title line before
+    the header row. CSV lives at assets.globalxetfs.com/funds/holdings/
+    {ticker}_full-holdings_{YYYYMMDD}.csv, linked from the fund page."""
+    import csv
+    import re
 
+    soup = BeautifulSoup(html, "lxml")
+    csv_link_tag = soup.select_one("a[href*='/funds/holdings/'][href$='.csv']")
+    if not csv_link_tag:
+        match = re.search(r"https://assets\.globalxetfs\.com/funds/holdings/[\w\-]+\.csv", html)
+        if not match:
+            raise ValueError("could not locate the holdings CSV link on the fund page")
+        csv_url = match.group(0)
+    else:
+        csv_url = csv_link_tag.get("href")
+
+    csv_resp = requests.get(csv_url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
+    csv_resp.raise_for_status()
+
+    lines = csv_resp.text.splitlines()
+    header_idx = 0
+    for i, line in enumerate(lines):
+        if line.strip().lower().startswith(("% of net assets", "\ufeff% of net assets")):
+            header_idx = i
+            break
+
+    reader = csv.DictReader(lines[header_idx:])
+    holdings = {}
+    for row in reader:
+        ticker = (row.get("Ticker") or "").strip()
+        weight_raw = (row.get("% of Net Assets") or row.get("\ufeff% of Net Assets") or "").strip()
+        if not ticker or not weight_raw:
+            continue
+        try:
+            holdings[ticker] = float(weight_raw.replace("%", "").replace(",", ""))
+        except ValueError:
+            continue
+
+    if not holdings:
+        raise ValueError(f"CSV fetched from {csv_url} but no rows parsed")
+    return holdings
 
 def parse_jpmorgan(html: str) -> dict:
     """JPMorgan fund pages are heavily JS-rendered. A static requests.get()
