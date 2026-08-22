@@ -137,6 +137,7 @@
     font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);
   }
   .fund-top-holding{color:var(--gold-deep);}
+  .fund-size{color:var(--teal-deep); font-weight:500;}
 
   .data-note{
     max-width:1200px; margin:40px auto 0; font-size:12.5px; color:var(--ink-faint); border-top:1px solid var(--line);
@@ -197,6 +198,7 @@
       <button class="sort-btn active" data-sort="issuer">By issuer</button>
       <button class="sort-btn" data-sort="ticker">Ticker A–Z</button>
       <button class="sort-btn" data-sort="breadth">Most holdings</button>
+        <button class="sort-btn" data-sort="size">Fund size</button>
     </div>
   </div>
   <div id="fundGroups"></div>
@@ -216,7 +218,7 @@ fetch('data/funds.json')
     const live = {};
     Object.entries(data).forEach(([t,v]) => {
       if(v.fetched_ok && v.holdings && Object.keys(v.holdings).length){
-        live[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings };
+        live[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {} };
       }
     });
     FUNDS = Object.keys(live).length ? live : FALLBACK_FUNDS;
@@ -278,6 +280,7 @@ function renderResults(){
     let sorted = [...list];
     if(currentSort === 'ticker') sorted.sort((a,b) => a[0].localeCompare(b[0]));
     if(currentSort === 'breadth') sorted.sort((a,b) => Object.keys(b[1].holdings).length - Object.keys(a[1].holdings).length);
+    if(currentSort === 'size') sorted.sort((a,b) => ((b[1].stats||{}).aum_musd || -1) - ((a[1].stats||{}).aum_musd || -1));
     groupsEl.appendChild(buildGroup(null, sorted));
   }
 }
@@ -298,6 +301,13 @@ function buildGroup(label, funds){
   return wrap;
 }
 
+function fmtAum(m){
+  if(m === undefined || m === null) return null;
+  if(m >= 1000) return '$' + (m/1000).toFixed(m >= 100000 ? 0 : 1) + 'B';
+  if(m >= 1) return '$' + m.toFixed(m >= 100 ? 0 : 1) + 'M';
+  return '$' + (m*1000).toFixed(0) + 'K';
+}
+
 function buildCard(ticker, f){
   const card = document.createElement('a');
   card.className = 'fund-card';
@@ -305,6 +315,7 @@ function buildCard(ticker, f){
   const holdingsArr = Object.entries(f.holdings).sort((a,b) => b[1]-a[1]);
   const topHolding = holdingsArr[0] ? holdingsArr[0][0] : '—';
   const pillClass = f.region === 'CAD' ? 'pill-cad' : 'pill-us';
+  const aum = fmtAum((f.stats || {}).aum_musd);
   card.innerHTML = `
     <div><span class="fund-ticker">${ticker}</span><span class="fund-region-pill ${pillClass}">${f.region}</span></div>
     <div class="fund-name">${f.name}</div>
@@ -313,7 +324,8 @@ function buildCard(ticker, f){
       <span class="fund-top-holding">Top: ${topHolding}</span>
     </div>
     <div class="fund-meta" style="border-top:none; padding-top:6px; margin-top:0;">
-      <span></span><span class="fund-open">Holdings &amp; sectors →</span>
+      <span class="fund-size">${aum ? aum : 'size n/a'}</span>
+      <span class="fund-open">Holdings &amp; sectors &#8594;</span>
     </div>
   `;
   return card;
