@@ -16,7 +16,11 @@
       "QDAY": 1.8
     },
     "stats": {
+      "aum_musd": 1853.6,
+      "aum_display": "$1853.6M",
       "nav": "$23.74",
+      "yield": "9.99%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.00%",
       "last_amount": 0.193,
       "last_ex_date": "2026-07-31",
@@ -408,9 +412,11 @@
       "RMAX": 1.9
     },
     "stats": {
-      "aum_musd": 1335.2,
-      "aum_display": "$1335.2M",
+      "aum_musd": 1196.7,
+      "aum_display": "$1196.7M",
       "nav": "$15.87",
+      "yield": "12.82%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.00%",
       "last_amount": 0.163,
       "last_ex_date": "2026-07-31",
@@ -767,7 +773,11 @@
       "SLF": 3.9
     },
     "stats": {
+      "aum_musd": 2489.4,
+      "aum_display": "$2489.4M",
       "nav": "$17.39",
+      "yield": "11.16%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.168,
       "last_ex_date": "2026-07-31",
@@ -1048,10 +1058,12 @@
       "RMAX": 1.0
     },
     "stats": {
+      "aum_musd": 12.5,
+      "aum_display": "$12.5M",
       "nav": "$16.34",
-      "mgmt_fee": "0.00%",
       "last_amount": 0.149,
       "last_ex_date": "2026-07-31",
+      "mgmt_fee": "0.00%",
       "count": 3,
       "frequency": "Monthly",
       "ttm_total": 0.444,
@@ -1091,10 +1103,12 @@
       "IEFA": 50.6
     },
     "stats": {
+      "aum_musd": 21.2,
+      "aum_display": "$21.2M",
       "nav": "$16.44",
-      "mgmt_fee": "0.65%",
       "last_amount": 0.134,
       "last_ex_date": "2026-07-31",
+      "mgmt_fee": "0.65%",
       "count": 3,
       "frequency": "Monthly",
       "ttm_total": 0.401,
@@ -1157,7 +1171,11 @@
       "TSLA": 3.0
     },
     "stats": {
+      "aum_musd": 1089.4,
+      "aum_display": "$1089.4M",
       "nav": "$22.16",
+      "yield": "10.79%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.198,
       "last_ex_date": "2026-07-31",
@@ -1391,7 +1409,11 @@
       "T": 7.5
     },
     "stats": {
+      "aum_musd": 1484.2,
+      "aum_display": "$1484.2M",
       "nav": "$13.09",
+      "yield": "13.57%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
@@ -1651,7 +1673,11 @@
       "TSLA": 4.8
     },
     "stats": {
+      "aum_musd": 958.1,
+      "aum_display": "$958.1M",
       "nav": "$24.61",
+      "yield": "11.39%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.226,
       "last_ex_date": "2026-07-31",
@@ -1887,7 +1913,11 @@
       "AGI": 6.4
     },
     "stats": {
+      "aum_musd": 596.2,
+      "aum_display": "$596.2M",
       "nav": "$37.69",
+      "yield": "11.72%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.285,
       "last_ex_date": "2026-07-31",
@@ -2110,7 +2140,11 @@
       "HAL": 4.2
     },
     "stats": {
+      "aum_musd": 573.0,
+      "aum_display": "$573.0M",
       "nav": "$17.75",
+      "yield": "10.09%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.143,
       "last_ex_date": "2026-07-31",
@@ -2333,7 +2367,11 @@
       "ISRG": 3.5
     },
     "stats": {
+      "aum_musd": 231.5,
+      "aum_display": "$231.5M",
       "nav": "$14.21",
+      "yield": "12.29%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.142,
       "last_ex_date": "2026-07-31",
@@ -2556,7 +2594,11 @@
       "CME": 4.2
     },
     "stats": {
+      "aum_musd": 195.1,
+      "aum_display": "$195.1M",
       "nav": "$17.71",
+      "yield": "11.87%",
+      "yield_label": "current annualized yield",
       "mgmt_fee": "0.65%",
       "last_amount": 0.176,
       "last_ex_date": "2026-07-31",
@@ -2779,6 +2821,8 @@
       "AP-U": 4.6
     },
     "stats": {
+      "aum_musd": 167.3,
+      "aum_display": "$167.3M",
       "nav": "$16.55",
       "yield": "10.49%",
       "yield_label": "yield %",
@@ -2956,6 +3000,8 @@
       "VOO": 23.4
     },
     "stats": {
+      "aum_musd": 471.9,
+      "aum_display": "$471.9M",
       "nav": "$27.45",
       "mgmt_fee": "0.85%",
       "last_amount": 0.208,
@@ -3137,6 +3183,8 @@
       "VOO": 25.1
     },
     "stats": {
+      "aum_musd": 312.4,
+      "aum_display": "$312.4M",
       "nav": "$24.18",
       "mgmt_fee": "0.85%",
       "last_amount": 0.184,
@@ -3318,6 +3366,8 @@
       "QQQM": 23.7
     },
     "stats": {
+      "aum_musd": 363.0,
+      "aum_display": "$363.0M",
       "nav": "$27.94",
       "mgmt_fee": "0.85%",
       "last_amount": 0.227,
@@ -3499,10 +3549,12 @@
       "QQQM": 23.8
     },
     "stats": {
+      "aum_musd": 14.4,
+      "aum_display": "$14.4M",
       "nav": "$27.47",
-      "mgmt_fee": "0.85%",
       "last_amount": 0.193,
       "last_ex_date": "2026-08-14",
+      "mgmt_fee": "0.85%",
       "count": 3,
       "frequency": "Semi-Monthly",
       "ttm_total": 0.571,
@@ -3604,8 +3656,8 @@
       "nav": "$7.70",
       "yield": "9.35%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.85%",
       "last_amount": 0.06,
+      "mgmt_fee": "0.85%",
       "last_ex_date": "2026-07-31",
       "count": 60,
       "frequency": "Monthly",
@@ -4014,8 +4066,8 @@
       "nav": "$22.30",
       "yield": "8.60%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.85%",
       "last_amount": 0.16,
+      "mgmt_fee": "0.85%",
       "last_ex_date": "2026-07-31",
       "count": 60,
       "frequency": "Monthly",
@@ -4424,8 +4476,8 @@
       "nav": "$11.01",
       "yield": "8.17%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.75%",
       "last_amount": 0.075,
+      "mgmt_fee": "0.75%",
       "last_ex_date": "2026-07-31",
       "count": 60,
       "frequency": "Monthly",
@@ -4843,8 +4895,8 @@
       "nav": "$19.20",
       "yield": "8.12%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.50%",
       "last_amount": 0.13,
+      "mgmt_fee": "0.50%",
       "last_ex_date": "2026-07-31",
       "count": 60,
       "frequency": "Monthly",
@@ -5257,8 +5309,8 @@
       "nav": "$5.33",
       "yield": "6.78%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.85%",
       "last_amount": 0.03,
+      "mgmt_fee": "0.85%",
       "last_ex_date": "2026-07-31",
       "count": 60,
       "frequency": "Monthly",
@@ -5666,8 +5718,8 @@
       "nav": "$4.12",
       "yield": "7.30%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.85%",
       "last_amount": 0.025,
+      "mgmt_fee": "0.85%",
       "last_ex_date": "2026-07-31",
       "count": 60,
       "frequency": "Monthly",
@@ -6071,8 +6123,8 @@
       "nav": "$15.05",
       "yield": "7.97%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.75%",
       "last_amount": 0.1,
+      "mgmt_fee": "0.75%",
       "last_ex_date": "2026-07-31",
       "count": 60,
       "frequency": "Monthly",
@@ -6489,8 +6541,8 @@
       "nav": "$12.88",
       "yield": "6.52%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.65%",
       "last_amount": 0.07,
+      "mgmt_fee": "0.65%",
       "last_ex_date": "2026-07-31",
       "count": 49,
       "frequency": "Monthly",
@@ -6841,8 +6893,8 @@
       "nav": "$20.55",
       "yield": "10.51%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.75%",
       "last_amount": 0.18,
+      "mgmt_fee": "0.75%",
       "last_ex_date": "2026-07-31",
       "count": 39,
       "frequency": "Monthly",
@@ -7590,8 +7642,8 @@
       "nav": "$7.54",
       "yield": "9.55%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.45%",
       "last_amount": 0.06,
+      "mgmt_fee": "0.45%",
       "last_ex_date": "2026-07-31",
       "count": 34,
       "frequency": "Monthly",
@@ -7825,8 +7877,8 @@
       "nav": "$9.96",
       "yield": "6.02%",
       "yield_label": "current yield",
-      "mgmt_fee": "0.45%",
       "last_amount": 0.05,
+      "mgmt_fee": "0.45%",
       "last_ex_date": "2026-07-31",
       "count": 30,
       "frequency": "Monthly",
@@ -9710,7 +9762,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787437522"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787439734"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -9738,7 +9790,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787437534"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787439746"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -9768,7 +9820,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787437548"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787439758"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -9798,7 +9850,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787437563"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787439770"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -9826,7 +9878,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787437576"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787439782"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -10351,7 +10403,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787437589"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787439797"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -10431,7 +10483,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787437602"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787439811"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -10471,7 +10523,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787437615"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787439825"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -10539,7 +10591,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787437628"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787439837"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -10579,7 +10631,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787437640"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787439850"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
@@ -10619,7 +10671,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787437654"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787439864"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -10659,7 +10711,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787437668"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787439877"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -10719,7 +10771,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787437685"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787439891"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -10741,7 +10793,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787437697"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787439903"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -10761,7 +10813,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787437709"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787439918"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -10782,7 +10834,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787437721"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787439930"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
@@ -10823,7 +10875,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787437732"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787439942"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -10862,7 +10914,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787437744"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787439953"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -10886,7 +10938,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787437755"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787439965"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -10916,7 +10968,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787437766"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787439976"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -10990,7 +11042,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787437778"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787439988"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -11056,7 +11108,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787437789"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787439999"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
@@ -11973,6 +12025,8 @@
       "aum_musd": 12.0,
       "aum_display": "$12M",
       "nav": "$15.45",
+      "last_amount": 0.5,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -11994,6 +12048,8 @@
       "nav": "$14.80",
       "mer": "1.27%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.09,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12015,6 +12071,8 @@
       "nav": "$13.95",
       "mer": "1.24%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.09,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12036,6 +12094,8 @@
       "nav": "$14.14",
       "mer": "1.28%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.1,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12057,6 +12117,8 @@
       "nav": "$9.39",
       "mer": "1.30%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.11,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12078,6 +12140,8 @@
       "nav": "$8.00",
       "mer": "1.22%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.22,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12099,6 +12163,8 @@
       "nav": "$15.11",
       "mer": "1.29%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.17,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12120,6 +12186,8 @@
       "nav": "$4.88",
       "mer": "1.34%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.1,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12141,6 +12209,8 @@
       "nav": "$8.64",
       "mer": "1.28%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.065,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12162,6 +12232,8 @@
       "nav": "$11.00",
       "mer": "1.32%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.065,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
@@ -12183,6 +12255,8 @@
       "nav": "$8.84",
       "mer": "1.27%",
       "mer_label": "management expense ratio",
+      "last_amount": 0.08,
+      "last_ex_date": "2026-08-05",
       "mgmt_fee": "0.40%"
     },
     "distributions": [],
