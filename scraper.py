@@ -184,28 +184,41 @@ def parse_harvest(html: str) -> dict:
     return holdings
 
 def parse_evolve(html: str) -> dict:
-    soup = BeautifulSoup(html, "lxml")
+    import csv
+    import re
+
+    match = re.search(r"https://evolveetfs\.com/wp-content/uploads/holdings/[\w\-]+\.csv(?:\?[^\s\"']*)?", html)
+    if not match:
+        raise ValueError("could not locate the holdings CSV link on the fund page")
+    csv_url = match.group(0)
+
+    csv_resp = requests.get(csv_url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
+    csv_resp.raise_for_status()
+
+    reader = csv.DictReader(csv_resp.text.splitlines())
     holdings = {}
-    table = soup.select_one("#portfolio-holdings")
-    if not table:
-        raise ValueError("holdings table not found — page structure may have changed")
-    rows = table.select("tr")
-    for row in rows[1:]:
-        cells = [c.get_text(strip=True) for c in row.select("td")]
-        if len(cells) < 3:
+    ticker_re = re.compile(r"^[A-Z]{1,6}([./][A-Z]{1,3})?$")
+    for row in reader:
+        ticker_raw = (row.get("TICKER") or "").strip()
+        name = (row.get("SECURITY_NAME") or "").strip().lower()
+        weight_raw = (row.get("PORTFOLIO_MWEIGHT") or "").strip()
+        if not ticker_raw or not weight_raw or "option" in name:
             continue
-        weight, ticker_raw = cells[1], cells[2]
-        ticker = ticker_raw.split()[0] if ticker_raw else ""
-        if not ticker or not weight:
+        ticker = ticker_raw.split()[0]
+        if not ticker_re.match(ticker):
             continue
         try:
-            w = float(weight.replace("%", "").replace(",", ""))
+            w = float(weight_raw) * 100
         except ValueError:
             continue
         if w <= 0:
             continue
-        holdings[ticker] = w
+        holdings[ticker] = round(w, 2)
+
+    if not holdings:
+        raise ValueError(f"CSV fetched from {csv_url} but no rows parsed")
     return holdings
+
 
 
 
