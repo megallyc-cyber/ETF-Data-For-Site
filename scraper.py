@@ -282,7 +282,9 @@ def parse_purpose_single(html: str) -> dict:
     underlying ticker appears in the page title in parentheses, e.g.
     'Apple (AAPL) Yield Shares Purpose ETF'."""
     import re
-    match = re.search(r"\(([A-Z]{1,5})\)\s+Yield Shares", html)
+    title_match = re.search(r"<title>(.*?)</title>", html, re.DOTALL)
+    title = title_match.group(1) if title_match else ""
+    match = re.search(r"\(([A-Z]{1,5})\)\s+Yield Shares", title)
     if not match:
         raise ValueError("could not find underlying ticker in Purpose fund page title")
     return {match.group(1): 100.0}
