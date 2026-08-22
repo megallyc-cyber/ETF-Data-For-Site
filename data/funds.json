@@ -1180,7 +1180,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787423828"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787435646"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -1207,7 +1207,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787423833"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787435651"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -1236,7 +1236,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787423838"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787435656"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -1265,7 +1265,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787423844"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787435661"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -1292,7 +1292,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787423849"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787435665"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -1816,7 +1816,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787423855"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787435671"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -1895,7 +1895,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787423860"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787435677"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -1934,7 +1934,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787423868"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787435684"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -2001,7 +2001,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787423873"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787435689"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -2040,12 +2040,12 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787423880"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787435695"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
     "issuer": "Evolve ETFs",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
       "CFG": 5.42,
       "FITB": 5.14,
@@ -2079,7 +2079,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787423887"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787435704"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -2118,7 +2118,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787423895"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787435711"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -2177,7 +2177,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787423902"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787435717"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -2198,7 +2198,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787423908"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787435723"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -2217,7 +2217,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787423913"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787435728"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -2237,12 +2237,12 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787423917"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787435733"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
     "issuer": "Evolve ETFs",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
       "AAPL": 7.64,
       "AMZN": 7.79,
@@ -2277,7 +2277,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787423922"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787435738"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -2315,7 +2315,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787423926"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787435742"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -2338,7 +2338,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787423931"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787435747"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -2367,7 +2367,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787423935"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787435751"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -2440,7 +2440,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787423941"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787435756"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -2505,7 +2505,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787423946"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787435760"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
@@ -3411,10 +3411,10 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "SPCX": 100
+      "SPCX": 100.0
     },
     "stats": {
-      "aum_musd": 12,
+      "aum_musd": 12.0,
       "aum_display": "$12M",
       "nav": "$15.45",
       "mgmt_fee": "0.40%"
@@ -3429,7 +3429,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "TD": 100
+      "TD": 100.0
     },
     "stats": {
       "aum_musd": 8.1,
@@ -3449,7 +3449,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "RY": 100
+      "RY": 100.0
     },
     "stats": {
       "aum_musd": 6.3,
@@ -3469,7 +3469,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "BNS": 100
+      "BNS": 100.0
     },
     "stats": {
       "aum_musd": 3.5,
@@ -3489,7 +3489,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "ENB": 100
+      "ENB": 100.0
     },
     "stats": {
       "aum_musd": 9.9,
@@ -3509,7 +3509,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "SHOP": 100
+      "SHOP": 100.0
     },
     "stats": {
       "aum_musd": 27.6,
@@ -3529,7 +3529,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "CNQ": 100
+      "CNQ": 100.0
     },
     "stats": {
       "aum_musd": 12.8,
@@ -3549,7 +3549,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "T": 100
+      "T": 100.0
     },
     "stats": {
       "aum_musd": 10.3,
@@ -3569,7 +3569,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "DOL": 100
+      "DOL": 100.0
     },
     "stats": {
       "aum_musd": 6.1,
@@ -3589,7 +3589,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "ATD": 100
+      "ATD": 100.0
     },
     "stats": {
       "aum_musd": 2.2,
@@ -3609,7 +3609,7 @@
     "issuer": "Purpose Investments",
     "region": "CAD",
     "holdings": {
-      "BN": 100
+      "BN": 100.0
     },
     "stats": {
       "aum_musd": 5.3,
@@ -3627,7 +3627,7 @@
   "YMAG": {
     "name": "Tech Innovators Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {},
     "stats": {},
     "as_of": "",
@@ -3638,9 +3638,9 @@
   "YCST": {
     "name": "Costco Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "COST": 100
+      "COST": 100.0
     },
     "stats": {
       "aum_musd": 9.6,
@@ -3660,12 +3660,12 @@
   "YNET": {
     "name": "Netflix Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "NFLX": 100
+      "NFLX": 100.0
     },
     "stats": {
-      "aum_musd": 18,
+      "aum_musd": 18.0,
       "aum_display": "$18M",
       "nav": "$10.30",
       "yield": "29.13%",
@@ -3682,9 +3682,9 @@
   "YAVG": {
     "name": "Broadcom Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "AVGO": 100
+      "AVGO": 100.0
     },
     "stats": {
       "aum_musd": 9.9,
@@ -3704,9 +3704,9 @@
   "YCON": {
     "name": "Coinbase Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "COIN": 100
+      "COIN": 100.0
     },
     "stats": {
       "aum_musd": 26.4,
@@ -3726,9 +3726,9 @@
   "YPLT": {
     "name": "Palantir Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "PLTR": 100
+      "PLTR": 100.0
     },
     "stats": {
       "aum_musd": 29.6,
@@ -3748,9 +3748,9 @@
   "YUNH": {
     "name": "UnitedHealth Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "UNH": 100
+      "UNH": 100.0
     },
     "stats": {
       "aum_musd": 34.6,
@@ -3770,9 +3770,9 @@
   "YAMD": {
     "name": "AMD Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "AMD": 100
+      "AMD": 100.0
     },
     "stats": {
       "aum_musd": 28.5,
@@ -3792,9 +3792,9 @@
   "YMET": {
     "name": "META Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "META": 100
+      "META": 100.0
     },
     "stats": {
       "aum_musd": 32.8,
@@ -3814,9 +3814,9 @@
   "YNVD": {
     "name": "NVIDIA Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "NVDA": 100
+      "NVDA": 100.0
     },
     "stats": {
       "aum_musd": 198.4,
@@ -3836,9 +3836,9 @@
   "MSFY": {
     "name": "Microsoft Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "MSFT": 100
+      "MSFT": 100.0
     },
     "stats": {
       "aum_musd": 42.2,
@@ -3858,9 +3858,9 @@
   "YTSL": {
     "name": "Tesla Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "TSLA": 100
+      "TSLA": 100.0
     },
     "stats": {
       "aum_musd": 441.5,
@@ -3880,12 +3880,12 @@
   "YAMZ": {
     "name": "Amazon Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "AMZN": 100
+      "AMZN": 100.0
     },
     "stats": {
-      "aum_musd": 106,
+      "aum_musd": 106.0,
       "aum_display": "$106M",
       "nav": "$44.15",
       "yield": "12.23%",
@@ -3902,12 +3902,12 @@
   "APLY": {
     "name": "Apple Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "AAPL": 100
+      "AAPL": 100.0
     },
     "stats": {
-      "aum_musd": 31,
+      "aum_musd": 31.0,
       "aum_display": "$31M",
       "nav": "$34.43",
       "yield": "5.81%",
@@ -3924,9 +3924,9 @@
   "YGOG": {
     "name": "Alphabet Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "GOOGL": 100
+      "GOOGL": 100.0
     },
     "stats": {
       "aum_musd": 60.7,
@@ -3946,9 +3946,9 @@
   "BRKY": {
     "name": "Berkshire Hathaway Yield Shares Purpose ETF",
     "issuer": "Purpose Investments",
-    "region": "US",
+    "region": "CAD",
     "holdings": {
-      "BRK": 100
+      "BRK": 100.0
     },
     "stats": {
       "aum_musd": 53.1,
