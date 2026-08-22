@@ -3,25 +3,57 @@
     "name": "Hamilton Enhanced Canadian Covered Call ETF",
     "issuer": "Hamilton ETFs",
     "region": "CAD",
-    "holdings": {},
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "holdings": {
+      "HFIN": 23.9,
+      "HMAX": 20.3,
+      "EMAX": 18.1,
+      "QMAX": 14.9,
+      "AMAX": 12.2,
+      "UMAX": 9.9,
+      "CDAY": 7.6,
+      "HUTS": 4.2,
+      "RMAX": 2.4,
+      "QDAY": 1.8
+    },
+    "fetched_ok": true,
+    "error": ""
   },
   "HYLD": {
     "name": "Hamilton Enhanced U.S. Covered Call ETF",
     "issuer": "Hamilton ETFs",
     "region": "CAD",
-    "holdings": {},
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "holdings": {
+      "SMAX": 59.8,
+      "QMAX": 28.0,
+      "FMAX": 7.9,
+      "SDAY": 7.1,
+      "LMAX": 6.4,
+      "QDAY": 4.9,
+      "EMAX": 2.6,
+      "AMAX": 2.2,
+      "RMAX": 1.9
+    },
+    "fetched_ok": true,
+    "error": ""
   },
   "HMAX": {
     "name": "Hamilton Canadian Financials Yield Maximizer ETF",
     "issuer": "Hamilton ETFs",
     "region": "CAD",
-    "holdings": {},
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "holdings": {
+      "RY": 25.0,
+      "TD": 17.0,
+      "BMO": 10.8,
+      "CM": 9.2,
+      "BNS": 9.2,
+      "BN": 8.9,
+      "MFC": 6.4,
+      "NA": 5.4,
+      "GWO": 5.1,
+      "SLF": 3.9
+    },
+    "fetched_ok": true,
+    "error": ""
   },
   "ZWB": {
     "name": "BMO Covered Call Canadian Banks ETF",
