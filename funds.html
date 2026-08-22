@@ -113,10 +113,17 @@
   }
   .fund-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:14px;}
   .fund-card{
+    display:block; text-decoration:none; color:inherit;
     background:var(--paper-raised); border:1px solid var(--line); border-radius:3px; padding:18px 20px;
-    transition:border-color .2s, transform .2s; cursor:default;
+    transition:border-color .2s, transform .2s, box-shadow .2s; cursor:pointer;
   }
-  .fund-card:hover{border-color:var(--line-strong); transform:translateY(-2px);}
+  .fund-card:hover{
+    border-color:var(--line-strong); transform:translateY(-2px);
+    box-shadow:0 12px 28px -18px rgba(21,32,25,0.4);
+  }
+  .fund-card:focus-visible{outline:2px solid var(--gold-deep); outline-offset:2px;}
+  .fund-open{color:var(--ink-faint); transition:color .2s, transform .2s; display:inline-block;}
+  .fund-card:hover .fund-open{color:var(--gold-deep); transform:translateX(3px);}
   .fund-ticker{font-family:'Fraunces',serif; font-weight:600; font-size:19px; letter-spacing:-0.01em;}
   .fund-region-pill{
     display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:2px 7px; border-radius:10px;
@@ -292,8 +299,9 @@ function buildGroup(label, funds){
 }
 
 function buildCard(ticker, f){
-  const card = document.createElement('div');
+  const card = document.createElement('a');
   card.className = 'fund-card';
+  card.href = 'fund.html?t=' + encodeURIComponent(ticker);
   const holdingsArr = Object.entries(f.holdings).sort((a,b) => b[1]-a[1]);
   const topHolding = holdingsArr[0] ? holdingsArr[0][0] : '—';
   const pillClass = f.region === 'CAD' ? 'pill-cad' : 'pill-us';
@@ -303,6 +311,9 @@ function buildCard(ticker, f){
     <div class="fund-meta">
       <span>${holdingsArr.length} holdings</span>
       <span class="fund-top-holding">Top: ${topHolding}</span>
+    </div>
+    <div class="fund-meta" style="border-top:none; padding-top:6px; margin-top:0;">
+      <span></span><span class="fund-open">Holdings &amp; sectors →</span>
     </div>
   `;
   return card;
