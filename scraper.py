@@ -62,6 +62,20 @@ REQUEST_HEADERS = {
     "Accept-Language": "en-CA,en;q=0.9",
     "From": "ledger-etf-holdings-aggregator (educational)",
 }
+# Evolve is the mirror image of Hamilton: it serves holdings happily to a
+# self-identified bot but not to browser headers, so headers can't be a single
+# global. ACTIVE_HEADERS is swapped per fund by run() before the parser is
+# called, which matters because some parsers (Evolve) fetch a second URL —
+# their CSV — from inside the parser and must use the same headers.
+LEGACY_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; LedgerResearchBot/0.1; "
+                  "contact: you@example.com) - educational ETF holdings aggregator"
+}
+HEADERS_BY_PARSER = {
+    "evolve": LEGACY_HEADERS,
+}
+ACTIVE_HEADERS = REQUEST_HEADERS
+
 REQUEST_TIMEOUT = 20
 DELAY_BETWEEN_REQUESTS = 1.5  # be polite, avoid hammering issuer sites
 
@@ -869,16 +883,26 @@ PARSERS: dict[str, Callable[[str], dict]] = {
 # ---------------------------------------------------------------------------
 
 def fetch(url: str) -> str:
-    resp = requests.get(url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
+    """One retry with the other header set on a refusal. Issuers disagree about
+    which requests they like, and the disagreement shows up as 403/406/429, so
+    trying the other identity once is cheaper than maintaining a perfect map."""
+    resp = requests.get(url, headers=ACTIVE_HEADERS, timeout=REQUEST_TIMEOUT)
+    if resp.status_code in (401, 403, 406, 429, 503):
+        other = LEGACY_HEADERS if ACTIVE_HEADERS is REQUEST_HEADERS else REQUEST_HEADERS
+        log.info("  -> %s on %s, retrying with the other header set",
+                 resp.status_code, url)
+        time.sleep(1.0)
+        resp = requests.get(url, headers=other, timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     return resp.text
+
 
 def fetch_binary(url: str) -> str:
     """For endpoints that return a binary file (e.g. JPMorgan's .xlsx export).
     Returns the raw bytes decoded as latin-1 (a lossless 1:1 byte mapping),
     so the bytes can be re-encoded exactly by the parser and every parser
     can keep the same str-in/dict-out signature."""
-    resp = requests.get(url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
+    resp = requests.get(url, headers=ACTIVE_HEADERS, timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     return resp.content.decode("latin-1")
 
@@ -892,7 +916,7 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> 
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        page = browser.new_page(user_agent=REQUEST_HEADERS["User-Agent"])
+        page = browser.new_page(user_agent=ACTIVE_HEADERS["User-Agent"])
         try:
             page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="domcontentloaded")
             if wait_selector:
@@ -959,6 +983,8 @@ def run(registry: list[Fund]) -> list[Fund]:
     for fund in registry:
         log.info("Fetching %s (%s) from %s", fund.ticker, fund.issuer, fund.holdings_url)
         html = None
+        global ACTIVE_HEADERS
+        ACTIVE_HEADERS = HEADERS_BY_PARSER.get(fund.parser, REQUEST_HEADERS)
         try:
             if fund.parser == "jpmorgan_xls":
                 html = fetch_binary(fund.holdings_url)
@@ -981,9 +1007,22 @@ def run(registry: list[Fund]) -> list[Fund]:
     return registry
 
 
-def write_output(registry: list[Fund], path: Path = OUTPUT_PATH) -> None:
+def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
+                 merge: bool = False) -> None:
+    """When only part of the registry was scraped (--only), merge into the
+    existing file instead of replacing it. Writing a filtered run straight out
+    would silently delete every fund we didn't ask for."""
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {}
+    if merge and path.exists():
+        try:
+            payload = json.loads(path.read_text())
+            log.info("Merging %d scraped funds into the existing %d in %s",
+                     len(registry), len(payload), path)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("Could not read existing %s (%s) — writing fresh", path, exc)
+            payload = {}
+
     for fund in registry:
         payload[fund.ticker] = {
             "name": fund.name,
@@ -997,13 +1036,53 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH) -> None:
     path.write_text(json.dumps(payload, indent=2))
     ok = sum(1 for f in registry if f.fetched_ok)
     with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
+    failures = [f.ticker for f in registry if not f.fetched_ok]
+    if failures:
+        log.warning("Did not fetch: %s", ", ".join(failures))
     log.info("Wrote %s — %d/%d funds fetched successfully, %d with AUM",
              path, ok, len(registry), with_aum)
 
 
+def select(registry: list[Fund], only: str) -> list[Fund]:
+    """--only accepts tickers, issuer names or parser keys, comma separated and
+    case-insensitive: --only=evolve,hamilton / --only=HMAX,BANK. Verifying a
+    one-issuer fix shouldn't mean re-scraping 120 funds across every issuer."""
+    wanted = {w.strip().lower() for w in only.split(",") if w.strip()}
+    picked = [f for f in registry
+              if f.ticker.lower() in wanted
+              or f.parser.lower() in wanted
+              or f.issuer.lower() in wanted
+              or any(w in f.issuer.lower() for w in wanted)]
+    missing = wanted - {f.ticker.lower() for f in picked} \
+                     - {f.parser.lower() for f in picked} \
+                     - {f.issuer.lower() for f in picked}
+    unmatched = [w for w in missing
+                 if not any(w in f.issuer.lower() for f in picked)]
+    if unmatched:
+        log.warning("--only had no match for: %s", ", ".join(sorted(unmatched)))
+    return picked
+
+
 if __name__ == "__main__":
-    results = run(FUND_REGISTRY)
-    write_output(results)
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--only", default="",
+                    help="comma-separated tickers, issuers or parser keys to scrape")
+    args = ap.parse_args()
+
+    registry = FUND_REGISTRY
+    filtered = bool(args.only)
+    if filtered:
+        registry = select(registry, args.only)
+        if not registry:
+            raise SystemExit(f"--only={args.only!r} matched no funds")
+        log.info("Scraping %d of %d funds: %s", len(registry), len(FUND_REGISTRY),
+                 ", ".join(f.ticker for f in registry))
+
+    results = run(registry)
+    write_output(results, merge=filtered)
+
 
 
 # ---------------------------------------------------------------------------
