@@ -143,17 +143,39 @@
     "name": "Evolve Canadian Banks and Lifecos Enhanced Yield Fund",
     "issuer": "Evolve ETFs",
     "region": "CAD",
-    "holdings": {},
-    "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "holdings": {
+      "BNS": 10.1,
+      "CM": 10.1,
+      "MFC": 9.9,
+      "RY": 10.0,
+      "TD": 9.96,
+      "SLF": 9.91,
+      "BMO": 9.85,
+      "NA": 10.05,
+      "GWO": 10.06,
+      "POW": 10.08
+    },
+    "fetched_ok": true,
+    "error": ""
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
     "issuer": "Evolve ETFs",
     "region": "CAD",
-    "holdings": {},
-    "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "holdings": {
+      "BNS": 10.1,
+      "CM": 10.1,
+      "MFC": 9.86,
+      "RY": 10.0,
+      "TD": 9.95,
+      "SLF": 9.93,
+      "BMO": 9.91,
+      "NA": 10.1,
+      "GWO": 10.0,
+      "POW": 10.1
+    },
+    "fetched_ok": true,
+    "error": ""
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
@@ -794,7 +816,7 @@
     "region": "US",
     "holdings": {},
     "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://am.jpmorgan.com/us/en/asset-management/adv/404/"
+    "error": "JPMorgan fund pages are JS-rendered \u2014 use playwright or locate their direct CSV/API feed instead of static fetch"
   },
   "JEPQ": {
     "name": "JPMorgan Nasdaq Equity Premium Income ETF",
@@ -802,6 +824,6 @@
     "region": "US",
     "holdings": {},
     "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://am.jpmorgan.com/us/en/asset-management/adv/404/"
+    "error": "JPMorgan fund pages are JS-rendered \u2014 use playwright or locate their direct CSV/API feed instead of static fetch"
   }
 }
