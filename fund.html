@@ -429,7 +429,7 @@ fetch('data/funds.json')
     Object.entries(data).forEach(([t, v]) => {
       if(t.charAt(0) === '_') return;
       if(v.fetched_ok && v.holdings && Object.keys(v.holdings).length){
-        FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {} };
+        FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {}, as_of: v.as_of || '', stale: !!v.stale };
       }
     });
     render();
@@ -482,6 +482,7 @@ function render(){
         </div>
         <div class="head-name">${f.name}</div>
         <div class="head-issuer">${f.issuer || 'Issuer not recorded'}</div>
+        <div class="head-issuer" style="margin-top:4px;">${asOfLine(f)}</div>
       </div>
       <div class="head-actions">
         <a class="btn" href="compare.html">Compare against another fund</a>
@@ -563,6 +564,14 @@ function render(){
     });
   });
   renderTable(rows, total);
+}
+
+function asOfLine(f){
+  if(!f.as_of) return 'Holdings date not recorded';
+  if(!f.stale) return 'Holdings as of ' + f.as_of;
+  // Say so plainly. A number with no date reads as today's number.
+  return '<span style="color:var(--rust);">Holdings as of ' + f.as_of +
+         ' — the issuer page was unreachable on the last run, so this is the last good copy.</span>';
 }
 
 function fmtAum(m){
