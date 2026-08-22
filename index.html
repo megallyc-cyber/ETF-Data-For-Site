@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — Income Investing, Understood</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEEE7;
+    --paper-raised:#F5F5F0;
+    --ink:#152019;
+    --ink-soft:#3F4A42;
+    --ink-faint:#6E766E;
+    --gold:#C89B3C;
+    --gold-deep:#8F6B22;
+    --teal:#1F5C4E;
+    --teal-deep:#123D33;
+    --rust:#A6452C;
+    --line:rgba(21,32,25,0.14);
+    --line-strong:rgba(21,32,25,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Fraunces',serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;}
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 48px;
+    background:rgba(237,238,231,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:-0.01em;}
+  .brand .dot{color:var(--gold-deep);}
+  .navlinks{display:flex; gap:32px; font-size:14px; color:var(--ink-soft);}
+  .navlinks a{cursor:pointer; transition:color .2s;}
+  .navlinks a:hover{color:var(--ink);}
+
+  .hero{
+    min-height:78vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:80px 24px 60px;
+    max-width:800px; margin:0 auto;
+  }
+  .hero-kicker{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--teal-deep); margin-bottom:26px;
+  }
+  h1{
+    font-family:'Fraunces',serif; font-weight:500; font-size:clamp(34px,5.6vw,56px);
+    line-height:1.14; letter-spacing:-0.015em; margin-bottom:28px;
+  }
+  h1 em{font-style:italic; color:var(--gold-deep);}
+  .hero p.lede{font-size:18px; color:var(--ink-soft); max-width:46ch; margin:0 auto 40px;}
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:500; font-size:15px;
+    padding:14px 28px; border-radius:2px; cursor:pointer; border:1px solid transparent;
+    transition:all .2s; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{background:var(--teal-deep);}
+  .btn-ghost{border-color:var(--line-strong); color:var(--ink); margin-left:12px;}
+  .btn-ghost:hover{border-color:var(--ink); background:var(--paper-raised);}
+  .scroll-cue{
+    margin-top:56px; display:flex; flex-direction:column; align-items:center; gap:6px;
+    color:var(--ink-faint); font-size:12px; font-family:'IBM Plex Mono',monospace;
+    animation:bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);}}
+
+  .path-intro{
+    text-align:center; padding:90px 24px 20px; max-width:640px; margin:0 auto;
+  }
+  .path-intro .section-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--rust);
+    text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;
+  }
+  .path-intro h2{
+    font-family:'Fraunces',serif; font-weight:500; font-size:clamp(26px,3.4vw,34px);
+    letter-spacing:-0.01em; margin-bottom:16px;
+  }
+  .path-intro p{color:var(--ink-soft); font-size:16px;}
+
+  .path-wrap{
+    position:relative; max-width:960px; margin:0 auto; padding:40px 24px 80px;
+  }
+  .path-svg{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    pointer-events:none; z-index:0;
+  }
+  .path-line{
+    fill:none; stroke:var(--line-strong); stroke-width:2; stroke-dasharray:6 8;
+  }
+  .path-line-progress{
+    fill:none; stroke:var(--gold-deep); stroke-width:2.5;
+  }
+  .stop{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:1fr; gap:18px;
+    width:46%; margin-bottom:120px;
+    opacity:0; transform:translateY(30px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .stop.in{opacity:1; transform:translateY(0);}
+  .stop.right{margin-left:54%;}
+  .stop.left{margin-right:54%;}
+  .stop-node{
+    position:absolute; top:6px; width:14px; height:14px; border-radius:50%;
+    background:var(--paper); border:2.5px solid var(--line-strong);
+    transition:background .4s ease, border-color .4s ease;
+  }
+  .stop.left .stop-node{ right:-38px; }
+  .stop.right .stop-node{ left:-38px; }
+  .stop.in .stop-node{ background:var(--gold); border-color:var(--gold-deep); }
+  .stop-num{font-family:'IBM Plex Mono',monospace; color:var(--gold-deep); font-size:13px; margin-bottom:6px;}
+  .stop h3{font-family:'Fraunces',serif; font-weight:500; font-size:22px; margin-bottom:10px;}
+  .stop p{color:var(--ink-soft); font-size:15px;}
+  .stop-visual{
+    background:var(--paper-raised); border:1px solid var(--line); padding:20px;
+    display:flex; align-items:center; justify-content:center; min-height:100px; margin-top:8px;
+  }
+  .bar-row{display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:12px; font-family:'IBM Plex Mono',monospace;}
+  .bar-track{flex:1; height:8px; background:var(--line); position:relative; border-radius:1px;}
+  .bar-fill{height:100%; position:absolute; left:0; top:0;}
+  .bar-label{width:110px; color:var(--ink-faint);}
+
+  @media (max-width:760px){
+    .stop, .stop.right, .stop.left{width:100%; margin-left:0; margin-right:0; padding-left:34px;}
+    .stop.left .stop-node, .stop.right .stop-node{left:0; right:auto;}
+    .path-svg{display:none;}
+  }
+
+  .workbench-shell{
+    background:var(--ink); color:var(--paper); padding:90px 48px; margin-top:20px;
+  }
+  .workbench-inner{max-width:1160px; margin:0 auto;}
+  .workbench-shell .section-tag{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px;}
+  .workbench-shell h2{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(28px,3.4vw,38px); color:var(--paper); margin-bottom:16px; letter-spacing:-0.01em;}
+  .workbench-shell .section-head{max-width:640px; margin-bottom:56px;}
+  .workbench-shell .section-head p{color:rgba(237,238,231,0.7); font-size:16.5px;}
+
+  .picker-row{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px;}
+  .slot{
+    background:rgba(237,238,231,0.05); border:1px solid rgba(237,238,231,0.18);
+    padding:16px 18px; min-width:220px; flex:1;
+  }
+  .slot label{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:rgba(237,238,231,0.5); display:block; margin-bottom:8px;}
+  select{
+    width:100%; background:transparent; border:none; color:var(--paper);
+    font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:500;
+    padding:4px 0; cursor:pointer;
+  }
+  select option{background:#1c281f; color:var(--paper);}
+  .slot .fund-name{font-size:12.5px; color:rgba(237,238,231,0.55); margin-top:4px; font-family:'Inter',sans-serif;}
+
+  .overlap-results{display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:20px;}
+  .overlap-matrix{display:flex; flex-direction:column; gap:10px;}
+  .pair-row{
+    display:flex; align-items:center; gap:16px; padding:14px 16px;
+    background:rgba(237,238,231,0.04); border:1px solid rgba(237,238,231,0.1);
+  }
+  .pair-names{font-family:'IBM Plex Mono',monospace; font-size:13.5px; width:150px; flex-shrink:0;}
+  .pair-track{flex:1; height:10px; background:rgba(237,238,231,0.1); position:relative;}
+  .pair-fill{height:100%; position:absolute; left:0; top:0;}
+  .pair-pct{font-family:'IBM Plex Mono',monospace; font-size:14px; width:52px; text-align:right; font-weight:500;}
+
+  .shared-title{font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:rgba(237,238,231,0.5); margin-bottom:14px;}
+  .chip-cloud{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; padding:6px 12px;
+    border:1px solid rgba(237,238,231,0.2); border-radius:20px; color:rgba(237,238,231,0.85);
+  }
+  .chip.hot{border-color:var(--gold); color:var(--gold); background:rgba(200,155,60,0.08);}
+  .empty-note{color:rgba(237,238,231,0.45); font-size:13.5px; font-style:italic;}
+
+  .disclaimer-strip{
+    margin-top:40px; padding-top:24px; border-top:1px solid rgba(237,238,231,0.14);
+    font-size:12.5px; color:rgba(237,238,231,0.5); line-height:1.6; max-width:70ch;
+  }
+
+  footer{
+    padding:48px; text-align:center; font-size:13px; color:var(--ink-faint);
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width:860px){
+    .overlap-results{grid-template-columns:1fr;}
+    nav{padding:16px 20px;}
+    .workbench-shell{padding-left:22px; padding-right:22px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Ledger<span class="dot">.</span></div>
+  <div class="navlinks">
+    <a onclick="document.getElementById('path-start').scrollIntoView({behavior:'smooth'})">Learn</a>
+    <a onclick="document.getElementById('workbench').scrollIntoView({behavior:'smooth'})">Overlap tool</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-kicker">For people who've never heard of a "covered call"</div>
+  <h1>Investing doesn't need to be intimidating.<br>It can be easy — & even <em>pay you monthly</em>.</h1>
+  <p class="lede">No jargon walls, no fine print you need a finance degree to parse. Just a clear walk from "what's a stock" to building an income portfolio that actually makes sense to you.</p>
+  <div>
+    <span class="btn btn-primary" onclick="document.getElementById('path-start').scrollIntoView({behavior:'smooth'})">Start learning →</span>
+    <span class="btn btn-ghost" onclick="document.getElementById('workbench').scrollIntoView({behavior:'smooth'})">Skip to the tool</span>
+  </div>
+  <div class="scroll-cue">↓ scroll to begin</div>
+</div>
+
+<div class="path-intro" id="path-start">
+  <div class="section-tag">Foundations</div>
+  <h2>Let's learn what income investing really is.</h2>
+  <p>Follow the path. Each stop builds on the one before it — by the end you'll know exactly what a covered call ETF is, and why two funds that look different can secretly be the same bet.</p>
+</div>
+
+<div class="path-wrap">
+  <svg class="path-svg" id="pathSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <path class="path-line" id="pathBg" d="" />
+    <path class="path-line-progress" id="pathFg" d="" stroke-dasharray="1" stroke-dashoffset="1" />
+  </svg>
+
+  <div class="stop left" data-stop>
+    <div class="stop-node"></div>
+    <div class="stop-num">01</div>
+    <h3>What's a stock?</h3>
+    <p>A tiny ownership slice of a real company. Buy one share of a coffee chain and you technically own a sliver of every espresso machine and lease. When the company does well, your slice is worth more — and sometimes it pays you a piece of the profits directly. That payment is a dividend.</p>
+  </div>
+
+  <div class="stop right" data-stop>
+    <div class="stop-node"></div>
+    <div class="stop-num">02</div>
+    <h3>What's an ETF?</h3>
+    <p>A single ticket that holds a basket of stocks (or bonds, or other assets) for you. Instead of researching and buying 50 companies yourself, you buy one fund and instantly own a slice of all 50. It trades on the stock exchange just like a single stock does.</p>
+    <div class="stop-visual">
+      <svg width="140" height="90" viewBox="0 0 140 90">
+        <rect x="8" y="34" width="20" height="20" fill="var(--teal)" opacity="0.5"/>
+        <rect x="34" y="24" width="20" height="30" fill="var(--teal)" opacity="0.5"/>
+        <rect x="60" y="40" width="20" height="14" fill="var(--teal)" opacity="0.5"/>
+        <rect x="86" y="18" width="20" height="36" fill="var(--teal)" opacity="0.5"/>
+        <rect x="4" y="10" width="106" height="66" fill="none" stroke="var(--gold-deep)" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="57" y="86" font-size="9" font-family="IBM Plex Mono" fill="var(--ink-faint)" text-anchor="middle">one fund, many companies</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="stop left" data-stop>
+    <div class="stop-node"></div>
+    <div class="stop-num">03</div>
+    <h3>What's a covered call ETF?</h3>
+    <p>An ETF that holds real stocks, then also sells "call options" against them — contracts that give someone else the right to buy those stocks at a set price later. In exchange, the fund collects cash today. That cash is where the extra monthly income comes from.</p>
+  </div>
+
+  <div class="stop right" data-stop>
+    <div class="stop-node"></div>
+    <div class="stop-num">04</div>
+    <h3>Covered calls trade upside for cash</h3>
+    <p>The trade-off: if the stock rallies hard past that set price, the fund's gains get capped — someone else gets to buy in at the old price. Steadier cash flow now, in exchange for giving up some of the biggest gains later.</p>
+    <div class="stop-visual">
+      <svg width="100%" height="80" viewBox="0 0 240 80">
+        <line x1="10" y1="70" x2="230" y2="20" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <path d="M10,70 C 80,60 140,45 170,32 C 190,28 210,29 230,30" fill="none" stroke="var(--gold-deep)" stroke-width="2.5"/>
+        <circle cx="170" cy="32" r="3.5" fill="var(--rust)"/>
+        <text x="172" y="24" font-size="9" fill="var(--ink-faint)" font-family="IBM Plex Mono">cap</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="stop left" data-stop>
+    <div class="stop-node"></div>
+    <div class="stop-num">05</div>
+    <h3>Yield isn't return</h3>
+    <p>A 12% "yield" tells you the distribution rate — not whether the fund is growing, shrinking, or quietly handing you back your own capital. Always check total return (price change + distributions) alongside yield, never instead of it.</p>
+    <div class="stop-visual">
+      <div style="width:100%;">
+        <div class="bar-row"><span class="bar-label">Distribution</span><div class="bar-track"><div class="bar-fill" style="width:82%; background:var(--gold);"></div></div><span>12.0%</span></div>
+        <div class="bar-row"><span class="bar-label">Total return</span><div class="bar-track"><div class="bar-fill" style="width:31%; background:var(--teal);"></div></div><span>4.6%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stop right" data-stop>
+    <div class="stop-num">06</div>
+    <div class="stop-node"></div>
+    <h3>Return of capital isn't always bad — but check</h3>
+    <p>When a fund distributes more than it earns, the difference often comes back as "return of capital." Sometimes that's tax-efficient timing. Sometimes it's the fund eroding its own value to sustain a payout it can't really afford. The difference shows up in the unit price over time, not the yield.</p>
+  </div>
+
+  <div class="stop left" data-stop>
+    <div class="stop-num">07</div>
+    <div class="stop-node"></div>
+    <h3>"Diversified" often isn't</h3>
+    <p>Own a Canadian bank covered call ETF and a broad Canadian dividend ETF? You may hold the same six banks twice, just wrapped differently. Overlap hides inside fund names — it only shows up when you compare actual holdings, which is exactly what the tool below does.</p>
+    <div class="stop-visual">
+      <svg width="140" height="90" viewBox="0 0 140 90">
+        <circle cx="55" cy="45" r="34" fill="var(--gold)" opacity="0.35"/>
+        <circle cx="85" cy="45" r="34" fill="var(--teal)" opacity="0.35"/>
+        <text x="70" y="49" font-size="11" font-family="IBM Plex Mono" fill="var(--ink)" text-anchor="middle" font-weight="500">62%</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="stop right" data-stop>
+    <div class="stop-num">08</div>
+    <div class="stop-node"></div>
+    <h3>Fees compound against you, quietly</h3>
+    <p>Covered call and enhanced-yield ETFs often carry 0.4–0.9% higher fees than plain index funds — and "fund of funds" structures can stack fees on top of fees. Small percentages, multiplied by decades, are not small.</p>
+    <div class="stop-visual">
+      <div style="width:100%;">
+        <div class="bar-row"><span class="bar-label">Index ETF</span><div class="bar-track"><div class="bar-fill" style="width:8%; background:var(--teal);"></div></div><span>0.09%</span></div>
+        <div class="bar-row"><span class="bar-label">Fund-of-funds</span><div class="bar-track"><div class="bar-fill" style="width:75%; background:var(--rust);"></div></div><span>1.4%+</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="workbench-shell" id="workbench">
+  <div class="workbench-inner">
+    <div class="section-head">
+      <div class="section-tag">Now put it to use</div>
+      <h2>Covered call ETF overlap checker</h2>
+      <p>Pick two or three CAD or US-listed covered call ETFs. We compare their largest holdings and estimate how much of your "diversification" is actually the same names, twice — the idea from stop 07, made real.</p>
+    </div>
+
+    <div class="picker-row">
+      <div class="slot">
+        <label>Fund A</label>
+        <select id="fundA"></select>
+        <div class="fund-name" id="nameA"></div>
+      </div>
+      <div class="slot">
+        <label>Fund B</label>
+        <select id="fundB"></select>
+        <div class="fund-name" id="nameB"></div>
+      </div>
+      <div class="slot">
+        <label>Fund C (optional)</label>
+        <select id="fundC">
+          <option value="">— none —</option>
+        </select>
+        <div class="fund-name" id="nameC"></div>
+      </div>
+    </div>
+
+    <div class="overlap-results">
+      <div class="overlap-matrix" id="overlapMatrix"></div>
+      <div class="shared-holdings">
+        <div class="shared-title">Shared top holdings</div>
+        <div class="chip-cloud" id="chipCloud"></div>
+      </div>
+    </div>
+
+    <div class="disclaimer-strip">
+      Holdings shown are an illustrative starter dataset built from public fund fact sheets and sector disclosures — approximate top-10 weights, not a live feed. This is a working prototype of the overlap mechanic and dataset coverage is growing steadily; the production version will pull verified holdings directly from each issuer's daily holdings file. Not investment advice — overlap is one input among many when building a portfolio.
+    </div>
+  </div>
+</div>
+
+<footer>Ledger — built for people learning income investing from the ground up. Educational content only, not investment advice.</footer>
+
+<script>
+const FUNDS = {
+  HDIV: { name: "Hamilton Enhanced Canadian Covered Call", region:"CAD", holdings:{RY:9.5,TD:8.8,ENB:7.6,CNQ:7.1,SU:6.4,BNS:6.0,BMO:5.8,CM:5.4,TRP:5.0,SHOP:4.6} },
+  HYLD: { name: "Hamilton Enhanced U.S. Covered Call", region:"CAD", holdings:{AAPL:8.9,MSFT:8.5,NVDA:8.1,AMZN:6.2,GOOGL:5.5,META:5.1,"BRK.B":4.4,JPM:4.0,XOM:3.6,UNH:3.3} },
+  HMAX: { name: "Hamilton Canadian Financials Yield Maximizer", region:"CAD", holdings:{RY:17.5,TD:16.8,BNS:16.2,BMO:16.0,CM:15.9,NA:12.8,MFC:2.4,SLF:2.4} },
+  ZWB:  { name: "BMO Covered Call Canadian Banks", region:"CAD", holdings:{RY:17.0,TD:17.0,BNS:16.6,BMO:16.6,CM:16.4,NA:16.4} },
+  ZWC:  { name: "BMO Canadian High Dividend Covered Call", region:"CAD", holdings:{RY:9.8,TD:8.6,ENB:8.2,BNS:6.5,TRP:5.9,CNQ:5.6,SU:5.2,BMO:5.0,CM:4.6,BCE:4.1} },
+  ZWU:  { name: "BMO Covered Call Utilities", region:"CAD", holdings:{ENB:14.2,TRP:12.8,BCE:8.5,FTS:7.6,T:6.9,CU:6.1,AQN:5.4,EMA:5.0,PPL:4.6,"RCI.B":4.1} },
+  ZWH:  { name: "BMO US High Dividend Covered Call", region:"CAD", holdings:{JPM:6.4,JNJ:5.8,XOM:5.5,CVX:5.1,KO:4.7,PG:4.5,VZ:4.1,T:3.8,PFE:3.6,MRK:3.4} },
+  HHL:  { name: "Harvest Healthcare Leaders Income", region:"CAD", holdings:{UNH:11.5,JNJ:10.8,LLY:10.2,MRK:9.6,ABBV:9.0,PFE:7.4,TMO:7.0,ABT:6.6,DHR:6.2,AMGN:5.8} },
+  HTA:  { name: "Harvest Tech Achievers Growth & Income", region:"CAD", holdings:{MSFT:11.2,AAPL:10.6,NVDA:10.1,AVGO:8.4,CRM:7.2,ORCL:6.8,ADBE:6.1,CSCO:5.6,AMD:5.2,QCOM:4.8} },
+  HDIF: { name: "Harvest Diversified Monthly Income", region:"CAD", holdings:{UNH:5.1,MSFT:4.9,RY:4.6,AAPL:4.4,JNJ:4.2,TD:4.0,NVDA:3.8,ENB:3.6,LLY:3.4,JPM:3.2} },
+  BANK: { name: "Evolve Canadian Banks and Lifecos Enhanced Yield", region:"CAD", holdings:{RY:14.0,TD:13.5,BNS:12.8,BMO:12.6,CM:12.4,NA:10.5,MFC:6.5,SLF:6.0,GWO:5.8,IFC:5.9} },
+  CFIN: { name: "Evolve Canadian Financials Yield Fund", region:"CAD", holdings:{RY:13.5,TD:13.0,BNS:12.5,BMO:12.3,CM:12.1,NA:11.8,MFC:8.5,SLF:8.1,POW:8.2} },
+  CUTE: { name: "Evolve Canadian Utilities Yield Fund", region:"CAD", holdings:{ENB:13.5,TRP:12.1,BCE:8.8,FTS:7.9,CU:6.8,AQN:6.0,EMA:5.5,T:5.2,PPL:5.0,"RCI.B":4.4} },
+  TECY: { name: "Evolve Nasdaq Technology Enhanced Yield", region:"CAD", holdings:{MSFT:10.8,AAPL:10.2,NVDA:9.8,AVGO:8.0,CRM:6.9,ORCL:6.4,ADBE:5.8,CSCO:5.3,AMD:5.0,QCOM:4.6} },
+
+  QYLD: { name: "Global X Nasdaq 100 Covered Call", region:"US", holdings:{AAPL:9.8,MSFT:9.2,NVDA:8.7,AMZN:5.6,META:4.9,AVGO:4.5,GOOGL:4.0,GOOG:3.8,TSLA:3.4,COST:2.9} },
+  XYLD: { name: "Global X S&P 500 Covered Call", region:"US", holdings:{AAPL:7.1,MSFT:6.8,NVDA:6.5,AMZN:3.9,META:2.7,GOOGL:2.2,GOOG:2.0,"BRK.B":1.9,AVGO:1.8,JPM:1.4} },
+  RYLD: { name: "Global X Russell 2000 Covered Call", region:"US", holdings:{SFM:0.6,FIX:0.5,HALO:0.4,CVLT:0.4,ENSG:0.4,HRB:0.3,ATGE:0.3,ABCB:0.3,RHI:0.3,SFBS:0.3} },
+  JEPI: { name: "JPMorgan Equity Premium Income", region:"US", holdings:{PG:2.1,JNJ:2.0,MRK:1.9,VZ:1.8,KO:1.8,PEP:1.7,ABBV:1.7,JPM:1.6,MA:1.5,COST:1.5} },
+  JEPQ: { name: "JPMorgan Nasdaq Equity Premium Income", region:"US", holdings:{MSFT:8.9,AAPL:8.3,NVDA:7.9,AMZN:5.1,META:4.5,GOOGL:3.7,AVGO:3.5,TSLA:3.1,COST:2.7,NFLX:2.4} },
+  DIVO: { name: "Amplify CWP Enhanced Dividend Income", region:"US", holdings:{MSFT:6.2,HD:5.8,JPM:5.5,MCD:5.2,CAT:5.0,JNJ:4.7,CVX:4.4,ABBV:4.2,AAPL:4.0,V:3.8} },
+  SPYI: { name: "NEOS S&P 500 High Income", region:"US", holdings:{AAPL:7.2,MSFT:6.9,NVDA:6.6,AMZN:3.8,META:2.6,GOOGL:2.1,GOOG:1.9,"BRK.B":1.9,AVGO:1.8,JPM:1.5} },
+  GPIX: { name: "Goldman Sachs S&P 500 Core Premium Income", region:"US", holdings:{AAPL:7.0,MSFT:6.7,NVDA:6.4,AMZN:3.8,META:2.6,GOOGL:2.1,GOOG:1.9,"BRK.B":1.8,AVGO:1.8,JPM:1.5} },
+  CALL: { name: "Evolve US Banks Enhanced Yield Fund", region:"US", holdings:{JPM:14.5,BAC:12.8,WFC:11.5,C:10.2,GS:10.0,MS:9.5,USB:8.0,PNC:7.8,TFC:7.5,BK:8.2} }
+};
+
+const selA = document.getElementById('fundA');
+const selB = document.getElementById('fundB');
+const selC = document.getElementById('fundC');
+
+function populate(sel, includeNone){
+  if(includeNone){
+    const o = document.createElement('option');
+    o.value=""; o.textContent="— none —";
+    sel.appendChild(o);
+  }
+  const groups = {CAD:"CAD-listed", US:"US-listed"};
+  Object.entries(groups).forEach(([region,label])=>{
+    const og = document.createElement('optgroup');
+    og.label = label;
+    Object.entries(FUNDS).filter(([t,f])=>f.region===region).forEach(([t,f])=>{
+      const o = document.createElement('option');
+      o.value=t; o.textContent=t;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+}
+populate(selA,false);
+populate(selB,false);
+populate(selC,true);
+selA.value="HDIV"; selB.value="ZWB";
+
+function overlapPct(a,b){
+  const A=FUNDS[a].holdings, B=FUNDS[b].holdings;
+  let shared=0;
+  Object.keys(A).forEach(t=>{ if(B[t]!==undefined) shared += Math.min(A[t],B[t]); });
+  return Math.round(shared*10)/10;
+}
+function sharedTickers(a,b){
+  const A=FUNDS[a].holdings, B=FUNDS[b].holdings;
+  return Object.keys(A).filter(t=>B[t]!==undefined);
+}
+function colorFor(pct){
+  if(pct>=30) return 'var(--rust)';
+  if(pct>=12) return 'var(--gold)';
+  return 'var(--teal)';
+}
+function render(){
+  const a=selA.value, b=selB.value, c=selC.value;
+  document.getElementById('nameA').textContent = FUNDS[a].name;
+  document.getElementById('nameB').textContent = FUNDS[b].name;
+  document.getElementById('nameC').textContent = c ? FUNDS[c].name : '';
+
+  const pairs = [[a,b]];
+  if(c){ pairs.push([a,c]); pairs.push([b,c]); }
+
+  const matrix = document.getElementById('overlapMatrix');
+  matrix.innerHTML = '';
+  const allShared = new Set();
+
+  pairs.forEach(([x,y])=>{
+    const pct = overlapPct(x,y);
+    const row = document.createElement('div');
+    row.className='pair-row';
+    row.innerHTML = `
+      <div class="pair-names">${x} × ${y}</div>
+      <div class="pair-track"><div class="pair-fill" style="width:${Math.min(pct,100)}%; background:${colorFor(pct)};"></div></div>
+      <div class="pair-pct">${pct}%</div>
+    `;
+    matrix.appendChild(row);
+    sharedTickers(x,y).forEach(t=>allShared.add(t));
+  });
+
+  const cloud = document.getElementById('chipCloud');
+  cloud.innerHTML='';
+  if(allShared.size===0){
+    cloud.innerHTML = '<div class="empty-note">No overlap in top-10 holdings — these funds look genuinely diversified from each other.</div>';
+  } else {
+    const topPct = Math.max(...pairs.map(([x,y])=>overlapPct(x,y)));
+    [...allShared].sort().forEach(t=>{
+      const chip=document.createElement('div');
+      chip.className='chip' + (topPct>=30 ? ' hot' : '');
+      chip.textContent=t;
+      cloud.appendChild(chip);
+    });
+  }
+}
+[selA,selB,selC].forEach(s=>s.addEventListener('change', render));
+render();
+
+const stops = document.querySelectorAll('.stop');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+}, {threshold:0.2});
+stops.forEach(s=>io.observe(s));
+
+function buildPath(){
+  const wrap = document.querySelector('.path-wrap');
+  const svg = document.getElementById('pathSvg');
+  if(window.innerWidth <= 760) return;
+  const wrapRect = wrap.getBoundingClientRect();
+  const totalHeight = wrap.scrollHeight;
+  svg.setAttribute('viewBox', `0 0 1000 ${totalHeight}`);
+  svg.style.height = totalHeight + 'px';
+
+  let d = '';
+  stops.forEach((stop, i)=>{
+    const r = stop.getBoundingClientRect();
+    const top = r.top - wrapRect.top;
+    const cx = stop.classList.contains('left') ? 560 : 440;
+    const cy = top + 14;
+    d += (i===0 ? `M 500 0 Q ${cx} ${Math.max(cy-60,20)} ${cx} ${cy} ` : `T ${cx} ${cy} `);
+  });
+  document.getElementById('pathBg').setAttribute('d', d);
+  document.getElementById('pathFg').setAttribute('d', d);
+  const pathLen = document.getElementById('pathFg').getTotalLength();
+  document.getElementById('pathFg').style.strokeDasharray = pathLen;
+  document.getElementById('pathFg').style.strokeDashoffset = pathLen;
+  window._pathLen = pathLen;
+}
+function updateProgress(){
+  const fg = document.getElementById('pathFg');
+  if(!fg || !window._pathLen) return;
+  const wrap = document.querySelector('.path-wrap');
+  const rect = wrap.getBoundingClientRect();
+  const viewportMid = window.innerHeight * 0.6;
+  const progress = Math.min(1, Math.max(0, (viewportMid - rect.top) / rect.height));
+  fg.style.strokeDashoffset = window._pathLen * (1 - progress);
+}
+window.addEventListener('load', ()=>{ buildPath(); updateProgress(); });
+window.addEventListener('resize', buildPath);
+window.addEventListener('scroll', updateProgress);
+</script>
+
+</body>
+</html>
