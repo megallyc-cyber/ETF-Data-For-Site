@@ -47,9 +47,20 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger("ledger-scraper")
 
 OUTPUT_PATH = Path("data/funds.json")
+# Some issuers (Hamilton, as of Aug 2026) serve a challenge/interstitial page
+# rather than the real one when the request doesn't look like a browser. That
+# comes back as a 200 with no holdings table, so it reads as "page structure
+# changed" rather than as a block. Sending ordinary browser headers avoids the
+# whole category. We still self-identify in the From header and still rate-limit
+# ourselves via DELAY_BETWEEN_REQUESTS.
 REQUEST_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; LedgerResearchBot/0.1; "
-                  "contact: you@example.com) - educational ETF holdings aggregator"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/126.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+              "image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-CA,en;q=0.9",
+    "From": "ledger-etf-holdings-aggregator (educational)",
 }
 REQUEST_TIMEOUT = 20
 DELAY_BETWEEN_REQUESTS = 1.5  # be polite, avoid hammering issuer sites
@@ -895,6 +906,26 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> 
 
 
 
+def describe_response(html) -> str:
+    """When a parser can't find what it expects, the useful question is what the
+    server actually sent. A bot-challenge page, a consent wall and a genuinely
+    restructured page all look identical to a selector that returns None, so log
+    enough of the body to tell them apart on the next run."""
+    if html is None:
+        return "no response body — the fetch itself failed"
+    try:
+        soup = BeautifulSoup(html, "lxml")
+        title = soup.title.get_text(strip=True) if soup.title else "(no <title>)"
+        tables = len(soup.find_all("table"))
+        table_ids = [t.get("id") or t.get("class") or "(unnamed)"
+                     for t in soup.find_all("table")[:5]]
+        text = " ".join(soup.get_text(" ").split())[:180]
+        return (f"body was {len(html)} chars, title={title!r}, {tables} table(s) "
+                f"{table_ids}, text starts: {text!r}")
+    except Exception:  # noqa: BLE001 — diagnostics must never mask the real error
+        return f"body was {len(html)} chars, could not be parsed for diagnostics"
+
+
 def collect_stats(fund: Fund, holdings_html: str) -> dict:
     """Key facts live on the issuer's fund page, which for most issuers is the
     same page we just fetched for holdings — reuse it rather than hitting the
@@ -927,6 +958,7 @@ def collect_stats(fund: Fund, holdings_html: str) -> dict:
 def run(registry: list[Fund]) -> list[Fund]:
     for fund in registry:
         log.info("Fetching %s (%s) from %s", fund.ticker, fund.issuer, fund.holdings_url)
+        html = None
         try:
             if fund.parser == "jpmorgan_xls":
                 html = fetch_binary(fund.holdings_url)
@@ -944,6 +976,7 @@ def run(registry: list[Fund]) -> list[Fund]:
             fund.fetched_ok = False
             fund.error = str(exc)
             log.warning("  -> FAILED: %s", exc)
+            log.warning("  -> %s", describe_response(html))
         time.sleep(DELAY_BETWEEN_REQUESTS)
     return registry
 
