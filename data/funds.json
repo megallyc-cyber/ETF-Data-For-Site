@@ -1,0 +1,122 @@
+{
+  "HDIV": {
+    "name": "Hamilton Enhanced Canadian Covered Call ETF",
+    "issuer": "Hamilton ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings table not found \u2014 page structure may have changed"
+  },
+  "HYLD": {
+    "name": "Hamilton Enhanced U.S. Covered Call ETF",
+    "issuer": "Hamilton ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings table not found \u2014 page structure may have changed"
+  },
+  "HMAX": {
+    "name": "Hamilton Canadian Financials Yield Maximizer ETF",
+    "issuer": "Hamilton ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings table not found \u2014 page structure may have changed"
+  },
+  "ZWB": {
+    "name": "BMO Covered Call Canadian Banks ETF",
+    "issuer": "BMO ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwb"
+  },
+  "ZWC": {
+    "name": "BMO Canadian High Dividend Covered Call ETF",
+    "issuer": "BMO ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwc"
+  },
+  "ZWU": {
+    "name": "BMO Covered Call Utilities ETF",
+    "issuer": "BMO ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwu"
+  },
+  "HHL": {
+    "name": "Harvest Healthcare Leaders Income ETF",
+    "issuer": "Harvest ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings table not found \u2014 page structure may have changed"
+  },
+  "HTA": {
+    "name": "Harvest Tech Achievers Growth & Income ETF",
+    "issuer": "Harvest ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings table not found \u2014 page structure may have changed"
+  },
+  "BANK": {
+    "name": "Evolve Canadian Banks and Lifecos Enhanced Yield Fund",
+    "issuer": "Evolve ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings table not found \u2014 page structure may have changed"
+  },
+  "CFIN": {
+    "name": "Evolve Canadian Financials Yield Fund",
+    "issuer": "Evolve ETFs",
+    "region": "CAD",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings table not found \u2014 page structure may have changed"
+  },
+  "QYLD": {
+    "name": "Global X Nasdaq 100 Covered Call ETF",
+    "issuer": "Global X",
+    "region": "US",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings served as CSV at https://assets.globalxetfs.com/funds/holdings/qyld_full-holdings_20260820.csv \u2014 fetch and parse that URL directly instead of the HTML page"
+  },
+  "XYLD": {
+    "name": "Global X S&P 500 Covered Call ETF",
+    "issuer": "Global X",
+    "region": "US",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings served as CSV at https://assets.globalxetfs.com/funds/holdings/xyld_full-holdings_20260820.csv \u2014 fetch and parse that URL directly instead of the HTML page"
+  },
+  "RYLD": {
+    "name": "Global X Russell 2000 Covered Call ETF",
+    "issuer": "Global X",
+    "region": "US",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "holdings served as CSV at https://assets.globalxetfs.com/funds/holdings/ryld_full-holdings_20260820.csv \u2014 fetch and parse that URL directly instead of the HTML page"
+  },
+  "JEPI": {
+    "name": "JPMorgan Equity Premium Income ETF",
+    "issuer": "J.P. Morgan Asset Management",
+    "region": "US",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "404 Client Error: Not Found for url: https://am.jpmorgan.com/us/en/asset-management/adv/404/"
+  },
+  "JEPQ": {
+    "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+    "issuer": "J.P. Morgan Asset Management",
+    "region": "US",
+    "holdings": {},
+    "fetched_ok": false,
+    "error": "404 Client Error: Not Found for url: https://am.jpmorgan.com/us/en/asset-management/adv/404/"
+  }
+}
