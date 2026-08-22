@@ -301,35 +301,35 @@ FUND_REGISTRY: list[Fund] = [
     Fund("QDVO", "Amplify CWP Growth & Income ETF", "Amplify ETFs", "US",
          "https://amplifyetfs.com/qdvo-holdings/", "amplify_rendered", needs_browser=True),
     Fund("CNCC", "Global X S&P/TSX 60 Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/cncc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/cncc#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("CNCL", "Global X Enhanced S&P/TSX 60 Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/cncl", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/cncl#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("BKCC", "Global X Equal Weight Canadian Bank Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/bkcc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/bkcc#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("BKCL", "Global X Enhanced Equal Weight Canadian Banks Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/bkcl", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/bkcl#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("EACC", "Global X MSCI EAFE Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/eacc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/eacc#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("EACL", "Global X Enhanced MSCI EAFE Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/eacl", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/eacl#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("EMCC", "Global X MSCI Emerging Markets Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/emcc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/emcc#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("EMCL", "Global X Enhanced MSCI Emerging Markets Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/emcl", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/emcl#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("ENCC", "Global X Canadian Oil and Gas Equity Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/encc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/encc#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("ENCL", "Global X Enhanced Canadian Oil and Gas Equity Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/encl", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/encl#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("EQCC", "Global X All-Equity Asset Allocation Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/eqcc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/eqcc#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("EQCL", "Global X Enhanced All-Equity Asset Allocation Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/eqcl", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/eqcl#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("GLCC", "Global X Gold Producer Equity Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/glcc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/glcc#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("GLCL", "Global X Enhanced Gold Producer Equity Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/glcl", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/glcl#holdings", "globalx_ca_rendered", needs_browser=True),
     Fund("GRCC", "Global X Growth Asset Allocation Covered Call ETF", "Global X Canada", "CAD",
-         "https://www.globalx.ca/product/grcc", "globalx_ca_rendered", needs_browser=True),
+                  "https://www.globalx.ca/product/grcc#holdings", "globalx_ca_rendered", needs_browser=True),
   
 ]
 
@@ -526,9 +526,9 @@ def parse_jpmorgan_xls(html: str) -> dict:
     sym_col = pct_col = None
     for i, row in enumerate(rows):
         cells = [str(c).strip().lower() if c is not None else "" for c in row]
-        if "symbol" in cells and any("net assets" in c for c in cells):
+        if "ticker" in cells and any("net assets" in c for c in cells):
             header_idx = i
-            sym_col = cells.index("symbol")
+            sym_col = cells.index("ticker")
             pct_col = next(j for j, c in enumerate(cells) if "net assets" in c)
             break
     if header_idx is None:
@@ -663,7 +663,7 @@ def fetch_binary(url: str) -> str:
     resp.raise_for_status()
     return resp.content.decode("latin-1")
 
-def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 4000) -> str:
+def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> str:
     """For pages that only populate their holdings table via client-side JS
     (Amplify's Firestore-backed holdings pages, Global X Canada's Holdings
     tab). Uses a headless Chromium via Playwright, waits for either a given
@@ -675,7 +675,7 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 4000) -> 
         browser = p.chromium.launch()
         page = browser.new_page(user_agent=REQUEST_HEADERS["User-Agent"])
         try:
-            page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="networkidle")
+                page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="domcontentloaded")
             if wait_selector:
                 page.wait_for_selector(wait_selector, timeout=wait_ms)
             else:
