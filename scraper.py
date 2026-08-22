@@ -38,6 +38,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
 
+import re
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -62,6 +64,7 @@ class Fund:
     holdings_url: str
     parser: str          # key into PARSERS
     holdings: dict = field(default_factory=dict)  # ticker -> weight_pct
+    stats: dict = field(default_factory=dict)     # aum_musd, nav, yield, mer, ...
     fetched_ok: bool = False
     needs_browser: bool = False  # True if the issuer's page requires JS rendering
     error: str = ""
@@ -394,29 +397,89 @@ def parse_bmo(html: str) -> dict:
     return holdings
 
 
+def _harvest_name_index() -> dict:
+    """Map normalised Harvest fund names -> our registry tickers, so that a
+    Harvest fund-of-funds row that only gives a fund NAME (its Ticker cell is
+    empty) resolves to a real ticker instead of collapsing to 'Harvest'."""
+    # Harvest markets some funds under a name that differs from the legal
+    # name we hold in the registry, so a pure name match misses them.
+    index = {
+        "harvest tech leaders income etf": "HTA",
+        "harvest canadian equity income leaders etf": "HLIF",
+    }
+    for f in FUND_REGISTRY:
+        if f.issuer == "Harvest ETFs":
+            index[_norm_fund_name(f.name)] = f.ticker
+    return index
+
+
+def _norm_fund_name(name: str) -> str:
+    import re
+    n = name.lower()
+    n = re.sub(r"[0-9]+$", "", n.strip())          # strip trailing footnote markers
+    n = n.replace("&", "and")
+    n = re.sub(r"[^a-z ]", " ", n)
+    return re.sub(r"\s+", " ", n).strip()
+
+
 def parse_harvest(html: str) -> dict:
+    """Harvest publishes two different column orders on the same table id:
+    equity funds are  Name | Ticker | Weight | Sector | Country
+    fund-of-funds are Ticker | ETF Name | Weight | Sector | Country
+    and on the fund-of-funds pages the Ticker cell is empty. Reading a fixed
+    column index therefore silently produced 'Harvest' for every row (all
+    colliding on one dict key). Read the header row instead, and fall back to
+    the fund name -> registry ticker when the ticker cell is blank."""
     soup = BeautifulSoup(html, "lxml")
     holdings = {}
     table = soup.select_one('table[id*="_holdings"]')
     if not table:
         raise ValueError("holdings table not found — page structure may have changed")
+
     rows = table.select("tr")
+    if not rows:
+        raise ValueError("holdings table has no rows")
+
+    header = [c.get_text(strip=True).lower() for c in rows[0].select("th,td")]
+    def col(*names, default=None):
+        for i, h in enumerate(header):
+            for n in names:
+                if n in h:
+                    return i
+        return default
+
+    i_ticker = col("ticker", default=0)
+    i_name = col("name", default=1)
+    i_weight = col("weight", "%", default=2)
+    name_index = _harvest_name_index()
+
     for row in rows[1:]:
         cells = [c.get_text(strip=True) for c in row.select("td")]
-        if len(cells) < 3:
+        if len(cells) <= max(i_ticker, i_weight):
             continue
-        ticker_raw, weight = cells[1], cells[2]
-        ticker = ticker_raw.split()[0] if ticker_raw else ""
+
+        raw_ticker = cells[i_ticker] if i_ticker < len(cells) else ""
+        raw_name = cells[i_name] if i_name is not None and i_name < len(cells) else ""
+        weight = cells[i_weight]
+
+        # "REGN US" -> "REGN"; blank ticker -> resolve the fund name
+        ticker = raw_ticker.split()[0] if raw_ticker else ""
+        if not ticker and raw_name:
+            ticker = name_index.get(_norm_fund_name(raw_name), raw_name.strip())
         if not ticker or not weight:
             continue
+
         try:
             w = float(weight.replace("%", "").replace(",", ""))
         except ValueError:
             continue
         if w <= 0:
             continue
-        holdings[ticker] = w
+        # same underlying can appear twice (e.g. two share classes) — add, don't clobber
+        holdings[ticker] = round(holdings.get(ticker, 0.0) + w, 4)
+
     return holdings
+
 
 def parse_evolve(html: str) -> dict:
     import csv
@@ -633,6 +696,149 @@ def parse_globalx_ca_rendered(html: str) -> dict:
 
 
 
+# ---------------------------------------------------------------------------
+# 2b. FUND STATS (AUM / NAV / yield / MER)
+#
+# None of this lives in the holdings files — it sits in the "key facts" block
+# on each issuer's fund page. Every issuer renders that block differently in
+# HTML, but they all render it as label-then-value in READING ORDER, so rather
+# than nine bespoke selectors we flatten the page to text lines once and look
+# for a label, then scan the next few lines for the first value that matches
+# the shape we expect (money / percent). That survives markup changes.
+#
+# Issuers with no AUM on the fetched page (Hamilton, J.P. Morgan) simply
+# return {} — the site treats missing stats as "not collected", not as zero.
+# ---------------------------------------------------------------------------
+
+MONEY_RE = re.compile(
+    r"\$\s?([\d,]+(?:\.\d+)?)\s*(billion|million|thousand|bn|mm|[BMK])?\b",
+    re.IGNORECASE,
+)
+PERCENT_RE = re.compile(r"(-?[\d.]+)\s*%")
+
+MULTIPLIER = {
+    "b": 1000.0, "bn": 1000.0, "billion": 1000.0,
+    "m": 1.0, "mm": 1.0, "million": 1.0,
+    "k": 0.001, "thousand": 0.001,
+}
+
+
+def _text_lines(html: str) -> list:
+    soup = BeautifulSoup(html, "lxml")
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+    raw = soup.get_text("\n")
+    return [ln.strip() for ln in raw.split("\n") if ln.strip()]
+
+
+def _money_to_millions(text: str):
+    """'$8.36 billion' / '$1.275 B' / '$2133.67M' / '$194,678,118' -> millions."""
+    m = MONEY_RE.search(text)
+    if not m:
+        return None
+    value = float(m.group(1).replace(",", ""))
+    unit = (m.group(2) or "").lower()
+    if unit:
+        return round(value * MULTIPLIER.get(unit, 1.0), 3)
+    # a bare figure is in dollars, not millions
+    return round(value / 1_000_000, 3)
+
+
+def _find_after(lines: list, labels: list, pattern, lookahead: int = 6):
+    """Find a label line, then return the first match for `pattern` in the rest
+    of that line or in the next few lines. Tooltips and blank cells often sit
+    between a label and its value, which is why we look ahead rather than
+    trusting the very next line."""
+    for i, line in enumerate(lines):
+        low = line.lower().strip().lstrip("\u2022 ").rstrip("*: ").strip()
+        matched = None
+        for w in labels:
+            if low == w or re.match(re.escape(w) + r"\b", low):
+                matched = w
+                break
+        if not matched:
+            continue
+        rest = line.lower().split(matched, 1)[-1]
+        m = pattern.search(line[len(line) - len(rest):]) if rest else None
+        if m:
+            return matched, m.group(0).strip()
+        for candidate in lines[i + 1 : i + 1 + lookahead]:
+            m = pattern.search(candidate)
+            if m:
+                return matched, m.group(0).strip()
+    return None
+
+
+AUM_LABELS = ["net aum", "aum", "net assets", "fund total net assets",
+              "total net assets", "fund size", "assets under management"]
+NAV_LABELS = ["nav", "net asset value", "closing nav"]
+YIELD_LABELS = ["current yield", "distribution yield", "trailing 12-month yield",
+                "yield %", "annualized distribution yield", "30-day sec yield"]
+MER_LABELS = ["management expense ratio", "mer", "total expense ratio",
+              "total annual fund operating expenses", "expense ratio"]
+FEE_LABELS = ["management fee", "mgmt fee"]
+
+
+def parse_fund_stats(html: str) -> dict:
+    """Issuer-agnostic key-facts reader. Returns only the keys it actually
+    found, so a partially-populated page degrades to partial stats.
+
+    Yield and MER are stored with the label the issuer used, because those
+    labels are not interchangeable across issuers: Global X US publishes a
+    30-day SEC yield (0.02% for QYLD) while Global X Canada publishes an
+    annualised distribution yield (6.65% for CNCC). Showing either as a bare
+    "Yield" would be actively misleading, so the site prints the issuer's own
+    wording.
+    """
+    lines = _text_lines(html)
+    stats = {}
+
+    hit = _find_after(lines, AUM_LABELS, MONEY_RE)
+    if hit:
+        millions = _money_to_millions(hit[1])
+        # sanity floor/ceiling: $0.0M or $50T means we matched the wrong line
+        if millions is not None and 0.05 <= millions <= 5_000_000:
+            stats["aum_musd"] = millions
+            stats["aum_display"] = hit[1]
+
+    hit = _find_after(lines, NAV_LABELS, MONEY_RE)
+    if hit:
+        stats["nav"] = hit[1]
+
+    hit = _find_after(lines, YIELD_LABELS, PERCENT_RE)
+    if hit:
+        stats["yield"] = hit[1]
+        stats["yield_label"] = hit[0]
+
+    hit = _find_after(lines, MER_LABELS, PERCENT_RE)
+    if hit:
+        stats["mer"] = hit[1]
+        stats["mer_label"] = hit[0]
+
+    hit = _find_after(lines, FEE_LABELS, PERCENT_RE)
+    if hit:
+        stats["mgmt_fee"] = hit[1]
+
+    return stats
+
+
+# Which issuers expose key facts on a page we can reach, and where.
+# Value is either None (reuse the holdings page we already fetched) or a
+# callable turning a Fund into the profile URL to fetch separately.
+STATS_SOURCES = {
+    "harvest": None,
+    "purpose_single": None,
+    "evolve": None,
+    "globalx_us": None,
+    "globalx_ca_rendered": None,
+    "neos_csv": lambda f: f"https://neosfunds.com/{f.ticker.lower()}/",
+    "amplify_rendered": lambda f: f"https://amplifyetfs.com/{f.ticker.lower()}/",
+    # hamilton: fund page carries NAV + yield but no AUM
+    "hamilton": None,
+    # jpmorgan: holdings come from an .xlsx export, key facts are behind JS
+}
+
+
 PARSERS: dict[str, Callable[[str], dict]] = {
     "hamilton": parse_hamilton,
     "bmo": parse_bmo,
@@ -689,6 +895,35 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> 
 
 
 
+def collect_stats(fund: Fund, holdings_html: str) -> dict:
+    """Key facts live on the issuer's fund page, which for most issuers is the
+    same page we just fetched for holdings — reuse it rather than hitting the
+    site twice. NEOS and Amplify are the exceptions: their holdings come from a
+    CSV endpoint and a separate rendered page, so those need one extra GET.
+
+    Never fatal: a stats failure leaves holdings intact and logs a warning,
+    because a fund with holdings and no AUM is still useful.
+    """
+    if fund.parser not in STATS_SOURCES:
+        return {}
+    try:
+        source = STATS_SOURCES[fund.parser]
+        if source is None:
+            html = holdings_html
+        else:
+            url = source(fund)
+            log.info("  -> stats from %s", url)
+            html = fetch(url)
+            time.sleep(DELAY_BETWEEN_REQUESTS)
+        stats = parse_fund_stats(html)
+        if not stats:
+            log.info("  -> no key facts found for %s", fund.ticker)
+        return stats
+    except Exception as exc:  # noqa: BLE001
+        log.warning("  -> stats FAILED for %s: %s", fund.ticker, exc)
+        return {}
+
+
 def run(registry: list[Fund]) -> list[Fund]:
     for fund in registry:
         log.info("Fetching %s (%s) from %s", fund.ticker, fund.issuer, fund.holdings_url)
@@ -704,6 +939,7 @@ def run(registry: list[Fund]) -> list[Fund]:
             fund.fetched_ok = bool(fund.holdings)
             if not fund.fetched_ok:
                 fund.error = "parser ran but returned no holdings"
+            fund.stats = collect_stats(fund, html)
         except Exception as exc:  # noqa: BLE001 — log and continue, don't kill the whole run
             fund.fetched_ok = False
             fund.error = str(exc)
@@ -721,12 +957,15 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH) -> None:
             "issuer": fund.issuer,
             "region": fund.region,
             "holdings": fund.holdings,
+            "stats": fund.stats,
             "fetched_ok": fund.fetched_ok,
             "error": fund.error,
         }
     path.write_text(json.dumps(payload, indent=2))
     ok = sum(1 for f in registry if f.fetched_ok)
-    log.info("Wrote %s — %d/%d funds fetched successfully", path, ok, len(registry))
+    with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
+    log.info("Wrote %s — %d/%d funds fetched successfully, %d with AUM",
+             path, ok, len(registry), with_aum)
 
 
 if __name__ == "__main__":
