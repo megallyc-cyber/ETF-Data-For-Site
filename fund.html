@@ -429,7 +429,7 @@ fetch('data/funds.json')
     Object.entries(data).forEach(([t, v]) => {
       if(t.charAt(0) === '_') return;
       if(v.fetched_ok && v.holdings && Object.keys(v.holdings).length){
-        FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings };
+        FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {} };
       }
     });
     render();
@@ -488,6 +488,15 @@ function render(){
       </div>
     </div>
 
+    <div class="section" style="margin-top:30px; margin-bottom:34px;">
+      <div class="section-head">
+        <h2>Key facts</h2>
+        <div class="section-note">Read from ${f.issuer || 'the issuer'}'s own fund page on the same run that pulls holdings.</div>
+      </div>
+      ${keyFacts(f.stats || {}, f.issuer)}
+    </div>
+
+    <div class="section-head"><h2>Portfolio shape</h2></div>
     <div class="stat-strip">
       <div class="stat">
         <div class="stat-label">Holdings</div>
@@ -535,7 +544,8 @@ function render(){
     <div class="data-note">
       Holdings are pulled straight from ${f.issuer || 'the issuer'}'s published holdings file and refreshed daily.
       Sector labels are our own mapping, not the issuer's — treat them as a rough shape, not a classification.
-      Fund size (AUM), distribution yield and MER aren't in the daily holdings feed, so they aren't shown here yet.
+      Yield and expense labels are reproduced exactly as the issuer words them — a 30-day SEC yield and a
+      trailing 12-month distribution yield are not the same number and are not comparable across issuers.
       Not investment advice.
     </div>
   `;
@@ -553,6 +563,46 @@ function render(){
     });
   });
   renderTable(rows, total);
+}
+
+function fmtAum(m){
+  if(m === undefined || m === null) return null;
+  if(m >= 1000) return '$' + (m/1000).toFixed(m >= 100000 ? 0 : 1) + 'B';
+  if(m >= 1) return '$' + m.toFixed(m >= 100 ? 0 : 1) + 'M';
+  return '$' + (m*1000).toFixed(0) + 'K';
+}
+
+function titleCase(s){
+  return s.replace(/\b[a-z]/g, c => c.toUpperCase()).replace(/Sec /,'SEC ').replace(/Mer/,'MER');
+}
+
+function keyFacts(st, issuer){
+  const cells = [];
+  const aum = fmtAum(st.aum_musd);
+  if(aum){
+    cells.push(['Fund size', aum, st.aum_display || '']);
+  }
+  if(st.yield){
+    cells.push([titleCase(st.yield_label || 'Yield'), st.yield, "the issuer's own measure"]);
+  }
+  if(st.mer){
+    cells.push([titleCase(st.mer_label || 'MER'), st.mer, '']);
+  } else if(st.mgmt_fee){
+    cells.push(['Management fee', st.mgmt_fee, '']);
+  }
+  if(st.nav){
+    cells.push(['NAV', st.nav, 'per unit']);
+  }
+  if(!cells.length){
+    return '<div class="empty" style="padding:22px;">' + (issuer || 'This issuer') +
+      " doesn't publish fund size, yield or MER on the page we read holdings from, " +
+      'so we have nothing to show here rather than a guess.</div>';
+  }
+  return '<div class="stat-strip">' + cells.map(([l,v,sub]) =>
+    '<div class="stat"><div class="stat-label">' + l + '</div>' +
+    '<div class="stat-value">' + v + '</div>' +
+    '<div class="stat-sub">' + sub + '</div></div>'
+  ).join('') + '</div>';
 }
 
 function lookthroughSection(fundHoldings, total){
