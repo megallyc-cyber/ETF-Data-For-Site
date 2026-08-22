@@ -126,19 +126,25 @@ def parse_hamilton(html: str) -> dict:
     live page — this is a starting guess at the structure."""
     soup = BeautifulSoup(html, "lxml")
     holdings = {}
-    table = soup.select_one("table.holdings-table, table#holdings, .holdings table")
+    table = soup.select_one('table[id^="etf-holdings-"]')
     if not table:
         raise ValueError("holdings table not found — page structure may have changed")
-    for row in table.select("tbody tr"):
+    rows = table.select("tr")
+    for row in rows[1:]:
         cells = [c.get_text(strip=True) for c in row.select("td")]
-        if len(cells) >= 3:
-            ticker, weight = cells[0], cells[-1]
-            try:
-                holdings[ticker] = float(weight.replace("%", "").replace(",", ""))
-            except ValueError:
-                continue
+        if len(cells) < 3:
+            continue
+        ticker, weight = cells[0], cells[2]
+        if not ticker or not weight:
+            continue
+        try:
+            w = float(weight.replace("%", "").replace(",", ""))
+        except ValueError:
+            continue
+        if w <= 0:
+            continue
+        holdings[ticker] = w
     return holdings
-
 
 def parse_bmo(html: str) -> dict:
     """BMO ETF pages usually expose a downloadable holdings CSV link rather
