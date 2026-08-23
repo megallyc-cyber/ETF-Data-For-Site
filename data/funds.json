@@ -4471,7 +4471,7 @@
     "as_of": "",
     "stale": false,
     "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwb"
+    "error": "Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/\nCall log:\n  - navigating to \"https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/\", waiting until \"domcontentloaded\"\n"
   },
   "ZWC": {
     "name": "BMO Canadian High Dividend Covered Call ETF",
@@ -4851,7 +4851,7 @@
     "as_of": "",
     "stale": false,
     "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwc"
+    "error": "Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/\nCall log:\n  - navigating to \"https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/\", waiting until \"domcontentloaded\"\n"
   },
   "ZWU": {
     "name": "BMO Covered Call Utilities ETF",
@@ -5231,7 +5231,7 @@
     "as_of": "",
     "stale": false,
     "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://www.bmoetfs.ca/en/products/zwu"
+    "error": "Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/\nCall log:\n  - navigating to \"https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/\", waiting until \"domcontentloaded\"\n"
   },
   "HHL": {
     "name": "Harvest Healthcare Leaders Income ETF",
