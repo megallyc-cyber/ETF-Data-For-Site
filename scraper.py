@@ -1086,11 +1086,14 @@ DH_BASE = "https://dividendhistory.org/payout/"
 DH_ATTRIBUTION = "dividendhistory.org"
 
 
-def dividendhistory_url(fund: Fund) -> str:
-    """Canadian listings — including Cboe Canada — live under /payout/tsx/.
-    The bare /payout/TICKER/ path 404s for them."""
-    prefix = "tsx/" if fund.region == "CAD" else ""
-    return f"{DH_BASE}{prefix}{fund.ticker.upper()}/"
+def dividendhistory_urls(fund: Fund) -> list:
+    """Most Canadian listings sit under /payout/tsx/, but not all — TECY is a
+    Canadian fund filed under the bare path, and guessing from region alone
+    silently loses it. Try the likely shape first, then the other."""
+    t = fund.ticker.upper()
+    tsx = f"{DH_BASE}tsx/{t}/"
+    plain = f"{DH_BASE}{t}/"
+    return [tsx, plain] if fund.region == "CAD" else [plain, tsx]
 
 
 def parse_dividendhistory(html: str) -> list:
@@ -1137,21 +1140,21 @@ def parse_dividendhistory(html: str) -> list:
 def fetch_dividendhistory(fund: Fund) -> list:
     """Fallback only. Issuer-published history always wins, because it is the
     primary record; this fills funds whose issuer publishes nothing parseable."""
-    url = dividendhistory_url(fund)
-    try:
-        log.info("  -> distributions fallback %s", url)
-        html = fetch(url)
-        time.sleep(DELAY_BETWEEN_REQUESTS)
-        rows = parse_dividendhistory(html)
-        if rows:
-            log.info("  -> %d distributions from %s, latest %s",
-                     len(rows), DH_ATTRIBUTION, rows[0]["ex_date"])
-        else:
+    for url in dividendhistory_urls(fund):
+        try:
+            log.info("  -> distributions fallback %s", url)
+            html = fetch(url)
+            time.sleep(DELAY_BETWEEN_REQUESTS)
+            rows = parse_dividendhistory(html)
+            if rows:
+                log.info("  -> %d distributions from %s, latest %s",
+                         len(rows), DH_ATTRIBUTION, rows[0]["ex_date"])
+                return rows
             log.info("  -> no usable rows at %s", url)
-        return rows
-    except Exception as exc:  # noqa: BLE001
-        log.warning("  -> %s failed for %s: %s", DH_ATTRIBUTION, fund.ticker, exc)
-        return []
+        except Exception as exc:  # noqa: BLE001
+            log.info("  -> %s: %s", url, exc)
+    log.warning("  -> no distributions found anywhere for %s", fund.ticker)
+    return []
 
 
 def profile_html(fund: Fund, holdings_html: str) -> str:
