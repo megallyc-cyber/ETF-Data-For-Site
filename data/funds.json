@@ -5275,7 +5275,10 @@
       "count": 60,
       "frequency": "Monthly",
       "ttm_total": 0.72,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 7.7,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.35
     },
     "distributions": [
       {
@@ -5746,7 +5749,10 @@
       "count": 60,
       "frequency": "Monthly",
       "ttm_total": 1.82,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 22.33,
+      "price_date": "2026-08-21",
+      "yield_ttm": 8.15
     },
     "distributions": [
       {
@@ -6217,7 +6223,10 @@
       "count": 60,
       "frequency": "Monthly",
       "ttm_total": 0.85,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 11.015,
+      "price_date": "2026-08-21",
+      "yield_ttm": 7.72
     },
     "distributions": [
       {
@@ -6697,7 +6706,10 @@
       "count": 60,
       "frequency": "Monthly",
       "ttm_total": 1.518,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 19.21,
+      "price_date": "2026-08-21",
+      "yield_ttm": 7.9
     },
     "distributions": [
       {
@@ -7172,7 +7184,10 @@
       "count": 60,
       "frequency": "Monthly",
       "ttm_total": 0.5338,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 5.31,
+      "price_date": "2026-08-21",
+      "yield_ttm": 10.05
     },
     "distributions": [
       {
@@ -7642,7 +7657,10 @@
       "count": 60,
       "frequency": "Monthly",
       "ttm_total": 0.3,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 4.12,
+      "price_date": "2026-08-21",
+      "yield_ttm": 7.28
     },
     "distributions": [
       {
@@ -8108,7 +8126,10 @@
       "count": 60,
       "frequency": "Monthly",
       "ttm_total": 1.2,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 15.06,
+      "price_date": "2026-08-21",
+      "yield_ttm": 7.97
     },
     "distributions": [
       {
@@ -8587,7 +8608,10 @@
       "count": 49,
       "frequency": "Monthly",
       "ttm_total": 0.7815,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 12.88,
+      "price_date": "2026-08-21",
+      "yield_ttm": 6.07
     },
     "distributions": [
       {
@@ -8989,7 +9013,10 @@
       "count": 39,
       "frequency": "Monthly",
       "ttm_total": 2.06,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 20.44,
+      "price_date": "2026-08-21",
+      "yield_ttm": 10.08
     },
     "distributions": [
       {
@@ -9312,7 +9339,10 @@
       "count": 27,
       "frequency": "Monthly",
       "ttm_total": 0.945,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 13.71,
+      "price_date": "2026-08-21",
+      "yield_ttm": 6.89
     },
     "distributions": [
       {
@@ -9539,7 +9569,10 @@
       "count": 39,
       "frequency": "Monthly",
       "ttm_total": 1.46,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 18.27,
+      "price_date": "2026-08-21",
+      "yield_ttm": 7.99
     },
     "distributions": [
       {
@@ -9846,7 +9879,10 @@
       "count": 34,
       "frequency": "Monthly",
       "ttm_total": 1.27,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 7.53,
+      "price_date": "2026-08-21",
+      "yield_ttm": 16.87
     },
     "distributions": [
       {
@@ -10116,7 +10152,10 @@
       "count": 30,
       "frequency": "Monthly",
       "ttm_total": 0.91,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 9.96,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.14
     },
     "distributions": [
       {
@@ -10368,7 +10407,10 @@
       "count": 28,
       "frequency": "Monthly",
       "ttm_total": 1.92,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 24.55,
+      "price_date": "2026-08-21",
+      "yield_ttm": 7.82
     },
     "distributions": [
       {
@@ -10592,7 +10634,10 @@
       "count": 45,
       "frequency": "Monthly",
       "ttm_total": 1.1208,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 9.2,
+      "price_date": "2026-08-21",
+      "yield_ttm": 12.18
     },
     "distributions": [
       {
@@ -10935,7 +10980,10 @@
       "count": 45,
       "frequency": "Monthly",
       "ttm_total": 2.025,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 20.39,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.93
     },
     "distributions": [
       {
@@ -11278,7 +11326,10 @@
       "count": 45,
       "frequency": "Monthly",
       "ttm_total": 1.105,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 11.525,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.59
     },
     "distributions": [
       {
@@ -11634,7 +11685,10 @@
       "count": 28,
       "frequency": "Monthly",
       "ttm_total": 2.4,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 24.11,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.95
     },
     "distributions": [
       {
@@ -11867,7 +11921,10 @@
       "count": 53,
       "frequency": "Monthly",
       "ttm_total": 1.0005,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 9.7,
+      "price_date": "2026-08-21",
+      "yield_ttm": 10.31
     },
     "distributions": [
       {
