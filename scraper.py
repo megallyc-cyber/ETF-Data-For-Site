@@ -1264,6 +1264,15 @@ def run(registry: list[Fund]) -> list[Fund]:
             log.warning("  -> FAILED: %s", exc)
             log.warning("  -> %s", describe_response(html))
             carry_forward(fund, previous)
+
+        # A blocked issuer throws before the distribution step above ever runs,
+        # so try the fallback out here too — Evolve's holdings 403 shouldn't also
+        # cost us their payment history, which is public elsewhere.
+        if not fund.distributions:
+            fund.distributions = fetch_dividendhistory(fund)
+            if fund.distributions:
+                fund.stats["distribution_source"] = fund.distributions[0].get("source", "issuer")
+                fund.stats.update(distribution_summary(fund.distributions))
         time.sleep(DELAY_BETWEEN_REQUESTS)
     return registry
 
