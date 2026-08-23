@@ -104,7 +104,6 @@
     <a href="index.html">Home</a>
     <a href="funds.html">Covered Call Funds</a>
     <a class="active" href="compare.html">Compare</a>
-    <a href="account.html">Account</a>
   </div>
 </nav>
 
@@ -584,6 +583,18 @@ function renderRadar(funds){
   svg.innerHTML = svgContent;
 }
 
+function wrapperShare(ticker){
+  const h = FUNDS[ticker].holdings || {};
+  const total = Object.values(h).reduce((s,v)=>s+v,0) || 1;
+  let inFunds = 0, classified = 0;
+  Object.entries(h).forEach(([t,w]) => {
+    const sec = SECTOR_MAP[t];
+    if(sec === 'Fund / ETF') inFunds += w;
+    if(sec && sec !== 'Other') classified += w;
+  });
+  return {wrapper: inFunds/total, coverage: classified/total};
+}
+
 function renderSectorBars(funds){
   const wrap = document.getElementById('sectorBars');
   wrap.innerHTML = '';
@@ -596,6 +607,20 @@ function renderSectorBars(funds){
     label.className = 'fund-sector-label mono';
     label.innerHTML = `<span>${ticker}</span><span style="color:rgba(237,238,231,0.5)">${FUNDS[ticker].name}</span>`;
     row.appendChild(label);
+    const shape = wrapperShare(ticker);
+    if(shape.wrapper >= 0.6 || shape.coverage < 0.5){
+      // a fund of funds has no sector mix of its own, and a thin bar implies
+      // precision we don't have — say which case it is instead
+      const note = document.createElement('div');
+      note.className = 'empty-note';
+      note.style.cssText = 'margin:2px 0 14px; font-size:12.5px;';
+      note.textContent = shape.wrapper >= 0.6
+        ? ticker + ' holds other ETFs, so it has no sector mix of its own — open its fund page for look-through.'
+        : 'Only ' + Math.round(shape.coverage*100) + '% of ' + ticker + " is classified, so a sector split would be misleading.";
+      row.appendChild(note);
+      wrap.appendChild(row);
+      return;
+    }
     const bar = document.createElement('div');
     bar.className = 'sector-bar';
     SECTORS.forEach(s => {
