@@ -191,6 +191,10 @@
   .dist-more:hover{color:var(--ink);}
 
 
+  .yield-warn{
+    margin-top:14px; padding:12px 14px; border-radius:4px; font-size:13px; line-height:1.55;
+    border:1px solid var(--rust); color:var(--rust); background:rgba(166,69,44,0.05);
+  }
   .empty{
     padding:44px 20px; text-align:center; color:var(--ink-faint); font-size:14px;
     border:1px dashed var(--line-strong); border-radius:4px;
@@ -645,6 +649,18 @@ function distProvenance(f, count){
          " doesn't publish a machine-readable history.";
 }
 
+function yieldContext(st){
+  const y = st.yield_ttm, tr = st.total_return_1y;
+  if (y === undefined || y === null) return "";
+  const win = st.return_window === "since inception" ? "since inception" : "over the last year";
+  if (tr === undefined || tr === null || y <= 15 || tr >= y / 2) return "";
+  const eroded = tr < 0;
+  return '<div class="yield-warn">Paying ' + y.toFixed(1) + "% while total return was " +
+    tr.toFixed(1) + "% " + win + ". " +
+    (eroded ? "Unit value fell over that period, so a large part of this distribution is a return of your own capital, not investment income."
+            : "Much of this distribution is a return of capital rather than income.") + "</div>";
+}
+
 function distributionSection(f){
   const d = f.distributions || [];
   const st = f.stats || {};
@@ -716,12 +732,19 @@ function distributionSection(f){
         <div class="stat-value">$${Number(st.ttm_total).toFixed(2)}</div>
         <div class="stat-sub">${st.ttm_payments || ''} payments</div>
       </div>` : ''}
+      ${st.total_return_1y !== undefined ? `<div class="stat">
+        <div class="stat-label">Total return</div>
+        <div class="stat-value">${st.total_return_1y > 0 ? "+" : ""}${st.total_return_1y}%</div>
+        <div class="stat-sub">last 12 months, distributions included</div>
+      </div>` : ""}
       ${st.frequency ? `<div class="stat">
         <div class="stat-label">Frequency</div>
         <div class="stat-value" style="font-size:20px;">${st.frequency}</div>
         <div class="stat-sub">as stated by the issuer</div>
       </div>` : ''}
     </div>
+
+    ${yieldContext(st)}
 
     <div class="cbar-label" style="margin-top:26px;">
       <span>${recent[0].ex_date}</span><span>most recent ${recent.length} payments</span><span>${recent[recent.length-1].ex_date}</span>
