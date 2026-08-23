@@ -2,7 +2,8 @@ name: Update ETF holdings data
 
 on:
   schedule:
-    - cron: '0 13 * * 1'
+    # 11:30 UTC on weekdays (7:30am ET) — issuers post the prior session overnight
+    - cron: '30 11 * * 1-5'
   workflow_dispatch:
     inputs:
       only:
