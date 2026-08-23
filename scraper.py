@@ -459,6 +459,100 @@ FUND_REGISTRY: list[Fund] = [
     Fund("GRCC", "Global X Growth Asset Allocation Covered Call ETF", "Global X Canada", "CAD",
                   "https://www.globalx.ca/product/grcc#holdings", "globalx_ca_rendered", needs_browser=True),
   
+    # NEOS funds the registry was missing
+    Fund("BNDI", "NEOS Enhanced Income Aggregate Bond ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/BNDI_holdings.csv", "neos_csv"),
+    Fund("CSHI", "NEOS Enhanced Income Cash Alternative ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/CSHI_holdings.csv", "neos_csv"),
+    Fund("HYBI", "NEOS Enhanced Income Credit Select ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/HYBI_holdings.csv", "neos_csv"),
+    Fund("NEHI", "NEOS Nasdaq-100 Hedged Equity Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/NEHI_holdings.csv", "neos_csv"),
+    Fund("NIHI", "NEOS S&P 500 Hedged Equity Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/NIHI_holdings.csv", "neos_csv"),
+    Fund("NLSI", "NEOS Large Cap Systematic Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/NLSI_holdings.csv", "neos_csv"),
+    Fund("TLTI", "NEOS Enhanced Income 20+ Year Treasury ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/TLTI_holdings.csv", "neos_csv"),
+    Fund("XBCI", "NEOS Bitcoin High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/XBCI_holdings.csv", "neos_csv"),
+    Fund("XQQI", "NEOS Nasdaq-100 High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/XQQI_holdings.csv", "neos_csv"),
+    Fund("XSPI", "NEOS S&P 500 High Income ETF", "NEOS Investments", "US",
+         "https://neosfunds.com/wp-content/fundwebsite/holdings/XSPI_holdings.csv", "neos_csv"),
+
+    # Broader US option-income universe. Holdings are not parsed for these
+    # (each issuer would need its own parser); they carry price history,
+    # distributions and a computed yield, and say so on the fund page.
+    Fund("GPIX", "Goldman Sachs S&P 500 Core Premium Income ETF", "Goldman Sachs", "US",
+         "https://dividendhistory.org/payout/GPIX/", "listing_only"),
+    Fund("GPIQ", "Goldman Sachs Nasdaq-100 Core Premium Income ETF", "Goldman Sachs", "US",
+         "https://dividendhistory.org/payout/GPIQ/", "listing_only"),
+    Fund("XDTE", "Roundhill S&P 500 0DTE Covered Call Strategy ETF", "Roundhill", "US",
+         "https://dividendhistory.org/payout/XDTE/", "listing_only"),
+    Fund("QDTE", "Roundhill Innovation-100 0DTE Covered Call Strategy ETF", "Roundhill", "US",
+         "https://dividendhistory.org/payout/QDTE/", "listing_only"),
+    Fund("RDTE", "Roundhill Small Cap 0DTE Covered Call Strategy ETF", "Roundhill", "US",
+         "https://dividendhistory.org/payout/RDTE/", "listing_only"),
+    Fund("QQQT", "Defiance Nasdaq-100 Enhanced Options Income ETF", "Defiance", "US",
+         "https://dividendhistory.org/payout/QQQT/", "listing_only"),
+    Fund("SPYT", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
+         "https://dividendhistory.org/payout/SPYT/", "listing_only"),
+    Fund("IWMT", "Defiance R2000 Enhanced Options Income ETF", "Defiance", "US",
+         "https://dividendhistory.org/payout/IWMT/", "listing_only"),
+    Fund("FEPI", "REX FANG & Innovation Equity Premium Income ETF", "REX Shares", "US",
+         "https://dividendhistory.org/payout/FEPI/", "listing_only"),
+    Fund("AIPI", "REX AI Equity Premium Income ETF", "REX Shares", "US",
+         "https://dividendhistory.org/payout/AIPI/", "listing_only"),
+    Fund("BALI", "iShares Advantage Large Cap Income ETF", "iShares", "US",
+         "https://dividendhistory.org/payout/BALI/", "listing_only"),
+    Fund("TLTW", "iShares 20+ Year Treasury Bond BuyWrite Strategy ETF", "iShares", "US",
+         "https://dividendhistory.org/payout/TLTW/", "listing_only"),
+    Fund("HYGW", "iShares High Yield Corporate Bond BuyWrite Strategy ETF", "iShares", "US",
+         "https://dividendhistory.org/payout/HYGW/", "listing_only"),
+    Fund("LQDW", "iShares Investment Grade Corporate Bond BuyWrite Strategy ETF", "iShares", "US",
+         "https://dividendhistory.org/payout/LQDW/", "listing_only"),
+    Fund("QYLG", "Global X Nasdaq 100 Covered Call & Growth ETF", "Global X", "US",
+         "https://dividendhistory.org/payout/QYLG/", "listing_only"),
+    Fund("XYLG", "Global X S&P 500 Covered Call & Growth ETF", "Global X", "US",
+         "https://dividendhistory.org/payout/XYLG/", "listing_only"),
+    Fund("RYLG", "Global X Russell 2000 Covered Call & Growth ETF", "Global X", "US",
+         "https://dividendhistory.org/payout/RYLG/", "listing_only"),
+    Fund("DJIA", "Global X Dow 30 Covered Call ETF", "Global X", "US",
+         "https://dividendhistory.org/payout/DJIA/", "listing_only"),
+    Fund("QRMI", "Global X Nasdaq 100 Risk Managed Income ETF", "Global X", "US",
+         "https://dividendhistory.org/payout/QRMI/", "listing_only"),
+    Fund("XRMI", "Global X S&P 500 Risk Managed Income ETF", "Global X", "US",
+         "https://dividendhistory.org/payout/XRMI/", "listing_only"),
+    Fund("EAPR", "Global X S&P 500 Tail Risk ETF", "Global X", "US",
+         "https://dividendhistory.org/payout/EAPR/", "listing_only"),
+    Fund("ISPY", "ProShares S&P 500 High Income ETF", "ProShares", "US",
+         "https://dividendhistory.org/payout/ISPY/", "listing_only"),
+    Fund("IQQQ", "ProShares Nasdaq-100 High Income ETF", "ProShares", "US",
+         "https://dividendhistory.org/payout/IQQQ/", "listing_only"),
+    Fund("JEPY", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
+         "https://dividendhistory.org/payout/JEPY/", "listing_only"),
+    Fund("ULTY", "YieldMax Ultra Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/ULTY/", "listing_only"),
+    Fund("YMAX", "YieldMax Universe Fund of Option Income ETFs", "YieldMax", "US",
+         "https://dividendhistory.org/payout/YMAX/", "listing_only"),
+    Fund("NVDY", "YieldMax NVDA Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/NVDY/", "listing_only"),
+    Fund("AMZY", "YieldMax AMZN Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/AMZY/", "listing_only"),
+    Fund("GOOY", "YieldMax GOOGL Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/GOOY/", "listing_only"),
+    Fund("FBY", "YieldMax META Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/FBY/", "listing_only"),
+    Fund("MSFO", "YieldMax MSFT Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/MSFO/", "listing_only"),
+    Fund("PLTY", "YieldMax PLTR Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/PLTY/", "listing_only"),
+    Fund("SMCY", "YieldMax SMCI Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/SMCY/", "listing_only"),
+    Fund("GDXY", "YieldMax Gold Miners Option Income Strategy ETF", "YieldMax", "US",
+         "https://dividendhistory.org/payout/GDXY/", "listing_only"),
+
 ]
 
 
@@ -509,6 +603,19 @@ def parse_hamilton(html: str) -> dict:
             continue
         holdings[ticker] = w
     return holdings
+
+def parse_listing_only(html: str) -> dict:
+    """No holdings — deliberately.
+
+    Some issuers render holdings behind JavaScript or a login, and inventing a
+    parser per issuer is a bigger job than it's worth for breadth. Listing a
+    fund with an empty holdings dict still gives it a price series, a full
+    distribution history from the fallback and therefore a computed yield, so
+    it is useful on the site and honest about what's missing. Holdings show as
+    unavailable rather than wrong.
+    """
+    return {}
+
 
 def parse_bmo(html: str) -> dict:
     """BMO moved to bmogam.com and renders holdings after page load, so this
@@ -1002,6 +1109,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "listing_only": parse_listing_only,
     "hamilton": parse_hamilton,
     "bmo": parse_bmo,
     "harvest": parse_harvest,
