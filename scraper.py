@@ -1082,6 +1082,78 @@ def distribution_summary(dists: list) -> dict:
     return out
 
 
+DH_BASE = "https://dividendhistory.org/payout/"
+DH_ATTRIBUTION = "dividendhistory.org"
+
+
+def dividendhistory_url(fund: Fund) -> str:
+    """Canadian listings — including Cboe Canada — live under /payout/tsx/.
+    The bare /payout/TICKER/ path 404s for them."""
+    prefix = "tsx/" if fund.region == "CAD" else ""
+    return f"{DH_BASE}{prefix}{fund.ticker.upper()}/"
+
+
+def parse_dividendhistory(html: str) -> list:
+    """Distribution history from dividendhistory.org.
+
+    Their table leads with FUTURE rows flagged 'unconfirmed/estimated' — for
+    HMAX that was two projected payments dated after today. Ingesting those
+    would inflate trailing-twelve-month totals and draw distributions on the
+    cadence chart that were never paid, so anything unconfirmed or dated in the
+    future is dropped. That rule is deliberate; don't relax it to gain rows.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    table = soup.find("table", id="dividend-table") or soup.find("table")
+    if not table:
+        return []
+
+    today = datetime.now(timezone.utc).date().isoformat()
+    out = []
+    for tr in table.find_all("tr")[1:]:
+        cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+        if len(cells) < 3:
+            continue
+        ex = _iso_date(cells[0])
+        if not ex or ex > today:
+            continue                                   # not paid yet
+        status = cells[3].lower() if len(cells) > 3 else ""
+        if "unconfirm" in status or "estimat" in status:
+            continue                                   # a projection, not a payment
+        m = AMOUNT_RE.search(cells[2])
+        if not m:
+            continue
+        rec = {"ex_date": ex,
+               "amount": round(float(m.group(1).replace(",", "")), 6),
+               "source": DH_ATTRIBUTION}
+        pay = _iso_date(cells[1])
+        if pay:
+            rec["pay_date"] = pay
+        out.append(rec)
+
+    out.sort(key=lambda r: r["ex_date"], reverse=True)
+    return out[:60]
+
+
+def fetch_dividendhistory(fund: Fund) -> list:
+    """Fallback only. Issuer-published history always wins, because it is the
+    primary record; this fills funds whose issuer publishes nothing parseable."""
+    url = dividendhistory_url(fund)
+    try:
+        log.info("  -> distributions fallback %s", url)
+        html = fetch(url)
+        time.sleep(DELAY_BETWEEN_REQUESTS)
+        rows = parse_dividendhistory(html)
+        if rows:
+            log.info("  -> %d distributions from %s, latest %s",
+                     len(rows), DH_ATTRIBUTION, rows[0]["ex_date"])
+        else:
+            log.info("  -> no usable rows at %s", url)
+        return rows
+    except Exception as exc:  # noqa: BLE001
+        log.warning("  -> %s failed for %s: %s", DH_ATTRIBUTION, fund.ticker, exc)
+        return []
+
+
 def profile_html(fund: Fund, holdings_html: str) -> str:
     """The page carrying key facts AND distribution history.
 
@@ -1172,7 +1244,12 @@ def run(registry: list[Fund]) -> list[Fund]:
                     fund.distributions = parse_distributions(page)
                     if not fund.distributions and page is not html:
                         fund.distributions = parse_distributions(html)
+                    for _d in fund.distributions:
+                        _d.setdefault("source", "issuer")
+                    if not fund.distributions:
+                        fund.distributions = fetch_dividendhistory(fund)
                     if fund.distributions:
+                        fund.stats["distribution_source"] = fund.distributions[0].get("source", "issuer")
                         fund.stats.update(distribution_summary(fund.distributions))
                         log.info("  -> %d distributions, latest %s",
                                  len(fund.distributions), fund.distributions[0]["ex_date"])
