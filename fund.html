@@ -465,7 +465,7 @@ fetch('data/funds.json')
   .then(data => {
     Object.entries(data).forEach(([t, v]) => {
       if(t.charAt(0) === '_') return;
-      if(v.fetched_ok && v.holdings && Object.keys(v.holdings).length){
+      if(v.holdings && Object.keys(v.holdings).length){  // carried-forward funds have real data too
         FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {}, as_of: v.as_of || '', stale: !!v.stale, distributions: v.distributions || [] };
       }
     });
