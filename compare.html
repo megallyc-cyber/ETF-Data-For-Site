@@ -186,7 +186,7 @@ fetch('data/funds.json')
   .then(data => {
     const live = {};
     Object.entries(data).forEach(([t,v]) => {
-      if(v.fetched_ok && v.holdings && Object.keys(v.holdings).length){
+      if(v.holdings && Object.keys(v.holdings).length){  // carried-forward funds have real data too
         live[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings };
       }
     });
