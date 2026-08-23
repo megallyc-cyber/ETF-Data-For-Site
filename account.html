@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account — Licentia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEEE7; --paper-raised:#F5F5F0; --ink:#152019; --ink-soft:#3F4A42;
+    --ink-faint:#6E766E; --gold:#C89B3C; --gold-deep:#8F6B22; --teal:#1F5C4E;
+    --teal-deep:#123D33; --rust:#A6452C;
+    --line:rgba(21,32,25,0.14); --line-strong:rgba(21,32,25,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  a{color:inherit;}
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 48px; border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:rgba(237,238,231,0.92); backdrop-filter:blur(8px); z-index:20;
+  }
+  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:-0.01em;}
+  .brand .dot{color:var(--gold-deep);}
+  .navlinks{display:flex; gap:32px; font-size:14px; color:var(--ink-soft);}
+  .navlinks a{cursor:pointer; transition:color .2s; text-decoration:none;}
+  .navlinks a:hover, .navlinks a.active{color:var(--ink);}
+  .navlinks a.active{color:var(--gold-deep); font-weight:500;}
+
+  .wrap{max-width:460px; margin:0 auto; padding:64px 24px 90px;}
+  h1{font-family:'Fraunces',serif; font-weight:500; font-size:34px; letter-spacing:-0.015em; line-height:1.15;}
+  .sub{color:var(--ink-soft); font-size:15px; margin-top:12px;}
+
+  .tabs{display:flex; gap:2px; margin:34px 0 0; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden;}
+  .tab{
+    flex:1; padding:11px 0; text-align:center; background:var(--paper-raised);
+    font-size:13.5px; color:var(--ink-soft); cursor:pointer; border:none;
+    font-family:inherit; transition:background .2s, color .2s;
+  }
+  .tab.active{background:var(--ink); color:var(--paper);}
+
+  form{margin-top:24px; display:flex; flex-direction:column; gap:16px;}
+  label{font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); display:block; margin-bottom:6px;}
+  input{
+    width:100%; padding:11px 13px; font-family:'Inter',sans-serif; font-size:14.5px;
+    border:1px solid var(--line-strong); border-radius:4px;
+    background:var(--paper-raised); color:var(--ink);
+  }
+  input:focus{outline:none; border-color:var(--ink);}
+  button.primary{
+    padding:12px 16px; border:1px solid var(--ink); border-radius:4px;
+    background:var(--ink); color:var(--paper); font-size:14px; cursor:pointer;
+    font-family:inherit; transition:opacity .2s;
+  }
+  button.primary:hover{opacity:.88;}
+  button.primary:disabled{opacity:.5; cursor:default;}
+  .ghost{
+    background:transparent; color:var(--ink-soft); border:1px solid var(--line-strong);
+    padding:9px 14px; border-radius:4px; font-size:13px; cursor:pointer; font-family:inherit;
+  }
+  .ghost:hover{border-color:var(--ink); color:var(--ink);}
+  .msg{
+    margin-top:18px; padding:12px 14px; border-radius:4px; font-size:13.5px;
+    border:1px solid var(--line-strong); background:var(--paper-raised);
+  }
+  .msg.bad{border-color:var(--rust); color:var(--rust);}
+  .msg.good{border-color:var(--teal); color:var(--teal-deep);}
+  .hint{font-size:12.5px; color:var(--ink-faint); margin-top:16px; line-height:1.6;}
+
+  .card{
+    border:1px solid var(--line); background:var(--paper-raised);
+    border-radius:4px; padding:22px 24px; margin-top:28px;
+  }
+  .row{display:flex; justify-content:space-between; gap:16px; padding:9px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .row:last-child{border-bottom:none;}
+  .row span:first-child{color:var(--ink-faint); font-size:12.5px; text-transform:uppercase; letter-spacing:0.06em;}
+  .mono{font-family:'IBM Plex Mono',monospace; font-size:12.5px;}
+  @media (max-width:640px){ nav{padding:16px 20px;} .navlinks{gap:18px; font-size:13px;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Licentia<span class="dot">.</span></div>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="funds.html">Covered Call Funds</a>
+    <a href="compare.html">Compare</a>
+    <a class="active" href="account.html">Account</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div id="stage"></div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+// Publishable key: designed to ship in the browser. Everything that actually
+// protects data is row-level security on the Supabase side, never this string.
+const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
+
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+const stage = document.getElementById('stage');
+let mode = 'signin';
+
+function say(text, kind) {
+  const el = document.getElementById('msg');
+  if (!el) return;
+  el.className = 'msg' + (kind ? ' ' + kind : '');
+  el.textContent = text;
+  el.style.display = 'block';
+}
+
+function authView() {
+  stage.innerHTML = `
+    <h1>Your account</h1>
+    <div class="sub">Save funds you're watching and the portfolios you build. Free while Licentia is in beta.</div>
+
+    <div class="tabs">
+      <button class="tab ${mode === 'signin' ? 'active' : ''}" data-mode="signin">Sign in</button>
+      <button class="tab ${mode === 'signup' ? 'active' : ''}" data-mode="signup">Create account</button>
+    </div>
+
+    <form id="authForm">
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required placeholder="you@example.com">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" required minlength="8"
+               autocomplete="${mode === 'signup' ? 'new-password' : 'current-password'}"
+               placeholder="At least 8 characters">
+      </div>
+      <button class="primary" type="submit" id="go">
+        ${mode === 'signup' ? 'Create account' : 'Sign in'}
+      </button>
+    </form>
+
+    <div class="msg" id="msg" style="display:none;"></div>
+    <div class="hint">${mode === 'signup'
+      ? 'We\\'ll email you a confirmation link. Nothing is shared, and you can delete your account at any time.'
+      : 'Signing in keeps your saved funds and portfolios on any device.'}</div>
+  `;
+
+  stage.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+    mode = b.dataset.mode;
+    authView();
+  }));
+
+  document.getElementById('authForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn = document.getElementById('go');
+    btn.disabled = true;
+    btn.textContent = mode === 'signup' ? 'Creating…' : 'Signing in…';
+
+    const { data, error } = mode === 'signup'
+      ? await sb.auth.signUp({ email, password })
+      : await sb.auth.signInWithPassword({ email, password });
+
+    btn.disabled = false;
+    btn.textContent = mode === 'signup' ? 'Create account' : 'Sign in';
+
+    if (error) {
+      // Supabase messages are usable as-is; don't wrap them in apology.
+      say(error.message, 'bad');
+      return;
+    }
+    if (mode === 'signup' && data.user && !data.session) {
+      say('Check ' + email + ' for a confirmation link, then sign in.', 'good');
+      return;
+    }
+    render();
+  });
+}
+
+function accountView(session) {
+  const u = session.user;
+  const created = u.created_at ? new Date(u.created_at).toISOString().slice(0, 10) : '—';
+  stage.innerHTML = `
+    <h1>Signed in</h1>
+    <div class="sub">This is your Licentia account. Saved funds and portfolios will appear here.</div>
+    <div class="card">
+      <div class="row"><span>Email</span><span class="mono">${u.email}</span></div>
+      <div class="row"><span>Member since</span><span class="mono">${created}</span></div>
+      <div class="row"><span>User ID</span><span class="mono">${u.id.slice(0, 8)}…</span></div>
+    </div>
+    <div style="margin-top:22px; display:flex; gap:10px;">
+      <button class="ghost" id="out">Sign out</button>
+      <a class="ghost" href="funds.html" style="text-decoration:none;">Browse funds</a>
+    </div>
+    <div class="msg" id="msg" style="display:none;"></div>
+  `;
+  document.getElementById('out').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    render();
+  });
+}
+
+async function render() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) accountView(session); else authView();
+}
+
+sb.auth.onAuthStateChange(() => render());
+render();
+</script>
+</body>
+</html>
