@@ -1,15 +1,57 @@
 {
+  "AEME": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "AEME.TO"
+  },
   "AGG": {
     "bars": 464,
     "first": "2024-10-17",
     "last": "2026-08-21",
     "symbol": "AGG.TO"
   },
+  "AIPI": {
+    "bars": 556,
+    "first": "2024-06-04",
+    "last": "2026-08-21",
+    "symbol": "AIPI"
+  },
   "AMAX": {
     "bars": 638,
     "first": "2024-02-07",
     "last": "2026-08-21",
     "symbol": "AMAX.TO"
+  },
+  "AMDY": {
+    "bars": 368,
+    "first": "2025-03-06",
+    "last": "2026-08-21",
+    "symbol": "AMDY.TO"
+  },
+  "AMHE": {
+    "bars": 502,
+    "first": "2024-08-22",
+    "last": "2026-08-21",
+    "symbol": "AMHE.TO"
+  },
+  "AMZH": {
+    "bars": 503,
+    "first": "2024-08-21",
+    "last": "2026-08-21",
+    "symbol": "AMZH.TO"
+  },
+  "AMZY": {
+    "bars": 773,
+    "first": "2023-07-25",
+    "last": "2026-08-21",
+    "symbol": "AMZY"
+  },
+  "APLE": {
+    "bars": 298,
+    "first": "2025-06-16",
+    "last": "2026-08-21",
+    "symbol": "APLE.TO"
   },
   "APLY": {
     "bars": 921,
@@ -23,6 +65,18 @@
     "last": "2026-08-20",
     "symbol": "ATDY.NE"
   },
+  "AVGY": {
+    "bars": 369,
+    "first": "2025-03-05",
+    "last": "2026-08-21",
+    "symbol": "AVGY.TO"
+  },
+  "BALI": {
+    "bars": 727,
+    "first": "2023-09-28",
+    "last": "2026-08-21",
+    "symbol": "BALI"
+  },
   "BANK": {
     "bars": 1143,
     "first": "2022-02-02",
@@ -34,6 +88,12 @@
     "first": "2019-06-13",
     "last": "2026-08-21",
     "symbol": "BASE.TO"
+  },
+  "BCEE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "BCEE.TO"
   },
   "BDAY": {
     "bars": 41,
@@ -58,6 +118,18 @@
     "first": "2023-07-18",
     "last": "2026-08-21",
     "symbol": "BKCL.TO"
+  },
+  "BLKY": {
+    "bars": 152,
+    "first": "2026-01-15",
+    "last": "2026-08-21",
+    "symbol": "BLKY.TO"
+  },
+  "BNDI": {
+    "bars": 998,
+    "first": "2022-08-30",
+    "last": "2026-08-21",
+    "symbol": "BNDI"
   },
   "BNSY": {
     "bars": 249,
@@ -101,6 +173,12 @@
     "last": "2026-08-21",
     "symbol": "CANY.TO"
   },
+  "CCOE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "CCOE.TO"
+  },
   "CDAY": {
     "bars": 277,
     "first": "2025-07-14",
@@ -131,11 +209,53 @@
     "last": "2026-08-21",
     "symbol": "CNCL.TO"
   },
+  "CNQE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "CNQE.TO"
+  },
   "CNQY": {
     "bars": 249,
     "first": "2025-08-25",
     "last": "2026-08-21",
     "symbol": "CNQY.NE"
+  },
+  "CNYE": {
+    "bars": 369,
+    "first": "2025-03-05",
+    "last": "2026-08-21",
+    "symbol": "CNYE.TO"
+  },
+  "CONY": {
+    "bars": 149,
+    "first": "2026-01-20",
+    "last": "2026-08-21",
+    "symbol": "CONY.TO"
+  },
+  "COSY": {
+    "bars": 369,
+    "first": "2025-03-05",
+    "last": "2026-08-21",
+    "symbol": "COSY.TO"
+  },
+  "CRCY": {
+    "bars": 224,
+    "first": "2025-10-01",
+    "last": "2026-08-21",
+    "symbol": "CRCY.TO"
+  },
+  "CRWY": {
+    "bars": 152,
+    "first": "2026-01-15",
+    "last": "2026-08-21",
+    "symbol": "CRWY.TO"
+  },
+  "CSHI": {
+    "bars": 998,
+    "first": "2022-08-30",
+    "last": "2026-08-21",
+    "symbol": "CSHI"
   },
   "CUTE": {
     "bars": 26,
@@ -148,6 +268,12 @@
     "first": "2016-12-15",
     "last": "2026-08-21",
     "symbol": "DIVO"
+  },
+  "DJIA": {
+    "bars": 1127,
+    "first": "2022-02-24",
+    "last": "2026-08-21",
+    "symbol": "DJIA"
   },
   "DOLY": {
     "bars": 249,
@@ -197,6 +323,12 @@
     "last": "2026-08-21",
     "symbol": "EMCL.NE"
   },
+  "ENBE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "ENBE.TO"
+  },
   "ENBY": {
     "bars": 249,
     "first": "2025-08-25",
@@ -239,11 +371,29 @@
     "last": "2026-08-21",
     "symbol": "ETSX.TO"
   },
+  "FBY": {
+    "bars": 770,
+    "first": "2023-07-28",
+    "last": "2026-08-21",
+    "symbol": "FBY"
+  },
+  "FEPI": {
+    "bars": 718,
+    "first": "2023-10-11",
+    "last": "2026-08-21",
+    "symbol": "FEPI"
+  },
   "FMAX": {
     "bars": 638,
     "first": "2024-02-07",
     "last": "2026-08-21",
     "symbol": "FMAX.TO"
+  },
+  "GDXY": {
+    "bars": 565,
+    "first": "2024-05-21",
+    "last": "2026-08-21",
+    "symbol": "GDXY"
   },
   "GLCC": {
     "bars": 2510,
@@ -256,6 +406,30 @@
     "first": "2026-01-20",
     "last": "2026-08-21",
     "symbol": "GLCL.TO"
+  },
+  "GOGY": {
+    "bars": 368,
+    "first": "2025-03-06",
+    "last": "2026-08-21",
+    "symbol": "GOGY.TO"
+  },
+  "GOOY": {
+    "bars": 770,
+    "first": "2023-07-28",
+    "last": "2026-08-21",
+    "symbol": "GOOY"
+  },
+  "GPIQ": {
+    "bars": 706,
+    "first": "2023-10-27",
+    "last": "2026-08-21",
+    "symbol": "GPIQ"
+  },
+  "GPIX": {
+    "bars": 706,
+    "first": "2023-10-27",
+    "last": "2026-08-21",
+    "symbol": "GPIX"
   },
   "GRCC": {
     "bars": 720,
@@ -299,6 +473,24 @@
     "last": "2026-08-21",
     "symbol": "HGR.TO"
   },
+  "HHIC": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "HHIC.TO"
+  },
+  "HHIH": {
+    "bars": 254,
+    "first": "2025-08-19",
+    "last": "2026-08-21",
+    "symbol": "HHIH.TO"
+  },
+  "HHIS": {
+    "bars": 402,
+    "first": "2025-01-16",
+    "last": "2026-08-21",
+    "symbol": "HHIS.TO"
+  },
   "HHL": {
     "bars": 2510,
     "first": "2016-08-22",
@@ -328,6 +520,12 @@
     "first": "2023-01-23",
     "last": "2026-08-21",
     "symbol": "HMAX.TO"
+  },
+  "HODY": {
+    "bars": 224,
+    "first": "2025-10-01",
+    "last": "2026-08-21",
+    "symbol": "HODY.TO"
   },
   "HPF": {
     "bars": 2510,
@@ -383,6 +581,18 @@
     "last": "2026-08-21",
     "symbol": "HUTL.TO"
   },
+  "HYBI": {
+    "bars": 475,
+    "first": "2024-09-30",
+    "last": "2026-08-21",
+    "symbol": "HYBI"
+  },
+  "HYGW": {
+    "bars": 1004,
+    "first": "2022-08-22",
+    "last": "2026-08-21",
+    "symbol": "HYGW"
+  },
   "HYLD": {
     "bars": 1139,
     "first": "2022-02-08",
@@ -413,6 +623,18 @@
     "last": "2026-08-21",
     "symbol": "INTY.TO"
   },
+  "IQQQ": {
+    "bars": 608,
+    "first": "2024-03-20",
+    "last": "2026-08-21",
+    "symbol": "IQQQ"
+  },
+  "ISPY": {
+    "bars": 669,
+    "first": "2023-12-20",
+    "last": "2026-08-21",
+    "symbol": "ISPY"
+  },
   "IWMI": {
     "bars": 542,
     "first": "2024-06-25",
@@ -437,6 +659,24 @@
     "last": "2026-08-21",
     "symbol": "JEPQ"
   },
+  "JEPY": {
+    "bars": 709,
+    "first": "2023-09-18",
+    "last": "2026-07-17",
+    "symbol": "JEPY"
+  },
+  "JNJY": {
+    "bars": 152,
+    "first": "2026-01-15",
+    "last": "2026-08-21",
+    "symbol": "JNJY.TO"
+  },
+  "JPHE": {
+    "bars": 152,
+    "first": "2026-01-15",
+    "last": "2026-08-21",
+    "symbol": "JPHE.TO"
+  },
   "LEAD": {
     "bars": 1491,
     "first": "2020-09-14",
@@ -449,11 +689,35 @@
     "last": "2026-08-21",
     "symbol": "LIFE.TO"
   },
+  "LLHE": {
+    "bars": 502,
+    "first": "2024-08-22",
+    "last": "2026-08-21",
+    "symbol": "LLHE.TO"
+  },
+  "LLYH": {
+    "bars": 503,
+    "first": "2024-08-21",
+    "last": "2026-08-21",
+    "symbol": "LLYH.TO"
+  },
   "LMAX": {
     "bars": 638,
     "first": "2024-02-07",
     "last": "2026-08-21",
     "symbol": "LMAX.TO"
+  },
+  "LQDW": {
+    "bars": 1002,
+    "first": "2022-08-24",
+    "last": "2026-08-21",
+    "symbol": "LQDW"
+  },
+  "METE": {
+    "bars": 149,
+    "first": "2026-01-20",
+    "last": "2026-08-21",
+    "symbol": "METE.TO"
   },
   "MIDB": {
     "bars": 353,
@@ -467,11 +731,89 @@
     "last": "2026-08-21",
     "symbol": "MLPI"
   },
+  "MSFH": {
+    "bars": 503,
+    "first": "2024-08-21",
+    "last": "2026-08-21",
+    "symbol": "MSFH.TO"
+  },
+  "MSFO": {
+    "bars": 750,
+    "first": "2023-08-25",
+    "last": "2026-08-21",
+    "symbol": "MSFO"
+  },
   "MSFY": {
     "bars": 651,
     "first": "2024-01-18",
     "last": "2026-08-21",
     "symbol": "MSFY.NE"
+  },
+  "MSHE": {
+    "bars": 502,
+    "first": "2024-08-22",
+    "last": "2026-08-21",
+    "symbol": "MSHE.TO"
+  },
+  "MSTE": {
+    "bars": 369,
+    "first": "2025-03-05",
+    "last": "2026-08-21",
+    "symbol": "MSTE.TO"
+  },
+  "MSTY": {
+    "bars": 402,
+    "first": "2025-01-16",
+    "last": "2026-08-21",
+    "symbol": "MSTY.TO"
+  },
+  "NEHI": {
+    "bars": 180,
+    "first": "2025-12-03",
+    "last": "2026-08-21",
+    "symbol": "NEHI"
+  },
+  "NFLY": {
+    "bars": 369,
+    "first": "2025-03-05",
+    "last": "2026-08-21",
+    "symbol": "NFLY.TO"
+  },
+  "NIHI": {
+    "bars": 234,
+    "first": "2025-09-17",
+    "last": "2026-08-21",
+    "symbol": "NIHI"
+  },
+  "NLSI": {
+    "bars": 175,
+    "first": "2025-12-10",
+    "last": "2026-08-21",
+    "symbol": "NLSI"
+  },
+  "NOVY": {
+    "bars": 152,
+    "first": "2026-01-15",
+    "last": "2026-08-21",
+    "symbol": "NOVY.TO"
+  },
+  "NVDH": {
+    "bars": 502,
+    "first": "2024-08-22",
+    "last": "2026-08-21",
+    "symbol": "NVDH.TO"
+  },
+  "NVDY": {
+    "bars": 823,
+    "first": "2023-05-11",
+    "last": "2026-08-21",
+    "symbol": "NVDY"
+  },
+  "NVHE": {
+    "bars": 502,
+    "first": "2024-08-22",
+    "last": "2026-08-21",
+    "symbol": "NVHE.TO"
   },
   "OILY": {
     "bars": 352,
@@ -479,11 +821,35 @@
     "last": "2026-08-21",
     "symbol": "OILY.TO"
   },
+  "ORCY": {
+    "bars": 152,
+    "first": "2026-01-15",
+    "last": "2026-08-21",
+    "symbol": "ORCY.TO"
+  },
+  "PLTE": {
+    "bars": 149,
+    "first": "2026-01-20",
+    "last": "2026-08-21",
+    "symbol": "PLTE.TO"
+  },
+  "PLTY": {
+    "bars": 469,
+    "first": "2024-10-08",
+    "last": "2026-08-21",
+    "symbol": "PLTY"
+  },
   "QDAY": {
     "bars": 277,
     "first": "2025-07-14",
     "last": "2026-08-21",
     "symbol": "QDAY.NE"
+  },
+  "QDTE": {
+    "bars": 617,
+    "first": "2024-03-07",
+    "last": "2026-08-21",
+    "symbol": "QDTE"
   },
   "QDVO": {
     "bars": 501,
@@ -509,11 +875,23 @@
     "last": "2026-08-21",
     "symbol": "QQQI"
   },
+  "QQQT": {
+    "bars": 544,
+    "first": "2024-06-21",
+    "last": "2026-08-21",
+    "symbol": "QQQT"
+  },
   "QQQY": {
     "bars": 721,
     "first": "2023-10-10",
     "last": "2026-08-21",
     "symbol": "QQQY.TO"
+  },
+  "QRMI": {
+    "bars": 1252,
+    "first": "2021-08-26",
+    "last": "2026-08-21",
+    "symbol": "QRMI"
   },
   "QYLD": {
     "bars": 2514,
@@ -521,11 +899,29 @@
     "last": "2026-08-21",
     "symbol": "QYLD"
   },
+  "QYLG": {
+    "bars": 1485,
+    "first": "2020-09-23",
+    "last": "2026-08-21",
+    "symbol": "QYLG"
+  },
   "RBCY": {
     "bars": 249,
     "first": "2025-08-25",
     "last": "2026-08-21",
     "symbol": "RBCY.NE"
+  },
+  "RDDY": {
+    "bars": 224,
+    "first": "2025-10-01",
+    "last": "2026-08-21",
+    "symbol": "RDDY.TO"
+  },
+  "RDTE": {
+    "bars": 489,
+    "first": "2024-09-10",
+    "last": "2026-08-21",
+    "symbol": "RDTE"
   },
   "RMAX": {
     "bars": 545,
@@ -533,17 +929,35 @@
     "last": "2026-08-21",
     "symbol": "RMAX.TO"
   },
+  "RYHE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "RYHE.TO"
+  },
   "RYLD": {
     "bars": 1845,
     "first": "2019-04-22",
     "last": "2026-08-21",
     "symbol": "RYLD"
   },
+  "RYLG": {
+    "bars": 973,
+    "first": "2022-10-05",
+    "last": "2026-08-21",
+    "symbol": "RYLG"
+  },
   "SDAY": {
     "bars": 277,
     "first": "2025-07-14",
     "last": "2026-08-21",
     "symbol": "SDAY.NE"
+  },
+  "SHPE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "SHPE.TO"
   },
   "SHPY": {
     "bars": 249,
@@ -563,6 +977,24 @@
     "last": "2026-08-21",
     "symbol": "SMAX.TO"
   },
+  "SMCY": {
+    "bars": 487,
+    "first": "2024-09-12",
+    "last": "2026-08-21",
+    "symbol": "SMCY"
+  },
+  "SOFY": {
+    "bars": 224,
+    "first": "2025-10-01",
+    "last": "2026-08-21",
+    "symbol": "SOFY.TO"
+  },
+  "SPXE": {
+    "bars": 48,
+    "first": "2026-06-15",
+    "last": "2026-08-21",
+    "symbol": "SPXE.TO"
+  },
   "SPXY": {
     "bars": 47,
     "first": "2026-06-16",
@@ -581,6 +1013,24 @@
     "last": "2026-08-21",
     "symbol": "SPYI"
   },
+  "SPYT": {
+    "bars": 617,
+    "first": "2024-03-07",
+    "last": "2026-08-21",
+    "symbol": "SPYT"
+  },
+  "SUHE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "SUHE.TO"
+  },
+  "TDHE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "TDHE.TO"
+  },
   "TDY": {
     "bars": 249,
     "first": "2025-08-25",
@@ -593,17 +1043,41 @@
     "last": "2026-08-21",
     "symbol": "TECY.TO"
   },
+  "TEHE": {
+    "bars": 252,
+    "first": "2025-08-21",
+    "last": "2026-08-21",
+    "symbol": "TEHE.TO"
+  },
+  "TLTW": {
+    "bars": 1003,
+    "first": "2022-08-23",
+    "last": "2026-08-21",
+    "symbol": "TLTW"
+  },
   "TRVI": {
     "bars": 845,
     "first": "2023-04-12",
     "last": "2026-08-21",
     "symbol": "TRVI.TO"
   },
+  "TSLY": {
+    "bars": 402,
+    "first": "2025-01-16",
+    "last": "2026-08-21",
+    "symbol": "TSLY.TO"
+  },
   "TY": {
     "bars": 249,
     "first": "2025-08-25",
     "last": "2026-08-21",
     "symbol": "TY.NE"
+  },
+  "ULTY": {
+    "bars": 622,
+    "first": "2024-02-29",
+    "last": "2026-08-21",
+    "symbol": "ULTY"
   },
   "UMAX": {
     "bars": 800,
@@ -617,11 +1091,47 @@
     "last": "2026-08-21",
     "symbol": "UTES.TO"
   },
+  "XBCI": {
+    "bars": 139,
+    "first": "2026-02-03",
+    "last": "2026-08-21",
+    "symbol": "XBCI"
+  },
+  "XDTE": {
+    "bars": 617,
+    "first": "2024-03-07",
+    "last": "2026-08-21",
+    "symbol": "XDTE"
+  },
+  "XQQI": {
+    "bars": 139,
+    "first": "2026-02-03",
+    "last": "2026-08-21",
+    "symbol": "XQQI"
+  },
+  "XRMI": {
+    "bars": 1252,
+    "first": "2021-08-26",
+    "last": "2026-08-21",
+    "symbol": "XRMI"
+  },
+  "XSPI": {
+    "bars": 139,
+    "first": "2026-02-03",
+    "last": "2026-08-21",
+    "symbol": "XSPI"
+  },
   "XYLD": {
     "bars": 2514,
     "first": "2016-08-22",
     "last": "2026-08-21",
     "symbol": "XYLD"
+  },
+  "XYLG": {
+    "bars": 1477,
+    "first": "2020-10-05",
+    "last": "2026-08-21",
+    "symbol": "XYLG"
   },
   "YAMD": {
     "bars": 446,
@@ -664,6 +1174,12 @@
     "first": "2025-02-19",
     "last": "2026-08-21",
     "symbol": "YMAG.NE"
+  },
+  "YMAX": {
+    "bars": 652,
+    "first": "2024-01-17",
+    "last": "2026-08-21",
+    "symbol": "YMAX"
   },
   "YMET": {
     "bars": 446,
