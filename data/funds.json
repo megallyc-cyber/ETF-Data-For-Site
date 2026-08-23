@@ -31,7 +31,9 @@
       "ttm_payments": 12,
       "price": 23.905,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.21
+      "yield_ttm": 9.21,
+      "total_return_1y": 39.82,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -491,7 +493,9 @@
       "ttm_payments": 12,
       "price": 16.02,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.56
+      "yield_ttm": 11.56,
+      "total_return_1y": 29.77,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -910,7 +914,9 @@
       "ttm_payments": 12,
       "price": 17.45,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.39
+      "yield_ttm": 11.39,
+      "total_return_1y": 32.39,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -1239,7 +1245,9 @@
       "ttm_payments": 3,
       "price": 16.41,
       "price_date": "2026-08-21",
-      "yield_ttm": 2.71
+      "yield_ttm": 2.71,
+      "total_return_1y": 4.51,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -1291,7 +1299,9 @@
       "ttm_payments": 3,
       "price": 16.52,
       "price_date": "2026-08-21",
-      "yield_ttm": 2.43
+      "yield_ttm": 2.43,
+      "total_return_1y": 6.07,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -1368,7 +1378,9 @@
       "ttm_payments": 12,
       "price": 22.26,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.12
+      "yield_ttm": 10.12,
+      "total_return_1y": 27.16,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -1643,7 +1655,9 @@
       "ttm_payments": 12,
       "price": 12.98,
       "price_date": "2026-08-21",
-      "yield_ttm": 14.4
+      "yield_ttm": 14.4,
+      "total_return_1y": 8.11,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -1948,7 +1962,9 @@
       "ttm_payments": 12,
       "price": 24.69,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.2
+      "yield_ttm": 10.2,
+      "total_return_1y": 23.76,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -2225,7 +2241,9 @@
       "ttm_payments": 12,
       "price": 38.79,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.33
+      "yield_ttm": 8.33,
+      "total_return_1y": 50.02,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -2486,7 +2504,9 @@
       "ttm_payments": 12,
       "price": 17.815,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.69
+      "yield_ttm": 9.69,
+      "total_return_1y": 45.7,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -2747,7 +2767,9 @@
       "ttm_payments": 12,
       "price": 14.35,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.95
+      "yield_ttm": 11.95,
+      "total_return_1y": 17.76,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -3008,7 +3030,9 @@
       "ttm_payments": 12,
       "price": 17.86,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.7
+      "yield_ttm": 11.7,
+      "total_return_1y": 5.49,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -3269,7 +3293,9 @@
       "ttm_payments": 12,
       "price": 16.44,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.62
+      "yield_ttm": 10.62,
+      "total_return_1y": 6.33,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -3475,7 +3501,9 @@
       "ttm_payments": 24,
       "price": 27.6603,
       "price_date": "2026-08-21",
-      "yield_ttm": 16.49
+      "yield_ttm": 16.49,
+      "total_return_1y": 33.14,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -3688,7 +3716,9 @@
       "ttm_payments": 24,
       "price": 24.2932,
       "price_date": "2026-08-21",
-      "yield_ttm": 17.96
+      "yield_ttm": 17.96,
+      "total_return_1y": 16.62,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -3901,7 +3931,9 @@
       "ttm_payments": 24,
       "price": 28.0682,
       "price_date": "2026-08-21",
-      "yield_ttm": 17.84
+      "yield_ttm": 17.84,
+      "total_return_1y": 36.69,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -4114,7 +4146,9 @@
       "ttm_payments": 3,
       "price": 29.1,
       "price_date": "2026-08-21",
-      "yield_ttm": 1.96
+      "yield_ttm": 1.96,
+      "total_return_1y": 24.06,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -4158,7 +4192,9 @@
       "ttm_payments": 12,
       "price": 30.03,
       "price_date": "2026-08-21",
-      "yield_ttm": 5.09
+      "yield_ttm": 5.09,
+      "total_return_1y": 47.13,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -4541,7 +4577,9 @@
       "ttm_payments": 12,
       "price": 22.93,
       "price_date": "2026-08-21",
-      "yield_ttm": 5.65
+      "yield_ttm": 5.65,
+      "total_return_1y": 27.47,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -4924,7 +4962,9 @@
       "ttm_payments": 12,
       "price": 11.36,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.39
+      "yield_ttm": 7.39,
+      "total_return_1y": 6.44,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -5338,7 +5378,9 @@
       "ttm_payments": 12,
       "price": 7.7,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.35
+      "yield_ttm": 9.35,
+      "total_return_1y": 15.37,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -5812,7 +5854,9 @@
       "ttm_payments": 12,
       "price": 22.33,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.15
+      "yield_ttm": 8.15,
+      "total_return_1y": 31.87,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -6286,7 +6330,9 @@
       "ttm_payments": 12,
       "price": 11.015,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.72
+      "yield_ttm": 7.72,
+      "total_return_1y": 16.4,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -6769,7 +6815,9 @@
       "ttm_payments": 12,
       "price": 19.21,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.9
+      "yield_ttm": 7.9,
+      "total_return_1y": 10.57,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -7247,7 +7295,9 @@
       "ttm_payments": 12,
       "price": 5.31,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.05
+      "yield_ttm": 10.05,
+      "total_return_1y": 2.0,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -7720,7 +7770,9 @@
       "ttm_payments": 12,
       "price": 4.12,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.28
+      "yield_ttm": 7.28,
+      "total_return_1y": 47.33,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -8189,7 +8241,9 @@
       "ttm_payments": 12,
       "price": 15.06,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.97
+      "yield_ttm": 7.97,
+      "total_return_1y": 18.96,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -8671,7 +8725,9 @@
       "ttm_payments": 12,
       "price": 12.88,
       "price_date": "2026-08-21",
-      "yield_ttm": 6.07
+      "yield_ttm": 6.07,
+      "total_return_1y": 33.96,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -9076,7 +9132,9 @@
       "ttm_payments": 12,
       "price": 20.44,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.08
+      "yield_ttm": 10.08,
+      "total_return_1y": 6.32,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -9402,7 +9460,9 @@
       "ttm_payments": 12,
       "price": 13.71,
       "price_date": "2026-08-21",
-      "yield_ttm": 6.89
+      "yield_ttm": 6.89,
+      "total_return_1y": 20.19,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -9632,7 +9692,9 @@
       "ttm_payments": 12,
       "price": 18.27,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.99
+      "yield_ttm": 7.99,
+      "total_return_1y": 18.59,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -9942,7 +10004,9 @@
       "ttm_payments": 12,
       "price": 7.53,
       "price_date": "2026-08-21",
-      "yield_ttm": 16.87
+      "yield_ttm": 16.87,
+      "total_return_1y": -1.82,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -10215,7 +10279,9 @@
       "ttm_payments": 12,
       "price": 9.96,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.14
+      "yield_ttm": 9.14,
+      "total_return_1y": -0.11,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -10470,7 +10536,9 @@
       "ttm_payments": 12,
       "price": 24.55,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.82
+      "yield_ttm": 7.82,
+      "total_return_1y": 11.15,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -10697,7 +10765,9 @@
       "ttm_payments": 12,
       "price": 9.2,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.18
+      "yield_ttm": 12.18,
+      "total_return_1y": 18.35,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -11043,7 +11113,9 @@
       "ttm_payments": 12,
       "price": 20.39,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.93
+      "yield_ttm": 9.93,
+      "total_return_1y": 38.6,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -11389,7 +11461,9 @@
       "ttm_payments": 12,
       "price": 11.525,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.59
+      "yield_ttm": 9.59,
+      "total_return_1y": 12.75,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -11748,7 +11822,9 @@
       "ttm_payments": 12,
       "price": 24.11,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.95
+      "yield_ttm": 9.95,
+      "total_return_1y": 13.07,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -11984,7 +12060,9 @@
       "ttm_payments": 12,
       "price": 9.7,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.31
+      "yield_ttm": 10.31,
+      "total_return_1y": 24.2,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -12380,7 +12458,9 @@
       "ttm_payments": 11,
       "price": 14.36,
       "price_date": "2026-08-21",
-      "yield_ttm": 20.82
+      "yield_ttm": 20.82,
+      "total_return_1y": 37.77,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -12471,7 +12551,9 @@
       "ttm_payments": 12,
       "price": 36.31,
       "price_date": "2026-08-21",
-      "yield_ttm": 19.03
+      "yield_ttm": 19.03,
+      "total_return_1y": 167.23,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -12598,7 +12680,9 @@
       "ttm_payments": 12,
       "price": 13.78,
       "price_date": "2026-08-21",
-      "yield_ttm": 14.66
+      "yield_ttm": 14.66,
+      "total_return_1y": 14.48,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -12762,7 +12846,9 @@
       "ttm_payments": 12,
       "price": 13.64,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.46
+      "yield_ttm": 12.46,
+      "total_return_1y": 13.75,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -12925,7 +13011,9 @@
       "ttm_payments": 12,
       "price": 17.65,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.5
+      "yield_ttm": 11.5,
+      "total_return_1y": 38.57,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -13028,7 +13116,9 @@
       "ttm_payments": 12,
       "price": 17.77,
       "price_date": "2026-08-21",
-      "yield_ttm": 29.15
+      "yield_ttm": 29.15,
+      "total_return_1y": 35.22,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -13155,7 +13245,9 @@
       "ttm_payments": 11,
       "price": 9.93,
       "price_date": "2026-08-21",
-      "yield_ttm": 15.51
+      "yield_ttm": 15.51,
+      "total_return_1y": -3.64,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -13246,7 +13338,9 @@
       "ttm_payments": 6,
       "price": 13.15,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.25
+      "yield_ttm": 11.25,
+      "total_return_1y": 30.98,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -13307,7 +13401,9 @@
       "ttm_payments": 11,
       "price": 13.37,
       "price_date": "2026-08-21",
-      "yield_ttm": 25.8
+      "yield_ttm": 25.8,
+      "total_return_1y": 36.78,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -13398,7 +13494,9 @@
       "ttm_payments": 11,
       "price": 18.33,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.95
+      "yield_ttm": 11.95,
+      "total_return_1y": 63.27,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -13489,7 +13587,9 @@
       "ttm_payments": 12,
       "price": 4.87,
       "price_date": "2026-08-21",
-      "yield_ttm": 72.69
+      "yield_ttm": 72.69,
+      "total_return_1y": -45.94,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -13617,7 +13717,9 @@
       "ttm_payments": 12,
       "price": 5.25,
       "price_date": "2026-08-21",
-      "yield_ttm": 50.29
+      "yield_ttm": 50.29,
+      "total_return_1y": -13.11,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -13750,7 +13852,9 @@
       "ttm_payments": 12,
       "price": 8.79,
       "price_date": "2026-08-21",
-      "yield_ttm": 13.65
+      "yield_ttm": 13.65,
+      "total_return_1y": 1.39,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -13877,7 +13981,9 @@
       "ttm_payments": 10,
       "price": 4.01,
       "price_date": "2026-08-21",
-      "yield_ttm": 62.34
+      "yield_ttm": 62.34,
+      "total_return_1y": -48.81,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -13962,7 +14068,9 @@
       "ttm_payments": 6,
       "price": 17.28,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.61
+      "yield_ttm": 9.61,
+      "total_return_1y": 71.23,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -14023,7 +14131,9 @@
       "ttm_payments": 11,
       "price": 11.78,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.14
+      "yield_ttm": 12.14,
+      "total_return_1y": 8.15,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -14114,7 +14224,9 @@
       "ttm_payments": 12,
       "price": 20.06,
       "price_date": "2026-08-21",
-      "yield_ttm": 15.35
+      "yield_ttm": 15.35,
+      "total_return_1y": 70.75,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -14250,7 +14362,9 @@
       "ttm_payments": 11,
       "price": 14.5,
       "price_date": "2026-08-21",
-      "yield_ttm": 13.52
+      "yield_ttm": 13.52,
+      "total_return_1y": 34.58,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -14360,7 +14474,9 @@
       "ttm_payments": 11,
       "price": 11.03,
       "price_date": "2026-08-21",
-      "yield_ttm": 18.45
+      "yield_ttm": 18.45,
+      "total_return_1y": 12.67,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -14470,7 +14586,9 @@
       "ttm_payments": 12,
       "price": 11.15,
       "price_date": "2026-08-21",
-      "yield_ttm": 28.61
+      "yield_ttm": 28.61,
+      "total_return_1y": 14.18,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -14603,7 +14721,9 @@
       "ttm_payments": 10,
       "price": 7.08,
       "price_date": "2026-08-21",
-      "yield_ttm": 34.75
+      "yield_ttm": 34.75,
+      "total_return_1y": -29.94,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -14688,7 +14808,9 @@
       "ttm_payments": 6,
       "price": 14.54,
       "price_date": "2026-08-21",
-      "yield_ttm": 5.16
+      "yield_ttm": 5.16,
+      "total_return_1y": 23.74,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -14749,7 +14871,9 @@
       "ttm_payments": 6,
       "price": 12.71,
       "price_date": "2026-08-21",
-      "yield_ttm": 6.61
+      "yield_ttm": 6.61,
+      "total_return_1y": 14.21,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -14810,7 +14934,9 @@
       "ttm_payments": 12,
       "price": 10.77,
       "price_date": "2026-08-21",
-      "yield_ttm": 18.57
+      "yield_ttm": 18.57,
+      "total_return_1y": 83.81,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -14974,7 +15100,9 @@
       "ttm_payments": 12,
       "price": 11.41,
       "price_date": "2026-08-21",
-      "yield_ttm": 15.86
+      "yield_ttm": 15.86,
+      "total_return_1y": 64.24,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -15137,7 +15265,9 @@
       "ttm_payments": 12,
       "price": 7.33,
       "price_date": "2026-08-21",
-      "yield_ttm": 30.7
+      "yield_ttm": 30.7,
+      "total_return_1y": -10.98,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -15271,7 +15401,9 @@
       "ttm_payments": 12,
       "price": 9.97,
       "price_date": "2026-08-21",
-      "yield_ttm": 16.85
+      "yield_ttm": 16.85,
+      "total_return_1y": -5.24,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -15434,7 +15566,9 @@
       "ttm_payments": 12,
       "price": 9.32,
       "price_date": "2026-08-21",
-      "yield_ttm": 20.6
+      "yield_ttm": 20.6,
+      "total_return_1y": -9.11,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -15597,7 +15731,9 @@
       "ttm_payments": 12,
       "price": 2.2,
       "price_date": "2026-08-21",
-      "yield_ttm": 140.91
+      "yield_ttm": 140.91,
+      "total_return_1y": -73.26,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -15725,7 +15861,9 @@
       "ttm_payments": 12,
       "price": 2.52,
       "price_date": "2026-08-21",
-      "yield_ttm": 83.73
+      "yield_ttm": 83.73,
+      "total_return_1y": -68.89,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -15858,7 +15996,9 @@
       "ttm_payments": 12,
       "price": 6.43,
       "price_date": "2026-08-21",
-      "yield_ttm": 31.1
+      "yield_ttm": 31.1,
+      "total_return_1y": -40.21,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -15985,7 +16125,9 @@
       "ttm_payments": 6,
       "price": 7.65,
       "price_date": "2026-08-21",
-      "yield_ttm": 15.16
+      "yield_ttm": 15.16,
+      "total_return_1y": -21.0,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -16046,7 +16188,9 @@
       "ttm_payments": 12,
       "price": 13.71,
       "price_date": "2026-08-21",
-      "yield_ttm": 17.07
+      "yield_ttm": 17.07,
+      "total_return_1y": 25.81,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -16209,7 +16353,9 @@
       "ttm_payments": 12,
       "price": 13.14,
       "price_date": "2026-08-21",
-      "yield_ttm": 22.15
+      "yield_ttm": 22.15,
+      "total_return_1y": 30.2,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -16372,7 +16518,9 @@
       "ttm_payments": 6,
       "price": 6.43,
       "price_date": "2026-08-21",
-      "yield_ttm": 22.55
+      "yield_ttm": 22.55,
+      "total_return_1y": -30.12,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -16433,7 +16581,9 @@
       "ttm_payments": 12,
       "price": 20.12,
       "price_date": "2026-08-21",
-      "yield_ttm": 33.8
+      "yield_ttm": 33.8,
+      "total_return_1y": 3.85,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -16566,7 +16716,9 @@
       "ttm_payments": 10,
       "price": 4.8,
       "price_date": "2026-08-21",
-      "yield_ttm": 56.25
+      "yield_ttm": 56.25,
+      "total_return_1y": -26.36,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -16651,7 +16803,9 @@
       "ttm_payments": 11,
       "price": 16.34,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.32
+      "yield_ttm": 8.32,
+      "total_return_1y": 47.56,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -16742,7 +16896,9 @@
       "ttm_payments": 11,
       "price": 9.44,
       "price_date": "2026-08-21",
-      "yield_ttm": 27.86
+      "yield_ttm": 27.86,
+      "total_return_1y": -0.32,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -16833,7 +16989,9 @@
       "ttm_payments": 10,
       "price": 5.48,
       "price_date": "2026-08-21",
-      "yield_ttm": 44.34
+      "yield_ttm": 44.34,
+      "total_return_1y": -29.14,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -16918,7 +17076,9 @@
       "ttm_payments": 2,
       "price": 9.14,
       "price_date": "2026-08-21",
-      "yield_ttm": 6.56
+      "yield_ttm": 6.56,
+      "total_return_1y": -33.65,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -16955,7 +17115,9 @@
       "ttm_payments": 11,
       "price": 19.78,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.02
+      "yield_ttm": 11.02,
+      "total_return_1y": 79.96,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -17046,7 +17208,9 @@
       "ttm_payments": 11,
       "price": 17.82,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.36
+      "yield_ttm": 8.36,
+      "total_return_1y": 61.08,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -17137,7 +17301,9 @@
       "ttm_payments": 11,
       "price": 6.08,
       "price_date": "2026-08-21",
-      "yield_ttm": 21.71
+      "yield_ttm": 21.71,
+      "total_return_1y": -41.44,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -17228,7 +17394,9 @@
       "ttm_payments": 12,
       "price": 5.88,
       "price_date": "2026-08-21",
-      "yield_ttm": 44.73
+      "yield_ttm": 44.73,
+      "total_return_1y": 5.02,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -17376,7 +17544,9 @@
       "ttm_payments": 12,
       "price": 11.25,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.94
+      "yield_ttm": 12.94,
+      "total_return_1y": 55.37,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -17743,7 +17913,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787526854"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787528791"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -17787,7 +17957,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787526864"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787528802"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -17820,7 +17990,9 @@
       "ttm_payments": 12,
       "price": 8.66,
       "price_date": "2026-08-21",
-      "yield_ttm": 19.12
+      "yield_ttm": 19.12,
+      "total_return_1y": 6.55,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -17965,7 +18137,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787526875"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787528813"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -17998,7 +18170,9 @@
       "ttm_payments": 12,
       "price": 11.675,
       "price_date": "2026-08-21",
-      "yield_ttm": 13.35
+      "yield_ttm": 13.35,
+      "total_return_1y": 46.23,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -18101,7 +18275,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787526886"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787528824"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -18145,7 +18319,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787526897"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787528835"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -18673,7 +18847,9 @@
       "ttm_payments": 12,
       "price": 26.17,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.32
+      "yield_ttm": 10.32,
+      "total_return_1y": 15.4,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -18938,7 +19114,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787526909"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787528846"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -19021,7 +19197,9 @@
       "ttm_payments": 12,
       "price": 25.31,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.91
+      "yield_ttm": 8.91,
+      "total_return_1y": 24.79,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -19286,7 +19464,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787526920"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787528857"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -19329,7 +19507,9 @@
       "ttm_payments": 12,
       "price": 18.64,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.23
+      "yield_ttm": 12.23,
+      "total_return_1y": 12.53,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -19696,7 +19876,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787526933"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787528870"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -19767,7 +19947,9 @@
       "ttm_payments": 12,
       "price": 29.09,
       "price_date": "2026-08-21",
-      "yield_ttm": 13.2
+      "yield_ttm": 13.2,
+      "total_return_1y": 28.17,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -19978,7 +20160,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787526945"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787528882"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -20021,7 +20203,9 @@
       "ttm_payments": 12,
       "price": 17.38,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.01
+      "yield_ttm": 10.01,
+      "total_return_1y": 30.11,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -20352,7 +20536,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787526956"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787528894"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
@@ -20395,7 +20579,9 @@
       "ttm_payments": 12,
       "price": 14.47,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.37
+      "yield_ttm": 10.37,
+      "total_return_1y": 18.31,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -20762,7 +20948,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787526969"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787528907"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -20805,7 +20991,9 @@
       "ttm_payments": 12,
       "price": 31.0,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.42
+      "yield_ttm": 8.42,
+      "total_return_1y": 50.63,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -21172,7 +21360,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787526982"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787528920"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -21235,7 +21423,9 @@
       "ttm_payments": 12,
       "price": 21.38,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.55
+      "yield_ttm": 11.55,
+      "total_return_1y": 2.07,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -21602,7 +21792,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787526994"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787528932"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -21627,7 +21817,9 @@
       "ttm_payments": 12,
       "price": 15.44,
       "price_date": "2026-08-21",
-      "yield_ttm": 14.77
+      "yield_ttm": 14.77,
+      "total_return_1y": -1.1,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -21838,7 +22030,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787527005"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787528943"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -21861,7 +22053,9 @@
       "ttm_payments": 12,
       "price": 18.14,
       "price_date": "2026-08-21",
-      "yield_ttm": 6.62
+      "yield_ttm": 6.62,
+      "total_return_1y": 0.73,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -22000,7 +22194,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787527016"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787528954"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -22024,7 +22218,9 @@
       "ttm_payments": 12,
       "price": 17.2,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.51
+      "yield_ttm": 11.51,
+      "total_return_1y": -0.5,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -22127,7 +22323,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787527027"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787528965"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
@@ -22171,7 +22367,9 @@
       "ttm_payments": 22,
       "price": 15.95,
       "price_date": "2026-08-21",
-      "yield_ttm": 43.1
+      "yield_ttm": 43.1,
+      "total_return_1y": -9.88,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -22310,7 +22508,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787527046"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787528976"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -22352,7 +22550,9 @@
       "ttm_payments": 22,
       "price": 25.69,
       "price_date": "2026-08-21",
-      "yield_ttm": 17.98
+      "yield_ttm": 17.98,
+      "total_return_1y": 22.97,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -22491,7 +22691,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787527057"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787528987"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -22518,7 +22718,9 @@
       "ttm_payments": 17,
       "price": 29.6,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.47
+      "yield_ttm": 12.47,
+      "total_return_1y": 32.3,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -22627,7 +22829,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787527068"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787528998"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -22660,7 +22862,9 @@
       "ttm_payments": 14,
       "price": 22.36,
       "price_date": "2026-08-21",
-      "yield_ttm": 16.28
+      "yield_ttm": 16.28,
+      "total_return_1y": 4.76,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -22751,7 +22955,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787527078"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787529009"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -22828,7 +23032,9 @@
       "ttm_payments": 10,
       "price": 23.04,
       "price_date": "2026-08-21",
-      "yield_ttm": 13.45
+      "yield_ttm": 13.45,
+      "total_return_1y": -6.49,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -22895,7 +23101,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787527089"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787529020"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -23067,7 +23273,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787527100"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787529031"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
@@ -23178,6 +23384,8 @@
       "DXCM": 0.16
     },
     "stats": {
+      "aum_musd": 8360.0,
+      "aum_display": "$8.36 billion",
       "nav": "$18.31",
       "yield": "0.02%",
       "yield_label": "30-day sec yield",
@@ -23189,7 +23397,9 @@
       "ttm_payments": 11,
       "price": 18.32,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.6
+      "yield_ttm": 10.6,
+      "total_return_1y": 22.89,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -24081,7 +24291,9 @@
       "ttm_payments": 11,
       "price": 41.64,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.65
+      "yield_ttm": 9.65,
+      "total_return_1y": 18.39,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -24471,7 +24683,9 @@
       "ttm_payments": 11,
       "price": 16.43,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.41
+      "yield_ttm": 10.41,
+      "total_return_1y": 21.8,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -24975,7 +25189,9 @@
       "ttm_payments": 12,
       "price": 57.92,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.91
+      "yield_ttm": 7.91,
+      "total_return_1y": 9.37,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -25454,7 +25670,9 @@
       "ttm_payments": 12,
       "price": 59.84,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.9
+      "yield_ttm": 10.9,
+      "total_return_1y": 20.2,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -25789,7 +26007,9 @@
       "ttm_payments": 1,
       "price": 15.4506,
       "price_date": "2026-08-21",
-      "yield_ttm": 3.24
+      "yield_ttm": 3.24,
+      "total_return_1y": -33.95,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -25826,7 +26046,9 @@
       "ttm_payments": 12,
       "price": 14.82,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.29
+      "yield_ttm": 7.29,
+      "total_return_1y": 64.69,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -25929,7 +26151,9 @@
       "ttm_payments": 12,
       "price": 13.98,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.73
+      "yield_ttm": 7.73,
+      "total_return_1y": 55.25,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26032,7 +26256,9 @@
       "ttm_payments": 12,
       "price": 14.77,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.12
+      "yield_ttm": 8.12,
+      "total_return_1y": 60.93,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26135,7 +26361,9 @@
       "ttm_payments": 12,
       "price": 9.39,
       "price_date": "2026-08-21",
-      "yield_ttm": 14.06
+      "yield_ttm": 14.06,
+      "total_return_1y": 8.24,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26238,7 +26466,9 @@
       "ttm_payments": 12,
       "price": 7.99,
       "price_date": "2026-08-21",
-      "yield_ttm": 31.54
+      "yield_ttm": 31.54,
+      "total_return_1y": 6.32,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26341,7 +26571,9 @@
       "ttm_payments": 12,
       "price": 15.08,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.54
+      "yield_ttm": 11.54,
+      "total_return_1y": 66.25,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26444,7 +26676,9 @@
       "ttm_payments": 12,
       "price": 4.9,
       "price_date": "2026-08-21",
-      "yield_ttm": 28.57
+      "yield_ttm": 28.57,
+      "total_return_1y": -40.64,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26547,7 +26781,9 @@
       "ttm_payments": 12,
       "price": 8.61,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.71
+      "yield_ttm": 8.71,
+      "total_return_1y": -5.19,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26753,7 +26989,9 @@
       "ttm_payments": 12,
       "price": 8.85,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.34
+      "yield_ttm": 10.34,
+      "total_return_1y": -3.89,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -26848,7 +27086,9 @@
       "ttm_payments": 12,
       "price": 19.45,
       "price_date": "2026-08-21",
-      "yield_ttm": 16.45
+      "yield_ttm": 16.45,
+      "total_return_1y": 13.25,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -26983,7 +27223,9 @@
       "ttm_payments": 12,
       "price": 15.37,
       "price_date": "2026-08-21",
-      "yield_ttm": 14.83
+      "yield_ttm": 14.83,
+      "total_return_1y": 2.11,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -27118,7 +27360,9 @@
       "ttm_payments": 12,
       "price": 10.3,
       "price_date": "2026-08-21",
-      "yield_ttm": 33.01
+      "yield_ttm": 33.01,
+      "total_return_1y": -35.46,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -27253,7 +27497,9 @@
       "ttm_payments": 12,
       "price": 27.04,
       "price_date": "2026-08-21",
-      "yield_ttm": 18.68
+      "yield_ttm": 18.68,
+      "total_return_1y": 51.72,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -27388,7 +27634,9 @@
       "ttm_payments": 12,
       "price": 6.58,
       "price_date": "2026-08-21",
-      "yield_ttm": 66.87
+      "yield_ttm": 66.87,
+      "total_return_1y": -41.67,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -27523,7 +27771,9 @@
       "ttm_payments": 12,
       "price": 21.55,
       "price_date": "2026-08-21",
-      "yield_ttm": 30.16
+      "yield_ttm": 30.16,
+      "total_return_1y": 27.79,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -27658,7 +27908,9 @@
       "ttm_payments": 12,
       "price": 9.89,
       "price_date": "2026-08-21",
-      "yield_ttm": 18.2
+      "yield_ttm": 18.2,
+      "total_return_1y": 25.67,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -27793,7 +28045,9 @@
       "ttm_payments": 12,
       "price": 46.46,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.05
+      "yield_ttm": 12.05,
+      "total_return_1y": 228.3,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -27952,7 +28206,9 @@
       "ttm_payments": 12,
       "price": 12.865,
       "price_date": "2026-08-21",
-      "yield_ttm": 31.48
+      "yield_ttm": 31.48,
+      "total_return_1y": -31.69,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -28111,7 +28367,9 @@
       "ttm_payments": 12,
       "price": 46.29,
       "price_date": "2026-08-21",
-      "yield_ttm": 19.44
+      "yield_ttm": 19.44,
+      "total_return_1y": 30.94,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -28330,7 +28588,9 @@
       "ttm_payments": 12,
       "price": 18.35,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.02
+      "yield_ttm": 12.02,
+      "total_return_1y": -9.47,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -28549,7 +28809,9 @@
       "ttm_payments": 12,
       "price": 16.0,
       "price_date": "2026-08-21",
-      "yield_ttm": 44.69
+      "yield_ttm": 44.69,
+      "total_return_1y": 19.21,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -28846,7 +29108,9 @@
       "ttm_payments": 12,
       "price": 44.14,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.23
+      "yield_ttm": 12.23,
+      "total_return_1y": 11.1,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -29143,7 +29407,9 @@
       "ttm_payments": 12,
       "price": 34.47,
       "price_date": "2026-08-21",
-      "yield_ttm": 5.8
+      "yield_ttm": 5.8,
+      "total_return_1y": 37.0,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -29446,7 +29712,9 @@
       "ttm_payments": 12,
       "price": 56.44,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.9
+      "yield_ttm": 9.9,
+      "total_return_1y": 68.19,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -29743,7 +30011,9 @@
       "ttm_payments": 12,
       "price": 25.65,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.72
+      "yield_ttm": 7.72,
+      "total_return_1y": -0.45,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -33929,7 +34199,9 @@
       "ttm_payments": 12,
       "price": 14.97,
       "price_date": "2026-08-21",
-      "yield_ttm": 6.61
+      "yield_ttm": 6.61,
+      "total_return_1y": 24.16,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -34322,7 +34594,9 @@
       "ttm_payments": 12,
       "price": 24.97,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.07
+      "yield_ttm": 8.07,
+      "total_return_1y": 29.92,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -34577,7 +34851,9 @@
       "ttm_payments": 12,
       "price": 18.81,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.25
+      "yield_ttm": 9.25,
+      "total_return_1y": 38.0,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -34960,7 +35236,9 @@
       "ttm_payments": 12,
       "price": 26.36,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.21
+      "yield_ttm": 11.21,
+      "total_return_1y": 47.94,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -35215,7 +35493,9 @@
       "ttm_payments": 12,
       "price": 22.6152,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.34
+      "yield_ttm": 7.34,
+      "total_return_1y": 17.47,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -35404,7 +35684,9 @@
       "ttm_payments": 12,
       "price": 22.89,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.04
+      "yield_ttm": 9.04,
+      "total_return_1y": 20.66,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -35581,7 +35863,9 @@
       "ttm_payments": 12,
       "price": 24.2405,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.79
+      "yield_ttm": 8.79,
+      "total_return_1y": 29.07,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -35770,7 +36054,9 @@
       "ttm_payments": 12,
       "price": 24.98,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.85
+      "yield_ttm": 10.85,
+      "total_return_1y": 35.5,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -35947,7 +36233,9 @@
       "ttm_payments": 12,
       "price": 13.05,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.03
+      "yield_ttm": 11.03,
+      "total_return_1y": 37.81,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -36330,7 +36618,9 @@
       "ttm_payments": 12,
       "price": 23.55,
       "price_date": "2026-08-21",
-      "yield_ttm": 13.35
+      "yield_ttm": 13.35,
+      "total_return_1y": 47.93,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -36567,7 +36857,9 @@
       "ttm_payments": 12,
       "price": 23.11,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.85
+      "yield_ttm": 8.85,
+      "total_return_1y": 19.7,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -36756,7 +37048,9 @@
       "ttm_payments": 12,
       "price": 25.45,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.84
+      "yield_ttm": 10.84,
+      "total_return_1y": 13.89,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -36993,7 +37287,9 @@
       "ttm_payments": 12,
       "price": 60.11,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.57
+      "yield_ttm": 8.57,
+      "total_return_1y": 57.33,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -37386,7 +37682,9 @@
       "ttm_payments": 12,
       "price": 39.12,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.07
+      "yield_ttm": 10.07,
+      "total_return_1y": -4.38,
+      "return_window": "since inception"
     },
     "distributions": [
       {
@@ -37509,7 +37807,9 @@
       "ttm_payments": 12,
       "price": 23.66,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.39
+      "yield_ttm": 8.39,
+      "total_return_1y": 16.45,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -38957,7 +39257,9 @@
       "ttm_payments": 12,
       "price": 56.09,
       "price_date": "2026-08-21",
-      "yield_ttm": 8.06
+      "yield_ttm": 8.06,
+      "total_return_1y": 19.55,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -39178,7 +39480,9 @@
       "ttm_payments": 12,
       "price": 56.65,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.99
+      "yield_ttm": 9.99,
+      "total_return_1y": 24.15,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -39399,7 +39703,9 @@
       "ttm_payments": 52,
       "price": 38.87,
       "price_date": "2026-08-21",
-      "yield_ttm": 31.14
+      "yield_ttm": 31.14,
+      "total_return_1y": 18.49,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -39782,7 +40088,9 @@
       "ttm_payments": 52,
       "price": 28.95,
       "price_date": "2026-08-21",
-      "yield_ttm": 45.74
+      "yield_ttm": 45.74,
+      "total_return_1y": 24.8,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -40165,7 +40473,9 @@
       "ttm_payments": 52,
       "price": 28.49,
       "price_date": "2026-08-21",
-      "yield_ttm": 43.01
+      "yield_ttm": 43.01,
+      "total_return_1y": 26.84,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -40548,7 +40858,9 @@
       "ttm_payments": 12,
       "price": 17.966,
       "price_date": "2026-08-21",
-      "yield_ttm": 20.3
+      "yield_ttm": 20.3,
+      "total_return_1y": 21.65,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -40721,7 +41033,9 @@
       "ttm_payments": 12,
       "price": 17.38,
       "price_date": "2026-08-21",
-      "yield_ttm": 20.75
+      "yield_ttm": 20.75,
+      "total_return_1y": 16.16,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -40918,7 +41232,9 @@
       "ttm_payments": 22,
       "price": 41.72,
       "price_date": "2026-08-21",
-      "yield_ttm": 26.98
+      "yield_ttm": 26.98,
+      "total_return_1y": 15.96,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -41199,7 +41515,9 @@
       "ttm_payments": 22,
       "price": 36.61,
       "price_date": "2026-08-21",
-      "yield_ttm": 37.36
+      "yield_ttm": 37.36,
+      "total_return_1y": 22.71,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -41432,7 +41750,9 @@
       "ttm_payments": 12,
       "price": 34.73,
       "price_date": "2026-08-21",
-      "yield_ttm": 7.64
+      "yield_ttm": 7.64,
+      "total_return_1y": 21.6,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -41659,7 +41979,9 @@
       "ttm_payments": 12,
       "price": 21.19,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.0
+      "yield_ttm": 11.0,
+      "total_return_1y": 2.65,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -41970,7 +42292,9 @@
       "ttm_payments": 12,
       "price": 28.92,
       "price_date": "2026-08-21",
-      "yield_ttm": 10.35
+      "yield_ttm": 10.35,
+      "total_return_1y": 5.67,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -42281,7 +42605,9 @@
       "ttm_payments": 12,
       "price": 23.32,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.91
+      "yield_ttm": 11.91,
+      "total_return_1y": 3.16,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -42592,7 +42918,9 @@
       "ttm_payments": 12,
       "price": 29.643,
       "price_date": "2026-08-21",
-      "yield_ttm": 16.6
+      "yield_ttm": 16.6,
+      "total_return_1y": 24.27,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -42975,7 +43303,9 @@
       "ttm_payments": 12,
       "price": 29.525,
       "price_date": "2026-08-21",
-      "yield_ttm": 12.49
+      "yield_ttm": 12.49,
+      "total_return_1y": 19.01,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -43358,7 +43688,9 @@
       "ttm_payments": 12,
       "price": 25.034,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.51
+      "yield_ttm": 9.51,
+      "total_return_1y": 24.97,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -43657,7 +43989,9 @@
       "ttm_payments": 12,
       "price": 22.91,
       "price_date": "2026-08-21",
-      "yield_ttm": 9.55
+      "yield_ttm": 9.55,
+      "total_return_1y": 16.35,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -44004,7 +44338,9 @@
       "ttm_payments": 11,
       "price": 15.285,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.35
+      "yield_ttm": 11.35,
+      "total_return_1y": 8.73,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -44381,7 +44717,9 @@
       "ttm_payments": 11,
       "price": 17.435,
       "price_date": "2026-08-21",
-      "yield_ttm": 11.32
+      "yield_ttm": 11.32,
+      "total_return_1y": 10.69,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -44752,7 +45090,9 @@
       "ttm_payments": 12,
       "price": 48.45,
       "price_date": "2026-08-21",
-      "yield_ttm": 5.01
+      "yield_ttm": 5.01,
+      "total_return_1y": 16.88,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -44961,7 +45301,9 @@
       "ttm_payments": 12,
       "price": 48.127,
       "price_date": "2026-08-21",
-      "yield_ttm": 5.76
+      "yield_ttm": 5.76,
+      "total_return_1y": 21.73,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -45149,7 +45491,9 @@
       "last_ex_date": "2024-09-03",
       "count": 12,
       "price": 29.31,
-      "price_date": "2026-07-17"
+      "price_date": "2026-07-17",
+      "total_return_1y": 14.45,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -45244,7 +45588,9 @@
       "ttm_payments": 53,
       "price": 26.66,
       "price_date": "2026-08-21",
-      "yield_ttm": 104.0
+      "yield_ttm": 104.0,
+      "total_return_1y": -5.06,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -45627,7 +45973,9 @@
       "ttm_payments": 52,
       "price": 7.68,
       "price_date": "2026-08-21",
-      "yield_ttm": 66.95
+      "yield_ttm": 66.95,
+      "total_return_1y": 0.68,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -46010,7 +46358,9 @@
       "ttm_payments": 47,
       "price": 12.47,
       "price_date": "2026-08-21",
-      "yield_ttm": 57.17
+      "yield_ttm": 57.17,
+      "total_return_1y": 21.77,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -46393,7 +46743,9 @@
       "ttm_payments": 47,
       "price": 10.78,
       "price_date": "2026-08-21",
-      "yield_ttm": 53.28
+      "yield_ttm": 53.28,
+      "total_return_1y": 8.42,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -46776,7 +47128,9 @@
       "ttm_payments": 47,
       "price": 12.23,
       "price_date": "2026-08-21",
-      "yield_ttm": 53.14
+      "yield_ttm": 53.14,
+      "total_return_1y": 50.36,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -47159,7 +47513,9 @@
       "ttm_payments": 47,
       "price": 8.1,
       "price_date": "2026-08-21",
-      "yield_ttm": 59.6
+      "yield_ttm": 59.6,
+      "total_return_1y": -25.25,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -47542,7 +47898,9 @@
       "ttm_payments": 46,
       "price": 12.11,
       "price_date": "2026-08-21",
-      "yield_ttm": 38.34
+      "yield_ttm": 38.34,
+      "total_return_1y": -1.62,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -47925,7 +48283,9 @@
       "ttm_payments": 47,
       "price": 38.16,
       "price_date": "2026-08-21",
-      "yield_ttm": 76.97
+      "yield_ttm": 76.97,
+      "total_return_1y": 18.75,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -48296,7 +48656,9 @@
       "ttm_payments": 47,
       "price": 5.31,
       "price_date": "2026-08-21",
-      "yield_ttm": 157.41
+      "yield_ttm": 157.41,
+      "total_return_1y": -20.8,
+      "return_window": "1y"
     },
     "distributions": [
       {
@@ -48667,7 +49029,9 @@
       "ttm_payments": 47,
       "price": 11.99,
       "price_date": "2026-08-21",
-      "yield_ttm": 68.32
+      "yield_ttm": 68.32,
+      "total_return_1y": 35.14,
+      "return_window": "1y"
     },
     "distributions": [
       {
