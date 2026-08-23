@@ -154,6 +154,43 @@
   .bar-track{height:7px; background:rgba(21,32,25,0.07); border-radius:4px; overflow:hidden;}
   .bar-fill{height:100%; background:var(--teal); border-radius:4px;}
 
+  /* --- distributions ------------------------------------------------ */
+  .cadence{
+    display:flex; align-items:flex-end; gap:3px; height:96px; margin:6px 0 4px;
+    padding:10px 12px; background:var(--paper-raised); border:1px solid var(--line);
+    border-radius:4px; overflow:hidden;
+  }
+  .cbar{
+    flex:1 1 0; min-width:3px; background:var(--teal); border-radius:2px 2px 0 0;
+    position:relative; transition:background .15s;
+  }
+  .cbar.latest{background:var(--gold-deep);}
+  .cbar.cut{background:var(--rust);}
+  .cbar:hover{background:var(--ink);}
+  .cbar-label{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);
+    margin-bottom:14px;
+  }
+  .dist-table{width:100%; border-collapse:collapse; margin-top:6px;}
+  .dist-table th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.07em;
+    color:var(--ink-faint); font-weight:500; padding:0 12px 8px 0;
+    border-bottom:1px solid var(--line-strong);
+  }
+  .dist-table td{
+    padding:9px 12px 9px 0; border-bottom:1px solid var(--line);
+    font-size:13.5px; font-family:'IBM Plex Mono',monospace;
+  }
+  .dist-table td.amt{text-align:right; padding-right:0;}
+  .dist-more{
+    margin-top:12px; font-size:12.5px; color:var(--ink-faint); background:none;
+    border:none; border-bottom:1px solid var(--line-strong); cursor:pointer;
+    padding:0 0 2px; font-family:inherit;
+  }
+  .dist-more:hover{color:var(--ink);}
+
+
   .empty{
     padding:44px 20px; text-align:center; color:var(--ink-faint); font-size:14px;
     border:1px dashed var(--line-strong); border-radius:4px;
@@ -429,7 +466,7 @@ fetch('data/funds.json')
     Object.entries(data).forEach(([t, v]) => {
       if(t.charAt(0) === '_') return;
       if(v.fetched_ok && v.holdings && Object.keys(v.holdings).length){
-        FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {}, as_of: v.as_of || '', stale: !!v.stale };
+        FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {}, as_of: v.as_of || '', stale: !!v.stale, distributions: v.distributions || [] };
       }
     });
     render();
@@ -497,6 +534,8 @@ function render(){
       ${keyFacts(f.stats || {}, f.issuer)}
     </div>
 
+    ${distributionSection(f)}
+
     <div class="section-head"><h2>Portfolio shape</h2></div>
     <div class="stat-strip">
       <div class="stat">
@@ -551,6 +590,17 @@ function render(){
     </div>
   `;
 
+  const more = document.getElementById('distMore');
+  if(more){
+    more.addEventListener('click', () => {
+      const body = document.getElementById('distRows');
+      body.innerHTML = (f.distributions || []).map(x =>
+        '<tr><td>' + x.ex_date + '</td><td>' + (x.pay_date || '—') +
+        '</td><td class="amt">$' + x.amount.toFixed(4) + '</td></tr>').join('');
+      more.remove();
+    });
+  }
+
   document.getElementById('search').addEventListener('input', e => {
     FILTER = e.target.value.trim().toUpperCase();
     renderTable(rows, total);
@@ -583,6 +633,92 @@ function fmtAum(m){
 
 function titleCase(s){
   return s.replace(/\b[a-z]/g, c => c.toUpperCase()).replace(/Sec /,'SEC ').replace(/Mer/,'MER');
+}
+
+function distributionSection(f){
+  const d = f.distributions || [];
+  const st = f.stats || {};
+  if(!d.length){
+    // A fund that pays but whose issuer doesn't publish a table still has a
+    // last payment in stats — show that rather than an empty section.
+    if(st.last_amount){
+      return `
+      <div class="section">
+        <div class="section-head"><h2>Distributions</h2></div>
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="stat-label">Latest payment</div>
+            <div class="stat-value">$${Number(st.last_amount).toFixed(4)}</div>
+            <div class="stat-sub">${st.last_ex_date ? 'ex-date ' + st.last_ex_date : ''}</div>
+          </div>
+        </div>
+        <div class="section-note" style="margin-top:12px;">${f.issuer} publishes the latest
+        payment but not a full history, so there's nothing further to chart.</div>
+      </div>`;
+    }
+    return '';
+  }
+
+  const recent = d.slice(0, 24).reverse();          // oldest → newest, left to right
+  const max = Math.max(...recent.map(x => x.amount));
+  const bars = recent.map((x, i) => {
+    const h = Math.max(3, (x.amount / max) * 100);
+    const prev = i > 0 ? recent[i-1].amount : x.amount;
+    // a visible cut is the thing income investors are actually watching for
+    const cut = x.amount < prev * 0.95;
+    const isLast = i === recent.length - 1;
+    const cls = isLast ? 'cbar latest' : (cut ? 'cbar cut' : 'cbar');
+    return `<div class="${cls}" style="height:${h}%" title="${x.ex_date}: $${x.amount.toFixed(4)}"></div>`;
+  }).join('');
+
+  const rows = d.slice(0, 12).map(x => `
+    <tr>
+      <td>${x.ex_date}</td>
+      <td>${x.pay_date || '—'}</td>
+      <td class="amt">$${x.amount.toFixed(4)}</td>
+    </tr>`).join('');
+
+  const cuts = recent.filter((x,i) => i > 0 && x.amount < recent[i-1].amount * 0.95).length;
+  const trend = cuts === 0
+    ? 'Held or raised at every payment shown.'
+    : cuts + (cuts === 1 ? ' cut' : ' cuts') + ' in the last ' + recent.length + ' payments.';
+
+  return `
+  <div class="section">
+    <div class="section-head">
+      <h2>Distributions</h2>
+      <div class="section-note">${d.length} payments on record from ${f.issuer}. ${trend}</div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-label">Latest payment</div>
+        <div class="stat-value">$${d[0].amount.toFixed(4)}</div>
+        <div class="stat-sub">ex-date ${d[0].ex_date}</div>
+      </div>
+      ${st.ttm_total ? `<div class="stat">
+        <div class="stat-label">Paid last 12 months</div>
+        <div class="stat-value">$${Number(st.ttm_total).toFixed(2)}</div>
+        <div class="stat-sub">${st.ttm_payments || ''} payments</div>
+      </div>` : ''}
+      ${st.frequency ? `<div class="stat">
+        <div class="stat-label">Frequency</div>
+        <div class="stat-value" style="font-size:20px;">${st.frequency}</div>
+        <div class="stat-sub">as stated by the issuer</div>
+      </div>` : ''}
+    </div>
+
+    <div class="cbar-label" style="margin-top:26px;">
+      <span>${recent[0].ex_date}</span><span>most recent ${recent.length} payments</span><span>${recent[recent.length-1].ex_date}</span>
+    </div>
+    <div class="cadence">${bars}</div>
+
+    <table class="dist-table">
+      <thead><tr><th>Ex-date</th><th>Paid</th><th class="amt" style="text-align:right;">Amount</th></tr></thead>
+      <tbody id="distRows">${rows}</tbody>
+    </table>
+    ${d.length > 12 ? `<button class="dist-more" id="distMore">Show all ${d.length} payments</button>` : ''}
+  </div>`;
 }
 
 function keyFacts(st, issuer){
