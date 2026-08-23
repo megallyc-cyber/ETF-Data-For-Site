@@ -1,0 +1,25 @@
+name: Expand price batches
+
+# Pure local computation — decodes data/prices_raw into per-fund CSVs.
+# No network, so it can never be rate limited the way the fetch is.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python expand_prices.py
+      - name: Commit CSVs
+        run: |
+          git config user.name "ledger-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/prices
+          git diff --quiet --cached || git commit -m "Expand price history into per-fund CSVs"
+          git push
