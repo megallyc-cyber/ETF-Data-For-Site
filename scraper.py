@@ -142,11 +142,11 @@ FUND_REGISTRY: list[Fund] = [
          "https://hamiltonetfs.com/etf/bday/", "hamilton"),
 
     Fund("ZWB", "BMO Covered Call Canadian Banks ETF", "BMO ETFs", "CAD",
-         "https://www.bmoetfs.ca/en/products/zwb", "bmo"),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/", "bmo", needs_browser=True),
     Fund("ZWC", "BMO Canadian High Dividend Covered Call ETF", "BMO ETFs", "CAD",
-         "https://www.bmoetfs.ca/en/products/zwc", "bmo"),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/", "bmo", needs_browser=True),
     Fund("ZWU", "BMO Covered Call Utilities ETF", "BMO ETFs", "CAD",
-         "https://www.bmoetfs.ca/en/products/zwu", "bmo"),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/", "bmo", needs_browser=True),
 
     Fund("HHL", "Harvest Healthcare Leaders Income ETF", "Harvest ETFs", "CAD",
          "https://harvestportfolios.com/etfs/hhl/", "harvest"),
@@ -415,14 +415,36 @@ def parse_hamilton(html: str) -> dict:
     return holdings
 
 def parse_bmo(html: str) -> dict:
-    """BMO ETF pages usually expose a downloadable holdings CSV link rather
-    than an inline table — prefer finding and fetching that CSV directly."""
+    """BMO moved to bmogam.com and renders holdings after page load, so this
+    needs the browser fetch. The table is headed
+    Weight | Name | ISIN | Bloomberg Ticker | ... and the Bloomberg column is
+    the clean ticker we want; the name column would need fuzzy matching.
+    """
     soup = BeautifulSoup(html, "lxml")
     holdings = {}
-    csv_link = soup.select_one("a[href*='.csv']")
-    if csv_link:
-        raise ValueError(f"holdings served as CSV at {csv_link.get('href')} — "
-                          f"fetch and parse that URL directly instead of the HTML page")
+    for table in soup.find_all("table"):
+        head = table.find("tr")
+        if not head:
+            continue
+        cols = [c.get_text(" ", strip=True).lower() for c in head.find_all(["th", "td"])]
+        if "weight" not in cols or not any("bloomberg" in c for c in cols):
+            continue
+        i_w = cols.index("weight")
+        i_t = next(i for i, c in enumerate(cols) if "bloomberg" in c)
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+            if len(cells) <= max(i_w, i_t):
+                continue
+            ticker = cells[i_t].strip().upper()
+            m = re.search(r"(-?[\d.]+)\s*%", cells[i_w])
+            if not ticker or ticker in {"—", "-"} or not m:
+                continue
+            weight = float(m.group(1))
+            if weight <= 0:
+                continue          # cash and derivative lines can be zero or negative
+            holdings[ticker] = holdings.get(ticker, 0.0) + weight
+        if holdings:
+            break
     return holdings
 
 
