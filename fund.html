@@ -635,6 +635,15 @@ function titleCase(s){
   return s.replace(/\b[a-z]/g, c => c.toUpperCase()).replace(/Sec /,'SEC ').replace(/Mer/,'MER');
 }
 
+function distProvenance(f, count){
+  const src = (f.stats || {}).distribution_source || 'issuer';
+  if(src === 'issuer') return count + ' payments published by ' + f.issuer + '.';
+  // aggregated elsewhere because the issuer publishes no parseable table
+  return count + ' payments via <a href="https://dividendhistory.org" target="_blank" rel="noopener" ' +
+         'style="color:var(--gold-deep);">dividendhistory.org</a>, because ' + f.issuer +
+         " doesn't publish a machine-readable history.";
+}
+
 function distributionSection(f){
   const d = f.distributions || [];
   const st = f.stats || {};
@@ -656,7 +665,12 @@ function distributionSection(f){
         payment but not a full history, so there's nothing further to chart.</div>
       </div>`;
     }
-    return '';
+    return `
+      <div class="section">
+        <div class="section-head"><h2>Distributions</h2></div>
+        <div class="empty" style="padding:22px;">No distribution history yet for ${f.issuer}.
+        Neither the issuer nor dividendhistory.org publishes a payment table we can read for this fund.</div>
+      </div>`;
   }
 
   const recent = d.slice(0, 24).reverse();          // oldest → newest, left to right
@@ -687,7 +701,7 @@ function distributionSection(f){
   <div class="section">
     <div class="section-head">
       <h2>Distributions</h2>
-      <div class="section-note">${d.length} payments on record from ${f.issuer}. ${trend}</div>
+      <div class="section-note">${distProvenance(f, d.length)} ${trend}</div>
     </div>
 
     <div class="stat-strip">
