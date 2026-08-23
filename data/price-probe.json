@@ -1,0 +1,83 @@
+{
+  "samples": {
+    "HMAX (TSX)": [
+      {
+        "source": "yahoo-q1",
+        "status": 429,
+        "bars": 0,
+        "note": "Too Many Requests\r\n"
+      },
+      {
+        "source": "yahoo-q2",
+        "status": 429,
+        "bars": 0,
+        "note": "Too Many Requests\r\n"
+      },
+      {
+        "source": "yahoo+crumb",
+        "status": "crumb failed",
+        "bars": 0,
+        "note": "HTTP Error 429: Too Many Requests"
+      },
+      {
+        "source": "stooq",
+        "status": 200,
+        "bars": 0,
+        "note": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"noindex,nofollow\"></head><body><noscript>T"
+      }
+    ],
+    "YTSL (Cboe Canada)": [
+      {
+        "source": "yahoo-q1",
+        "status": 429,
+        "bars": 0,
+        "note": "Too Many Requests\r\n"
+      },
+      {
+        "source": "yahoo-q2",
+        "status": 429,
+        "bars": 0,
+        "note": "Too Many Requests\r\n"
+      },
+      {
+        "source": "yahoo+crumb",
+        "status": "crumb failed",
+        "bars": 0,
+        "note": "HTTP Error 429: Too Many Requests"
+      },
+      {
+        "source": "stooq",
+        "status": 200,
+        "bars": 0,
+        "note": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"noindex,nofollow\"></head><body><noscript>T"
+      }
+    ],
+    "SPYI (US)": [
+      {
+        "source": "yahoo-q1",
+        "status": 429,
+        "bars": 0,
+        "note": "Too Many Requests\r\n"
+      },
+      {
+        "source": "yahoo-q2",
+        "status": 429,
+        "bars": 0,
+        "note": "Too Many Requests\r\n"
+      },
+      {
+        "source": "yahoo+crumb",
+        "status": "crumb failed",
+        "bars": 0,
+        "note": "HTTP Error 429: Too Many Requests"
+      },
+      {
+        "source": "stooq",
+        "status": 200,
+        "bars": 0,
+        "note": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"noindex,nofollow\"></head><body><noscript>T"
+      }
+    ]
+  },
+  "sources_returning_data": []
+}
