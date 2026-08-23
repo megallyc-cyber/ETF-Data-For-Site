@@ -12368,9 +12368,11 @@
     "name": "Harvest Agnico Eagle Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AEM": 130.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.25,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -12381,82 +12383,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.32,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "AMDY": {
     "name": "Harvest AMD Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AMD": 127.8
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 1.15,
       "last_ex_date": "2026-07-31",
       "count": 17,
@@ -12467,118 +12471,120 @@
       {
         "ex_date": "2026-07-31",
         "amount": 1.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.95,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.75,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.45,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.45,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "AMHE": {
     "name": "Harvest Amazon Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AMZN": 124.3
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -12589,154 +12595,157 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-09"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "AMZH": {
     "name": "Harvest Amazon High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AMZN": 102.2,
+      "Cash and other assets and liabilities": 0.2
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -12747,154 +12756,156 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-04"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "APLE": {
     "name": "Harvest Apple Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AAPL": 128.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.22,
       "last_ex_date": "2026-07-31",
       "count": 13,
@@ -12905,94 +12916,96 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "AVGY": {
     "name": "Harvest Broadcom Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AVGO": 127.7
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.5,
       "last_ex_date": "2026-07-31",
       "count": 17,
@@ -13003,118 +13016,120 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.5,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.5,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.5,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.48,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.48,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.48,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.48,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.32,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "BCEE": {
     "name": "Harvest BCE Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "BCE": 126.5
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -13125,82 +13140,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "BLKY": {
     "name": "Harvest Block Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "Block, Inc.": 129.3
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.28,
       "last_ex_date": "2026-07-31",
       "count": 6,
@@ -13211,52 +13228,54 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "CCOE": {
     "name": "Harvest Cameco Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "CCO": 128.3
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.3,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -13267,82 +13286,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.34,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.26,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.26,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "CNQE": {
     "name": "Harvest CNQ Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "CNQ": 127.5
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.26,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -13353,82 +13374,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.26,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.26,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.26,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.23,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "CNYE": {
     "name": "Harvest Coinbase Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "COIN": 130.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
       "count": 17,
@@ -13439,118 +13462,121 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "CONY": {
     "name": "Harvest Coinbase High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "COIN": 100.5,
+      "Cash and other assets and liabilities": 0.2
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.13,
       "last_ex_date": "2026-07-31",
       "count": 18,
@@ -13561,124 +13587,126 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "COSY": {
     "name": "Harvest Costco Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "COST": 126.9
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.1,
       "last_ex_date": "2026-07-31",
       "count": 17,
@@ -13689,118 +13717,120 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "CRCY": {
     "name": "Harvest Circle Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "CRCL": 128.6
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
       "count": 10,
@@ -13811,76 +13841,78 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.21,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "CRWY": {
     "name": "Harvest CrowdStrike Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "CRWD": 125.8
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.37,
       "last_ex_date": "2026-07-31",
       "count": 6,
@@ -13891,52 +13923,54 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.33,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "ENBE": {
     "name": "Harvest Enbridge Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "ENB": 127.3
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.13,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -13947,82 +13981,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "GOGY": {
     "name": "Harvest Alphabet Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "GOOGL": 124.9
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.3,
       "last_ex_date": "2026-07-31",
       "count": 17,
@@ -14033,118 +14069,129 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "HHIC": {
     "name": "Harvest Canadian High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "TD": 20.1,
+      "RY": 19.8,
+      "SHOP": 15.5,
+      "AEM": 12.8,
+      "ENB": 11.8,
+      "SU": 11.7,
+      "CNQ": 11.6,
+      "CCO": 10.7,
+      "BCE": 7.4,
+      "T": 5.2
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -14155,82 +14202,103 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "HHIH": {
     "name": "Harvest High Income Equity Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AMZN": 7.8,
+      "MSFT": 7.6,
+      "LLY": 7.4,
+      "AVGO": 7.2,
+      "GOOGL": 7.0,
+      "NVDA": 7.0,
+      "AMD": 6.8,
+      "AAPL": 6.8,
+      "COST": 5.6,
+      "META": 5.2,
+      "CRWD": 5.0,
+      "TSLA": 4.8,
+      "PLTR": 4.6,
+      "HOOD": 3.5,
+      "SOFI": 3.2,
+      "RDDT": 2.6,
+      "COIN": 2.3,
+      "Space Exploration Technologies Corp.": 2.3,
+      "MSTR": 2.0,
+      "CRCL": 1.9
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.185,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -14241,74 +14309,74 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "HHII": {
     "name": "Harvest International High Income Shares ETF",
@@ -14326,9 +14394,30 @@
     "name": "Harvest Diversified High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "AMZN": 8.0,
+      "AAPL": 8.0,
+      "LLY": 7.6,
+      "MSFT": 7.5,
+      "GOOGL": 7.2,
+      "AVGO": 7.2,
+      "NVDA": 7.0,
+      "Harvest AMD Enhanced High Income Shares ETF": 6.7,
+      "COST": 5.6,
+      "CRWD": 4.8,
+      "META": 4.8,
+      "TSLA": 4.6,
+      "PLTR": 4.4,
+      "HOOD": 3.4,
+      "SOFI": 3.2,
+      "RDDT": 2.7,
+      "COIN": 2.3,
+      "SPACEX": 2.1,
+      "CRCL": 1.6,
+      "MSTR": 1.5
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.27,
       "last_ex_date": "2026-07-31",
       "count": 18,
@@ -14339,124 +14428,126 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.26,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "HODY": {
     "name": "Harvest Robinhood Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "HOOD": 126.8
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
       "count": 10,
@@ -14467,76 +14558,78 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "JNJY": {
     "name": "Harvest JnJ Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "JNJ": 126.8
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
       "count": 6,
@@ -14547,52 +14640,54 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "JPHE": {
     "name": "Harvest JPHE Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "JPM": 126.8
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
       "count": 6,
@@ -14603,52 +14698,54 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "LLHE": {
     "name": "Harvest Eli Lilly Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "LLY": 127.9
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.185,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -14659,154 +14756,157 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.185,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.165,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-09"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "LLYH": {
     "name": "Harvest Eli Lilly High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "LLY": 100.9,
+      "Cash and other assets and liabilities": 0.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -14817,154 +14917,156 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-09"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "METE": {
     "name": "Harvest Meta Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "META": 125.3
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.17,
       "last_ex_date": "2026-07-31",
       "count": 18,
@@ -14975,124 +15077,127 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "MSFH": {
     "name": "Harvest Microsoft High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "MSFT": 104.7,
+      "Cash and other assets and liabilities": 0.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -15103,154 +15208,156 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-09"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "MSHE": {
     "name": "Harvest Microsoft Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "MSFT": 128.2
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -15261,154 +15368,156 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-09"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "MSTE": {
     "name": "Harvest Strategy Inc. Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "MSTR": 128.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.1,
       "last_ex_date": "2026-07-31",
       "count": 17,
@@ -15419,118 +15528,121 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.45,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.6,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.6,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.66,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.66,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.6,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "MSTY": {
     "name": "Harvest Strategy Inc. High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "MSTR": 101.6,
+      "Cash and other assets and liabilities": 0.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.09,
       "last_ex_date": "2026-07-31",
       "count": 18,
@@ -15541,124 +15653,126 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.09,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.09,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.28,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.31,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.31,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.33,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.33,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.4,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "NFLY": {
     "name": "Harvest Netflix Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "NFLX": 128.0
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.1,
       "last_ex_date": "2026-07-31",
       "count": 17,
@@ -15669,118 +15783,120 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.1,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.16,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "NOVY": {
     "name": "Harvest Novo Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "NVO": 129.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.17,
       "last_ex_date": "2026-07-31",
       "count": 6,
@@ -15791,52 +15907,54 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "NVDH": {
     "name": "Harvest NVIDIA High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "NVDA": 100.7
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -15847,154 +15965,156 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-09"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.18,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "NVHE": {
     "name": "Harvest NVIDIA Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "NVDA": 126.0
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.25,
       "last_ex_date": "2026-07-31",
       "count": 23,
@@ -16005,154 +16125,156 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-01-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-02-07"
+        "pay_date": "2025-02-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-12-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-01-09"
+        "pay_date": "2025-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-11-29",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-12-09"
+        "pay_date": "2024-12-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-10-31",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-11-08"
+        "pay_date": "2024-11-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2024-09-27",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2024-10-09"
+        "pay_date": "2024-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "ORCY": {
     "name": "Harvest Oracle Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "ORCL": 127.5
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
       "count": 6,
@@ -16163,52 +16285,54 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "PLTE": {
     "name": "Harvest Palantir Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "PLTR": 127.4
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.45,
       "last_ex_date": "2026-07-31",
       "count": 18,
@@ -16219,124 +16343,126 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.45,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.45,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.45,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.6,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.6,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.65,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.65,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.65,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.65,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.55,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.45,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.37,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "RDDY": {
     "name": "Harvest Reddit Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "RDDT": 135.5
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
       "count": 10,
@@ -16347,76 +16473,78 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.35,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "RYHE": {
     "name": "Harvest Enhanced High Income RY-Linked Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "RY": 125.2
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -16427,82 +16555,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.11,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.11,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.11,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.11,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.11,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.11,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "SHPE": {
     "name": "Harvest Shopify Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "SHOP": 129.8
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.21,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -16513,82 +16643,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.21,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.21,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.21,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "SOFY": {
     "name": "Harvest SoFi Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "SOFI": 126.6
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
       "count": 10,
@@ -16599,76 +16731,78 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.32,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.32,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.32,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.32,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "SPXE": {
     "name": "Harvest SpaceX Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "Space Exploration Technologies Corp.": 128.7
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.3,
       "last_ex_date": "2026-07-31",
       "count": 2,
@@ -16679,28 +16813,30 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.3,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "SUHE": {
     "name": "Harvest Suncor Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "SU": 127.5
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.27,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -16711,82 +16847,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.24,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.2,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.17,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.14,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "TDHE": {
     "name": "Harvest Enhanced High Income TD-Linked Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "TD": 124.8
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -16797,82 +16935,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.13,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "TEHE": {
     "name": "Harvest TELUS Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "T": 130.2
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.12,
       "last_ex_date": "2026-07-31",
       "count": 11,
@@ -16883,82 +17023,84 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.12,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "TSLY": {
     "name": "Harvest Tesla Enhanced High Income Shares ETF",
     "issuer": "Harvest ETFs",
     "region": "CAD",
-    "holdings": {},
+    "holdings": {
+      "TSLA": 126.1
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
       "count": 18,
@@ -16969,116 +17111,116 @@
       {
         "ex_date": "2026-07-31",
         "amount": 0.15,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-06"
+        "pay_date": "2026-08-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-30",
         "amount": 0.19,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-06"
+        "pay_date": "2026-07-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-29",
         "amount": 0.19,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.19,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-06"
+        "pay_date": "2026-05-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-31",
         "amount": 0.19,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-06"
+        "pay_date": "2026-04-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-27",
         "amount": 0.22,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-06"
+        "pay_date": "2026-01-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-28",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-06"
+        "pay_date": "2025-11-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-29",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-09"
+        "pay_date": "2025-10-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-29",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-09"
+        "pay_date": "2025-09-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-06-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-09"
+        "pay_date": "2025-07-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-05-30",
         "amount": 0.25,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-06-09"
+        "pay_date": "2025-06-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-04-30",
         "amount": 0.27,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-05-09"
+        "pay_date": "2025-05-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-03-31",
         "amount": 0.29,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-04-09"
+        "pay_date": "2025-04-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-02-28",
         "amount": 0.32,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-03-07"
+        "pay_date": "2025-03-07",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-23",
     "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
+    "fetched_ok": true,
+    "error": ""
   },
   "BANK": {
     "name": "Evolve Canadian Banks and Lifecos Enhanced Yield Fund",
