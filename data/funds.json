@@ -12377,7 +12377,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 2.99,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 14.36,
+      "price_date": "2026-08-21",
+      "yield_ttm": 20.82
     },
     "distributions": [
       {
@@ -12465,7 +12468,10 @@
       "last_ex_date": "2026-07-31",
       "count": 17,
       "ttm_total": 6.91,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 36.31,
+      "price_date": "2026-08-21",
+      "yield_ttm": 19.03
     },
     "distributions": [
       {
@@ -12589,7 +12595,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 2.02,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 13.78,
+      "price_date": "2026-08-21",
+      "yield_ttm": 14.66
     },
     "distributions": [
       {
@@ -12750,7 +12759,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 1.7,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 13.64,
+      "price_date": "2026-08-21",
+      "yield_ttm": 12.46
     },
     "distributions": [
       {
@@ -12910,7 +12922,10 @@
       "last_ex_date": "2026-07-31",
       "count": 13,
       "ttm_total": 2.03,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 17.65,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.5
     },
     "distributions": [
       {
@@ -13010,7 +13025,10 @@
       "last_ex_date": "2026-07-31",
       "count": 17,
       "ttm_total": 5.18,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 17.77,
+      "price_date": "2026-08-21",
+      "yield_ttm": 29.15
     },
     "distributions": [
       {
@@ -13134,7 +13152,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 1.54,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 9.93,
+      "price_date": "2026-08-21",
+      "yield_ttm": 15.51
     },
     "distributions": [
       {
@@ -13222,7 +13243,10 @@
       "last_ex_date": "2026-07-31",
       "count": 6,
       "ttm_total": 1.48,
-      "ttm_payments": 6
+      "ttm_payments": 6,
+      "price": 13.15,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.25
     },
     "distributions": [
       {
@@ -13280,7 +13304,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 3.45,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 13.37,
+      "price_date": "2026-08-21",
+      "yield_ttm": 25.8
     },
     "distributions": [
       {
@@ -13368,7 +13395,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 2.19,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 18.33,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.95
     },
     "distributions": [
       {
@@ -13456,7 +13486,10 @@
       "last_ex_date": "2026-07-31",
       "count": 17,
       "ttm_total": 3.54,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 4.87,
+      "price_date": "2026-08-21",
+      "yield_ttm": 72.69
     },
     "distributions": [
       {
@@ -13581,7 +13614,10 @@
       "last_ex_date": "2026-07-31",
       "count": 18,
       "ttm_total": 2.64,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 5.25,
+      "price_date": "2026-08-21",
+      "yield_ttm": 50.29
     },
     "distributions": [
       {
@@ -13711,7 +13747,10 @@
       "last_ex_date": "2026-07-31",
       "count": 17,
       "ttm_total": 1.2,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 8.79,
+      "price_date": "2026-08-21",
+      "yield_ttm": 13.65
     },
     "distributions": [
       {
@@ -13835,7 +13874,10 @@
       "last_ex_date": "2026-07-31",
       "count": 10,
       "ttm_total": 2.5,
-      "ttm_payments": 10
+      "ttm_payments": 10,
+      "price": 4.01,
+      "price_date": "2026-08-21",
+      "yield_ttm": 62.34
     },
     "distributions": [
       {
@@ -13917,7 +13959,10 @@
       "last_ex_date": "2026-07-31",
       "count": 6,
       "ttm_total": 1.66,
-      "ttm_payments": 6
+      "ttm_payments": 6,
+      "price": 17.28,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.61
     },
     "distributions": [
       {
@@ -13975,7 +14020,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 1.43,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 11.78,
+      "price_date": "2026-08-21",
+      "yield_ttm": 12.14
     },
     "distributions": [
       {
@@ -14063,7 +14111,10 @@
       "last_ex_date": "2026-07-31",
       "count": 17,
       "ttm_total": 3.08,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 20.06,
+      "price_date": "2026-08-21",
+      "yield_ttm": 15.35
     },
     "distributions": [
       {
@@ -14196,7 +14247,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 1.96,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 14.5,
+      "price_date": "2026-08-21",
+      "yield_ttm": 13.52
     },
     "distributions": [
       {
@@ -14303,7 +14357,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 2.035,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 11.03,
+      "price_date": "2026-08-21",
+      "yield_ttm": 18.45
     },
     "distributions": [
       {
@@ -14378,18 +14435,6 @@
     "fetched_ok": true,
     "error": ""
   },
-  "HHII": {
-    "name": "Harvest International High Income Shares ETF",
-    "issuer": "Harvest ETFs",
-    "region": "CAD",
-    "holdings": {},
-    "stats": {},
-    "distributions": [],
-    "as_of": "",
-    "stale": false,
-    "fetched_ok": false,
-    "error": "holdings table not found \u2014 page structure may have changed"
-  },
   "HHIS": {
     "name": "Harvest Diversified High Income Shares ETF",
     "issuer": "Harvest ETFs",
@@ -14422,7 +14467,10 @@
       "last_ex_date": "2026-07-31",
       "count": 18,
       "ttm_total": 3.19,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 11.15,
+      "price_date": "2026-08-21",
+      "yield_ttm": 28.61
     },
     "distributions": [
       {
@@ -14552,7 +14600,10 @@
       "last_ex_date": "2026-07-31",
       "count": 10,
       "ttm_total": 2.46,
-      "ttm_payments": 10
+      "ttm_payments": 10,
+      "price": 7.08,
+      "price_date": "2026-08-21",
+      "yield_ttm": 34.75
     },
     "distributions": [
       {
@@ -14634,7 +14685,10 @@
       "last_ex_date": "2026-07-31",
       "count": 6,
       "ttm_total": 0.75,
-      "ttm_payments": 6
+      "ttm_payments": 6,
+      "price": 14.54,
+      "price_date": "2026-08-21",
+      "yield_ttm": 5.16
     },
     "distributions": [
       {
@@ -14692,7 +14746,10 @@
       "last_ex_date": "2026-07-31",
       "count": 6,
       "ttm_total": 0.84,
-      "ttm_payments": 6
+      "ttm_payments": 6,
+      "price": 12.71,
+      "price_date": "2026-08-21",
+      "yield_ttm": 6.61
     },
     "distributions": [
       {
@@ -14750,7 +14807,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 2.0,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 10.77,
+      "price_date": "2026-08-21",
+      "yield_ttm": 18.57
     },
     "distributions": [
       {
@@ -14911,7 +14971,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 1.81,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 11.41,
+      "price_date": "2026-08-21",
+      "yield_ttm": 15.86
     },
     "distributions": [
       {
@@ -15071,7 +15134,10 @@
       "last_ex_date": "2026-07-31",
       "count": 18,
       "ttm_total": 2.25,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 7.33,
+      "price_date": "2026-08-21",
+      "yield_ttm": 30.7
     },
     "distributions": [
       {
@@ -15202,7 +15268,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 1.68,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 9.97,
+      "price_date": "2026-08-21",
+      "yield_ttm": 16.85
     },
     "distributions": [
       {
@@ -15362,7 +15431,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 1.92,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 9.32,
+      "price_date": "2026-08-21",
+      "yield_ttm": 20.6
     },
     "distributions": [
       {
@@ -15522,7 +15594,10 @@
       "last_ex_date": "2026-07-31",
       "count": 17,
       "ttm_total": 3.1,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 2.2,
+      "price_date": "2026-08-21",
+      "yield_ttm": 140.91
     },
     "distributions": [
       {
@@ -15647,7 +15722,10 @@
       "last_ex_date": "2026-07-31",
       "count": 18,
       "ttm_total": 2.11,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 2.52,
+      "price_date": "2026-08-21",
+      "yield_ttm": 83.73
     },
     "distributions": [
       {
@@ -15777,7 +15855,10 @@
       "last_ex_date": "2026-07-31",
       "count": 17,
       "ttm_total": 2.0,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 6.43,
+      "price_date": "2026-08-21",
+      "yield_ttm": 31.1
     },
     "distributions": [
       {
@@ -15901,7 +15982,10 @@
       "last_ex_date": "2026-07-31",
       "count": 6,
       "ttm_total": 1.16,
-      "ttm_payments": 6
+      "ttm_payments": 6,
+      "price": 7.65,
+      "price_date": "2026-08-21",
+      "yield_ttm": 15.16
     },
     "distributions": [
       {
@@ -15959,7 +16043,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 2.34,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 13.71,
+      "price_date": "2026-08-21",
+      "yield_ttm": 17.07
     },
     "distributions": [
       {
@@ -16119,7 +16206,10 @@
       "last_ex_date": "2026-07-31",
       "count": 23,
       "ttm_total": 2.91,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 13.14,
+      "price_date": "2026-08-21",
+      "yield_ttm": 22.15
     },
     "distributions": [
       {
@@ -16279,7 +16369,10 @@
       "last_ex_date": "2026-07-31",
       "count": 6,
       "ttm_total": 1.45,
-      "ttm_payments": 6
+      "ttm_payments": 6,
+      "price": 6.43,
+      "price_date": "2026-08-21",
+      "yield_ttm": 22.55
     },
     "distributions": [
       {
@@ -16337,7 +16430,10 @@
       "last_ex_date": "2026-07-31",
       "count": 18,
       "ttm_total": 6.8,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 20.12,
+      "price_date": "2026-08-21",
+      "yield_ttm": 33.8
     },
     "distributions": [
       {
@@ -16467,7 +16563,10 @@
       "last_ex_date": "2026-07-31",
       "count": 10,
       "ttm_total": 2.7,
-      "ttm_payments": 10
+      "ttm_payments": 10,
+      "price": 4.8,
+      "price_date": "2026-08-21",
+      "yield_ttm": 56.25
     },
     "distributions": [
       {
@@ -16549,7 +16648,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 1.36,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 16.34,
+      "price_date": "2026-08-21",
+      "yield_ttm": 8.32
     },
     "distributions": [
       {
@@ -16637,7 +16739,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 2.63,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 9.44,
+      "price_date": "2026-08-21",
+      "yield_ttm": 27.86
     },
     "distributions": [
       {
@@ -16725,7 +16830,10 @@
       "last_ex_date": "2026-07-31",
       "count": 10,
       "ttm_total": 2.43,
-      "ttm_payments": 10
+      "ttm_payments": 10,
+      "price": 5.48,
+      "price_date": "2026-08-21",
+      "yield_ttm": 44.34
     },
     "distributions": [
       {
@@ -16807,7 +16915,10 @@
       "last_ex_date": "2026-07-31",
       "count": 2,
       "ttm_total": 0.6,
-      "ttm_payments": 2
+      "ttm_payments": 2,
+      "price": 9.14,
+      "price_date": "2026-08-21",
+      "yield_ttm": 6.56
     },
     "distributions": [
       {
@@ -16841,7 +16952,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 2.18,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 19.78,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.02
     },
     "distributions": [
       {
@@ -16929,7 +17043,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 1.49,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 17.82,
+      "price_date": "2026-08-21",
+      "yield_ttm": 8.36
     },
     "distributions": [
       {
@@ -17017,7 +17134,10 @@
       "last_ex_date": "2026-07-31",
       "count": 11,
       "ttm_total": 1.32,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 6.08,
+      "price_date": "2026-08-21",
+      "yield_ttm": 21.71
     },
     "distributions": [
       {
@@ -17105,7 +17225,10 @@
       "last_ex_date": "2026-07-31",
       "count": 18,
       "ttm_total": 2.63,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 5.88,
+      "price_date": "2026-08-21",
+      "yield_ttm": 44.73
     },
     "distributions": [
       {
@@ -17620,7 +17743,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787522738"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787526854"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -17664,7 +17787,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787522750"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787526864"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -17842,7 +17965,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "Page.goto: Timeout 20000ms exceeded.\nCall log:\n  - navigating to \"https://evolveetfs.com/product/utes/\", waiting until \"domcontentloaded\"\n"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787526875"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -17978,7 +18101,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787522784"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787526886"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -18022,7 +18145,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787522794"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787526897"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -18815,7 +18938,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787522806"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787526909"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -19163,7 +19286,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787522817"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787526920"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -19573,7 +19696,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787522830"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787526933"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -19855,7 +19978,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787522843"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787526945"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -20229,7 +20352,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787522857"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787526956"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
@@ -20639,7 +20762,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787522873"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787526969"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -21049,7 +21172,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787522886"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787526982"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -21479,7 +21602,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787522898"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787526994"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -21715,7 +21838,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787522909"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787527005"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -21877,7 +22000,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787522921"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787527016"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -22004,7 +22127,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787522932"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787527027"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
@@ -22187,7 +22310,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787522943"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787527046"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -22368,7 +22491,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787522953"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787527057"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -22504,7 +22627,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787522964"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787527068"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -22628,7 +22751,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787522974"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787527078"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -22772,7 +22895,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787522985"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787527089"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -22944,7 +23067,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787522996"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787527100"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
@@ -23055,8 +23178,6 @@
       "DXCM": 0.16
     },
     "stats": {
-      "aum_musd": 8360.0,
-      "aum_display": "$8.36 billion",
       "nav": "$18.31",
       "yield": "0.02%",
       "yield_label": "30-day sec yield",
@@ -37588,7 +37709,10 @@
       "last_ex_date": "2026-08-12",
       "count": 48,
       "ttm_total": 2.7323,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 46.23,
+      "price_date": "2026-08-21",
+      "yield_ttm": 5.91
     },
     "distributions": [
       {
@@ -37896,7 +38020,10 @@
       "last_ex_date": "2026-08-12",
       "count": 48,
       "ttm_total": 2.4025,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 49.72,
+      "price_date": "2026-08-21",
+      "yield_ttm": 4.83
     },
     "distributions": [
       {
@@ -38204,7 +38331,10 @@
       "last_ex_date": "2026-08-12",
       "count": 23,
       "ttm_total": 4.0445,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 48.925,
+      "price_date": "2026-08-21",
+      "yield_ttm": 8.27
     },
     "distributions": [
       {
@@ -38362,7 +38492,10 @@
       "last_ex_date": "2026-08-19",
       "count": 9,
       "ttm_total": 8.8195,
-      "ttm_payments": 9
+      "ttm_payments": 9,
+      "price": 31.46,
+      "price_date": "2026-08-21",
+      "yield_ttm": 28.03
     },
     "distributions": [
       {
@@ -38436,7 +38569,10 @@
       "last_ex_date": "2026-08-19",
       "count": 12,
       "ttm_total": 5.2878,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 52.836,
+      "price_date": "2026-08-21",
+      "yield_ttm": 10.01
     },
     "distributions": [
       {
@@ -38528,7 +38664,10 @@
       "last_ex_date": "2026-04-29",
       "count": 5,
       "ttm_total": 1.0724,
-      "ttm_payments": 5
+      "ttm_payments": 5,
+      "price": 56.943,
+      "price_date": "2026-08-21",
+      "yield_ttm": 1.88
     },
     "distributions": [
       {
@@ -38567,18 +38706,6 @@
     "fetched_ok": false,
     "error": "404 Client Error: Not Found for url: https://neosfunds.com/wp-content/fundwebsite/holdings/NLSI_holdings.csv"
   },
-  "TLTI": {
-    "name": "NEOS Enhanced Income 20+ Year Treasury ETF",
-    "issuer": "NEOS Investments",
-    "region": "US",
-    "holdings": {},
-    "stats": {},
-    "distributions": [],
-    "as_of": "",
-    "stale": false,
-    "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://neosfunds.com/wp-content/fundwebsite/holdings/TLTI_holdings.csv"
-  },
   "XBCI": {
     "name": "NEOS Bitcoin High Income ETF",
     "issuer": "NEOS Investments",
@@ -38590,7 +38717,10 @@
       "last_ex_date": "2026-08-05",
       "count": 7,
       "ttm_total": 9.2675,
-      "ttm_payments": 7
+      "ttm_payments": 7,
+      "price": 38.35,
+      "price_date": "2026-08-21",
+      "yield_ttm": 24.17
     },
     "distributions": [
       {
@@ -38652,7 +38782,10 @@
       "last_ex_date": "2026-08-05",
       "count": 7,
       "ttm_total": 5.9095,
-      "ttm_payments": 7
+      "ttm_payments": 7,
+      "price": 48.95,
+      "price_date": "2026-08-21",
+      "yield_ttm": 12.07
     },
     "distributions": [
       {
@@ -38714,7 +38847,10 @@
       "last_ex_date": "2026-08-05",
       "count": 7,
       "ttm_total": 4.8156,
-      "ttm_payments": 7
+      "ttm_payments": 7,
+      "price": 50.01,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.63
     },
     "distributions": [
       {
@@ -38776,7 +38912,10 @@
       "last_ex_date": "2026-08-03",
       "count": 33,
       "ttm_total": 4.5226,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 56.09,
+      "price_date": "2026-08-21",
+      "yield_ttm": 8.06
     },
     "distributions": [
       {
@@ -38994,7 +39133,10 @@
       "last_ex_date": "2026-08-03",
       "count": 33,
       "ttm_total": 5.6609,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 56.65,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.99
     },
     "distributions": [
       {
@@ -39212,7 +39354,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 12.1039,
-      "ttm_payments": 52
+      "ttm_payments": 52,
+      "price": 38.87,
+      "price_date": "2026-08-21",
+      "yield_ttm": 31.14
     },
     "distributions": [
       {
@@ -39592,7 +39737,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 13.2422,
-      "ttm_payments": 52
+      "ttm_payments": 52,
+      "price": 28.95,
+      "price_date": "2026-08-21",
+      "yield_ttm": 45.74
     },
     "distributions": [
       {
@@ -39972,7 +40120,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 12.2548,
-      "ttm_payments": 52
+      "ttm_payments": 52,
+      "price": 28.49,
+      "price_date": "2026-08-21",
+      "yield_ttm": 43.01
     },
     "distributions": [
       {
@@ -40352,7 +40503,10 @@
       "last_ex_date": "2026-08-03",
       "count": 25,
       "ttm_total": 3.6462,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 17.966,
+      "price_date": "2026-08-21",
+      "yield_ttm": 20.3
     },
     "distributions": [
       {
@@ -40522,7 +40676,10 @@
       "last_ex_date": "2026-08-03",
       "count": 29,
       "ttm_total": 3.6069,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 17.38,
+      "price_date": "2026-08-21",
+      "yield_ttm": 20.75
     },
     "distributions": [
       {
@@ -40705,18 +40862,6 @@
     "fetched_ok": false,
     "error": "parser ran but returned no holdings"
   },
-  "IWMT": {
-    "name": "Defiance R2000 Enhanced Options Income ETF",
-    "issuer": "Defiance",
-    "region": "US",
-    "holdings": {},
-    "stats": {},
-    "distributions": [],
-    "as_of": "",
-    "stale": false,
-    "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://dividendhistory.org/payout/IWMT/"
-  },
   "FEPI": {
     "name": "REX FANG & Innovation Equity Premium Income ETF",
     "issuer": "REX Shares",
@@ -40728,7 +40873,10 @@
       "last_ex_date": "2026-08-19",
       "count": 43,
       "ttm_total": 11.2553,
-      "ttm_payments": 22
+      "ttm_payments": 22,
+      "price": 41.72,
+      "price_date": "2026-08-21",
+      "yield_ttm": 26.98
     },
     "distributions": [
       {
@@ -41006,7 +41154,10 @@
       "last_ex_date": "2026-08-19",
       "count": 35,
       "ttm_total": 13.6783,
-      "ttm_payments": 22
+      "ttm_payments": 22,
+      "price": 36.61,
+      "price_date": "2026-08-21",
+      "yield_ttm": 37.36
     },
     "distributions": [
       {
@@ -41236,7 +41387,10 @@
       "last_ex_date": "2026-08-03",
       "count": 34,
       "ttm_total": 2.6551,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 34.73,
+      "price_date": "2026-08-21",
+      "yield_ttm": 7.64
     },
     "distributions": [
       {
@@ -41460,7 +41614,10 @@
       "last_ex_date": "2026-08-04",
       "count": 48,
       "ttm_total": 2.3308,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 21.19,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.0
     },
     "distributions": [
       {
@@ -41768,7 +41925,10 @@
       "last_ex_date": "2026-08-04",
       "count": 48,
       "ttm_total": 2.9921,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 28.92,
+      "price_date": "2026-08-21",
+      "yield_ttm": 10.35
     },
     "distributions": [
       {
@@ -42076,7 +42236,10 @@
       "last_ex_date": "2026-08-04",
       "count": 48,
       "ttm_total": 2.7779,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 23.32,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.91
     },
     "distributions": [
       {
@@ -42384,7 +42547,10 @@
       "last_ex_date": "2026-07-20",
       "count": 60,
       "ttm_total": 4.9212,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 29.643,
+      "price_date": "2026-08-21",
+      "yield_ttm": 16.6
     },
     "distributions": [
       {
@@ -42764,7 +42930,10 @@
       "last_ex_date": "2026-07-20",
       "count": 60,
       "ttm_total": 3.6874,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 29.525,
+      "price_date": "2026-08-21",
+      "yield_ttm": 12.49
     },
     "distributions": [
       {
@@ -43144,7 +43313,10 @@
       "last_ex_date": "2026-07-20",
       "count": 46,
       "ttm_total": 2.3796,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 25.034,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.51
     },
     "distributions": [
       {
@@ -43440,7 +43612,10 @@
       "last_ex_date": "2026-07-20",
       "count": 54,
       "ttm_total": 2.189,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 22.91,
+      "price_date": "2026-08-21",
+      "yield_ttm": 9.55
     },
     "distributions": [
       {
@@ -43784,7 +43959,10 @@
       "last_ex_date": "2026-07-20",
       "count": 59,
       "ttm_total": 1.7345,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 15.285,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.35
     },
     "distributions": [
       {
@@ -44158,7 +44336,10 @@
       "last_ex_date": "2026-07-20",
       "count": 58,
       "ttm_total": 1.9745,
-      "ttm_payments": 11
+      "ttm_payments": 11,
+      "price": 17.435,
+      "price_date": "2026-08-21",
+      "yield_ttm": 11.32
     },
     "distributions": [
       {
@@ -44515,18 +44696,6 @@
     "fetched_ok": false,
     "error": "parser ran but returned no holdings"
   },
-  "EAPR": {
-    "name": "Global X S&P 500 Tail Risk ETF",
-    "issuer": "Global X",
-    "region": "US",
-    "holdings": {},
-    "stats": {},
-    "distributions": [],
-    "as_of": "",
-    "stale": false,
-    "fetched_ok": false,
-    "error": "404 Client Error: Not Found for url: https://dividendhistory.org/payout/EAPR/"
-  },
   "ISPY": {
     "name": "ProShares S&P 500 High Income ETF",
     "issuer": "ProShares",
@@ -44538,7 +44707,10 @@
       "last_ex_date": "2026-08-03",
       "count": 31,
       "ttm_total": 2.4293,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 48.45,
+      "price_date": "2026-08-21",
+      "yield_ttm": 5.01
     },
     "distributions": [
       {
@@ -44744,7 +44916,10 @@
       "last_ex_date": "2026-08-03",
       "count": 28,
       "ttm_total": 2.7705,
-      "ttm_payments": 12
+      "ttm_payments": 12,
+      "price": 48.127,
+      "price_date": "2026-08-21",
+      "yield_ttm": 5.76
     },
     "distributions": [
       {
@@ -44930,7 +45105,9 @@
       "distribution_source": "dividendhistory.org",
       "last_amount": 2.7568,
       "last_ex_date": "2024-09-03",
-      "count": 12
+      "count": 12,
+      "price": 29.31,
+      "price_date": "2026-07-17"
     },
     "distributions": [
       {
@@ -45022,7 +45199,10 @@
       "last_ex_date": "2026-08-19",
       "count": 60,
       "ttm_total": 27.7254,
-      "ttm_payments": 53
+      "ttm_payments": 53,
+      "price": 26.66,
+      "price_date": "2026-08-21",
+      "yield_ttm": 104.0
     },
     "distributions": [
       {
@@ -45402,7 +45582,10 @@
       "last_ex_date": "2026-08-19",
       "count": 60,
       "ttm_total": 5.1421,
-      "ttm_payments": 52
+      "ttm_payments": 52,
+      "price": 7.68,
+      "price_date": "2026-08-21",
+      "yield_ttm": 66.95
     },
     "distributions": [
       {
@@ -45782,7 +45965,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 7.1285,
-      "ttm_payments": 47
+      "ttm_payments": 47,
+      "price": 12.47,
+      "price_date": "2026-08-21",
+      "yield_ttm": 57.17
     },
     "distributions": [
       {
@@ -46162,7 +46348,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 5.7432,
-      "ttm_payments": 47
+      "ttm_payments": 47,
+      "price": 10.78,
+      "price_date": "2026-08-21",
+      "yield_ttm": 53.28
     },
     "distributions": [
       {
@@ -46542,7 +46731,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 6.4991,
-      "ttm_payments": 47
+      "ttm_payments": 47,
+      "price": 12.23,
+      "price_date": "2026-08-21",
+      "yield_ttm": 53.14
     },
     "distributions": [
       {
@@ -46922,7 +47114,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 4.8277,
-      "ttm_payments": 47
+      "ttm_payments": 47,
+      "price": 8.1,
+      "price_date": "2026-08-21",
+      "yield_ttm": 59.6
     },
     "distributions": [
       {
@@ -47302,7 +47497,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 4.6425,
-      "ttm_payments": 46
+      "ttm_payments": 46,
+      "price": 12.11,
+      "price_date": "2026-08-21",
+      "yield_ttm": 38.34
     },
     "distributions": [
       {
@@ -47682,7 +47880,10 @@
       "last_ex_date": "2026-08-20",
       "count": 58,
       "ttm_total": 29.3736,
-      "ttm_payments": 47
+      "ttm_payments": 47,
+      "price": 38.16,
+      "price_date": "2026-08-21",
+      "yield_ttm": 76.97
     },
     "distributions": [
       {
@@ -48050,7 +48251,10 @@
       "last_ex_date": "2026-08-20",
       "count": 58,
       "ttm_total": 8.3587,
-      "ttm_payments": 47
+      "ttm_payments": 47,
+      "price": 5.31,
+      "price_date": "2026-08-21",
+      "yield_ttm": 157.41
     },
     "distributions": [
       {
@@ -48418,7 +48622,10 @@
       "last_ex_date": "2026-08-20",
       "count": 60,
       "ttm_total": 8.191,
-      "ttm_payments": 47
+      "ttm_payments": 47,
+      "price": 11.99,
+      "price_date": "2026-08-21",
+      "yield_ttm": 68.32
     },
     "distributions": [
       {
