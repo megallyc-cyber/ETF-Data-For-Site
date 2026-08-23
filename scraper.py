@@ -1302,6 +1302,41 @@ def run(registry: list[Fund]) -> list[Fund]:
     return registry
 
 
+def attach_price_and_yield(registry: list) -> None:
+    """Give every fund the same yield measure.
+
+    Issuers publish yields on incompatible bases — a 30-day SEC yield, an
+    annualised distribution yield and a trailing twelve-month yield are three
+    different numbers, and only 86 of 120 funds publish any at all. We keep the
+    issuer's figure (labelled, on the fund page) but also compute one
+    comparable number for everyone: twelve months of actual distributions over
+    the latest close. Prices come from data/prices, which covers all 120.
+    """
+    price_dir = Path("data/prices")
+    if not price_dir.exists():
+        log.warning("no price files — skipping yield computation")
+        return
+    done = 0
+    for fund in registry:
+        csv_path = price_dir / f"{fund.ticker}.csv"
+        if not csv_path.exists():
+            continue
+        try:
+            last = csv_path.read_text().strip().splitlines()[-1]
+            day, close = last.split(",")[0], float(last.split(",")[1])
+        except Exception:  # noqa: BLE001
+            continue
+        if close <= 0:
+            continue
+        fund.stats["price"] = round(close, 4)
+        fund.stats["price_date"] = day
+        ttm = fund.stats.get("ttm_total")
+        if ttm:
+            fund.stats["yield_ttm"] = round(ttm / close * 100, 2)
+            done += 1
+    log.info("Computed a trailing-12-month yield for %d funds", done)
+
+
 def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
                  merge: bool = False) -> None:
     """When only part of the registry was scraped (--only), merge into the
@@ -1383,6 +1418,7 @@ if __name__ == "__main__":
                  ", ".join(f.ticker for f in registry))
 
     results = run(registry)
+    attach_price_and_yield(results)
     write_output(results, merge=filtered)
 
 
