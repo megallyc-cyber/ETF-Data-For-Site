@@ -193,97 +193,95 @@ FUND_REGISTRY: list[Fund] = [
     # path (/high-income-shares/), which is why the /etf/ registry missed them.
     # Same page structure, so the existing harvest parser handles them as-is.
     Fund("AEME", "Harvest Agnico Eagle Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/aeme/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/aeme/", "harvest_his"),
     Fund("AMDY", "Harvest AMD Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/amdy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/amdy/", "harvest_his"),
     Fund("AMHE", "Harvest Amazon Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/amhe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/amhe/", "harvest_his"),
     Fund("AMZH", "Harvest Amazon High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/amzh/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/amzh/", "harvest_his"),
     Fund("APLE", "Harvest Apple Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/aple/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/aple/", "harvest_his"),
     Fund("AVGY", "Harvest Broadcom Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/avgy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/avgy/", "harvest_his"),
     Fund("BCEE", "Harvest BCE Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/bcee/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/bcee/", "harvest_his"),
     Fund("BLKY", "Harvest Block Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/blky/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/blky/", "harvest_his"),
     Fund("CCOE", "Harvest Cameco Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/ccoe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/ccoe/", "harvest_his"),
     Fund("CNQE", "Harvest CNQ Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/cnqe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/cnqe/", "harvest_his"),
     Fund("CNYE", "Harvest Coinbase Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/cnye/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/cnye/", "harvest_his"),
     Fund("CONY", "Harvest Coinbase High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/cony/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/cony/", "harvest_his"),
     Fund("COSY", "Harvest Costco Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/cosy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/cosy/", "harvest_his"),
     Fund("CRCY", "Harvest Circle Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/crcy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/crcy/", "harvest_his"),
     Fund("CRWY", "Harvest CrowdStrike Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/crwy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/crwy/", "harvest_his"),
     Fund("ENBE", "Harvest Enbridge Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/enbe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/enbe/", "harvest_his"),
     Fund("GOGY", "Harvest Alphabet Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/gogy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/gogy/", "harvest_his"),
     Fund("HHIC", "Harvest Canadian High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/hhic/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/hhic/", "harvest_his"),
     Fund("HHIH", "Harvest High Income Equity Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/hhih/", "harvest"),
-    Fund("HHII", "Harvest International High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/hhii/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/hhih/", "harvest_his"),
     Fund("HHIS", "Harvest Diversified High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/hhis/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/hhis/", "harvest_his"),
     Fund("HODY", "Harvest Robinhood Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/hody/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/hody/", "harvest_his"),
     Fund("JNJY", "Harvest JnJ Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/jnjy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/jnjy/", "harvest_his"),
     Fund("JPHE", "Harvest JPHE Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/jphe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/jphe/", "harvest_his"),
     Fund("LLHE", "Harvest Eli Lilly Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/llhe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/llhe/", "harvest_his"),
     Fund("LLYH", "Harvest Eli Lilly High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/llyh/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/llyh/", "harvest_his"),
     Fund("METE", "Harvest Meta Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/mete/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/mete/", "harvest_his"),
     Fund("MSFH", "Harvest Microsoft High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/msfh/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/msfh/", "harvest_his"),
     Fund("MSHE", "Harvest Microsoft Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/mshe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/mshe/", "harvest_his"),
     Fund("MSTE", "Harvest Strategy Inc. Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/mste/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/mste/", "harvest_his"),
     Fund("MSTY", "Harvest Strategy Inc. High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/msty/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/msty/", "harvest_his"),
     Fund("NFLY", "Harvest Netflix Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/nfly/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/nfly/", "harvest_his"),
     Fund("NOVY", "Harvest Novo Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/novy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/novy/", "harvest_his"),
     Fund("NVDH", "Harvest NVIDIA High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/nvdh/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/nvdh/", "harvest_his"),
     Fund("NVHE", "Harvest NVIDIA Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/nvhe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/nvhe/", "harvest_his"),
     Fund("ORCY", "Harvest Oracle Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/orcy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/orcy/", "harvest_his"),
     Fund("PLTE", "Harvest Palantir Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/plte/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/plte/", "harvest_his"),
     Fund("RDDY", "Harvest Reddit Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/rddy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/rddy/", "harvest_his"),
     Fund("RYHE", "Harvest Enhanced High Income RY-Linked Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/ryhe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/ryhe/", "harvest_his"),
     Fund("SHPE", "Harvest Shopify Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/shpe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/shpe/", "harvest_his"),
     Fund("SOFY", "Harvest SoFi Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/sofy/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/sofy/", "harvest_his"),
     Fund("SPXE", "Harvest SpaceX Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/spxe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/spxe/", "harvest_his"),
     Fund("SUHE", "Harvest Suncor Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/suhe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/suhe/", "harvest_his"),
     Fund("TDHE", "Harvest Enhanced High Income TD-Linked Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/tdhe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/tdhe/", "harvest_his"),
     Fund("TEHE", "Harvest TELUS Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/tehe/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/tehe/", "harvest_his"),
     Fund("TSLY", "Harvest Tesla Enhanced High Income Shares ETF", "Harvest ETFs", "CAD",
-         "https://harvestportfolios.com/high-income-shares/tsly/", "harvest"),
+         "https://harvestportfolios.com/high-income-shares/tsly/", "harvest_his"),
 
     Fund("BANK", "Evolve Canadian Banks and Lifecos Enhanced Yield Fund", "Evolve ETFs", "CAD",
          "https://evolveetfs.com/product/bank/", "evolve", needs_browser=True),
@@ -472,8 +470,6 @@ FUND_REGISTRY: list[Fund] = [
          "https://neosfunds.com/wp-content/fundwebsite/holdings/NIHI_holdings.csv", "neos_csv"),
     Fund("NLSI", "NEOS Large Cap Systematic Income ETF", "NEOS Investments", "US",
          "https://neosfunds.com/wp-content/fundwebsite/holdings/NLSI_holdings.csv", "neos_csv"),
-    Fund("TLTI", "NEOS Enhanced Income 20+ Year Treasury ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/TLTI_holdings.csv", "neos_csv"),
     Fund("XBCI", "NEOS Bitcoin High Income ETF", "NEOS Investments", "US",
          "https://neosfunds.com/wp-content/fundwebsite/holdings/XBCI_holdings.csv", "neos_csv"),
     Fund("XQQI", "NEOS Nasdaq-100 High Income ETF", "NEOS Investments", "US",
@@ -498,8 +494,6 @@ FUND_REGISTRY: list[Fund] = [
          "https://dividendhistory.org/payout/QQQT/", "listing_only"),
     Fund("SPYT", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
          "https://dividendhistory.org/payout/SPYT/", "listing_only"),
-    Fund("IWMT", "Defiance R2000 Enhanced Options Income ETF", "Defiance", "US",
-         "https://dividendhistory.org/payout/IWMT/", "listing_only"),
     Fund("FEPI", "REX FANG & Innovation Equity Premium Income ETF", "REX Shares", "US",
          "https://dividendhistory.org/payout/FEPI/", "listing_only"),
     Fund("AIPI", "REX AI Equity Premium Income ETF", "REX Shares", "US",
@@ -524,8 +518,6 @@ FUND_REGISTRY: list[Fund] = [
          "https://dividendhistory.org/payout/QRMI/", "listing_only"),
     Fund("XRMI", "Global X S&P 500 Risk Managed Income ETF", "Global X", "US",
          "https://dividendhistory.org/payout/XRMI/", "listing_only"),
-    Fund("EAPR", "Global X S&P 500 Tail Risk ETF", "Global X", "US",
-         "https://dividendhistory.org/payout/EAPR/", "listing_only"),
     Fund("ISPY", "ProShares S&P 500 High Income ETF", "ProShares", "US",
          "https://dividendhistory.org/payout/ISPY/", "listing_only"),
     Fund("IQQQ", "ProShares Nasdaq-100 High Income ETF", "ProShares", "US",
@@ -603,6 +595,60 @@ def parse_hamilton(html: str) -> dict:
             continue
         holdings[ticker] = w
     return holdings
+
+HIS_NAME_TO_TICKER = {
+    "nvidia": "NVDA", "tesla": "TSLA", "apple": "AAPL", "amazon": "AMZN",
+    "microsoft": "MSFT", "alphabet": "GOOGL", "google": "GOOGL", "meta": "META",
+    "advanced micro": "AMD", "palantir": "PLTR", "coinbase": "COIN",
+    "microstrategy": "MSTR", "strategy inc": "MSTR", "netflix": "NFLX",
+    "broadcom": "AVGO", "eli lilly": "LLY", "johnson & johnson": "JNJ",
+    "jpmorgan": "JPM", "costco": "COST", "berkshire": "BRK.B", "shopify": "SHOP",
+    "royal bank": "RY", "toronto-dominion": "TD", "bce": "BCE", "enbridge": "ENB",
+    "canadian natural": "CNQ", "suncor": "SU", "telus": "T", "bank of montreal": "BMO",
+    "bank of nova scotia": "BNS", "agnico": "AEM", "constellation": "CSU",
+    "reddit": "RDDT", "novo nordisk": "NVO", "oracle": "ORCL", "crowdstrike": "CRWD",
+    "circle": "CRCL", "sofi": "SOFI", "blackrock": "BLK", "spacex": "SPACEX",
+    "cameco": "CCO", "hood": "HOOD", "robinhood": "HOOD", "cenovus": "CVE",
+}
+
+
+def parse_harvest_his(html: str) -> dict:
+    """Harvest High Income Shares list a single underlying by company NAME.
+
+    Their /high-income-shares/ pages differ from the /etf/ pages: the holdings
+    table is headed HOLDING and rows read like 'NVIDIA Corporation | 126.0%'.
+    Weights exceed 100% because these funds use leverage — that is real, not a
+    parsing artefact, so it is kept as published. Names are resolved to tickers
+    where we recognise them so the overlap tool can match them against other
+    funds; unrecognised names are kept verbatim rather than dropped.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    holdings = {}
+    for table in soup.find_all("table"):
+        head = table.find("tr")
+        if not head:
+            continue
+        first = head.find(["th", "td"])
+        if not first or "holding" not in first.get_text(strip=True).lower():
+            continue
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
+            if len(cells) < 2:
+                continue
+            name = cells[0].strip()
+            m = re.search(r"(-?[\d.]+)\s*%", cells[1])
+            if not name or not m or name.lower().startswith("holding"):
+                continue
+            weight = float(m.group(1))
+            if weight == 0:
+                continue
+            low = name.lower()
+            ticker = next((v for k, v in HIS_NAME_TO_TICKER.items() if k in low), name)
+            holdings[ticker] = holdings.get(ticker, 0.0) + weight
+        if holdings:
+            break
+    return holdings
+
 
 def parse_listing_only(html: str) -> dict:
     """No holdings — deliberately.
@@ -1109,6 +1155,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "harvest_his": parse_harvest_his,
     "listing_only": parse_listing_only,
     "hamilton": parse_hamilton,
     "bmo": parse_bmo,
