@@ -1585,6 +1585,24 @@ def attach_price_and_yield(registry: list) -> None:
         if ttm:
             fund.stats["yield_ttm"] = round(ttm / close * 100, 2)
             done += 1
+
+        # Total return over the same window, from the adjusted series (which
+        # already reinvests distributions). A very high yield paired with a
+        # weak total return means the distribution is largely coming out of
+        # capital — the single most misleading thing about these funds, so the
+        # site needs both numbers side by side, not the yield alone.
+        try:
+            rows = [ln.split(",") for ln in csv_path.read_text().strip().splitlines()[1:]]
+            series = [(r[0], float(r[1])) for r in rows if len(r) >= 2]
+            if len(series) > 30:
+                cutoff = (datetime.now(timezone.utc).date() - timedelta(days=365)).isoformat()
+                past = [p for d0, p in series if d0 <= cutoff]
+                start = past[-1] if past else series[0][1]
+                if start > 0:
+                    fund.stats["total_return_1y"] = round((close / start - 1) * 100, 2)
+                    fund.stats["return_window"] = "1y" if past else "since inception"
+        except Exception:  # noqa: BLE001
+            pass
     log.info("Computed a trailing-12-month yield for %d funds", done)
 
 
