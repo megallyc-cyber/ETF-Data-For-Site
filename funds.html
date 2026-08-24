@@ -166,7 +166,7 @@
 
 <!-- STAGE 1: country picker -->
 <div id="picker-stage">
-  <div class="picker-kicker">120 funds tracked, live from source</div>
+  <div class="picker-kicker" id="trackedCount">funds tracked, live from source</div>
   <div class="picker-title">Where do you want to <em>look</em>?</div>
   <div class="flag-row">
     <div class="flag-card" data-region="CAD">
@@ -218,10 +218,15 @@ fetch('data/funds.json')
   .then(data => {
     const live = {};
     Object.entries(data).forEach(([t,v]) => {
-      if(v.holdings && Object.keys(v.holdings).length){  // carried-forward funds have real data too
+      const hasHoldings = v.holdings && Object.keys(v.holdings).length;
+      const hasIncome = v.distributions && v.distributions.length;
+      // a fund with a full distribution history is worth listing even where the
+      // issuer publishes no parseable holdings — it just cannot show a top holding
+      if(hasHoldings || hasIncome){
         live[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {} };
       }
     });
+    setTrackedCount(Object.keys(FUNDS).length);
     FUNDS = Object.keys(live).length ? live : FALLBACK_FUNDS;
     init();
   })
@@ -309,6 +314,11 @@ function fmtAum(m){
   return '$' + (m*1000).toFixed(0) + 'K';
 }
 
+function setTrackedCount(n){
+  const el = document.getElementById("trackedCount");
+  if (el) el.textContent = n + " funds tracked, live from source";
+}
+
 function buildCard(ticker, f){
   const card = document.createElement('a');
   card.className = 'fund-card';
@@ -321,8 +331,8 @@ function buildCard(ticker, f){
     <div><span class="fund-ticker">${ticker}</span><span class="fund-region-pill ${pillClass}">${f.region}</span></div>
     <div class="fund-name">${f.name}</div>
     <div class="fund-meta">
-      <span>${holdingsArr.length} holdings</span>
-      <span class="fund-top-holding">Top: ${topHolding}</span>
+      <span>${holdingsArr.length ? holdingsArr.length + ' holdings' : 'holdings not published'}</span>
+      <span class="fund-top-holding">${(f.stats||{}).yield_ttm !== undefined ? (f.stats.yield_ttm.toFixed(1) + '% yield') : (holdingsArr.length ? 'Top: ' + topHolding : '')}</span>
     </div>
     <div class="fund-meta" style="border-top:none; padding-top:6px; margin-top:0;">
       <span class="fund-size">${aum ? aum : 'size n/a'}</span>
