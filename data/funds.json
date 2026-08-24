@@ -12450,6 +12450,10 @@
       "AEM": 130.1
     },
     "stats": {
+      "aum_musd": 46.12,
+      "aum_display": "$46.12M",
+      "nav": "$14.30",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.25,
       "last_ex_date": "2026-07-31",
@@ -12543,6 +12547,12 @@
       "AMD": 127.8
     },
     "stats": {
+      "aum_musd": 147.84,
+      "aum_display": "$147.84M",
+      "nav": "$36.28",
+      "yield": "4.96%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 1.15,
       "last_ex_date": "2026-07-31",
@@ -12672,6 +12682,12 @@
       "AMZN": 124.3
     },
     "stats": {
+      "aum_musd": 157.77,
+      "aum_display": "$157.77M",
+      "nav": "$13.79",
+      "yield": "17.42%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
@@ -12838,6 +12854,12 @@
       "Cash and other assets and liabilities": 0.2
     },
     "stats": {
+      "aum_musd": 39.69,
+      "aum_display": "$39.69M",
+      "nav": "$13.64",
+      "yield": "14.08%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
@@ -13003,6 +13025,10 @@
       "AAPL": 128.1
     },
     "stats": {
+      "aum_musd": 148.49,
+      "aum_display": "$148.49M",
+      "nav": "$17.62",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.22,
       "last_ex_date": "2026-07-31",
@@ -13108,6 +13134,12 @@
       "AVGO": 127.7
     },
     "stats": {
+      "aum_musd": 150.4,
+      "aum_display": "$150.40M",
+      "nav": "$17.75",
+      "yield": "33.76%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.5,
       "last_ex_date": "2026-07-31",
@@ -13237,6 +13269,10 @@
       "BCE": 126.5
     },
     "stats": {
+      "aum_musd": 16.13,
+      "aum_display": "$16.13M",
+      "nav": "$9.93",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
@@ -13330,6 +13366,10 @@
       "Block, Inc.": 129.3
     },
     "stats": {
+      "aum_musd": 2.31,
+      "aum_display": "$2.31M",
+      "nav": "$13.20",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.28,
       "last_ex_date": "2026-07-31",
@@ -13393,6 +13433,10 @@
       "CCO": 128.3
     },
     "stats": {
+      "aum_musd": 45.15,
+      "aum_display": "$45.15M",
+      "nav": "$13.48",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.3,
       "last_ex_date": "2026-07-31",
@@ -13486,6 +13530,10 @@
       "CNQ": 127.5
     },
     "stats": {
+      "aum_musd": 11.03,
+      "aum_display": "$11.03M",
+      "nav": "$18.38",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.26,
       "last_ex_date": "2026-07-31",
@@ -13579,6 +13627,12 @@
       "COIN": 130.1
     },
     "stats": {
+      "aum_musd": 114.31,
+      "aum_display": "$114.31M",
+      "nav": "$4.85",
+      "yield": "36.96%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
@@ -13709,6 +13763,12 @@
       "Cash and other assets and liabilities": 0.2
     },
     "stats": {
+      "aum_musd": 13.78,
+      "aum_display": "$13.78M",
+      "nav": "$5.25",
+      "yield": "29.71%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.13,
       "last_ex_date": "2026-07-31",
@@ -13844,6 +13904,12 @@
       "COST": 126.9
     },
     "stats": {
+      "aum_musd": 123.81,
+      "aum_display": "$123.81M",
+      "nav": "$8.78",
+      "yield": "13.65%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.1,
       "last_ex_date": "2026-07-31",
@@ -13973,6 +14039,10 @@
       "CRCL": 128.6
     },
     "stats": {
+      "aum_musd": 83.15,
+      "aum_display": "$83.15M",
+      "nav": "$4.03",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
@@ -14060,6 +14130,10 @@
       "CRWD": 125.8
     },
     "stats": {
+      "aum_musd": 93.47,
+      "aum_display": "$93.47M",
+      "nav": "$17.23",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.37,
       "last_ex_date": "2026-07-31",
@@ -14123,6 +14197,10 @@
       "ENB": 127.3
     },
     "stats": {
+      "aum_musd": 11.5,
+      "aum_display": "$11.50M",
+      "nav": "$11.80",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.13,
       "last_ex_date": "2026-07-31",
@@ -14216,6 +14294,12 @@
       "GOOGL": 124.9
     },
     "stats": {
+      "aum_musd": 153.81,
+      "aum_display": "$153.81M",
+      "nav": "$20.04",
+      "yield": "17.95%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.3,
       "last_ex_date": "2026-07-31",
@@ -14354,6 +14438,10 @@
       "T": 5.2
     },
     "stats": {
+      "aum_musd": 240.17,
+      "aum_display": "$240.17M",
+      "nav": "$14.51",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
@@ -14466,6 +14554,10 @@
       "CRCL": 1.9
     },
     "stats": {
+      "aum_musd": 106.99,
+      "aum_display": "$106.99M",
+      "nav": "$11.03",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.185,
       "last_ex_date": "2026-07-31",
@@ -14578,6 +14670,12 @@
       "MSTR": 1.5
     },
     "stats": {
+      "aum_musd": 1963.89,
+      "aum_display": "$1963.89M",
+      "nav": "$11.14",
+      "yield": "29.06%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0%",
       "distribution_source": "issuer",
       "last_amount": 0.27,
       "last_ex_date": "2026-07-31",
@@ -14713,6 +14811,10 @@
       "HOOD": 126.8
     },
     "stats": {
+      "aum_musd": 99.31,
+      "aum_display": "$99.31M",
+      "nav": "$7.09",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
@@ -14800,6 +14902,10 @@
       "JNJ": 126.8
     },
     "stats": {
+      "aum_musd": 2.55,
+      "aum_display": "$2.55M",
+      "nav": "$14.56",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
@@ -14863,6 +14969,10 @@
       "JPM": 126.8
     },
     "stats": {
+      "aum_musd": 2.86,
+      "aum_display": "$2.86M",
+      "nav": "$12.69",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
@@ -14926,6 +15036,12 @@
       "LLY": 127.9
     },
     "stats": {
+      "aum_musd": 257.51,
+      "aum_display": "$257.51M",
+      "nav": "$10.71",
+      "yield": "20.61%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.185,
       "last_ex_date": "2026-07-31",
@@ -15092,6 +15208,12 @@
       "Cash and other assets and liabilities": 0.1
     },
     "stats": {
+      "aum_musd": 43.42,
+      "aum_display": "$43.42M",
+      "nav": "$11.34",
+      "yield": "16.89%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
@@ -15257,6 +15379,12 @@
       "META": 125.3
     },
     "stats": {
+      "aum_musd": 129.38,
+      "aum_display": "$129.38M",
+      "nav": "$7.33",
+      "yield": "27.83%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.17,
       "last_ex_date": "2026-07-31",
@@ -15393,6 +15521,12 @@
       "Cash and other assets and liabilities": 0.1
     },
     "stats": {
+      "aum_musd": 67.5,
+      "aum_display": "$67.50M",
+      "nav": "$9.97",
+      "yield": "16.85%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
@@ -15558,6 +15692,12 @@
       "MSFT": 128.2
     },
     "stats": {
+      "aum_musd": 193.7,
+      "aum_display": "$193.70M",
+      "nav": "$9.30",
+      "yield": "20.62%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.16,
       "last_ex_date": "2026-07-31",
@@ -15723,6 +15863,12 @@
       "MSTR": 128.1
     },
     "stats": {
+      "aum_musd": 394.78,
+      "aum_display": "$394.78M",
+      "nav": "$2.19",
+      "yield": "54.55%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.1,
       "last_ex_date": "2026-07-31",
@@ -15853,6 +15999,12 @@
       "Cash and other assets and liabilities": 0.1
     },
     "stats": {
+      "aum_musd": 50.89,
+      "aum_display": "$50.89M",
+      "nav": "$2.52",
+      "yield": "42.86%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.09,
       "last_ex_date": "2026-07-31",
@@ -15988,6 +16140,12 @@
       "NFLX": 128.0
     },
     "stats": {
+      "aum_musd": 26.3,
+      "aum_display": "$26.30M",
+      "nav": "$6.42",
+      "yield": "18.69%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.1,
       "last_ex_date": "2026-07-31",
@@ -16117,6 +16275,10 @@
       "NVO": 129.1
     },
     "stats": {
+      "aum_musd": 7.03,
+      "aum_display": "$7.03M",
+      "nav": "$7.60",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.17,
       "last_ex_date": "2026-07-31",
@@ -16180,6 +16342,12 @@
       "NVDA": 100.7
     },
     "stats": {
+      "aum_musd": 46.86,
+      "aum_display": "$46.86M",
+      "nav": "$13.70",
+      "yield": "17.51%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
@@ -16345,6 +16513,12 @@
       "NVDA": 126.0
     },
     "stats": {
+      "aum_musd": 268.61,
+      "aum_display": "$268.61M",
+      "nav": "$13.14",
+      "yield": "22.83%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.25,
       "last_ex_date": "2026-07-31",
@@ -16510,6 +16684,10 @@
       "ORCL": 127.5
     },
     "stats": {
+      "aum_musd": 22.14,
+      "aum_display": "$22.14M",
+      "nav": "$6.42",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
@@ -16573,6 +16751,12 @@
       "PLTR": 127.4
     },
     "stats": {
+      "aum_musd": 244.67,
+      "aum_display": "$244.67M",
+      "nav": "$20.10",
+      "yield": "26.84%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.45,
       "last_ex_date": "2026-07-31",
@@ -16708,6 +16892,10 @@
       "RDDT": 135.5
     },
     "stats": {
+      "aum_musd": 90.09,
+      "aum_display": "$90.09M",
+      "nav": "$4.79",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.2,
       "last_ex_date": "2026-07-31",
@@ -16795,6 +16983,10 @@
       "RY": 125.2
     },
     "stats": {
+      "aum_musd": 5.31,
+      "aum_display": "$5.31M",
+      "nav": "$16.33",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.14,
       "last_ex_date": "2026-07-31",
@@ -16888,6 +17080,10 @@
       "SHOP": 129.8
     },
     "stats": {
+      "aum_musd": 34.14,
+      "aum_display": "$34.14M",
+      "nav": "$9.48",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.21,
       "last_ex_date": "2026-07-31",
@@ -16981,6 +17177,10 @@
       "SOFI": 126.6
     },
     "stats": {
+      "aum_musd": 108.23,
+      "aum_display": "$108.23M",
+      "nav": "$5.50",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
@@ -17068,6 +17268,10 @@
       "Space Exploration Technologies Corp.": 128.7
     },
     "stats": {
+      "aum_musd": 110.54,
+      "aum_display": "$110.54M",
+      "nav": "$9.14",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.3,
       "last_ex_date": "2026-07-31",
@@ -17107,6 +17311,10 @@
       "SU": 127.5
     },
     "stats": {
+      "aum_musd": 6.46,
+      "aum_display": "$6.46M",
+      "nav": "$19.88",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.27,
       "last_ex_date": "2026-07-31",
@@ -17200,6 +17408,10 @@
       "TD": 124.8
     },
     "stats": {
+      "aum_musd": 4.0,
+      "aum_display": "$4.00M",
+      "nav": "$17.80",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
@@ -17293,6 +17505,10 @@
       "T": 130.2
     },
     "stats": {
+      "aum_musd": 9.53,
+      "aum_display": "$9.53M",
+      "nav": "$6.05",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.12,
       "last_ex_date": "2026-07-31",
@@ -17386,6 +17602,12 @@
       "TSLA": 126.1
     },
     "stats": {
+      "aum_musd": 261.16,
+      "aum_display": "$261.16M",
+      "nav": "$5.90",
+      "yield": "30.61%",
+      "yield_label": "current yield",
+      "mgmt_fee": "0.40%",
       "distribution_source": "issuer",
       "last_amount": 0.15,
       "last_ex_date": "2026-07-31",
