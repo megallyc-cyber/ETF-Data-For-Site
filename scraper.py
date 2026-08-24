@@ -525,25 +525,25 @@ FUND_REGISTRY: list[Fund] = [
     Fund("JEPY", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
          "https://dividendhistory.org/payout/JEPY/", "listing_only"),
     Fund("ULTY", "YieldMax Ultra Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/ULTY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/ulty/", "yieldmax"),
     Fund("YMAX", "YieldMax Universe Fund of Option Income ETFs", "YieldMax", "US",
-         "https://dividendhistory.org/payout/YMAX/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/ymax/", "yieldmax"),
     Fund("NVDY", "YieldMax NVDA Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/NVDY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/nvdy/", "yieldmax"),
     Fund("AMZY", "YieldMax AMZN Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/AMZY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/amzy/", "yieldmax"),
     Fund("GOOY", "YieldMax GOOGL Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/GOOY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/gooy/", "yieldmax"),
     Fund("FBY", "YieldMax META Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/FBY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/fby/", "yieldmax"),
     Fund("MSFO", "YieldMax MSFT Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/MSFO/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/msfo/", "yieldmax"),
     Fund("PLTY", "YieldMax PLTR Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/PLTY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/plty/", "yieldmax"),
     Fund("SMCY", "YieldMax SMCI Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/SMCY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/smcy/", "yieldmax"),
     Fund("GDXY", "YieldMax Gold Miners Option Income Strategy ETF", "YieldMax", "US",
-         "https://dividendhistory.org/payout/GDXY/", "listing_only"),
+         "https://www.yieldmaxetfs.com/our-etfs/gdxy/", "yieldmax"),
 
 ]
 
@@ -645,6 +645,43 @@ def parse_harvest_his(html: str) -> dict:
             low = name.lower()
             ticker = next((v for k, v in HIS_NAME_TO_TICKER.items() if k in low), name)
             holdings[ticker] = holdings.get(ticker, 0.0) + weight
+        if holdings:
+            break
+    return holdings
+
+
+def parse_yieldmax(html: str) -> dict:
+    """YieldMax fund pages carry a holdings table headed
+    SECURITY NAME | TICKER | CUSIP | SHARES | MARKET VALUE | NET ASSETS | WEIGHTINGS.
+
+    The weight column is "weightings"; cash and option lines often carry no
+    ticker and are skipped rather than invented. Negative weights (written
+    calls) are dropped, since a short option is not a holding a reader can
+    look up.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    holdings = {}
+    for table in soup.find_all("table"):
+        head = table.find("tr")
+        if not head:
+            continue
+        cols = [c.get_text(" ", strip=True).lower() for c in head.find_all(["th", "td"])]
+        if "ticker" not in cols or not any("weight" in c for c in cols):
+            continue
+        i_t = cols.index("ticker")
+        i_w = next(i for i, c in enumerate(cols) if "weight" in c)
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+            if len(cells) <= max(i_t, i_w):
+                continue
+            ticker = cells[i_t].strip().upper()
+            m = re.search(r"(-?[\d.]+)\s*%", cells[i_w])
+            if not ticker or ticker in {"-", "\u2014", ""} or not m:
+                continue
+            w = float(m.group(1))
+            if w <= 0:
+                continue
+            holdings[ticker] = holdings.get(ticker, 0.0) + w
         if holdings:
             break
     return holdings
@@ -1144,6 +1181,8 @@ def parse_fund_stats(html: str) -> dict:
 # callable turning a Fund into the profile URL to fetch separately.
 STATS_SOURCES = {
     "harvest": None,
+    # YieldMax pages carry Net Assets beside the holdings table
+    "yieldmax": None,
     # High Income Shares carry AUM*, NAV and yield on the same page as holdings
     "harvest_his": None,
     # BMO's rendered page carries "Net assets (M)" alongside the holdings table
@@ -1161,6 +1200,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "yieldmax": parse_yieldmax,
     "harvest_his": parse_harvest_his,
     "listing_only": parse_listing_only,
     "hamilton": parse_hamilton,
