@@ -457,7 +457,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -877,7 +877,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -1214,7 +1214,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -1272,7 +1272,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -1326,7 +1326,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -1615,7 +1615,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -1920,7 +1920,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -2199,7 +2199,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -2457,7 +2457,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -2720,7 +2720,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -2983,7 +2983,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -3246,7 +3246,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -3474,7 +3474,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -3689,7 +3689,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -3904,7 +3904,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -4119,7 +4119,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -4173,7 +4173,7 @@
         "source": "issuer"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -18135,7 +18135,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787528791"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BANK.csv?version=1787572412"
   },
   "CFIN": {
     "name": "Evolve Canadian Financials Yield Fund",
@@ -18179,7 +18179,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787528802"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CFIN.csv?version=1787572423"
   },
   "UTES": {
     "name": "Evolve Canadian Utilities Enhanced Yield Index Fund",
@@ -18359,7 +18359,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787528813"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/UTES.csv?version=1787572434"
   },
   "OILY": {
     "name": "Evolve Canadian Energy Enhanced Yield Index Fund",
@@ -18497,7 +18497,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787528824"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/OILY.csv?version=1787572445"
   },
   "CUTE": {
     "name": "Evolve Canadian Utilities Yield Fund",
@@ -18541,7 +18541,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787528835"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CUTE.csv?version=1787572455"
   },
   "ESPX": {
     "name": "Evolve S&P 500 Enhanced Yield Fund",
@@ -19336,7 +19336,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787528846"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ESPX.csv?version=1787572467"
   },
   "ETSX": {
     "name": "Evolve S&P/TSX 60 Enhanced Yield Fund",
@@ -19686,7 +19686,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787528857"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/ETSX.csv?version=1787572478"
   },
   "LIFE": {
     "name": "Evolve Global Healthcare Enhanced Yield Fund",
@@ -20098,7 +20098,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787528870"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LIFE.csv?version=1787572491"
   },
   "QQQY": {
     "name": "Evolve NASDAQ Technology Enhanced Yield Index Fund",
@@ -20382,7 +20382,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787528882"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/QQQY.csv?version=1787572503"
   },
   "EBNK": {
     "name": "Evolve European Banks Enhanced Yield ETF",
@@ -20758,7 +20758,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787528894"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EBNK.csv?version=1787572517"
   },
   "CALL": {
     "name": "Evolve US Banks Enhanced Yield Fund",
@@ -21170,7 +21170,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787528907"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CALL.csv?version=1787572534"
   },
   "BASE": {
     "name": "Evolve Global Materials & Mining Enhanced Yield Index ETF",
@@ -21582,7 +21582,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787528920"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BASE.csv?version=1787572548"
   },
   "LEAD": {
     "name": "Evolve Future Leadership Fund",
@@ -22014,7 +22014,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787528932"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/LEAD.csv?version=1787572560"
   },
   "BOND": {
     "name": "Evolve Enhanced Yield Bond Fund",
@@ -22252,7 +22252,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787528943"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BOND.csv?version=1787572571"
   },
   "AGG": {
     "name": "Evolve Canadian Aggregate Bond Enhanced Yield Fund",
@@ -22416,7 +22416,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787528954"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/AGG.csv?version=1787572582"
   },
   "MIDB": {
     "name": "Evolve Enhanced Yield Mid Term Bond Fund",
@@ -22545,7 +22545,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787528965"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/MIDB.csv?version=1787572593"
   },
   "BIGY": {
     "name": "Evolve US Equity UltraYield ETF",
@@ -22730,7 +22730,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787528976"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/BIGY.csv?version=1787572604"
   },
   "CANY": {
     "name": "Evolve Canadian Equity UltraYield ETF",
@@ -22913,7 +22913,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787528987"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/CANY.csv?version=1787572615"
   },
   "SIXY": {
     "name": "Evolve Big Six Canadian Banks UltraYield Index ETF",
@@ -23051,7 +23051,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787528998"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/SIXY.csv?version=1787572627"
   },
   "INTY": {
     "name": "Evolve International Equity UltraYield ETF",
@@ -23177,7 +23177,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787529009"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/INTY.csv?version=1787572637"
   },
   "EASY": {
     "name": "Evolve All-in-One UltraYield ETF",
@@ -23323,7 +23323,7 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787529020"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/EASY.csv?version=1787572648"
   },
   "TECY": {
     "name": "Evolve NASDAQ Technology UltraYield ETF",
@@ -23495,13 +23495,18 @@
     "as_of": "2026-08-22",
     "stale": true,
     "fetched_ok": false,
-    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787529031"
+    "error": "403 Client Error: Forbidden for url: https://evolveetfs.com/wp-content/uploads/holdings/TECY.csv?version=1787572658"
   },
   "QYLD": {
     "name": "Global X Nasdaq 100 Covered Call ETF",
     "issuer": "Global X",
     "region": "US",
     "holdings": {
+      "DXCM": 0.16,
+      "GEHC": 0.15,
+      "ALNY": 0.14,
+      "CPRT": 0.14,
+      "KHC": 0.13,
       "NVDA": 8.53,
       "AAPL": 7.46,
       "MSFT": 5.89,
@@ -23537,10 +23542,6 @@
       "ADI": 0.82,
       "GILD": 0.82,
       "QCOM": 0.77,
-      "GEHC": 0.15,
-      "ALNY": 0.14,
-      "CPRT": 0.14,
-      "KHC": 0.13,
       "BKNG": 0.74,
       "ASML": 0.72,
       "WDC": 0.72,
@@ -23602,8 +23603,7 @@
       "WDAY": 0.18,
       "TRI": 0.18,
       "CRWV": 0.18,
-      "MSTR": 0.17,
-      "DXCM": 0.16
+      "MSTR": 0.17
     },
     "stats": {
       "aum_musd": 8360.0,
@@ -23985,7 +23985,7 @@
         "pay_date": "2021-08-31"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -23995,201 +23995,12 @@
     "issuer": "Global X",
     "region": "US",
     "holdings": {
-      "HAL": 0.04,
-      "WSM": 0.04,
-      "MLM": 0.04,
-      "FISV": 0.04,
-      "VICI": 0.04,
-      "DOV": 0.04,
-      "XYL": 0.04,
-      "CINF": 0.04,
-      "VRSK": 0.04,
-      "ES": 0.04,
-      "HUBB": 0.04,
-      "DTE": 0.04,
-      "LH": 0.04,
-      "EIX": 0.04,
-      "OTIS": 0.04,
-      "WST": 0.04,
-      "EL": 0.04,
-      "HPQ": 0.04,
-      "DG": 0.04,
-      "DGX": 0.04,
-      "SW": 0.04,
-      "Q": 0.04,
-      "EFX": 0.04,
-      "SYF": 0.04,
-      "CNP": 0.04,
-      "AWK": 0.04,
-      "TPR": 0.04,
-      "TROW": 0.04,
-      "ULTA": 0.04,
-      "RF": 0.04,
-      "PPL": 0.04,
-      "CHD": 0.04,
-      "DRI": 0.04,
-      "PPG": 0.04,
-      "EXE": 0.04,
-      "FE": 0.04,
-      "OMC": 0.04,
-      "PHM": 0.04,
-      "EXPD": 0.04,
-      "TPL": 0.04,
-      "VLTO": 0.04,
-      "FFIV": 0.04,
-      "NRG": 0.04,
-      "DLTR": 0.04,
-      "AMCR": 0.03,
-      "IFF": 0.03,
-      "DOW": 0.03,
-      "STE": 0.03,
-      "INCY": 0.03,
-      "IP": 0.03,
-      "VRSN": 0.03,
-      "FSLR": 0.03,
-      "JBHT": 0.03,
-      "CMS": 0.03,
-      "SNA": 0.03,
-      "FIS": 0.03,
-      "GIS": 0.03,
-      "BR": 0.03,
-      "PKG": 0.03,
-      "KHC": 0.03,
-      "PFG": 0.03,
-      "GPN": 0.03,
-      "ZBH": 0.03,
-      "RDDT": 0.03,
-      "BRO": 0.03,
-      "LUV": 0.03,
-      "J": 0.03,
-      "DD": 0.03,
-      "NI": 0.03,
-      "NVR": 0.03,
-      "ESS": 0.03,
-      "SMCI": 0.03,
-      "ZBRA": 0.03,
-      "LEN": 0.03,
-      "EVRG": 0.03,
-      "WRB": 0.03,
-      "KEY": 0.03,
-      "STZ": 0.03,
-      "IEX": 0.03,
-      "CF": 0.03,
-      "NDSN": 0.03,
-      "FTV": 0.03,
-      "SBAC": 0.03,
-      "TSCO": 0.03,
-      "LNT": 0.03,
-      "PTC": 0.03,
-      "LYB": 0.03,
-      "VTRS": 0.03,
-      "L": 0.03,
-      "GPC": 0.03,
-      "ALB": 0.03,
-      "MAA": 0.03,
-      "CHRW": 0.03,
-      "LDOS": 0.03,
-      "WY": 0.03,
-      "CDW": 0.03,
-      "AKAM": 0.03,
-      "EG": 0.03,
-      "BALL": 0.02,
-      "TYL": 0.02,
-      "BBY": 0.02,
-      "FDXF": 0.02,
-      "TSN": 0.02,
-      "INVH": 0.02,
-      "COO": 0.02,
-      "AVY": 0.02,
-      "MAS": 0.02,
-      "KIM": 0.02,
-      "RL": 0.02,
-      "CRL": 0.02,
-      "TXT": 0.02,
-      "GEN": 0.02,
-      "AIZ": 0.02,
-      "MKC": 0.02,
-      "CHTR": 0.02,
-      "SWK": 0.02,
-      "BG": 0.02,
-      "APA": 0.02,
-      "CLX": 0.02,
-      "LVS": 0.02,
-      "TRMB": 0.02,
-      "FOXA": 0.02,
-      "HST": 0.02,
-      "DOC": 0.02,
-      "GDDY": 0.02,
-      "LII": 0.02,
-      "SJM": 0.02,
-      "TKO": 0.02,
-      "CSGP": 0.02,
-      "GNRC": 0.02,
-      "IVZ": 0.02,
-      "PNW": 0.02,
-      "JKHY": 0.02,
-      "REG": 0.02,
-      "ALLE": 0.02,
-      "LULU": 0.02,
-      "RVTY": 0.02,
-      "BAX": 0.02,
-      "HII": 0.02,
-      "GL": 0.02,
-      "SOLV": 0.02,
-      "IT": 0.02,
-      "DECK": 0.02,
-      "FDS": 0.02,
-      "TECH": 0.02,
-      "HAS": 0.02,
-      "DPZ": 0.02,
-      "ALGN": 0.02,
-      "NWSA": 0.02,
-      "CPT": 0.02,
-      "PODD": 0.02,
-      "PNR": 0.02,
-      "ECHO": 0.02,
-      "FRT": 0.02,
-      "APTV": 0.02,
-      "UHS": 0.02,
-      "BXP": 0.02,
-      "UDR": 0.01,
-      "ROL": 0.01,
-      "WYNN": 0.01,
-      "AES": 0.01,
-      "BEN": 0.01,
-      "SWKS": 0.01,
-      "FOX": 0.01,
-      "ARE": 0.01,
-      "MGM": 0.01,
-      "BLDR": 0.01,
-      "ERIE": 0.01,
-      "HSIC": 0.01,
-      "AOS": 0.01,
-      "NCLH": 0.01,
-      "MOS": 0.01,
-      "DVA": 0.01,
-      "HRL": 0.01,
-      "TAP": 0.01,
-      "TTD": 0.01,
-      "NWS": 0.01,
-      "BF/B": 0.01,
-      "NVDA": 7.98,
-      "AAPL": 6.97,
-      "MSFT": 5.51,
-      "AMZN": 3.88,
-      "GOOGL": 3.1,
-      "AVGO": 2.68,
-      "GOOG": 2.48,
-      "META": 1.85,
-      "MU": 1.67,
-      "TSLA": 1.57,
-      "LLY": 1.52,
-      "JPM": 1.44,
-      "BRK/B": 1.39,
-      "AMD": 1.18,
-      "XOM": 1.05,
-      "JNJ": 1.0,
-      "V": 0.94,
+      "VRT": 0.16,
+      "SO": 0.15,
+      "INTU": 0.15,
+      "TT": 0.15,
+      "GD": 0.15,
+      "PNC": 0.15,
       "CME": 0.15,
       "PSX": 0.15,
       "FTNT": 0.15,
@@ -24395,6 +24206,201 @@
       "CPRT": 0.04,
       "HSY": 0.04,
       "ATO": 0.04,
+      "HAL": 0.04,
+      "WSM": 0.04,
+      "MLM": 0.04,
+      "FISV": 0.04,
+      "VICI": 0.04,
+      "DOV": 0.04,
+      "XYL": 0.04,
+      "CINF": 0.04,
+      "VRSK": 0.04,
+      "ES": 0.04,
+      "HUBB": 0.04,
+      "DTE": 0.04,
+      "LH": 0.04,
+      "EIX": 0.04,
+      "OTIS": 0.04,
+      "WST": 0.04,
+      "EL": 0.04,
+      "HPQ": 0.04,
+      "DG": 0.04,
+      "DGX": 0.04,
+      "SW": 0.04,
+      "Q": 0.04,
+      "EFX": 0.04,
+      "SYF": 0.04,
+      "CNP": 0.04,
+      "AWK": 0.04,
+      "TPR": 0.04,
+      "TROW": 0.04,
+      "ULTA": 0.04,
+      "RF": 0.04,
+      "PPL": 0.04,
+      "CHD": 0.04,
+      "DRI": 0.04,
+      "PPG": 0.04,
+      "EXE": 0.04,
+      "FE": 0.04,
+      "OMC": 0.04,
+      "PHM": 0.04,
+      "EXPD": 0.04,
+      "TPL": 0.04,
+      "VLTO": 0.04,
+      "FFIV": 0.04,
+      "NRG": 0.04,
+      "DLTR": 0.04,
+      "AMCR": 0.03,
+      "IFF": 0.03,
+      "DOW": 0.03,
+      "STE": 0.03,
+      "INCY": 0.03,
+      "IP": 0.03,
+      "VRSN": 0.03,
+      "FSLR": 0.03,
+      "JBHT": 0.03,
+      "CMS": 0.03,
+      "SNA": 0.03,
+      "FIS": 0.03,
+      "GIS": 0.03,
+      "BR": 0.03,
+      "PKG": 0.03,
+      "KHC": 0.03,
+      "PFG": 0.03,
+      "GPN": 0.03,
+      "ZBH": 0.03,
+      "RDDT": 0.03,
+      "BRO": 0.03,
+      "LUV": 0.03,
+      "J": 0.03,
+      "DD": 0.03,
+      "NI": 0.03,
+      "NVR": 0.03,
+      "ESS": 0.03,
+      "SMCI": 0.03,
+      "ZBRA": 0.03,
+      "LEN": 0.03,
+      "EVRG": 0.03,
+      "WRB": 0.03,
+      "KEY": 0.03,
+      "STZ": 0.03,
+      "IEX": 0.03,
+      "CF": 0.03,
+      "NDSN": 0.03,
+      "FTV": 0.03,
+      "SBAC": 0.03,
+      "TSCO": 0.03,
+      "LNT": 0.03,
+      "PTC": 0.03,
+      "LYB": 0.03,
+      "VTRS": 0.03,
+      "L": 0.03,
+      "GPC": 0.03,
+      "ALB": 0.03,
+      "MAA": 0.03,
+      "CHRW": 0.03,
+      "LDOS": 0.03,
+      "WY": 0.03,
+      "CDW": 0.03,
+      "AKAM": 0.03,
+      "EG": 0.03,
+      "BALL": 0.02,
+      "TYL": 0.02,
+      "BBY": 0.02,
+      "FDXF": 0.02,
+      "TSN": 0.02,
+      "INVH": 0.02,
+      "COO": 0.02,
+      "AVY": 0.02,
+      "MAS": 0.02,
+      "KIM": 0.02,
+      "RL": 0.02,
+      "CRL": 0.02,
+      "TXT": 0.02,
+      "GEN": 0.02,
+      "AIZ": 0.02,
+      "MKC": 0.02,
+      "CHTR": 0.02,
+      "SWK": 0.02,
+      "BG": 0.02,
+      "APA": 0.02,
+      "CLX": 0.02,
+      "LVS": 0.02,
+      "TRMB": 0.02,
+      "FOXA": 0.02,
+      "HST": 0.02,
+      "DOC": 0.02,
+      "GDDY": 0.02,
+      "LII": 0.02,
+      "SJM": 0.02,
+      "TKO": 0.02,
+      "CSGP": 0.02,
+      "GNRC": 0.02,
+      "IVZ": 0.02,
+      "PNW": 0.02,
+      "JKHY": 0.02,
+      "REG": 0.02,
+      "ALLE": 0.02,
+      "LULU": 0.02,
+      "RVTY": 0.02,
+      "BAX": 0.02,
+      "HII": 0.02,
+      "GL": 0.02,
+      "SOLV": 0.02,
+      "IT": 0.02,
+      "DECK": 0.02,
+      "FDS": 0.02,
+      "TECH": 0.02,
+      "HAS": 0.02,
+      "DPZ": 0.02,
+      "ALGN": 0.02,
+      "NWSA": 0.02,
+      "CPT": 0.02,
+      "PODD": 0.02,
+      "PNR": 0.02,
+      "ECHO": 0.02,
+      "FRT": 0.02,
+      "APTV": 0.02,
+      "UHS": 0.02,
+      "BXP": 0.02,
+      "UDR": 0.01,
+      "ROL": 0.01,
+      "WYNN": 0.01,
+      "AES": 0.01,
+      "BEN": 0.01,
+      "SWKS": 0.01,
+      "FOX": 0.01,
+      "ARE": 0.01,
+      "MGM": 0.01,
+      "BLDR": 0.01,
+      "ERIE": 0.01,
+      "HSIC": 0.01,
+      "AOS": 0.01,
+      "NCLH": 0.01,
+      "MOS": 0.01,
+      "DVA": 0.01,
+      "HRL": 0.01,
+      "TAP": 0.01,
+      "TTD": 0.01,
+      "NWS": 0.01,
+      "BF/B": 0.01,
+      "NVDA": 7.98,
+      "AAPL": 6.97,
+      "MSFT": 5.51,
+      "AMZN": 3.88,
+      "GOOGL": 3.1,
+      "AVGO": 2.68,
+      "GOOG": 2.48,
+      "META": 1.85,
+      "MU": 1.67,
+      "TSLA": 1.57,
+      "LLY": 1.52,
+      "JPM": 1.44,
+      "BRK/B": 1.39,
+      "AMD": 1.18,
+      "XOM": 1.05,
+      "JNJ": 1.0,
+      "V": 0.94,
       "MA": 0.72,
       "ABBV": 0.72,
       "WMT": 0.7,
@@ -24491,13 +24497,7 @@
       "MCK": 0.16,
       "VLO": 0.16,
       "EQIX": 0.16,
-      "MPC": 0.16,
-      "VRT": 0.16,
-      "SO": 0.15,
-      "INTU": 0.15,
-      "TT": 0.15,
-      "GD": 0.15,
-      "PNC": 0.15
+      "MPC": 0.16
     },
     "stats": {
       "aum_musd": 3330.0,
@@ -24879,7 +24879,7 @@
         "pay_date": "2021-07-27"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -25271,7 +25271,7 @@
         "pay_date": "2021-07-27"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -25777,7 +25777,7 @@
         "pay_date": "2021-09-07"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26204,7 +26204,7 @@
         "pay_date": "2022-06-06"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26241,7 +26241,7 @@
         "pay_date": "2026-07-03"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26346,7 +26346,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26451,7 +26451,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26556,7 +26556,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26661,7 +26661,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26766,7 +26766,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26871,7 +26871,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -26976,7 +26976,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -27081,7 +27081,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -27184,7 +27184,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -27289,7 +27289,7 @@
         "pay_date": "2025-09-05"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -27553,7 +27553,7 @@
         "pay_date": "2025-04-02"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -27690,7 +27690,7 @@
         "pay_date": "2025-04-02"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -27827,7 +27827,7 @@
         "pay_date": "2025-04-02"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -27964,7 +27964,7 @@
         "pay_date": "2025-04-02"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -28101,7 +28101,7 @@
         "pay_date": "2025-04-02"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -28238,7 +28238,7 @@
         "pay_date": "2025-04-02"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -28399,7 +28399,7 @@
         "pay_date": "2024-12-03"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -28560,7 +28560,7 @@
         "pay_date": "2024-12-03"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -28781,7 +28781,7 @@
         "pay_date": "2024-02-07"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -29002,7 +29002,7 @@
         "pay_date": "2024-02-07"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -29301,7 +29301,7 @@
         "pay_date": "2023-01-09"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -29600,7 +29600,7 @@
         "pay_date": "2023-01-09"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -29905,7 +29905,7 @@
         "pay_date": "2023-01-09"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -30204,7 +30204,7 @@
         "pay_date": "2023-01-09"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -30503,7 +30503,7 @@
         "pay_date": "2023-01-09"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -33822,7 +33822,7 @@
         "pay_date": "2021-07-30"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -34188,7 +34188,7 @@
         "pay_date": "2022-09-30"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -34392,7 +34392,7 @@
         "pay_date": "2024-09-30"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -34405,10 +34405,10 @@
       "CNDX": 100.0
     },
     "stats": {
-      "aum_musd": 194.678,
-      "aum_display": "$194,678,118",
-      "nav": "$14.88",
-      "yield": "6.65%",
+      "aum_musd": 195.644,
+      "aum_display": "$195,643,791",
+      "nav": "$14.96",
+      "yield": "6.62%",
       "yield_label": "annualized distribution yield",
       "mer": "0.62%",
       "mer_label": "management expense ratio",
@@ -34787,7 +34787,7 @@
         "pay_date": "2021-09-09"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -34800,10 +34800,10 @@
       "CNCC": 97.75
     },
     "stats": {
-      "aum_musd": 19.37,
-      "aum_display": "$19,370,342",
-      "nav": "$24.77",
-      "yield": "8.24%",
+      "aum_musd": 19.525,
+      "aum_display": "$19,525,471",
+      "nav": "$24.97",
+      "yield": "8.17%",
       "yield_label": "annualized distribution yield",
       "mer": "1.69%",
       "mer_label": "management expense ratio",
@@ -35044,7 +35044,7 @@
         "pay_date": "2023-08-08"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -35440,9 +35440,9 @@
       }
     ],
     "as_of": "2026-08-23",
-    "stale": false,
-    "fetched_ok": true,
-    "error": ""
+    "stale": true,
+    "fetched_ok": false,
+    "error": "could not find a wrapped-ticker top holding in rendered page"
   },
   "BKCL": {
     "name": "Global X Enhanced Equal Weight Canadian Banks Covered Call ETF",
@@ -35699,10 +35699,10 @@
       "EAFX": 100.44
     },
     "stats": {
-      "aum_musd": 107.287,
-      "aum_display": "$107,286,533",
-      "nav": "$22.47",
-      "yield": "7.48%",
+      "aum_musd": 108.001,
+      "aum_display": "$108,001,077",
+      "nav": "$22.62",
+      "yield": "7.43%",
       "yield_label": "annualized distribution yield",
       "mer": "0.61%",
       "mer_label": "management expense ratio",
@@ -35877,7 +35877,7 @@
         "pay_date": "2024-07-08"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -35890,10 +35890,10 @@
       "EACC": 99.86
     },
     "stats": {
-      "aum_musd": 18.255,
-      "aum_display": "$18,255,275",
-      "nav": "$22.81",
-      "yield": "9.21%",
+      "aum_musd": 18.326,
+      "aum_display": "$18,325,998",
+      "nav": "$22.90",
+      "yield": "9.17%",
       "yield_label": "annualized distribution yield",
       "mer": "1.72%",
       "mer_label": "management expense ratio",
@@ -36056,7 +36056,7 @@
         "pay_date": "2024-07-08"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -36069,10 +36069,10 @@
       "EMMX": 99.99
     },
     "stats": {
-      "aum_musd": 60.774,
-      "aum_display": "$60,773,801",
-      "nav": "$24.07",
-      "yield": "8.98%",
+      "aum_musd": 61.214,
+      "aum_display": "$61,214,347",
+      "nav": "$24.24",
+      "yield": "8.91%",
       "yield_label": "annualized distribution yield",
       "mer": "0.86%",
       "mer_label": "management expense ratio",
@@ -36247,7 +36247,7 @@
         "pay_date": "2024-07-08"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -36260,10 +36260,10 @@
       "EMCC": 99.38
     },
     "stats": {
-      "aum_musd": 8.077,
-      "aum_display": "$8,077,420",
-      "nav": "$24.75",
-      "yield": "11.15%",
+      "aum_musd": 7.529,
+      "aum_display": "$7,528,551",
+      "nav": "$24.98",
+      "yield": "11.05%",
       "yield_label": "annualized distribution yield",
       "mer": "1.83%",
       "mer_label": "management expense ratio",
@@ -36426,7 +36426,7 @@
         "pay_date": "2024-07-08"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -36439,10 +36439,10 @@
       "NRGY": 34.07
     },
     "stats": {
-      "aum_musd": 802.088,
-      "aum_display": "$802,088,024",
-      "nav": "$13.11",
-      "yield": "10.99%",
+      "aum_musd": 799.16,
+      "aum_display": "$799,160,065",
+      "nav": "$13.06",
+      "yield": "11.03%",
       "yield_label": "annualized distribution yield",
       "mer": "0.92%",
       "mer_label": "management expense ratio",
@@ -36821,7 +36821,7 @@
         "pay_date": "2021-09-09"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -37063,10 +37063,10 @@
       "USCC": 33.18
     },
     "stats": {
-      "aum_musd": 16.773,
-      "aum_display": "$16,772,576",
-      "nav": "$23.13",
-      "yield": "8.82%",
+      "aum_musd": 16.832,
+      "aum_display": "$16,832,257",
+      "nav": "$23.21",
+      "yield": "8.79%",
       "yield_label": "annualized distribution yield",
       "mer": "0.67%",
       "mer_label": "management expense ratio",
@@ -37241,7 +37241,7 @@
         "pay_date": "2024-07-08"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -37254,10 +37254,10 @@
       "USCC": 34.92
     },
     "stats": {
-      "aum_musd": 68.344,
-      "aum_display": "$68,344,388",
-      "nav": "$25.38",
-      "yield": "11.11%",
+      "aum_musd": 69.281,
+      "aum_display": "$69,280,975",
+      "nav": "$25.49",
+      "yield": "11.06%",
       "yield_label": "annualized distribution yield",
       "mer": "1.70%",
       "mer_label": "management expense ratio",
@@ -37480,7 +37480,7 @@
         "pay_date": "2023-11-07"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -37493,10 +37493,10 @@
       "GLDX": 34.88
     },
     "stats": {
-      "aum_musd": 689.026,
-      "aum_display": "$689,026,040",
-      "nav": "$58.59",
-      "yield": "10.75%",
+      "aum_musd": 702.878,
+      "aum_display": "$702,877,572",
+      "nav": "$60.03",
+      "yield": "10.50%",
       "yield_label": "annualized distribution yield",
       "mer": "0.77%",
       "mer_label": "management expense ratio",
@@ -37875,7 +37875,7 @@
         "pay_date": "2021-09-13"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -37888,10 +37888,10 @@
       "GLCC": 99.82
     },
     "stats": {
-      "aum_musd": 39.033,
-      "aum_display": "$39,033,187",
-      "nav": "$37.97",
-      "yield": "12.80%",
+      "aum_musd": 41.212,
+      "aum_display": "$41,212,495",
+      "nav": "$39.14",
+      "yield": "12.42%",
       "yield_label": "annualized distribution yield",
       "mer": "1.78%",
       "mer_label": "management expense ratio",
@@ -38000,7 +38000,7 @@
         "pay_date": "2025-06-06"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
@@ -38013,10 +38013,10 @@
       "USCC": 27.67
     },
     "stats": {
-      "aum_musd": 20.613,
-      "aum_display": "$20,613,250",
-      "nav": "$23.53",
-      "yield": "8.42%",
+      "aum_musd": 20.667,
+      "aum_display": "$20,666,965",
+      "nav": "$23.59",
+      "yield": "8.39%",
       "yield_label": "annualized distribution yield",
       "mer": "0.67%",
       "mer_label": "management expense ratio",
@@ -38239,7 +38239,7 @@
         "pay_date": "2023-11-07"
       }
     ],
-    "as_of": "2026-08-23",
+    "as_of": "2026-08-24",
     "stale": false,
     "fetched_ok": true,
     "error": ""
