@@ -43,5 +43,29 @@
     },
     "source": "bmogam.com (captured manually — their server does not answer CI)",
     "captured": "2026-08-24"
+  },
+  "TLTW": {
+    "holdings": {
+      "TLT": 100.04,
+      "CASH": 0.16
+    },
+    "source": "ishares.com holdings table (captured manually — per-product CSV id is not exposed)",
+    "captured": "2026-08-24"
+  },
+  "HYGW": {
+    "holdings": {
+      "HYG": 99.94,
+      "CASH": 0.15
+    },
+    "source": "ishares.com holdings table (captured manually — per-product CSV id is not exposed)",
+    "captured": "2026-08-24"
+  },
+  "LQDW": {
+    "holdings": {
+      "LQD": 100.08,
+      "CASH": 0.15
+    },
+    "source": "ishares.com holdings table (captured manually — per-product CSV id is not exposed)",
+    "captured": "2026-08-24"
   }
 }
