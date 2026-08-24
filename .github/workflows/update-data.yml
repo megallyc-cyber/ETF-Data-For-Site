@@ -1,0 +1,44 @@
+name: Update ETF holdings data
+
+on:
+  schedule:
+    # 11:30 UTC on weekdays (7:30am ET) — issuers post the prior session overnight
+    - cron: '30 11 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Tickers, issuers or parsers to scrape (blank = all)'
+        required: false
+        default: ''
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml openpyxl playwright pdfplumber
+      - run: playwright install --with-deps chromium
+      - name: Scrape holdings
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+        run: |
+          if [ -n "$ONLY" ]; then
+            python scraper.py --only="$ONLY"
+          else
+            python scraper.py
+          fi
+      - name: Commit updated data
+        run: |
+          git config user.name "ledger-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/funds.json
+          git diff --quiet --cached || git commit -m "Update fund holdings data"
+          # a long scrape can finish after other commits have landed, so
+          # rebase before pushing instead of failing on non-fast-forward
+          git pull --rebase --autostash origin main
+          git push
