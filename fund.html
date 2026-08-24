@@ -227,7 +227,7 @@
 </nav>
 
 <div class="wrap">
-  <a class="crumb" href="funds.html">← All funds</a>
+  <a class="crumb" id="backLink" href="funds.html">← All funds</a>
   <div id="stage"><div class="loading">Loading fund…</div></div>
 </div>
 
@@ -496,6 +496,14 @@ function render(){
   }
 
   document.title = TICKER + ' — ' + f.name + ' — Licentia';
+
+  // Returning to a bare region picker loses the user's place, so send them
+  // back into the list they were browsing.
+  const back = document.getElementById('backLink');
+  if (back && f.region) {
+    back.href = 'funds.html?region=' + f.region;
+    back.textContent = f.region === 'CAD' ? '\u2190 All Canadian funds' : '\u2190 All US funds';
+  }
 
   const rows = Object.entries(f.holdings).sort((a,b) => b[1]-a[1]);
   const total = rows.reduce((s,[,w]) => s+w, 0);
