@@ -38915,7 +38915,7 @@
     "as_of": "",
     "stale": false,
     "fetched_ok": false,
-    "error": "NEOS csv fetched but no holdings rows parsed"
+    "error": "parser ran but returned no holdings"
   },
   "HYBI": {
     "name": "NEOS Enhanced Income Credit Select ETF",
