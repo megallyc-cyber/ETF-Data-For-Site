@@ -485,11 +485,11 @@ FUND_REGISTRY: list[Fund] = [
     Fund("GPIQ", "Goldman Sachs Nasdaq-100 Core Premium Income ETF", "Goldman Sachs", "US",
          "https://dividendhistory.org/payout/GPIQ/", "listing_only"),
     Fund("XDTE", "Roundhill S&P 500 0DTE Covered Call Strategy ETF", "Roundhill", "US",
-         "https://dividendhistory.org/payout/XDTE/", "listing_only"),
+         "https://www.roundhillinvestments.com/etf/xdte/", "roundhill"),
     Fund("QDTE", "Roundhill Innovation-100 0DTE Covered Call Strategy ETF", "Roundhill", "US",
-         "https://dividendhistory.org/payout/QDTE/", "listing_only"),
+         "https://www.roundhillinvestments.com/etf/qdte/", "roundhill"),
     Fund("RDTE", "Roundhill Small Cap 0DTE Covered Call Strategy ETF", "Roundhill", "US",
-         "https://dividendhistory.org/payout/RDTE/", "listing_only"),
+         "https://www.roundhillinvestments.com/etf/rdte/", "roundhill"),
     Fund("QQQT", "Defiance Nasdaq-100 Enhanced Options Income ETF", "Defiance", "US",
          "https://dividendhistory.org/payout/QQQT/", "listing_only"),
     Fund("SPYT", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
@@ -686,6 +686,43 @@ def parse_yieldmax(html: str) -> dict:
             if w <= 0:
                 continue
             holdings[ticker] = holdings.get(ticker, 0.0) + w
+        if holdings:
+            break
+    return holdings
+
+
+def parse_roundhill(html: str) -> dict:
+    """Roundhill 0DTE funds hold index options, not equities.
+
+    Their table is Name | Ticker | Weight and the ticker column holds OCC
+    option codes like "4SPX  270319C00678800". For these funds that IS the
+    position — stripping it the way we strip YieldMax's collateral would leave
+    the fund looking empty. So keep the readable Name instead of the raw code,
+    which is what a person can actually interpret.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    holdings = {}
+    for table in soup.find_all("table"):
+        head = table.find("tr")
+        if not head:
+            continue
+        cols = [c.get_text(" ", strip=True).lower() for c in head.find_all(["th", "td"])]
+        if "name" not in cols or "weight" not in cols:
+            continue
+        i_n = cols.index("name")
+        i_w = cols.index("weight")
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+            if len(cells) <= max(i_n, i_w):
+                continue
+            name = cells[i_n].strip()
+            m = re.search(r"(-?[\d.]+)\s*%", cells[i_w])
+            if not name or not m:
+                continue
+            w = float(m.group(1))
+            if w <= 0:
+                continue
+            holdings[name] = holdings.get(name, 0.0) + w
         if holdings:
             break
     return holdings
@@ -1185,6 +1222,8 @@ def parse_fund_stats(html: str) -> dict:
 # callable turning a Fund into the profile URL to fetch separately.
 STATS_SOURCES = {
     "harvest": None,
+    # Roundhill pages carry AUM beside the holdings table
+    "roundhill": None,
     # YieldMax pages carry Net Assets beside the holdings table
     "yieldmax": None,
     # High Income Shares carry AUM*, NAV and yield on the same page as holdings
@@ -1204,6 +1243,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "roundhill": parse_roundhill,
     "yieldmax": parse_yieldmax,
     "harvest_his": parse_harvest_his,
     "listing_only": parse_listing_only,
