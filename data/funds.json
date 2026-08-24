@@ -40646,9 +40646,18 @@
     "name": "Roundhill S&P 500 0DTE Covered Call Strategy ETF",
     "issuer": "Roundhill",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "SPX 03/19/2027 678.8 C": 67.58,
+      "SPX 06/11/2027 678.8 C": 24.43,
+      "Roundhill Weekly T-Bill ETF": 7.15
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "aum_musd": 339.61,
+      "aum_display": "$339.61MM",
+      "nav": "$38.87",
+      "yield": "-0.60%",
+      "yield_label": "30-day sec yield",
+      "distribution_source": "issuer",
       "last_amount": 0.184102,
       "last_ex_date": "2026-08-20",
       "count": 60,
@@ -40664,376 +40673,387 @@
       {
         "ex_date": "2026-08-20",
         "amount": 0.184102,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-21"
+        "pay_date": "2026-08-21",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-08-13",
         "amount": 0.203858,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-14"
+        "pay_date": "2026-08-14",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-08-06",
         "amount": 0.10988,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-07"
+        "pay_date": "2026-08-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-30",
         "amount": 0.089727,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-31"
+        "pay_date": "2026-07-31",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-23",
         "amount": 0.131697,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-24"
+        "pay_date": "2026-07-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-16",
         "amount": 0.166078,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-17"
+        "pay_date": "2026-07-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-09",
         "amount": 0.18506,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-10"
+        "pay_date": "2026-07-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-01",
         "amount": 0.185359,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-02"
+        "pay_date": "2026-07-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-25",
         "amount": 0.264543,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-26"
+        "pay_date": "2026-06-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-17",
         "amount": 0.087593,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-18"
+        "pay_date": "2026-06-18",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-11",
         "amount": 0.097383,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-12"
+        "pay_date": "2026-06-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-04",
         "amount": 0.192035,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-28",
         "amount": 0.156069,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-29"
+        "pay_date": "2026-05-29",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-21",
         "amount": 0.142985,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-22"
+        "pay_date": "2026-05-22",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-14",
         "amount": 0.161338,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-15"
+        "pay_date": "2026-05-15",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-07",
         "amount": 0.143479,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-08"
+        "pay_date": "2026-05-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.15691,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-01"
+        "pay_date": "2026-05-01",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-23",
         "amount": 0.172639,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-24"
+        "pay_date": "2026-04-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-16",
         "amount": 0.12728,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-17"
+        "pay_date": "2026-04-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-09",
         "amount": 0.141867,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-10"
+        "pay_date": "2026-04-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-01",
         "amount": 0.206319,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-02"
+        "pay_date": "2026-04-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-26",
         "amount": 0.125167,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-27"
+        "pay_date": "2026-03-27",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-19",
         "amount": 0.127906,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-20"
+        "pay_date": "2026-03-20",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-12",
         "amount": 0.141381,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-13"
+        "pay_date": "2026-03-13",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-05",
         "amount": 0.161129,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-26",
         "amount": 0.203097,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-27"
+        "pay_date": "2026-02-27",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-19",
         "amount": 0.182532,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-20"
+        "pay_date": "2026-02-20",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-12",
         "amount": 0.122939,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-13"
+        "pay_date": "2026-02-13",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-05",
         "amount": 0.059103,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-29",
         "amount": 0.101802,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-30"
+        "pay_date": "2026-01-30",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-22",
         "amount": 0.16116,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-23"
+        "pay_date": "2026-01-23",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-15",
         "amount": 0.114625,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-16"
+        "pay_date": "2026-01-16",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-08",
         "amount": 0.162068,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-09"
+        "pay_date": "2026-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 2.053236,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-02"
+        "pay_date": "2026-01-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-24",
         "amount": 1.380265,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-26"
+        "pay_date": "2025-12-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-18",
         "amount": 0.20955,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-19"
+        "pay_date": "2025-12-19",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-11",
         "amount": 0.209567,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-12"
+        "pay_date": "2025-12-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-04",
         "amount": 0.310974,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-26",
         "amount": 0.207834,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-28"
+        "pay_date": "2025-11-28",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-20",
         "amount": 0.268876,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-21"
+        "pay_date": "2025-11-21",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-13",
         "amount": 0.21698,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-14"
+        "pay_date": "2025-11-14",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-06",
         "amount": 0.211416,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-07"
+        "pay_date": "2025-11-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-30",
         "amount": 0.250853,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-31"
+        "pay_date": "2025-10-31",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-23",
         "amount": 0.205972,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-24"
+        "pay_date": "2025-10-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-16",
         "amount": 0.212182,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-17"
+        "pay_date": "2025-10-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-09",
         "amount": 0.211523,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-10"
+        "pay_date": "2025-10-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-02",
         "amount": 0.171073,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-03"
+        "pay_date": "2025-10-03",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-25",
         "amount": 0.169314,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-26"
+        "pay_date": "2025-09-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-18",
         "amount": 0.209576,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-19"
+        "pay_date": "2025-09-19",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-11",
         "amount": 0.210443,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-12"
+        "pay_date": "2025-09-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-04",
         "amount": 0.213094,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-05"
+        "pay_date": "2025-09-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-28",
         "amount": 0.212107,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-29"
+        "pay_date": "2025-08-29",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-21",
         "amount": 0.25398,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-22"
+        "pay_date": "2025-08-22",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-14",
         "amount": 0.249843,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-15"
+        "pay_date": "2025-08-15",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-07",
         "amount": 0.256623,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.254272,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-01"
+        "pay_date": "2025-08-01",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-24",
         "amount": 0.254026,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-25"
+        "pay_date": "2025-07-25",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-17",
         "amount": 0.256389,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-18"
+        "pay_date": "2025-07-18",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-10",
         "amount": 0.253709,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-11"
+        "pay_date": "2025-07-11",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-02",
         "amount": 0.247367,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-03"
+        "pay_date": "2025-07-03",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-24",
     "stale": false,
-    "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "fetched_ok": true,
+    "error": ""
   },
   "QDTE": {
     "name": "Roundhill Innovation-100 0DTE Covered Call Strategy ETF",
     "issuer": "Roundhill",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "NDX 03/19/2027 2510.15 C": 26.1,
+      "4NDX US 12/18/26 C2450.1 FLX": 25.27,
+      "NDX 06/11/2027 3059.42 C": 21.7,
+      "4NDX US 09/18/26 C2250 FLX": 19.17,
+      "Roundhill Weekly T-Bill ETF": 5.08
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "aum_musd": 945.11,
+      "aum_display": "$945.11MM",
+      "nav": "$28.95",
+      "yield": "-0.64%",
+      "yield_label": "30-day sec yield",
+      "distribution_source": "issuer",
       "last_amount": 0.278813,
       "last_ex_date": "2026-08-20",
       "count": 60,
@@ -41049,376 +41069,385 @@
       {
         "ex_date": "2026-08-20",
         "amount": 0.278813,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-21"
+        "pay_date": "2026-08-21",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-08-13",
         "amount": 0.20774,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-14"
+        "pay_date": "2026-08-14",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-08-06",
         "amount": 0.136996,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-07"
+        "pay_date": "2026-08-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-30",
         "amount": 0.136654,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-31"
+        "pay_date": "2026-07-31",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-23",
         "amount": 0.230242,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-24"
+        "pay_date": "2026-07-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-16",
         "amount": 0.208913,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-17"
+        "pay_date": "2026-07-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-09",
         "amount": 0.20275,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-10"
+        "pay_date": "2026-07-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-01",
         "amount": 0.242945,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-02"
+        "pay_date": "2026-07-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-25",
         "amount": 0.236456,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-26"
+        "pay_date": "2026-06-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-17",
         "amount": 0.124672,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-18"
+        "pay_date": "2026-06-18",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-11",
         "amount": 0.151381,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-12"
+        "pay_date": "2026-06-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-04",
         "amount": 0.237513,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-28",
         "amount": 0.282804,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-29"
+        "pay_date": "2026-05-29",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-21",
         "amount": 0.172256,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-22"
+        "pay_date": "2026-05-22",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-14",
         "amount": 0.210416,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-15"
+        "pay_date": "2026-05-15",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-07",
         "amount": 0.166077,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-08"
+        "pay_date": "2026-05-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.157005,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-01"
+        "pay_date": "2026-05-01",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-23",
         "amount": 0.163019,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-24"
+        "pay_date": "2026-04-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-16",
         "amount": 0.098851,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-17"
+        "pay_date": "2026-04-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-09",
         "amount": 0.103656,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-10"
+        "pay_date": "2026-04-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-01",
         "amount": 0.159005,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-02"
+        "pay_date": "2026-04-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-26",
         "amount": 0.113394,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-27"
+        "pay_date": "2026-03-27",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-19",
         "amount": 0.124832,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-20"
+        "pay_date": "2026-03-20",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-12",
         "amount": 0.186846,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-13"
+        "pay_date": "2026-03-13",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-05",
         "amount": 0.195197,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-26",
         "amount": 0.221489,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-27"
+        "pay_date": "2026-02-27",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-19",
         "amount": 0.269995,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-20"
+        "pay_date": "2026-02-20",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-12",
         "amount": 0.140091,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-13"
+        "pay_date": "2026-02-13",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-05",
         "amount": 0.072719,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-29",
         "amount": 0.098801,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-30"
+        "pay_date": "2026-01-30",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-22",
         "amount": 0.177274,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-23"
+        "pay_date": "2026-01-23",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-15",
         "amount": 0.118362,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-16"
+        "pay_date": "2026-01-16",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-08",
         "amount": 0.158411,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-09"
+        "pay_date": "2026-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 1.721033,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-02"
+        "pay_date": "2026-01-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-24",
         "amount": 1.915136,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-26"
+        "pay_date": "2025-12-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-18",
         "amount": 0.202494,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-19"
+        "pay_date": "2025-12-19",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-11",
         "amount": 0.201943,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-12"
+        "pay_date": "2025-12-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-04",
         "amount": 0.384867,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-26",
         "amount": 0.234049,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-28"
+        "pay_date": "2025-11-28",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-20",
         "amount": 0.224641,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-21"
+        "pay_date": "2025-11-21",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-13",
         "amount": 0.223004,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-14"
+        "pay_date": "2025-11-14",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-06",
         "amount": 0.20466,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-07"
+        "pay_date": "2025-11-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-30",
         "amount": 0.235839,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-31"
+        "pay_date": "2025-10-31",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-23",
         "amount": 0.198232,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-24"
+        "pay_date": "2025-10-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-16",
         "amount": 0.20423,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-17"
+        "pay_date": "2025-10-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-09",
         "amount": 0.204112,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-10"
+        "pay_date": "2025-10-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-02",
         "amount": 0.207181,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-03"
+        "pay_date": "2025-10-03",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-25",
         "amount": 0.203648,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-26"
+        "pay_date": "2025-09-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-18",
         "amount": 0.200581,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-19"
+        "pay_date": "2025-09-19",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-11",
         "amount": 0.200428,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-12"
+        "pay_date": "2025-09-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-04",
         "amount": 0.286047,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-05"
+        "pay_date": "2025-09-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-28",
         "amount": 0.204493,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-29"
+        "pay_date": "2025-08-29",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-21",
         "amount": 0.23925,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-22"
+        "pay_date": "2025-08-22",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-14",
         "amount": 0.232944,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-15"
+        "pay_date": "2025-08-15",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-07",
         "amount": 0.238734,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.2379,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-01"
+        "pay_date": "2025-08-01",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-24",
         "amount": 0.236679,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-25"
+        "pay_date": "2025-07-25",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-17",
         "amount": 0.238737,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-18"
+        "pay_date": "2025-07-18",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-10",
         "amount": 0.237135,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-11"
+        "pay_date": "2025-07-11",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-02",
         "amount": 0.228961,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-03"
+        "pay_date": "2025-07-03",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-24",
     "stale": false,
-    "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "fetched_ok": true,
+    "error": ""
   },
   "RDTE": {
     "name": "Roundhill Small Cap 0DTE Covered Call Strategy ETF",
     "issuer": "Roundhill",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "RUT 03/19/2027 252.3 C": 47.22,
+      "4RUT US 12/18/26 C246.2 FLX": 44.71,
+      "Roundhill Weekly T-Bill ETF": 5.66
+    },
     "stats": {
-      "distribution_source": "dividendhistory.org",
+      "aum_musd": 185.11,
+      "aum_display": "$185.11MM",
+      "nav": "$28.49",
+      "yield": "-0.64%",
+      "yield_label": "30-day sec yield",
+      "distribution_source": "issuer",
       "last_amount": 0.222061,
       "last_ex_date": "2026-08-20",
       "count": 60,
@@ -41434,368 +41463,368 @@
       {
         "ex_date": "2026-08-20",
         "amount": 0.222061,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-21"
+        "pay_date": "2026-08-21",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-08-13",
         "amount": 0.21681,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-14"
+        "pay_date": "2026-08-14",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-08-06",
         "amount": 0.13502,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-08-07"
+        "pay_date": "2026-08-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-30",
         "amount": 0.229336,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-31"
+        "pay_date": "2026-07-31",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-23",
         "amount": 0.197192,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-24"
+        "pay_date": "2026-07-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-16",
         "amount": 0.17866,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-17"
+        "pay_date": "2026-07-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-09",
         "amount": 0.226448,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-10"
+        "pay_date": "2026-07-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-07-01",
         "amount": 0.22429,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-07-02"
+        "pay_date": "2026-07-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-25",
         "amount": 0.220939,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-26"
+        "pay_date": "2026-06-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-17",
         "amount": 0.172631,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-18"
+        "pay_date": "2026-06-18",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-11",
         "amount": 0.159307,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-12"
+        "pay_date": "2026-06-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-06-04",
         "amount": 0.263297,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-06-05"
+        "pay_date": "2026-06-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-28",
         "amount": 0.151006,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-29"
+        "pay_date": "2026-05-29",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-21",
         "amount": 0.16108,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-22"
+        "pay_date": "2026-05-22",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-14",
         "amount": 0.194448,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-15"
+        "pay_date": "2026-05-15",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-05-07",
         "amount": 0.174651,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-08"
+        "pay_date": "2026-05-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-30",
         "amount": 0.171087,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-05-01"
+        "pay_date": "2026-05-01",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-23",
         "amount": 0.201427,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-24"
+        "pay_date": "2026-04-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-16",
         "amount": 0.167538,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-17"
+        "pay_date": "2026-04-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-09",
         "amount": 0.188844,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-10"
+        "pay_date": "2026-04-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-04-01",
         "amount": 0.290545,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-04-02"
+        "pay_date": "2026-04-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-26",
         "amount": 0.214632,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-27"
+        "pay_date": "2026-03-27",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-19",
         "amount": 0.163733,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-20"
+        "pay_date": "2026-03-20",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-12",
         "amount": 0.198636,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-13"
+        "pay_date": "2026-03-13",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-03-05",
         "amount": 0.25717,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-03-06"
+        "pay_date": "2026-03-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-26",
         "amount": 0.207522,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-27"
+        "pay_date": "2026-02-27",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-19",
         "amount": 0.282141,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-20"
+        "pay_date": "2026-02-20",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-12",
         "amount": 0.236011,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-13"
+        "pay_date": "2026-02-13",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-02-05",
         "amount": 0.123154,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-02-06"
+        "pay_date": "2026-02-06",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-29",
         "amount": 0.160652,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-30"
+        "pay_date": "2026-01-30",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-22",
         "amount": 0.231372,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-23"
+        "pay_date": "2026-01-23",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-15",
         "amount": 0.142423,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-16"
+        "pay_date": "2026-01-16",
+        "source": "issuer"
       },
       {
         "ex_date": "2026-01-08",
         "amount": 0.178379,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-09"
+        "pay_date": "2026-01-09",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-31",
         "amount": 1.083798,
-        "source": "dividendhistory.org",
-        "pay_date": "2026-01-02"
+        "pay_date": "2026-01-02",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-24",
         "amount": 0.394867,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-26"
+        "pay_date": "2025-12-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-18",
         "amount": 0.211954,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-19"
+        "pay_date": "2025-12-19",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-11",
         "amount": 0.212805,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-12"
+        "pay_date": "2025-12-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-12-04",
         "amount": 0.238616,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-12-05"
+        "pay_date": "2025-12-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-26",
         "amount": 0.225393,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-28"
+        "pay_date": "2025-11-28",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-20",
         "amount": 0.253221,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-21"
+        "pay_date": "2025-11-21",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-13",
         "amount": 0.386957,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-14"
+        "pay_date": "2025-11-14",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-11-06",
         "amount": 0.223498,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-11-07"
+        "pay_date": "2025-11-07",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-30",
         "amount": 0.245287,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-31"
+        "pay_date": "2025-10-31",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-23",
         "amount": 0.225063,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-24"
+        "pay_date": "2025-10-24",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-16",
         "amount": 0.226984,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-17"
+        "pay_date": "2025-10-17",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-09",
         "amount": 0.224722,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-10"
+        "pay_date": "2025-10-10",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-10-02",
         "amount": 0.366052,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-10-03"
+        "pay_date": "2025-10-03",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-25",
         "amount": 0.192618,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-26"
+        "pay_date": "2025-09-26",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-18",
         "amount": 0.226543,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-19"
+        "pay_date": "2025-09-19",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-11",
         "amount": 0.22642,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-12"
+        "pay_date": "2025-09-12",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-09-04",
         "amount": 0.3236,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-09-05"
+        "pay_date": "2025-09-05",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-28",
         "amount": 0.223943,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-29"
+        "pay_date": "2025-08-29",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-21",
         "amount": 0.254822,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-22"
+        "pay_date": "2025-08-22",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-14",
         "amount": 0.313832,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-15"
+        "pay_date": "2025-08-15",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-08-07",
         "amount": 0.262322,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-08"
+        "pay_date": "2025-08-08",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-31",
         "amount": 0.28879,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-08-01"
+        "pay_date": "2025-08-01",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-24",
         "amount": 0.307538,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-25"
+        "pay_date": "2025-07-25",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-17",
         "amount": 0.265376,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-18"
+        "pay_date": "2025-07-18",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-10",
         "amount": 0.26196,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-11"
+        "pay_date": "2025-07-11",
+        "source": "issuer"
       },
       {
         "ex_date": "2025-07-02",
         "amount": 0.258902,
-        "source": "dividendhistory.org",
-        "pay_date": "2025-07-03"
+        "pay_date": "2025-07-03",
+        "source": "issuer"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-24",
     "stale": false,
-    "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "fetched_ok": true,
+    "error": ""
   },
   "QQQT": {
     "name": "Defiance Nasdaq-100 Enhanced Options Income ETF",
