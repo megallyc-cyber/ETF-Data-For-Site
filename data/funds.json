@@ -41866,7 +41866,9 @@
     "name": "Defiance Nasdaq-100 Enhanced Options Income ETF",
     "issuer": "Defiance",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "QQQ": 99.77
+    },
     "stats": {
       "distribution_source": "dividendhistory.org",
       "last_amount": 0.2909,
@@ -42032,16 +42034,19 @@
         "pay_date": "2024-08-02"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-24",
     "stale": false,
-    "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "fetched_ok": true,
+    "error": ""
   },
   "SPYT": {
     "name": "Defiance S&P 500 Enhanced Options Income ETF",
     "issuer": "Defiance",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "IVV": 99.82,
+      "FGXXX": 0.27
+    },
     "stats": {
       "distribution_source": "dividendhistory.org",
       "last_amount": 0.2862,
@@ -42231,10 +42236,10 @@
         "pay_date": "2024-04-04"
       }
     ],
-    "as_of": "",
+    "as_of": "2026-08-24",
     "stale": false,
-    "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "fetched_ok": true,
+    "error": ""
   },
   "FEPI": {
     "name": "REX FANG & Innovation Equity Premium Income ETF",
@@ -48500,7 +48505,7 @@
     "as_of": "",
     "stale": false,
     "fetched_ok": false,
-    "error": "parser ran but returned no holdings"
+    "error": "404 Client Error: Not Found for url: https://www.defianceetfs.com/jepy-full-holdings/"
   },
   "ULTY": {
     "name": "YieldMax Ultra Option Income Strategy ETF",
