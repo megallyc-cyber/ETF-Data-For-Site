@@ -519,9 +519,9 @@ FUND_REGISTRY: list[Fund] = [
     Fund("XRMI", "Global X S&P 500 Risk Managed Income ETF", "Global X", "US",
          "https://www.globalxetfs.com/funds/xrmi/", "globalx_us"),
     Fund("ISPY", "ProShares S&P 500 High Income ETF", "ProShares", "US",
-         "https://dividendhistory.org/payout/ISPY/", "listing_only"),
+         "https://www.proshares.com/our-etfs/strategic/ispy", "proshares"),
     Fund("IQQQ", "ProShares Nasdaq-100 High Income ETF", "ProShares", "US",
-         "https://dividendhistory.org/payout/IQQQ/", "listing_only"),
+         "https://www.proshares.com/our-etfs/strategic/iqqq", "proshares"),
     Fund("JEPY", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
          "https://dividendhistory.org/payout/JEPY/", "listing_only"),
     Fund("ULTY", "YieldMax Ultra Option Income Strategy ETF", "YieldMax", "US",
@@ -723,6 +723,42 @@ def parse_roundhill(html: str) -> dict:
             if w <= 0:
                 continue
             holdings[name] = holdings.get(name, 0.0) + w
+        if holdings:
+            break
+    return holdings
+
+
+def parse_proshares(html: str) -> dict:
+    """ProShares publish a full holdings table headed
+    Weight | Ticker | Description | Exposure Value | Market Value | Shares.
+
+    Both a short "Company | Weight" summary and the full table appear on the
+    page; prefer the one with a Ticker column so the overlap tool can match
+    positions rather than free-text company names.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    holdings = {}
+    for table in soup.find_all("table"):
+        head = table.find("tr")
+        if not head:
+            continue
+        cols = [c.get_text(" ", strip=True).lower() for c in head.find_all(["th", "td"])]
+        if "ticker" not in cols or not any(c.startswith("weight") for c in cols):
+            continue
+        i_t = cols.index("ticker")
+        i_w = next(i for i, c in enumerate(cols) if c.startswith("weight"))
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+            if len(cells) <= max(i_t, i_w):
+                continue
+            ticker = cells[i_t].strip().upper()
+            m = re.search(r"(-?[\d.]+)\s*%", cells[i_w])
+            if not ticker or ticker in {"-", "--", "\u2014", ""} or not m:
+                continue
+            w = float(m.group(1))
+            if w <= 0:
+                continue
+            holdings[ticker] = holdings.get(ticker, 0.0) + w
         if holdings:
             break
     return holdings
@@ -1222,6 +1258,8 @@ def parse_fund_stats(html: str) -> dict:
 # callable turning a Fund into the profile URL to fetch separately.
 STATS_SOURCES = {
     "harvest": None,
+    # ProShares pages carry Net Assets beside the holdings table
+    "proshares": None,
     # Roundhill pages carry AUM beside the holdings table
     "roundhill": None,
     # YieldMax pages carry Net Assets beside the holdings table
@@ -1243,6 +1281,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "proshares": parse_proshares,
     "roundhill": parse_roundhill,
     "yieldmax": parse_yieldmax,
     "harvest_his": parse_harvest_his,
