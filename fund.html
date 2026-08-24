@@ -630,6 +630,14 @@ function render(){
 }
 
 function asOfLine(f){
+  const st = f.stats || {};
+  // Hand-captured holdings must say so — the reader should never think a
+  // manually copied table was scraped live today.
+  if (st.holdings_source && st.holdings_captured) {
+    return '<span style="color:var(--gold-deep);">Holdings captured ' + st.holdings_captured +
+           ' from ' + f.issuer + "'s published table — their site does not answer our automated fetch, " +
+           'so this is refreshed by hand rather than daily.</span>';
+  }
   if(!f.as_of) return 'Holdings date not recorded';
   if(!f.stale) return 'Holdings as of ' + f.as_of;
   // Say so plainly. A number with no date reads as today's number.
