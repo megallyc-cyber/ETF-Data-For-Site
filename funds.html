@@ -239,6 +239,9 @@ function init(){
   const us = Object.values(FUNDS).filter(f => f.region === 'US').length;
     setTrackedCount(Object.keys(FUNDS).length);
   document.getElementById('count-cad').textContent = cad + ' funds';
+  // arriving back from a fund page: drop straight into that region's list
+  const wanted = (new RegExp('[?&]region=([^&]*)').exec(window.location.search) || [])[1];
+  if (wanted === 'CAD' || wanted === 'US') setTimeout(() => selectRegion(wanted), 0);
   document.getElementById('count-us').textContent = us + ' funds';
 
   document.querySelectorAll('.flag-card').forEach(card => {
