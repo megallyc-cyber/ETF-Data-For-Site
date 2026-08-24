@@ -1,4 +1,4 @@
-name: Update ETF holdings data
+ pdfplumbername: Update ETF holdings data
 
 on:
   schedule:
