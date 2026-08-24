@@ -1336,7 +1336,10 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> 
     exactly like a normal static fetch."""
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        # BMO's server aborts the HTTP/2 handshake with headless Chromium
+        # (ERR_HTTP2_PROTOCOL_ERROR); forcing HTTP/1.1 makes the page load and
+        # costs nothing on sites that were already fine.
+        browser = p.chromium.launch(args=["--disable-http2"])
         page = browser.new_page(user_agent=ACTIVE_HEADERS["User-Agent"])
         try:
             page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="domcontentloaded")
