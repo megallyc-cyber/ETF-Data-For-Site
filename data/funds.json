@@ -42987,8 +42987,13 @@
     "name": "iShares 20+ Year Treasury Bond BuyWrite Strategy ETF",
     "issuer": "iShares",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "TLT": 100.04,
+      "CASH": 0.16
+    },
     "stats": {
+      "holdings_source": "ishares.com holdings table (captured manually \u2014 per-product CSV id is not exposed)",
+      "holdings_captured": "2026-08-24",
       "distribution_source": "dividendhistory.org",
       "last_amount": 0.152297,
       "last_ex_date": "2026-08-04",
@@ -43300,8 +43305,13 @@
     "name": "iShares High Yield Corporate Bond BuyWrite Strategy ETF",
     "issuer": "iShares",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "HYG": 99.94,
+      "CASH": 0.15
+    },
     "stats": {
+      "holdings_source": "ishares.com holdings table (captured manually \u2014 per-product CSV id is not exposed)",
+      "holdings_captured": "2026-08-24",
       "distribution_source": "dividendhistory.org",
       "last_amount": 0.192867,
       "last_ex_date": "2026-08-04",
@@ -43613,8 +43623,13 @@
     "name": "iShares Investment Grade Corporate Bond BuyWrite Strategy ETF",
     "issuer": "iShares",
     "region": "US",
-    "holdings": {},
+    "holdings": {
+      "LQD": 100.08,
+      "CASH": 0.15
+    },
     "stats": {
+      "holdings_source": "ishares.com holdings table (captured manually \u2014 per-product CSV id is not exposed)",
+      "holdings_captured": "2026-08-24",
       "distribution_source": "dividendhistory.org",
       "last_amount": 0.200817,
       "last_ex_date": "2026-08-04",
