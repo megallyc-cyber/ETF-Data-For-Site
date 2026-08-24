@@ -4569,7 +4569,7 @@
       }
     ],
     "as_of": "",
-    "stale": false,
+    "stale": true,
     "fetched_ok": false,
     "error": "Page.goto: Timeout 90000ms exceeded.\nCall log:\n  - navigating to \"https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/\", waiting until \"domcontentloaded\"\n"
   },
@@ -4967,7 +4967,7 @@
       }
     ],
     "as_of": "",
-    "stale": false,
+    "stale": true,
     "fetched_ok": false,
     "error": "Page.goto: Timeout 90000ms exceeded.\nCall log:\n  - navigating to \"https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/\", waiting until \"domcontentloaded\"\n"
   },
@@ -5365,7 +5365,7 @@
       }
     ],
     "as_of": "",
-    "stale": false,
+    "stale": true,
     "fetched_ok": false,
     "error": "Page.goto: Timeout 90000ms exceeded.\nCall log:\n  - navigating to \"https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/\", waiting until \"domcontentloaded\"\n"
   },
