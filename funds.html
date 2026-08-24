@@ -226,7 +226,6 @@ fetch('data/funds.json')
         live[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {} };
       }
     });
-    setTrackedCount(Object.keys(FUNDS).length);
     FUNDS = Object.keys(live).length ? live : FALLBACK_FUNDS;
     init();
   })
@@ -238,6 +237,7 @@ let currentSort = 'issuer';
 function init(){
   const cad = Object.values(FUNDS).filter(f => f.region === 'CAD').length;
   const us = Object.values(FUNDS).filter(f => f.region === 'US').length;
+    setTrackedCount(Object.keys(FUNDS).length);
   document.getElementById('count-cad').textContent = cad + ' funds';
   document.getElementById('count-us').textContent = us + ' funds';
 
