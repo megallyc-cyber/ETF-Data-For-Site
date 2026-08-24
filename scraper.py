@@ -461,7 +461,7 @@ FUND_REGISTRY: list[Fund] = [
     Fund("BNDI", "NEOS Enhanced Income Aggregate Bond ETF", "NEOS Investments", "US",
          "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=BNDI", "neos_csv"),
     Fund("CSHI", "NEOS Enhanced Income Cash Alternative ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=CSHI", "neos_csv"),
+         "https://neosfunds.com/cshi/", "pdf_holdings"),
     Fund("HYBI", "NEOS Enhanced Income Credit Select ETF", "NEOS Investments", "US",
          "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=HYBI", "neos_csv"),
     Fund("NEHI", "NEOS Nasdaq-100 Hedged Equity Income ETF", "NEOS Investments", "US",
@@ -495,9 +495,9 @@ FUND_REGISTRY: list[Fund] = [
     Fund("SPYT", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
          "https://www.defianceetfs.com/spyt-full-holdings/", "defiance"),
     Fund("FEPI", "REX FANG & Innovation Equity Premium Income ETF", "REX Shares", "US",
-         "https://dividendhistory.org/payout/FEPI/", "listing_only"),
+         "https://www.rexshares.com/fepi/", "pdf_holdings"),
     Fund("AIPI", "REX AI Equity Premium Income ETF", "REX Shares", "US",
-         "https://dividendhistory.org/payout/AIPI/", "listing_only"),
+         "https://www.rexshares.com/aipi/", "pdf_holdings"),
     Fund("BALI", "iShares Advantage Large Cap Income ETF", "iShares", "US",
          "https://dividendhistory.org/payout/BALI/", "listing_only"),
     Fund("TLTW", "iShares 20+ Year Treasury Bond BuyWrite Strategy ETF", "iShares", "US",
@@ -795,6 +795,90 @@ def parse_defiance(html: str) -> dict:
         if holdings:
             break
     return holdings
+
+
+def parse_pdf_holdings(html: str) -> dict:
+    """Holdings from an issuer's PDF schedule of investments.
+
+    REX and NEOS publish some funds only as quarterly PDFs — no HTML table
+    exists anywhere on their sites. This finds the most recent holdings PDF
+    linked from the fund page (filenames carry a date and change quarterly, so
+    they cannot be hardcoded), downloads it and reads the tables.
+
+    A schedule of investments lists shares and market value but usually not a
+    weight column, so weights are computed from each row's value over the total.
+    Rows without a usable ticker are skipped rather than guessed at.
+    """
+    import io
+
+    try:
+        import pdfplumber
+    except ImportError:
+        log.warning("  -> pdfplumber not installed; cannot read PDF holdings")
+        return {}
+
+    soup = BeautifulSoup(html, "lxml")
+    links = []
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if not href.lower().endswith(".pdf"):
+            continue
+        label = (a.get_text(" ", strip=True) + " " + href).lower()
+        if any(k in label for k in ("holding", "schedule of investment", "soi", "portfolio")):
+            if href.startswith("//"):
+                href = "https:" + href
+            links.append(href)
+    if not links:
+        log.info("  -> no holdings PDF linked on the page")
+        return {}
+
+    # later quarters sort last by the date in the filename
+    links.sort()
+    url = links[-1]
+    log.info("  -> reading holdings PDF %s", url)
+    try:
+        raw = requests.get(url, headers=ACTIVE_HEADERS, timeout=REQUEST_TIMEOUT).content
+    except Exception as exc:  # noqa: BLE001
+        log.warning("  -> could not fetch PDF: %s", exc)
+        return {}
+
+    rows = []
+    try:
+        with pdfplumber.open(io.BytesIO(raw)) as pdf:
+            for page in pdf.pages[:12]:
+                for table in (page.extract_tables() or []):
+                    rows.extend(table)
+    except Exception as exc:  # noqa: BLE001
+        log.warning("  -> could not parse PDF: %s", exc)
+        return {}
+
+    values = {}
+    for row in rows:
+        cells = [(c or "").strip() for c in row]
+        if len(cells) < 2:
+            continue
+        ticker = ""
+        for c in cells[:3]:
+            t = c.upper().strip()
+            if t and t.isalpha() and 1 <= len(t) <= 5:
+                ticker = t
+                break
+        if not ticker:
+            continue
+        money = None
+        for c in reversed(cells):
+            m = re.search(r"([\d,]+(?:\.\d+)?)", c.replace("$", ""))
+            if m and len(m.group(1).replace(",", "")) >= 4:
+                money = float(m.group(1).replace(",", ""))
+                break
+        if money and money > 0:
+            values[ticker] = values.get(ticker, 0.0) + money
+
+    total = sum(values.values())
+    if not total:
+        log.info("  -> PDF had no readable holdings rows")
+        return {}
+    return {t: round(v / total * 100, 4) for t, v in sorted(values.items(), key=lambda kv: -kv[1])[:40]}
 
 
 def parse_listing_only(html: str) -> dict:
@@ -1291,6 +1375,8 @@ def parse_fund_stats(html: str) -> dict:
 # callable turning a Fund into the profile URL to fetch separately.
 STATS_SOURCES = {
     "harvest": None,
+    # PDF-only issuers still show AUM on the fund page
+    "pdf_holdings": None,
     # ProShares pages carry Net Assets beside the holdings table
     "proshares": None,
     # Roundhill pages carry AUM beside the holdings table
@@ -1314,6 +1400,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "pdf_holdings": parse_pdf_holdings,
     "defiance": parse_defiance,
     "proshares": parse_proshares,
     "roundhill": parse_roundhill,
