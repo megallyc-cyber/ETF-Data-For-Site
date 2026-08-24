@@ -678,6 +678,10 @@ def parse_yieldmax(html: str) -> dict:
             m = re.search(r"(-?[\d.]+)\s*%", cells[i_w])
             if not ticker or ticker in {"-", "\u2014", ""} or not m:
                 continue
+            # Treasury CUSIPs (9 alphanumerics) and OCC option codes are not
+            # holdings a reader can look up, and they crowd out the real exposure.
+            if " " in ticker or len(ticker) > 6 or any(ch.isdigit() for ch in ticker):
+                continue
             w = float(m.group(1))
             if w <= 0:
                 continue
