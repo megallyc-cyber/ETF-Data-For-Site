@@ -1489,6 +1489,7 @@ def distribution_summary(dists: list) -> dict:
     return out
 
 
+SEED: dict = {}
 DH_BASE = "https://dividendhistory.org/payout/"
 DH_ATTRIBUTION = "dividendhistory.org"
 
@@ -1599,6 +1600,27 @@ def collect_stats(fund: Fund, page_html: str) -> dict:
         return {}
 
 
+SEED_PATH = Path("data/seed_holdings.json")
+
+
+def load_seed() -> dict:
+    """Holdings captured by hand from an issuer's own page.
+
+    Some issuers (BMO) answer a residential browser but hang forever on the
+    GitHub Actions IP range, so no timeout or header change reaches them. The
+    numbers here came from their published holdings table; the fund page shows
+    the capture date and says where it came from, rather than pretending this
+    was scraped today.
+    """
+    if not SEED_PATH.exists():
+        return {}
+    try:
+        return json.loads(SEED_PATH.read_text())
+    except Exception as exc:  # noqa: BLE001
+        log.warning("could not read %s: %s", SEED_PATH, exc)
+        return {}
+
+
 def load_previous(path: Path = OUTPUT_PATH) -> dict:
     """The previous run's output, used to carry a fund forward when today's
     fetch fails. An issuer blocking us for a day is not the same event as a
@@ -1629,6 +1651,8 @@ def carry_forward(fund: Fund, previous: dict) -> None:
 
 def run(registry: list[Fund]) -> list[Fund]:
     previous = load_previous()
+    global SEED
+    SEED = load_seed()
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     for fund in registry:
         log.info("Fetching %s (%s) from %s", fund.ticker, fund.issuer, fund.holdings_url)
@@ -1678,6 +1702,14 @@ def run(registry: list[Fund]) -> list[Fund]:
         # A blocked issuer throws before the distribution step above ever runs,
         # so try the fallback out here too — Evolve's holdings 403 shouldn't also
         # cost us their payment history, which is public elsewhere.
+        if not fund.holdings:
+            _seed = SEED.get(fund.ticker)
+            if _seed and _seed.get("holdings"):
+                fund.holdings = _seed["holdings"]
+                fund.stats["holdings_source"] = _seed.get("source", "manual capture")
+                fund.stats["holdings_captured"] = _seed.get("captured", "")
+                log.info("  -> %d holdings from seed file", len(fund.holdings))
+
         if not fund.distributions:
             fund.distributions = fetch_dividendhistory(fund)
             if fund.distributions:
