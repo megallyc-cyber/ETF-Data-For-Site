@@ -459,23 +459,23 @@ FUND_REGISTRY: list[Fund] = [
   
     # NEOS funds the registry was missing
     Fund("BNDI", "NEOS Enhanced Income Aggregate Bond ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/BNDI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=BNDI", "neos_csv"),
     Fund("CSHI", "NEOS Enhanced Income Cash Alternative ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/CSHI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=CSHI", "neos_csv"),
     Fund("HYBI", "NEOS Enhanced Income Credit Select ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/HYBI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=HYBI", "neos_csv"),
     Fund("NEHI", "NEOS Nasdaq-100 Hedged Equity Income ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/NEHI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=NEHI", "neos_csv"),
     Fund("NIHI", "NEOS S&P 500 Hedged Equity Income ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/NIHI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=NIHI", "neos_csv"),
     Fund("NLSI", "NEOS Large Cap Systematic Income ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/NLSI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=NLSI", "neos_csv"),
     Fund("XBCI", "NEOS Bitcoin High Income ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/XBCI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=XBCI", "neos_csv"),
     Fund("XQQI", "NEOS Nasdaq-100 High Income ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/XQQI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=XQQI", "neos_csv"),
     Fund("XSPI", "NEOS S&P 500 High Income ETF", "NEOS Investments", "US",
-         "https://neosfunds.com/wp-content/fundwebsite/holdings/XSPI_holdings.csv", "neos_csv"),
+         "https://neosfunds.com/wp-admin/admin-ajax.php?action=download_holdings_csv&ticker=XSPI", "neos_csv"),
 
     # Broader US option-income universe. Holdings are not parsed for these
     # (each issuer would need its own parser); they carry price history,
@@ -1072,7 +1072,9 @@ def _find_after(lines: list, labels: list, pattern, lookahead: int = 6):
 AUM_LABELS = ["net aum", "aum", "net assets", "fund total net assets",
               "total net assets", "fund size", "assets under management",
               # Hamilton's fund-facts table just says "Assets" ($2489.4M CAD)
-              "assets"]
+              "assets",
+              # Harvest High Income Shares print "AUM*" with a footnote marker
+              "aum*"]
 NAV_LABELS = ["nav", "net asset value", "closing nav"]
 YIELD_LABELS = ["current annualized yield", "current yield", "distribution yield",
                 "trailing 12-month yield", "yield %", "annualized distribution yield",
