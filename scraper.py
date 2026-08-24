@@ -1144,6 +1144,10 @@ def parse_fund_stats(html: str) -> dict:
 # callable turning a Fund into the profile URL to fetch separately.
 STATS_SOURCES = {
     "harvest": None,
+    # High Income Shares carry AUM*, NAV and yield on the same page as holdings
+    "harvest_his": None,
+    # BMO's rendered page carries "Net assets (M)" alongside the holdings table
+    "bmo": None,
     "purpose_single": None,
     "evolve": None,
     "globalx_us": None,
