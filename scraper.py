@@ -1342,7 +1342,9 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> 
         browser = p.chromium.launch(args=["--disable-http2"])
         page = browser.new_page(user_agent=ACTIVE_HEADERS["User-Agent"])
         try:
-            page.goto(url, timeout=REQUEST_TIMEOUT * 1000, wait_until="domcontentloaded")
+            # BMO in particular is slow to first byte; a rendered page is worth
+            # waiting longer for than a plain fetch.
+            page.goto(url, timeout=90000, wait_until="domcontentloaded")
             if wait_selector:
                 page.wait_for_selector(wait_selector, timeout=wait_ms)
             else:
