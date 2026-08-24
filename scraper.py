@@ -491,9 +491,9 @@ FUND_REGISTRY: list[Fund] = [
     Fund("RDTE", "Roundhill Small Cap 0DTE Covered Call Strategy ETF", "Roundhill", "US",
          "https://www.roundhillinvestments.com/etf/rdte/", "roundhill", needs_browser=True),
     Fund("QQQT", "Defiance Nasdaq-100 Enhanced Options Income ETF", "Defiance", "US",
-         "https://dividendhistory.org/payout/QQQT/", "listing_only"),
+         "https://www.defianceetfs.com/qqqt-full-holdings/", "defiance"),
     Fund("SPYT", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
-         "https://dividendhistory.org/payout/SPYT/", "listing_only"),
+         "https://www.defianceetfs.com/spyt-full-holdings/", "defiance"),
     Fund("FEPI", "REX FANG & Innovation Equity Premium Income ETF", "REX Shares", "US",
          "https://dividendhistory.org/payout/FEPI/", "listing_only"),
     Fund("AIPI", "REX AI Equity Premium Income ETF", "REX Shares", "US",
@@ -523,7 +523,7 @@ FUND_REGISTRY: list[Fund] = [
     Fund("IQQQ", "ProShares Nasdaq-100 High Income ETF", "ProShares", "US",
          "https://www.proshares.com/our-etfs/strategic/iqqq", "proshares"),
     Fund("JEPY", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
-         "https://dividendhistory.org/payout/JEPY/", "listing_only"),
+         "https://www.defianceetfs.com/jepy-full-holdings/", "defiance"),
     Fund("ULTY", "YieldMax Ultra Option Income Strategy ETF", "YieldMax", "US",
          "https://www.yieldmaxetfs.com/our-etfs/ulty/", "yieldmax"),
     Fund("YMAX", "YieldMax Universe Fund of Option Income ETFs", "YieldMax", "US",
@@ -757,6 +757,39 @@ def parse_proshares(html: str) -> dict:
                 continue
             w = float(m.group(1))
             if w <= 0:
+                continue
+            holdings[ticker] = holdings.get(ticker, 0.0) + w
+        if holdings:
+            break
+    return holdings
+
+
+def parse_defiance(html: str) -> dict:
+    """Defiance keep holdings on a separate /TICKER-full-holdings/ page, headed
+    Ticker | Name | CUSIP | ETF Weight | Shares. The fund page itself shows only
+    performance, which is why an earlier look found nothing.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    holdings = {}
+    for table in soup.find_all("table"):
+        head = table.find("tr")
+        if not head:
+            continue
+        cols = [c.get_text(" ", strip=True).lower() for c in head.find_all(["th", "td"])]
+        if "ticker" not in cols or not any("weight" in c for c in cols):
+            continue
+        i_t = cols.index("ticker")
+        i_w = next(i for i, c in enumerate(cols) if "weight" in c)
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+            if len(cells) <= max(i_t, i_w):
+                continue
+            ticker = cells[i_t].strip().upper()
+            m = re.search(r"(-?[\d.]+)\s*%", cells[i_w])
+            if not ticker or not m:
+                continue
+            w = float(m.group(1))
+            if w <= 0 or " " in ticker or len(ticker) > 6:
                 continue
             holdings[ticker] = holdings.get(ticker, 0.0) + w
         if holdings:
@@ -1281,6 +1314,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "defiance": parse_defiance,
     "proshares": parse_proshares,
     "roundhill": parse_roundhill,
     "yieldmax": parse_yieldmax,
