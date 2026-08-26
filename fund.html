@@ -36,7 +36,8 @@
     padding:20px 48px; border-bottom:1px solid var(--line);
     position:sticky; top:0; background:rgba(237,238,231,0.92); backdrop-filter:blur(8px); z-index:20;
   }
-  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:-0.01em;}
+  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:-0.01em; color:inherit; text-decoration:none; cursor:pointer;}
+  .brand:hover{opacity:.75;}
   .brand .dot{color:var(--gold-deep);}
   .navlinks{display:flex; gap:32px; font-size:14px; color:var(--ink-soft);}
   .navlinks a{cursor:pointer; transition:color .2s; text-decoration:none;}
@@ -217,7 +218,7 @@
 <body>
 
 <nav>
-  <div class="brand">Licentia<span class="dot">.</span></div>
+  <a class="brand" href="index.html">Licentia<span class="dot">.</span></a>
   <div class="navlinks">
     <a href="index.html">Home</a>
     <a class="active" href="funds.html">Covered Call Funds</a>
