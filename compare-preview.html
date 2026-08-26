@@ -147,14 +147,31 @@
     border:1px solid var(--line-strong); border-radius:100px; padding:6px 13px;}
   .chip.hot{background:rgba(166,69,44,0.10); border-color:var(--rust); color:var(--rust-deep);}
 
-  table{width:100%; border-collapse:collapse; font-size:14.5px;}
-  th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em;
-     text-transform:uppercase; color:var(--ink-faint); font-weight:400; padding:0 10px 10px 0;}
-  td{padding:11px 10px 11px 0; border-top:1px solid var(--line);}
-  td.tic{font-family:'IBM Plex Mono',monospace; font-weight:500;}
-  .bar{height:8px; border-radius:4px; background:var(--line); overflow:hidden; min-width:80px;}
-  .bar i{display:block; height:100%; width:0; transition:width .9s cubic-bezier(.2,.8,.3,1);}
-  .pos{color:var(--teal-deep);} .neg{color:var(--rust);}
+  /* The numbers matter more than any sentence, so they lead: what it paid,
+     what you actually kept, and a verdict you cannot skim past. */
+  .perf-card{border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:14px;
+    border-left:5px solid var(--fam,var(--teal));}
+  .perf-top{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .perf-tic{font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:500;}
+  .perf-name{font-size:13px; color:var(--ink-faint);}
+  .perf-nums{display:flex; gap:36px; margin:18px 0 6px; flex-wrap:wrap;}
+  .perf-num .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:4px;}
+  .perf-num .v{font-family:'Fraunces',serif; font-size:38px; line-height:1;}
+  .v.pos{color:var(--teal-deep);} .v.neg{color:var(--rust);}
+  .axis{position:relative; height:34px; margin:16px 0 6px;}
+  .axis .zero{position:absolute; top:0; bottom:12px; width:1px; background:var(--line-strong);}
+  .axis .zlab{position:absolute; bottom:0; font-family:'IBM Plex Mono',monospace; font-size:10px;
+    color:var(--ink-faint); transform:translateX(-50%);}
+  .track{position:absolute; top:4px; height:16px; border-radius:3px; width:0;
+    transition:width .9s cubic-bezier(.2,.8,.3,1);}
+  .verdict-pill{display:inline-flex; align-items:center; gap:9px; border-radius:100px;
+    padding:9px 17px; font-size:14.5px; font-weight:500; margin-top:12px;}
+  .vp-good{background:rgba(31,92,78,0.12); color:var(--teal-deep);}
+  .vp-warn{background:rgba(200,155,60,0.18); color:#6E4E12;}
+  .vp-bad{background:rgba(166,69,44,0.13); color:var(--rust-deep);}
+  .vp-dot{width:9px; height:9px; border-radius:50%; background:currentColor;}
+  .perf-note{font-size:13.5px; color:var(--ink-faint); margin-top:10px; line-height:1.55;}
   .empty{color:var(--ink-faint); font-style:italic; font-size:14px;}
   .foot{padding:40px 0 80px; text-align:center; font-size:13.5px; color:var(--ink-faint);}
   @media (max-width:760px){ .wrap{padding:0 20px;} nav{padding:16px 20px;} .panel{padding:20px;} }
@@ -483,10 +500,64 @@ function countTo(el, target){
 function renderPerf(){
   const rows = PICKED.map(t => {
     const st = FUNDS[t].stats || {};
-    return {t, name: FUNDS[t].name, y: st.yield_ttm, r: st.total_return_1y};
+    return {t, name: FUNDS[t].name, issuer: FUNDS[t].issuer, y: st.yield_ttm, r: st.total_return_1y};
   });
-  const maxY = Math.max(...rows.map(r => r.y || 0), 1);
+  // one shared scale so the bars are comparable between funds
+  const vals = rows.flatMap(r => [r.y || 0, r.r || 0]);
+  const lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
+  const span = (hi - lo) || 1;
+  const zeroPct = (0 - lo) / span * 100;
+
   const box = document.getElementById('perf');
+  box.innerHTML = rows.map(r => {
+    const has = r.y !== undefined && r.r !== undefined && r.r !== null;
+    let cls = 'vp-good', verdict = 'Data unavailable', note = '';
+    if (has){
+      if (r.r < 0){
+        cls = 'vp-bad';
+        verdict = 'Paid out while losing value';
+        note = 'Every dollar distributed came out of the fund itself. The payout looks generous, but a unit is worth less than it was a year ago.';
+      } else if (r.r < r.y){
+        cls = 'vp-warn';
+        verdict = 'Part of the payout came from your capital';
+        note = 'It distributed ' + r.y.toFixed(1) + '% but only grew ' + r.r.toFixed(1) + '% in total, so roughly ' +
+               (r.y - r.r).toFixed(1) + ' points of that yield was your own money handed back.';
+      } else {
+        cls = 'vp-good';
+        verdict = 'The income was genuinely earned';
+        note = 'Total return kept pace with the distribution, so the payout did not eat into the unit price.';
+      }
+    }
+    const yPct = Math.abs(r.y || 0) / span * 100;
+    const rPct = Math.abs(r.r || 0) / span * 100;
+    const rLeft = (r.r || 0) >= 0 ? zeroPct : zeroPct - rPct;
+    return '<div class="perf-card" style="--fam:' + famColour(r.issuer) + '">' +
+      '<div class="perf-top"><div><div class="perf-tic">' + r.t + '</div>' +
+        '<div class="perf-name">' + (r.name || '') + '</div></div></div>' +
+      '<div class="perf-nums">' +
+        '<div class="perf-num"><div class="k">Yield &mdash; what it paid</div>' +
+          '<div class="v">' + (r.y !== undefined ? r.y.toFixed(1) + '%' : '&mdash;') + '</div></div>' +
+        '<div class="perf-num"><div class="k">Total return &mdash; what you kept</div>' +
+          '<div class="v ' + ((r.r||0) < 0 ? 'neg' : 'pos') + '">' +
+          (has ? ((r.r > 0 ? '+' : '') + r.r.toFixed(1) + '%') : '&mdash;') + '</div></div>' +
+      '</div>' +
+      '<div class="axis">' +
+        '<div class="zero" style="left:' + zeroPct + '%"></div>' +
+        '<div class="zlab" style="left:' + zeroPct + '%">0%</div>' +
+        '<div class="track" data-w="' + yPct + '" style="left:' + zeroPct + '%; background:rgba(31,92,78,0.35)"></div>' +
+        '<div class="track" data-w="' + rPct + '" style="top:20px; left:' + rLeft + '%; background:' +
+          ((r.r||0) < 0 ? 'var(--rust)' : 'var(--teal)') + '"></div>' +
+      '</div>' +
+      '<div class="verdict-pill ' + cls + '"><span class="vp-dot"></span>' + verdict + '</div>' +
+      (note ? '<div class="perf-note">' + note + '</div>' : '') +
+    '</div>';
+  }).join('');
+  requestAnimationFrame(() => {
+    box.querySelectorAll('.track').forEach(t => { t.style.width = t.dataset.w + '%'; });
+  });
+}
+
+document.getElementById('perf');
   box.innerHTML =
     '<table><thead><tr><th>Fund</th><th>Yield</th><th style="width:34%"></th><th>Total return</th><th>Reading</th></tr></thead><tbody>' +
     rows.map(r => {
