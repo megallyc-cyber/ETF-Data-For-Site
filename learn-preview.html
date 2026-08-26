@@ -106,11 +106,14 @@
   .pulsing{animation:pulse 2.6s ease-in-out infinite;}
 
   /* ---------- explainer: moves vertically, arrows to click ---------- */
-  .ex-track{position:relative;}
+  .ex-track{position:relative; padding:0 24px 8px;}
   /* an ordinary block — the reader scrolls the page freely and moves the
      slides with the arrows, so nothing ever hijacks the scroll */
   .ex-stage{position:relative; display:flex; flex-direction:column;
-            align-items:center; justify-content:flex-start; padding:6px 24px 0;}
+            align-items:center; justify-content:flex-start;
+            background:var(--paper-raised); border:1px solid var(--line);
+            border-radius:18px; max-width:1180px; margin:0 auto;
+            padding:34px 24px 30px;}
   .ex-head{text-align:center; margin-bottom:18px; max-width:720px;}
   .ex-head .t{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(26px,3.4vw,40px); line-height:1.16;}
   .ex-head .s{font-size:18px; color:var(--ink-soft); margin-top:22px; min-height:56px;}
@@ -123,19 +126,24 @@
   .scene.up{opacity:0; transform:translateY(-60px);}
 
   /* arrows sit at the edges of the stage, where a reader looks for them */
-  .ex-arrow{position:absolute; top:50%; margin-top:-27px; width:54px; height:54px;
-    border-radius:50%; border:1px solid var(--line-strong); background:var(--paper-raised);
-    color:var(--ink); font-size:20px; cursor:pointer; display:flex; align-items:center;
-    justify-content:center; transition:all .2s; z-index:5;}
-  .ex-arrow:hover{border-color:var(--ink); background:#fff; transform:scale(1.06);}
-  .ex-arrow:disabled{opacity:.32; cursor:default; transform:none;}
+  .ex-arrow{position:absolute; top:50%; margin-top:-29px; width:58px; height:58px;
+    border-radius:50%; border:none; background:var(--teal); color:#FFFFFF;
+    font-size:22px; line-height:1; cursor:pointer; display:flex; align-items:center;
+    justify-content:center; transition:all .2s; z-index:5;
+    box-shadow:0 2px 10px rgba(18,61,51,0.22);}
+  .ex-arrow:hover{background:var(--teal-deep); transform:scale(1.08);}
+  .ex-arrow:active{transform:scale(.97);}
+  .ex-arrow:disabled{background:var(--line-strong); box-shadow:none; opacity:.55; cursor:default; transform:none;}
   .ex-arrow.prev{left:clamp(12px, 5vw, 90px);}
   .ex-arrow.next{right:clamp(12px, 5vw, 90px);}
-  .ex-dots-wrap{margin-top:18px; position:relative; z-index:6;}
-  .ex-dots{display:flex; gap:10px;}
+  .ex-dots-wrap{margin-top:22px; position:relative; z-index:6; width:100%;
+    max-width:560px; display:flex; align-items:center; justify-content:space-between; gap:18px;
+    border-top:1px solid var(--line); padding-top:16px;}
+  .ex-dots{display:flex; gap:13px; align-items:center;}
   .ex-dots i{width:8px; height:8px; border-radius:50%; background:var(--line-strong);
     transition:background .3s, transform .3s;}
-  .ex-dots i.on{background:var(--gold-deep); transform:scale(1.4);}
+  .ex-dots i.on{background:var(--gold-deep); transform:scale(1.55);
+    box-shadow:0 0 0 4px rgba(200,155,60,0.20);}
 
   .basket-wrap{position:relative; width:380px; height:230px;}
   .basket{position:absolute; bottom:0; left:32px; right:32px; height:110px;
@@ -186,11 +194,13 @@
   .part-flag{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em;
     text-transform:uppercase; color:var(--ink-faint); text-align:center; padding:0 24px 6px;}
   .part-flag b{color:var(--gold-deep); font-weight:500;}
-  .ex-progress{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em;
-    color:var(--ink-faint); margin-top:14px;}
-  .ex-skip{display:inline-block; margin-top:16px; font-size:13px; color:var(--ink-soft);
-    text-decoration:none; border-bottom:1px solid var(--line-strong); padding-bottom:2px;}
-  .ex-skip:hover{color:var(--ink); border-color:var(--ink);}
+  .ex-progress{font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:0.1em;
+    color:var(--ink-soft); margin:0; white-space:nowrap;}
+  .ex-progress b{color:var(--gold-deep); font-weight:500; font-size:19px;}
+  .ex-skip{display:inline-flex; align-items:center; gap:7px; font-size:13.5px;
+    color:var(--ink-soft); text-decoration:none; white-space:nowrap;
+    border:1px solid var(--line-strong); border-radius:100px; padding:7px 15px; transition:all .2s;}
+  .ex-skip:hover{color:var(--paper); background:var(--ink); border-color:var(--ink);}
 
   .bridge{padding:34px 24px 40px; text-align:center;}
   .bridge-rule{width:1px; height:38px; background:var(--line-strong); margin:0 auto 22px;}
@@ -239,6 +249,106 @@
     <a href="#">Home</a><a class="active" href="#">Learn</a><a href="#">Overlap tool</a>
     <a href="#">Funds</a><a href="#">Account</a>
   </div>
+</nav>
+<div class="note">Proposal v4 — curve has its own lane, everything animates in, explainer moves vertically.</div>
+
+<div class="part-flag">Part <b>1</b> of 2 &nbsp;&middot;&nbsp; the crash course</div>
+<div class="intro">
+  <div class="tag">Start here</div>
+  <h2>The whole idea, in about a minute..</h2>
+</div>
+
+<div class="ex-track" id="exTrack">
+  <div class="ex-stage">
+    <div class="ex-head">
+      <div class="t" id="exTitle">An ETF is a basket of companies</div>
+      <div class="s" id="exSub">One fund holds them all. Buy the basket, own a slice of everything inside it.</div>
+    </div>
+    <div class="ex-body">
+      <div class="scene on" data-s="0">
+        <div class="basket-wrap"><div id="pops"></div><div class="basket"><span>one ETF</span></div></div>
+      </div>
+      <div class="scene" data-s="1">
+        <div style="display:flex; align-items:center; gap:48px; flex-wrap:wrap; justify-content:center;">
+          <div style="width:190px; height:78px; border:2px solid var(--ink); border-top:none; border-radius:0 0 18px 18px; position:relative;">
+            <div style="position:absolute; top:-2px; left:-14px; right:-14px; height:2px; background:var(--ink);"></div>
+          </div>
+          <div style="text-align:left;">
+            <div class="mono-label">price per unit</div>
+            <div class="price">$20.00</div>
+            <div style="font-size:16px; color:var(--ink-soft); margin-top:6px;">Buy one unit, own a slice of all of them.</div>
+          </div>
+        </div>
+      </div>
+      <div class="scene" data-s="2">
+        <div style="display:flex; align-items:center; gap:28px; flex-wrap:wrap; justify-content:center;">
+          <div style="text-align:center;">
+            <div style="width:146px; height:64px; border:2px solid var(--ink); border-top:none; border-radius:0 0 16px 16px; position:relative; margin:0 auto;">
+              <div style="position:absolute; top:-2px; left:-11px; right:-11px; height:2px; background:var(--ink);"></div>
+            </div>
+            <div class="mono-label" style="margin-top:10px;">the fund</div>
+          </div>
+          <div style="text-align:center; min-width:168px;">
+            <div class="premium" id="prem">+ $0.35 premium</div>
+            <div style="height:1px; background:var(--line-strong); margin:15px 0 8px; position:relative;">
+              <span style="position:absolute; left:0; top:-8px; color:var(--ink-faint); font-size:14px;">&#9664;</span>
+            </div>
+            <div style="font-size:13.5px; color:var(--ink-faint);">paid today, kept either way</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="buyer">buyer</div>
+            <div class="mono-label" style="margin-top:10px;">wants upside</div>
+          </div>
+        </div>
+      </div>
+      <div class="scene" data-s="3">
+        <svg viewBox="0 0 520 300" style="width:100%; height:auto;">
+          <text id="cap" x="400" y="30" text-anchor="middle" font-size="13" fill="#712B13" opacity="0">upside you gave up</text>
+          <path id="given" d="M286,110 L502,110 L502,48 Z" fill="#A6452C" opacity="0"/>
+          <path id="kept" d="M52,192 L168,170 L286,110 L394,110 L502,110 L502,192 Z" fill="#1F5C4E" opacity="0"/>
+          <line x1="52" y1="218" x2="502" y2="218" stroke="rgba(21,32,25,0.25)"/>
+          <line x1="52" y1="40" x2="52" y2="218" stroke="rgba(21,32,25,0.25)"/>
+          <line id="strike" x1="52" y1="110" x2="502" y2="110" stroke="#8F6B22" stroke-width="1.5" stroke-dasharray="4 4" opacity="0"/>
+          <path id="pline" d="M52,192 L168,170 L286,110 L394,110 L502,110" fill="none" stroke="#152019"
+                stroke-width="3" stroke-dasharray="700" stroke-dashoffset="700"/>
+          <circle id="strikeDot" cx="286" cy="110" r="9" fill="#EDEEE7" stroke="#8F6B22" stroke-width="3.5" opacity="0"/>
+          <text id="keptT" x="300" y="176" text-anchor="middle" font-size="13" fill="#FFFFFF" opacity="0">gains you keep</text>
+          <rect id="premBar" x="52" y="228" width="450" height="22" rx="2" fill="#1F5C4E" opacity="0"/>
+          <text id="premT" x="277" y="243" text-anchor="middle" font-size="11.5" fill="#FFFFFF" opacity="0">+ $0.35 PREMIUM — PAID TO YOU EITHER WAY</text>
+          <text id="strikeT" x="52" y="272" font-size="12.5" fill="#8F6B22" opacity="0">gains stop at the strike</text>
+          <text id="keep" x="52" y="292" font-size="12.5" fill="#6E766E" opacity="0">income arrives whether the stock rises or not</text>
+        </svg>
+      </div>
+      <div class="scene" data-s="4">
+        <div style="text-align:center; width:100%;">
+          <div class="calc-row">
+            <div class="calc-cell" id="c1">
+              <div class="calc-num">$0.35</div>
+              <div class="calc-lab">premium per share</div>
+            </div>
+            <div class="calc-op" id="cx">&times;</div>
+            <div class="calc-cell" id="c2">
+              <div class="calc-num">500</div>
+              <div class="calc-lab">shares you own</div>
+            </div>
+            <div class="calc-op" id="ce">=</div>
+            <div class="calc-cell calc-total" id="c3">
+              <div class="calc-num">$175</div>
+              <div class="calc-lab">income this month</div>
+            </div>
+          </div>
+          <div class="calc-year" id="c4">and if the fund does it again every month &mdash; <strong>$2,100 over a year</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="ex-arrow prev" id="exUp" aria-label="Previous step" disabled>&#8592;</button>
+    <button class="ex-arrow next" id="exDown" aria-label="Next step">&#8594;</button>
+    <div class="ex-dots-wrap">
+      <div class="ex-progress"><b><span id="exCount">1</span></b> / 5</div>
+      <div class="ex-dots" id="exDots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      <a class="ex-skip" href="#detail">skip to the details <span aria-hidden="true">&rarr;</span></a>
+    </div>
 </nav>
 <div class="note">Proposal v4 — curve has its own lane, everything animates in, explainer moves vertically.</div>
 
