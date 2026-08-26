@@ -51,6 +51,42 @@
   .navlinks a:hover{color:var(--ink);}
   .navlinks a.active{color:var(--gold-deep); font-weight:500;}
 
+  /* --- cinematic hero: three beats revealed by scroll position, so the
+     reader sets the pace and nothing moves while they are reading. */
+  .hero-track{ height:300vh; position:relative; }
+  .hero-stage{ position:sticky; top:0; height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; padding:0 24px; overflow:hidden; }
+  .beat{ position:absolute; max-width:900px; padding:0 24px; opacity:0; transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); pointer-events:none; }
+  .beat.on{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .beat.gone{ opacity:0; transform:translateY(-26px); }
+  .beat-1 h1{ font-family:'Fraunces',serif; font-weight:500; font-size:clamp(36px,6.2vw,68px);
+    line-height:1.08; letter-spacing:-0.02em; margin:0; }
+  .beat-1 .rule{ width:64px; height:1px; background:var(--gold-deep); margin:34px auto 0; opacity:.8; }
+  .beat-2 h2{ font-family:'Fraunces',serif; font-weight:500; font-size:clamp(30px,5vw,52px);
+    line-height:1.16; letter-spacing:-0.015em; margin:0; }
+  .beat-2 em{ font-style:italic; color:var(--gold-deep); }
+  .beat-2 .lede{ font-size:17.5px; color:var(--ink-soft); max-width:48ch; margin:26px auto 0; }
+  .beat-3 .choose{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:28px; }
+  .beat-3 .btns{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .beat-dots{ position:absolute; bottom:46px; display:flex; gap:9px; }
+  .beat-dots i{ width:6px; height:6px; border-radius:50%; background:var(--line-strong);
+    transition:background .3s, transform .3s; }
+  .beat-dots i.on{ background:var(--gold-deep); transform:scale(1.35); }
+  .hero-cue{ position:absolute; bottom:24px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); transition:opacity .4s; }
+  /* reduced motion: show the whole message at once rather than a hero that never resolves */
+  @media (prefers-reduced-motion: reduce){
+    .hero-track{height:auto;}
+    .hero-stage{position:static; height:auto; padding:80px 24px; gap:36px;}
+    .beat{position:static; opacity:1; transform:none; transition:none;}
+    .beat-dots, .hero-cue{display:none;} }
+  @media (max-width:640px){
+    .hero-track{height:260vh;}
+    .beat-3 .btns{flex-direction:column; align-items:stretch;}
+    .btn-ghost{margin-left:0;} }
+
   .hero{
     min-height:78vh;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -218,15 +254,28 @@
   </div>
 </nav>
 
-<div class="hero">
-  <h1>Investing doesn't need to be intimidating.<br>It can be easy — & even <em>pay you monthly</em>.</h1>
-  <p class="lede">No jargon walls, no fine print you need a finance degree to parse. Just a clear walk from "what's a stock" to building an income portfolio that actually makes sense to you.</p>
-  <div>
-    <span class="btn btn-primary" onclick="document.getElementById('path-start').scrollIntoView({behavior:'smooth'})">Start learning →</span>
-    <span class="btn btn-ghost" onclick="document.getElementById('workbench').scrollIntoView({behavior:'smooth'})">Skip to the tool</span>
+<div class="hero-track" id="heroTrack">
+  <div class="hero-stage">
+    <div class="beat beat-1 on" id="beat1">
+      <h1>The best all-in-one platform for income focused investing</h1>
+      <div class="rule"></div>
+    </div>
+    <div class="beat beat-2" id="beat2">
+      <h2>Investing doesn't need to be intimidating.<br>It can be easy &mdash; &amp; even <em>pay you monthly</em>.</h2>
+      <p class="lede">No jargon walls, no fine print you need a finance degree to parse. Just a clear walk from "what's a stock" to building an income portfolio that actually makes sense to you.</p>
+    </div>
+    <div class="beat beat-3" id="beat3">
+      <div class="choose">Where would you like to start?</div>
+      <div class="btns">
+        <span class="btn btn-primary" onclick="document.getElementById('path-start').scrollIntoView({behavior:'smooth'})">Start learning &rarr;</span>
+        <span class="btn btn-ghost" onclick="window.location.href='compare.html'">ETF Comparison Tool</span>
+      </div>
+    </div>
+    <div class="beat-dots" id="beatDots"><i class="on"></i><i></i><i></i></div>
+    <div class="hero-cue" id="heroCue">&darr; scroll</div>
   </div>
-  <div class="scroll-cue">↓ scroll to begin</div>
 </div>
+
 
 <div class="path-intro" id="path-start">
   <div class="section-tag">Foundations</div>
@@ -554,6 +603,51 @@ function updateProgress(){
 window.addEventListener('load', ()=>{ buildPath(); updateProgress(); });
 window.addEventListener('resize', buildPath);
 window.addEventListener('scroll', updateProgress);
+
+// --- hero beats -------------------------------------------------------
+// Sentinels down the track decide which beat shows. IntersectionObserver
+// works whether the window or the body is the scrolling element, which a
+// scroll listener on window does not.
+(function(){
+  var track = document.getElementById("heroTrack");
+  if (!track) return;
+  var beats = [document.getElementById("beat1"), document.getElementById("beat2"), document.getElementById("beat3")];
+  var dots = Array.prototype.slice.call(document.querySelectorAll("#beatDots i"));
+  var cue = document.getElementById("heroCue");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    beats.forEach(function(b){ if(b) b.classList.add("on"); });
+    return;
+  }
+  var current = 0;
+  function show(i){
+    if (i === current) return;
+    current = i;
+    beats.forEach(function(b, n){
+      if (!b) return;
+      b.classList.toggle("on", n === i);
+      b.classList.toggle("gone", n < i);
+    });
+    dots.forEach(function(d, n){ d.classList.toggle("on", n === i); });
+    if (cue) cue.style.opacity = (i === 2) ? "0" : "0.9";
+  }
+  var marks = [0.02, 0.36, 0.70].map(function(pct, i){
+    var el = document.createElement("div");
+    el.style.cssText = "position:absolute;left:0;width:1px;height:1px;top:" + (pct*100) + "%";
+    el.setAttribute("data-beat", i);
+    track.appendChild(el);
+    return el;
+  });
+  var seen = {0:true};
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var i = +e.target.getAttribute("data-beat");
+      if (e.isIntersecting) seen[i] = true; else delete seen[i];
+    });
+    var keys = Object.keys(seen).map(Number);
+    show(keys.length ? Math.max.apply(null, keys) : 0);
+  }, {rootMargin: "-45% 0px -45% 0px"});
+  marks.forEach(function(m){ io.observe(m); });
+})();
 </script>
 
 </body>
