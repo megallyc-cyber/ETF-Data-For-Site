@@ -557,26 +557,6 @@ function renderPerf(){
   });
 }
 
-document.getElementById('perf');
-  box.innerHTML =
-    '<table><thead><tr><th>Fund</th><th>Yield</th><th style="width:34%"></th><th>Total return</th><th>Reading</th></tr></thead><tbody>' +
-    rows.map(r => {
-      const read = (r.y === undefined || r.r === undefined || r.r === null) ? '—'
-        : (r.r < 0 ? 'paid out while losing value'
-          : (r.y > r.r ? 'part of the payout came from capital' : 'earned more than it paid out'));
-      return '<tr><td class="tic">' + r.t + '</td>' +
-        '<td>' + (r.y !== undefined ? r.y.toFixed(1) + '%' : '—') + '</td>' +
-        '<td><div class="bar"><i data-w="' + Math.round((r.y||0)/maxY*100) + '" style="background:var(--teal)"></i></div></td>' +
-        '<td class="' + (r.r < 0 ? 'neg' : 'pos') + '">' + (r.r !== undefined && r.r !== null ? (r.r > 0 ? '+' : '') + r.r.toFixed(1) + '%' : '—') + '</td>' +
-        '<td style="color:var(--ink-faint); font-size:13.5px;">' + read + '</td></tr>';
-    }).join('') + '</tbody></table>';
-  requestAnimationFrame(() => {
-    box.querySelectorAll('.bar i').forEach(b => { b.style.width = b.dataset.w + '%'; });
-  });
-}
-
-
-
 document.getElementById('ctaBtn').addEventListener('click', function(){
   document.getElementById('out').scrollIntoView({behavior:'smooth', block:'start'});
 });
