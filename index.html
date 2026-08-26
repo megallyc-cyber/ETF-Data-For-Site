@@ -42,11 +42,14 @@
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
-  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:-0.01em;}
+  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:-0.01em;
+         color:inherit; text-decoration:none; cursor:pointer;}
+  .brand:hover{opacity:.75;}
   .brand .dot{color:var(--gold-deep);}
   .navlinks{display:flex; gap:32px; font-size:14px; color:var(--ink-soft);}
   .navlinks a{cursor:pointer; transition:color .2s;}
   .navlinks a:hover{color:var(--ink);}
+  .navlinks a.active{color:var(--gold-deep); font-weight:500;}
 
   .hero{
     min-height:78vh;
@@ -205,8 +208,9 @@
 <body>
 
 <nav>
-  <div class="brand">Licentia<span class="dot">.</span></div>
+  <a class="brand" href="index.html">Licentia<span class="dot">.</span></a>
   <div class="navlinks">
+    <a class="active" href="index.html">Home</a>
     <a onclick="document.getElementById('path-start').scrollIntoView({behavior:'smooth'})">Learn</a>
     <a onclick="document.getElementById('workbench').scrollIntoView({behavior:'smooth'})">Overlap tool</a>
     <a href="funds.html">Funds</a>
@@ -215,7 +219,6 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-kicker">For people who've never heard of a "covered call"</div>
   <h1>Investing doesn't need to be intimidating.<br>It can be easy — & even <em>pay you monthly</em>.</h1>
   <p class="lede">No jargon walls, no fine print you need a finance degree to parse. Just a clear walk from "what's a stock" to building an income portfolio that actually makes sense to you.</p>
   <div>
