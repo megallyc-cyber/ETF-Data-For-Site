@@ -87,6 +87,11 @@
     background:rgba(237,238,231,0.08); border:1px solid rgba(237,238,231,0.15);
   }
   .chip.hot{background:rgba(166,69,44,0.25); border-color:var(--rust); color:#F0B9A6;}
+  .contains-warn{
+    border:1px solid var(--rust); border-radius:4px; background:rgba(166,69,44,0.12);
+    color:#F0BFB0; font-size:14.5px; line-height:1.6; padding:14px 16px; margin:0 0 14px;
+  }
+  .contains-warn strong{color:#FFFFFF; font-weight:500;}
   .empty-note{color:rgba(237,238,231,0.5); font-size:13.5px; font-style:italic;}
 
   @media (max-width:760px){
@@ -146,6 +151,7 @@
     </div>
     <div class="score-text">
       <h3>Redundancy score</h3>
+      <div class="contains-warn" id="containsWarn" style="display:none;"></div>
       <p id="scoreExplain">Pick two funds above to see how much their stock-level and sector-level exposure overlaps, distilled into a single score from 0 (fully complementary) to 100 (near-duplicates).</p>
     </div>
   </div>
@@ -443,11 +449,54 @@ function initTool(){
   render();
 }
 
-function sectorBreakdown(ticker){
+
+// --- look-through ------------------------------------------------------
+// Several funds here hold other funds: HDIV holds HMAX, HHLE is 100% HHL.
+// Comparing raw ticker lists finds nothing in common and reports zero overlap,
+// which is the opposite of the truth. Expand any holding that is itself a fund
+// we have data for, down to real companies, before scoring.
+const _lookCache = {};
+function lookThrough(ticker, depth, seen){
+  depth = depth === undefined ? 0 : depth;
+  seen = seen || new Set();
+  if (depth === 0 && _lookCache[ticker]) return _lookCache[ticker];
   const f = FUNDS[ticker];
   const out = {};
+  if (!f || !f.holdings) return out;
+  seen.add(ticker);
+  Object.entries(f.holdings).forEach(function(pair){
+    const t = pair[0], w = pair[1];
+    const nested = FUNDS[t];
+    if (nested && nested.holdings && Object.keys(nested.holdings).length && depth < 3 && !seen.has(t)){
+      const inner = lookThrough(t, depth + 1, new Set(seen));
+      const innerTotal = Object.values(inner).reduce(function(x,y){return x+y;}, 0) || 1;
+      Object.entries(inner).forEach(function(ip){
+        out[ip[0]] = (out[ip[0]] || 0) + w * (ip[1] / innerTotal);
+      });
+    } else {
+      out[t] = (out[t] || 0) + w;
+    }
+  });
+  if (depth === 0) _lookCache[ticker] = out;
+  return out;
+}
+
+// Does one fund simply contain the other? Stronger than any percentage.
+function containment(a, b){
+  const notes = [];
+  [[a,b],[b,a]].forEach(function(pair){
+    const holder = FUNDS[pair[0]];
+    if (!holder || !holder.holdings) return;
+    const direct = holder.holdings[pair[1]];
+    if (direct) notes.push({holder: pair[0], held: pair[1], weight: direct});
+  });
+  return notes;
+}
+
+function sectorBreakdown(ticker){
+  const out = {};
   SECTORS.forEach(s => out[s] = 0);
-  Object.entries(f.holdings).forEach(([t,w]) => {
+  Object.entries(lookThrough(ticker)).forEach(([t,w]) => {
     const sec = SECTOR_MAP[t] || "Other";
     out[sec] += w;
   });
@@ -455,7 +504,7 @@ function sectorBreakdown(ticker){
 }
 
 function overlapPct(a,b){
-  const A=FUNDS[a].holdings, B=FUNDS[b].holdings;
+  const A=lookThrough(a), B=lookThrough(b);
   let shared=0;
   Object.keys(A).forEach(t=>{ if(B[t]!==undefined) shared += Math.min(A[t],B[t]); });
   return shared;
@@ -469,8 +518,9 @@ function sectorOverlapPct(a,b){
 }
 
 function sharedTickers(a,b){
-  const A=FUNDS[a].holdings, B=FUNDS[b].holdings;
-  return Object.keys(A).filter(t=>B[t]!==undefined);
+  const A=lookThrough(a), B=lookThrough(b);
+  return Object.keys(A).filter(t=>B[t]!==undefined)
+    .sort(function(x,y){ return Math.min(B[y],A[y]) - Math.min(B[x],A[x]); });
 }
 
 function render(){
@@ -499,13 +549,33 @@ function render(){
   // Sector bars
   renderSectorBars(funds);
 
+  // One fund holding the other outranks any percentage, so say it outright.
+  const contains = [];
+  pairs.forEach(function(pr){
+    containment(pr[0], pr[1]).forEach(function(n){ contains.push(n); });
+  });
+  const warnBox = document.getElementById('containsWarn');
+  if (warnBox){
+    if (contains.length){
+      warnBox.innerHTML = contains.map(function(n){
+        return '<strong>' + n.holder + ' already holds ' + n.held + '</strong> at ' +
+               n.weight.toFixed(1) + '% of its portfolio \u2014 you would be paying two ' +
+               'management fees for one position. The score below looks through to what ' +
+               'each fund actually owns.';
+      }).join('<br><br>');
+      warnBox.style.display = 'block';
+    } else {
+      warnBox.style.display = 'none';
+    }
+  }
+
   // Shared chips
   const cloud = document.getElementById('chipCloud');
   cloud.innerHTML = '';
   const allShared = new Set();
   pairs.forEach(([x,y]) => sharedTickers(x,y).forEach(t=>allShared.add(t)));
   if(allShared.size===0){
-    cloud.innerHTML = '<div class="empty-note">No shared top holdings — these funds look genuinely complementary at the stock level.</div>';
+    cloud.innerHTML = '<div class="empty-note">No shared holdings, even after looking through to the underlying companies.</div>';
   } else {
     [...allShared].sort().forEach(t=>{
       const chip=document.createElement('div');
