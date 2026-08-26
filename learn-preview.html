@@ -40,7 +40,7 @@
   .trail-bg{fill:none; stroke:rgba(21,32,25,0.22); stroke-width:7; stroke-linecap:round;}
   .trail-fg{fill:none; stroke:url(#trailGrad); stroke-width:7; stroke-linecap:round;}
 
-  .stop{height:80vh; min-height:580px; display:flex; align-items:center;
+  .stop{height:70vh; min-height:520px; display:flex; align-items:center;
         padding:0 40px; position:relative; z-index:1;}
   /* the middle column is empty on purpose — the curve lives there */
   .stop-inner{max-width:1240px; margin:0 auto; width:100%; display:grid;
@@ -66,8 +66,9 @@
   /* Percentage caps resolve against the grid column, so the block can never
      be wider than its column. A fixed px cap wider than the column silently
      disables justify-self, which is what threw the right-hand stops out. */
-  .stop-text{width:100%; max-width:min(470px, 94%); justify-self:center;}
+  .stop-text{width:100%; max-width:min(470px, 94%); justify-self:center; grid-row:1; align-self:center;}
   .stop-art{width:100%; max-width:min(430px, 94%); height:410px; justify-self:center;
+            grid-row:1; align-self:center;
             display:flex; align-items:center; justify-content:center;}
   .stop-art svg{max-width:100%; max-height:410px; width:auto; height:auto; overflow:visible;}
 
