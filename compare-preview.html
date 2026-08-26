@@ -52,9 +52,12 @@
   .picker-head{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
   .picker-head h2{font-family:'Fraunces',serif; font-weight:500; font-size:21px;}
   .slots{display:flex; gap:10px; flex-wrap:wrap;}
-  .slot{display:inline-flex; align-items:center; gap:10px; background:var(--teal); color:var(--white);
-        border-radius:100px; padding:8px 8px 8px 16px; font-size:14.5px;
+  /* the whole pill removes the pick, not just the little cross */
+  .slot{display:inline-flex; align-items:center; gap:10px; background:var(--fam,var(--teal));
+        color:var(--white); border-radius:100px; padding:8px 8px 8px 16px; font-size:14.5px;
+        cursor:pointer; transition:filter .16s;
         animation:pop .35s cubic-bezier(.2,1.1,.4,1);}
+  .slot:hover{filter:brightness(1.12);}
   .slot .x{width:22px; height:22px; border-radius:50%; background:rgba(237,238,231,0.18);
            display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px;}
   .slot .x:hover{background:var(--rust);}
@@ -62,42 +65,30 @@
   @keyframes pop{from{opacity:0; transform:scale(.85);} to{opacity:1; transform:none;}}
 
   .step-hint{font-size:14.5px; color:var(--ink-faint); margin:18px 0 16px;}
-  .families{display:grid; grid-template-columns:repeat(auto-fill, minmax(210px,1fr)); gap:12px;}
-  .fam{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:18px 18px 16px;
-    cursor:pointer; text-align:left; transition:transform .16s, border-color .16s, box-shadow .16s;}
-  .fam:hover{transform:translateY(-3px); border-color:var(--teal); box-shadow:0 6px 18px rgba(21,32,25,0.09);}
-  .fam-name{font-family:'Fraunces',serif; font-size:19px; line-height:1.2;}
-  .fam-meta{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); margin-top:9px;}
-  .fam-meta b{color:var(--teal-deep); font-weight:500;}
-  .fam-rail{display:flex; gap:8px; overflow-x:auto; padding:16px 0 14px; border-bottom:1px solid var(--line);}
-  .rail-chip{flex:none; font-size:13.5px; padding:8px 15px; border-radius:100px; cursor:pointer;
-    border:1px solid var(--line-strong); background:var(--white); color:var(--ink-soft); transition:all .16s;}
-  .rail-chip:hover{border-color:var(--ink); color:var(--ink);}
-  .rail-chip.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
-  .rail-chip b{font-weight:400; opacity:.6; margin-left:5px;}
-  .fam-head{display:flex; align-items:center; justify-content:space-between; gap:16px; margin:14px 0 12px; flex-wrap:wrap;}
-  .back{font-size:13.5px; color:var(--ink-soft); background:var(--white);
-    border:1px solid var(--line-strong); border-radius:100px; padding:8px 16px; cursor:pointer;}
-  .back:hover{border-color:var(--ink); color:var(--ink);}
-  .fam-title{font-family:'Fraunces',serif; font-size:20px;}
-  .controls{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; align-items:center;}
-  .search{flex:1; min-width:240px; position:relative;}
-  .search input{width:100%; padding:13px 16px 13px 42px; font-family:'Inter',sans-serif; font-size:15px;
-    border:1px solid var(--line-strong); border-radius:8px; background:var(--white); color:var(--ink);}
-  .search input:focus{outline:none; border-color:var(--teal);}
-  .search .mag{position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--ink-faint); font-size:15px;}
-  .filters{display:flex; gap:8px; flex-wrap:wrap;}
-  .filter{font-size:13.5px; padding:9px 15px; border-radius:100px; border:1px solid var(--line-strong);
-    background:var(--white); color:var(--ink-soft); cursor:pointer; transition:all .18s;}
-  .filter:hover{border-color:var(--ink);}
-  .filter.on{background:var(--teal); border-color:var(--teal); color:var(--white);}
-
-  .results{margin-top:18px; max-height:330px; overflow-y:auto; display:grid;
+  /* Each family carries its manager's own colour, so the eye can track which
+     funds came from where once several sections are open at once. */
+  .families{display:flex; flex-direction:column; gap:10px;}
+  .fam{background:var(--white); border:1px solid var(--line); border-left:4px solid var(--fam);
+    border-radius:10px; overflow:hidden; transition:box-shadow .18s;}
+  .fam.open{box-shadow:0 4px 16px rgba(21,32,25,0.08);}
+  .fam-btn{width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:16px 18px; background:none; border:none; cursor:pointer; text-align:left; font:inherit;}
+  .fam-btn:hover{background:var(--famTint);}
+  .fam-left{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+  .fam-name{font-family:'Fraunces',serif; font-size:19px; color:var(--fam);}
+  .fam-meta{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint);}
+  .fam-meta b{color:var(--fam); font-weight:500;}
+  .caret{font-size:13px; color:var(--ink-faint); transition:transform .2s;}
+  .fam.open .caret{transform:rotate(180deg);}
+  .fam-body{display:none; padding:0 18px 18px; border-top:1px solid var(--line);
+    background:var(--famTint);}
+  .fam.open .fam-body{display:block;}
+  .results{margin-top:16px; max-height:330px; overflow-y:auto; display:grid;
     grid-template-columns:repeat(auto-fill, minmax(238px,1fr)); gap:10px; padding-right:4px;}
   .fund{background:var(--white); border:1px solid var(--line); border-radius:10px; padding:13px 15px;
     cursor:pointer; transition:transform .16s, border-color .16s, box-shadow .16s; text-align:left;}
   .fund:hover{transform:translateY(-2px); border-color:var(--teal); box-shadow:0 4px 14px rgba(21,32,25,0.08);}
-  .fund.picked{background:var(--teal); border-color:var(--teal);}
+  .fund.picked{background:var(--fam); border-color:var(--fam);}
   .fund.picked .f-tic, .fund.picked .f-name, .fund.picked .f-stat{color:var(--white);}
   .fund.picked .f-stat b{color:var(--white);}
   .f-tic{font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:500; color:var(--ink);}
@@ -171,22 +162,8 @@
       <h2>Pick two or three funds</h2>
       <div class="slots" id="slots"></div>
     </div>
-    <div id="stepFamily">
-      <div class="step-hint">Start with a fund family — these are the managers whose funds we track.</div>
-      <div class="families" id="families"></div>
-    </div>
-    <div id="stepFunds" style="display:none;">
-      <div class="fam-rail" id="famRail"></div>
-      <div class="fam-head">
-        <div class="fam-title" id="famTitle"></div>
-        <button class="back" id="back">See all families</button>
-      </div>
-      <div class="search"><span class="mag">&#9906;</span>
-        <input id="q" type="text" placeholder="Filter within this family…" autocomplete="off">
-      </div>
-      <div class="results" id="results"></div>
-      <div class="count" id="count"></div>
-    </div>
+    <div class="step-hint">Open a fund family to see its funds. You can open as many as you like.</div>
+    <div class="families" id="families"></div>
   </div>
 
   <div class="out" id="out">
@@ -280,8 +257,24 @@ function containment(a, b){
   return out;
 }
 
-// A newcomer has no idea where to start with 200 tickers, so the first choice
-// is a manager they may recognise; the fund list only appears inside one.
+// Approximate brand colours — taken from each manager's own site so a reader
+// can recognise the family at a glance. Not official brand assets.
+const FAM_COLOUR = {
+  'BMO ETFs':'#0075BE', 'Hamilton ETFs':'#123D66', 'Harvest ETFs':'#C9821F',
+  'Evolve ETFs':'#0F9B8E', 'Purpose Investments':'#E2571E', 'Global X Canada':'#1B6AC9',
+  'Global X':'#1B6AC9', 'NEOS Investments':'#1F7A5C', 'YieldMax':'#D1442F',
+  'J.P. Morgan Asset Management':'#3C2415', 'iShares':'#3A3A3A', 'Roundhill':'#5B3FA8',
+  'Defiance':'#B3142F', 'REX Shares':'#0E6E70', 'ProShares':'#00539B', 'Amplify ETFs':'#6E4B9E'
+};
+function famColour(issuer){ return FAM_COLOUR[issuer] || '#1F5C4E'; }
+function tint(hex){
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n>>16)&255, g = (n>>8)&255, b = n&255;
+  return 'rgba(' + r + ',' + g + ',' + b + ',0.06)';
+}
+
+// Every family is an expandable section, so several can be open at once and a
+// reader can pick across managers without losing their place.
 function buildFamilies(){
   const byIssuer = {};
   Object.entries(FUNDS).forEach(([t, f]) => {
@@ -290,80 +283,54 @@ function buildFamilies(){
   });
   const wrap = document.getElementById('families');
   wrap.innerHTML = '';
-  Object.entries(byIssuer)
-    .sort((a,b) => b[1].length - a[1].length)
-    .forEach(([issuer, list]) => {
-      const cad = list.filter(([,f]) => f.region === 'CAD').length;
-      const yields = list.map(([,f]) => (f.stats||{}).yield_ttm).filter(v => v !== undefined);
-      const median = yields.sort((a,b)=>a-b)[Math.floor(yields.length/2)];
-      const el = document.createElement('button');
-      el.className = 'fam';
-      el.innerHTML = '<div class="fam-name">' + issuer.replace(' ETFs','').replace(' Asset Management','') + '</div>' +
-        '<div class="fam-meta">' + list.length + ' fund' + (list.length>1?'s':'') +
+  Object.entries(byIssuer).sort((a,b) => b[1].length - a[1].length).forEach(([issuer, list]) => {
+    const colour = famColour(issuer);
+    const cad = list.filter(([,f]) => f.region === 'CAD').length;
+    const ys = list.map(([,f]) => (f.stats||{}).yield_ttm).filter(v => v !== undefined).sort((a,b)=>a-b);
+    const med = ys.length ? ys[Math.floor(ys.length/2)] : undefined;
+    const sec = document.createElement('section');
+    sec.className = 'fam';
+    sec.style.setProperty('--fam', colour);
+    sec.style.setProperty('--famTint', tint(colour));
+    sec.innerHTML =
+      '<button class="fam-btn"><span class="fam-left">' +
+        '<span class="fam-name">' + issuer.replace(' ETFs','').replace(' Asset Management','') + '</span>' +
+        '<span class="fam-meta">' + list.length + ' fund' + (list.length>1?'s':'') +
         ' &nbsp;·&nbsp; ' + (cad === list.length ? 'Canada' : (cad === 0 ? 'US' : cad + ' CA / ' + (list.length-cad) + ' US')) +
-        (median !== undefined ? '<br><b>' + median.toFixed(1) + '%</b> median yield' : '') + '</div>';
-      el.onclick = () => openFamily(issuer);
-      wrap.appendChild(el);
+        (med !== undefined ? ' &nbsp;·&nbsp; <b>' + med.toFixed(1) + '%</b> median yield' : '') +
+      '</span><span class="caret">&#9660;</span></button>' +
+      '<div class="fam-body"><div class="results"></div></div>';
+    sec.querySelector('.fam-btn').onclick = () => {
+      sec.classList.toggle('open');
+      if (sec.classList.contains('open')) renderFamily(sec, issuer, list);
+    };
+    wrap.appendChild(sec);
+  });
+}
+
+function renderFamily(sec, issuer, list){
+  const box = sec.querySelector('.results');
+  box.innerHTML = '';
+  list.sort((a,b) => ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0))
+    .forEach(([t, f]) => {
+      const st = f.stats || {};
+      const el = document.createElement('button');
+      el.className = 'fund' + (PICKED.includes(t) ? ' picked' : '');
+      el.dataset.ticker = t;
+      el.innerHTML = '<div class="f-tic">' + t + '</div>' +
+        '<div class="f-name">' + (f.name || '') + '</div>' +
+        '<div class="f-stat">' + (st.yield_ttm !== undefined ? '<b>' + st.yield_ttm.toFixed(1) + '%</b> yield' : 'yield n/a') +
+        (st.aum_display ? ' &nbsp;·&nbsp; ' + st.aum_display : '') + '</div>';
+      el.onclick = () => toggle(t);
+      box.appendChild(el);
     });
 }
 
-function buildRail(){
-  const byIssuer = {};
-  Object.values(FUNDS).forEach(f => { const k = f.issuer || "Other"; byIssuer[k] = (byIssuer[k]||0)+1; });
-  const rail = document.getElementById("famRail");
-  rail.innerHTML = "";
-  Object.entries(byIssuer).sort((a,b) => b[1]-a[1]).forEach(([issuer, n]) => {
-    const c = document.createElement("button");
-    c.className = "rail-chip" + (issuer === FILTER ? " on" : "");
-    c.innerHTML = issuer.replace(" ETFs","").replace(" Investments","").replace(" Asset Management","") + "<b>" + n + "</b>";
-    c.onclick = () => openFamily(issuer);
-    rail.appendChild(c);
+// keep every open section's highlighting in step with the current picks
+function refreshPicked(){
+  document.querySelectorAll('.fund').forEach(el => {
+    el.classList.toggle('picked', PICKED.includes(el.dataset.ticker));
   });
-  const active = rail.querySelector(".rail-chip.on");
-  if (active) active.scrollIntoView({block:"nearest", inline:"center"});
-}
-
-function openFamily(issuer){
-  FILTER = issuer; QUERY = '';
-  document.getElementById('q').value = '';
-  document.getElementById('famTitle').textContent = issuer;
-  document.getElementById('stepFamily').style.display = 'none';
-  document.getElementById('stepFunds').style.display = 'block';
-  buildRail();
-  renderList();
-}
-function closeFamily(){
-  document.getElementById('stepFunds').style.display = 'none';
-  document.getElementById('stepFamily').style.display = 'block';
-}
-
-function matches(t, f){
-  if (f.issuer !== FILTER) return false;
-  if (!QUERY) return true;
-  const q = QUERY.toLowerCase();
-  return t.toLowerCase().includes(q) || (f.name||'').toLowerCase().includes(q);
-}
-
-function renderList(){
-  const box = document.getElementById('results');
-  if (!box) return;
-  box.innerHTML = '';
-  const list = Object.entries(FUNDS).filter(([t,f]) => matches(t,f))
-    .sort((a,b) => ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0));
-  list.slice(0, 60).forEach(([t, f]) => {
-    const st = f.stats || {};
-    const el = document.createElement('button');
-    el.className = 'fund' + (PICKED.includes(t) ? ' picked' : '');
-    el.innerHTML = '<div class="f-tic">' + t + '</div>' +
-      '<div class="f-name">' + (f.name || '') + '</div>' +
-      '<div class="f-stat">' + (st.yield_ttm !== undefined ? '<b>' + st.yield_ttm.toFixed(1) + '%</b> yield' : 'yield n/a') +
-      (st.aum_display ? ' &nbsp;·&nbsp; ' + st.aum_display : '') + '</div>';
-    el.onclick = () => toggle(t);
-    box.appendChild(el);
-  });
-  const cnt = document.getElementById('count');
-  if (cnt) cnt.textContent = list.length + ' fund' + (list.length===1?'':'s') +
-    ' in this family' + (list.length > 60 ? ' — showing the 60 largest' : '');
 }
 
 function toggle(t){
@@ -371,7 +338,7 @@ function toggle(t){
   if (i > -1) PICKED.splice(i, 1);
   else if (PICKED.length < 3) PICKED.push(t);
   else { PICKED.shift(); PICKED.push(t); }
-  renderSlots(); renderList(); renderOut();
+  renderSlots(); refreshPicked(); renderOut();
 }
 
 function renderSlots(){
@@ -380,8 +347,10 @@ function renderSlots(){
   PICKED.forEach(t => {
     const el = document.createElement('div');
     el.className = 'slot';
+    el.style.setProperty('--fam', famColour((FUNDS[t]||{}).issuer));
+    el.title = 'Remove ' + t;
     el.innerHTML = t + '<span class="x">&times;</span>';
-    el.querySelector('.x').onclick = () => toggle(t);
+    el.onclick = () => toggle(t);
     box.appendChild(el);
   });
   for (let i = PICKED.length; i < 2; i++){
@@ -478,8 +447,7 @@ function renderPerf(){
   });
 }
 
-document.getElementById('q').addEventListener('input', e => { QUERY = e.target.value; renderList(); });
-document.getElementById('back').addEventListener('click', closeFamily);
+
 </script>
 </body>
 </html>
