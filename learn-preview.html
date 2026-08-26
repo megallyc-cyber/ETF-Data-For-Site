@@ -137,7 +137,7 @@
   .ex-arrow.prev{left:clamp(12px, 5vw, 90px);}
   .ex-arrow.next{right:clamp(12px, 5vw, 90px);}
   .ex-dots-wrap{margin-top:22px; position:relative; z-index:6; width:100%;
-    max-width:560px; display:flex; align-items:center; justify-content:space-between; gap:18px;
+    max-width:560px; display:flex; align-items:center; justify-content:center; gap:26px;
     border-top:1px solid var(--line); padding-top:16px;}
   .ex-dots{display:flex; gap:13px; align-items:center;}
   .ex-dots i{width:8px; height:8px; border-radius:50%; background:var(--line-strong);
@@ -197,10 +197,6 @@
   .ex-progress{font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:0.1em;
     color:var(--ink-soft); margin:0; white-space:nowrap;}
   .ex-progress b{color:var(--gold-deep); font-weight:500; font-size:19px;}
-  .ex-skip{display:inline-flex; align-items:center; gap:7px; font-size:13.5px;
-    color:var(--ink-soft); text-decoration:none; white-space:nowrap;
-    border:1px solid var(--line-strong); border-radius:100px; padding:7px 15px; transition:all .2s;}
-  .ex-skip:hover{color:var(--paper); background:var(--ink); border-color:var(--ink);}
 
   .bridge{padding:34px 24px 40px; text-align:center;}
   .bridge-rule{width:1px; height:38px; background:var(--line-strong); margin:0 auto 22px;}
@@ -347,7 +343,7 @@
     <div class="ex-dots-wrap">
       <div class="ex-progress"><b><span id="exCount">1</span></b> / 5</div>
       <div class="ex-dots" id="exDots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
-      <a class="ex-skip" href="#detail">skip to the details <span aria-hidden="true">&rarr;</span></a>
+      
     </div>
   </div>
 </div>
