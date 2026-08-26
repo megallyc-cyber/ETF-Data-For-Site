@@ -149,9 +149,11 @@
   .basket{position:absolute; bottom:0; left:32px; right:32px; height:110px;
           border:2px solid var(--ink); border-top:none; border-radius:0 0 24px 24px; background:var(--paper);}
   .basket::before{content:''; position:absolute; top:-2px; left:-20px; right:-20px; height:2px; background:var(--ink);}
-  .basket span{position:absolute; bottom:16px; left:0; right:0; text-align:center;
-    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em;
-    text-transform:uppercase; color:var(--ink-faint);}
+  /* centred in the basket rather than hugging its base, and heavy enough to
+     read as the label for the whole object */
+  .basket span{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:700; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink);}
   .pop{position:absolute; left:50%; bottom:76px; width:58px; height:58px; margin-left:-29px;
        border-radius:50%; display:flex; align-items:center; justify-content:center;
        font-size:12px; font-weight:500; opacity:0; transform:translate(0,10px) scale(.5);}
