@@ -53,7 +53,7 @@
 
   /* --- cinematic hero: three beats revealed by scroll position, so the
      reader sets the pace and nothing moves while they are reading. */
-  .hero-track{ height:calc(100vh + 400px); position:relative; }
+  .hero-track{ height:calc(100vh + 260px); position:relative; }
   .hero-stage{ position:sticky; top:0; height:100vh; display:flex; flex-direction:column;
     align-items:center; justify-content:center; text-align:center; padding:0 24px; overflow:hidden; }
   .beat{ position:absolute; max-width:900px; padding:0 24px; opacity:0; transform:translateY(26px);
@@ -83,7 +83,7 @@
     .beat{position:static; opacity:1; transform:none; transition:none;}
     .beat-dots, .hero-cue{display:none;} }
   @media (max-width:640px){
-    .hero-track{height:calc(100vh + 320px);}
+    .hero-track{height:calc(100vh + 220px);}
     .beat-3 .btns{flex-direction:column; align-items:stretch;}
     .btn-ghost{margin-left:0;} }
 
@@ -621,7 +621,7 @@ window.addEventListener('scroll', updateProgress);
   var current = -1;
   function paint(){
     var into = -track.getBoundingClientRect().top;
-    var i = into < 110 ? 0 : (into < 230 ? 1 : 2);
+    var i = into < 55 ? 0 : (into < 115 ? 1 : 2);
     if (i === current) return;
     current = i;
     beats.forEach(function(b, n){
