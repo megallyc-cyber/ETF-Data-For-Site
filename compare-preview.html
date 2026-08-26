@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compare funds — Licentia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEEE7; --paper-raised:#F5F5F0; --white:#FFFFFF;
+    --ink:#152019; --ink-soft:#3F4A42; --ink-faint:#6E766E;
+    --gold:#C89B3C; --gold-deep:#8F6B22; --teal:#1F5C4E; --teal-deep:#123D33;
+    --rust:#A6452C; --rust-deep:#712B13;
+    --line:rgba(21,32,25,0.14); --line-strong:rgba(21,32,25,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
+       line-height:1.6; -webkit-font-smoothing:antialiased;}
+  nav{display:flex; align-items:center; justify-content:space-between;
+      padding:18px 48px; border-bottom:1px solid var(--line);
+      position:sticky; top:0; background:rgba(237,238,231,0.94); backdrop-filter:blur(8px); z-index:40;}
+  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:21px; color:inherit; text-decoration:none;}
+  .brand .dot{color:var(--gold-deep);}
+  .navlinks{display:flex; gap:30px; font-size:14px; color:var(--ink-soft);}
+  .navlinks a{text-decoration:none;}
+  .navlinks a.active{color:var(--gold-deep); font-weight:500;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
+
+  /* ---------- intro ---------- */
+  .hero{padding:76px 0 40px; text-align:center;}
+  .tag{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.15em;
+       text-transform:uppercase; color:var(--teal-deep); margin-bottom:18px;}
+  .hero h1{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(32px,4.6vw,52px);
+           line-height:1.12; letter-spacing:-0.015em; max-width:20ch; margin:0 auto;}
+  /* posed as the questions a reader is already asking, not as controls —
+     nothing here should look clickable */
+  .questions{display:flex; gap:clamp(20px,4vw,52px); justify-content:center;
+             flex-wrap:wrap; margin-top:32px;}
+  .q{font-family:'Fraunces',serif; font-style:italic; font-size:clamp(16px,1.6vw,19.5px);
+     color:var(--ink-soft); max-width:22ch; line-height:1.4;
+     opacity:0; transform:translateY(12px);
+     animation:qIn .6s cubic-bezier(.2,.7,.3,1) forwards;}
+  .q:nth-child(1){animation-delay:.15s;} .q:nth-child(2){animation-delay:.3s;} .q:nth-child(3){animation-delay:.45s;}
+  .q b{color:var(--gold-deep); font-weight:500; font-style:normal;}
+  @keyframes qIn{to{opacity:1; transform:none;}}
+
+  /* ---------- picker ---------- */
+  .picker{background:var(--paper-raised); border:1px solid var(--line); border-radius:16px;
+          padding:26px 26px 22px; margin-top:26px;}
+  .picker-head{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .picker-head h2{font-family:'Fraunces',serif; font-weight:500; font-size:21px;}
+  .slots{display:flex; gap:10px; flex-wrap:wrap;}
+  .slot{display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--paper);
+        border-radius:100px; padding:8px 8px 8px 16px; font-size:14.5px;
+        animation:pop .35s cubic-bezier(.2,1.1,.4,1);}
+  .slot .x{width:22px; height:22px; border-radius:50%; background:rgba(237,238,231,0.18);
+           display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px;}
+  .slot .x:hover{background:var(--rust);}
+  .slot.empty{background:transparent; color:var(--ink-faint); border:1px dashed var(--line-strong); padding:8px 16px;}
+  @keyframes pop{from{opacity:0; transform:scale(.85);} to{opacity:1; transform:none;}}
+
+  .step-hint{font-size:14.5px; color:var(--ink-faint); margin:18px 0 16px;}
+  .families{display:grid; grid-template-columns:repeat(auto-fill, minmax(210px,1fr)); gap:12px;}
+  .fam{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:18px 18px 16px;
+    cursor:pointer; text-align:left; transition:transform .16s, border-color .16s, box-shadow .16s;}
+  .fam:hover{transform:translateY(-3px); border-color:var(--teal); box-shadow:0 6px 18px rgba(21,32,25,0.09);}
+  .fam-name{font-family:'Fraunces',serif; font-size:19px; line-height:1.2;}
+  .fam-meta{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); margin-top:9px;}
+  .fam-meta b{color:var(--teal-deep); font-weight:500;}
+  .fam-head{display:flex; align-items:center; gap:16px; margin:18px 0 14px; flex-wrap:wrap;}
+  .back{font-size:13.5px; color:var(--ink-soft); background:var(--white);
+    border:1px solid var(--line-strong); border-radius:100px; padding:8px 16px; cursor:pointer;}
+  .back:hover{border-color:var(--ink); color:var(--ink);}
+  .fam-title{font-family:'Fraunces',serif; font-size:20px;}
+  .controls{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; align-items:center;}
+  .search{flex:1; min-width:240px; position:relative;}
+  .search input{width:100%; padding:13px 16px 13px 42px; font-family:'Inter',sans-serif; font-size:15px;
+    border:1px solid var(--line-strong); border-radius:8px; background:var(--white); color:var(--ink);}
+  .search input:focus{outline:none; border-color:var(--teal);}
+  .search .mag{position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--ink-faint); font-size:15px;}
+  .filters{display:flex; gap:8px; flex-wrap:wrap;}
+  .filter{font-size:13.5px; padding:9px 15px; border-radius:100px; border:1px solid var(--line-strong);
+    background:var(--white); color:var(--ink-soft); cursor:pointer; transition:all .18s;}
+  .filter:hover{border-color:var(--ink);}
+  .filter.on{background:var(--teal); border-color:var(--teal); color:var(--white);}
+
+  .results{margin-top:18px; max-height:330px; overflow-y:auto; display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(238px,1fr)); gap:10px; padding-right:4px;}
+  .fund{background:var(--white); border:1px solid var(--line); border-radius:10px; padding:13px 15px;
+    cursor:pointer; transition:transform .16s, border-color .16s, box-shadow .16s; text-align:left;}
+  .fund:hover{transform:translateY(-2px); border-color:var(--teal); box-shadow:0 4px 14px rgba(21,32,25,0.08);}
+  .fund.picked{background:var(--teal); border-color:var(--teal);}
+  .fund.picked .f-tic, .fund.picked .f-name, .fund.picked .f-stat{color:var(--white);}
+  .fund.picked .f-stat b{color:var(--white);}
+  .f-tic{font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:500; color:var(--ink);}
+  .f-name{font-size:12.5px; color:var(--ink-faint); margin-top:2px; line-height:1.4;
+          display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .f-stat{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
+  .f-stat b{color:var(--teal-deep); font-weight:500;}
+  .count{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); margin-top:12px;}
+
+  /* ---------- results ---------- */
+  .out{margin-top:34px; opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .out.on{opacity:1; transform:none;}
+  .panel{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:28px; margin-bottom:20px;}
+  .panel h3{font-family:'Fraunces',serif; font-weight:500; font-size:22px; margin-bottom:6px;}
+  .panel .sub{font-size:14.5px; color:var(--ink-faint); margin-bottom:22px;}
+
+  .score-row{display:flex; gap:34px; align-items:center; flex-wrap:wrap;}
+  .gauge{position:relative; width:170px; height:170px; flex:none;}
+  .gauge svg{transform:rotate(-90deg);}
+  .gauge-num{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:46px;}
+  .verdict{flex:1; min-width:260px;}
+  .verdict .v-label{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em;
+    text-transform:uppercase; margin-bottom:8px;}
+  .verdict p{font-size:16px; color:var(--ink-soft);}
+  .warn{border:1px solid var(--rust); background:rgba(166,69,44,0.08); color:var(--rust-deep);
+    border-radius:8px; padding:14px 16px; font-size:14.5px; line-height:1.6; margin-bottom:16px;}
+  .warn strong{color:var(--rust-deep); font-weight:600;}
+
+  .chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{font-family:'IBM Plex Mono',monospace; font-size:13px; background:var(--paper-raised);
+    border:1px solid var(--line-strong); border-radius:100px; padding:6px 13px;}
+  .chip.hot{background:rgba(166,69,44,0.10); border-color:var(--rust); color:var(--rust-deep);}
+
+  table{width:100%; border-collapse:collapse; font-size:14.5px;}
+  th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em;
+     text-transform:uppercase; color:var(--ink-faint); font-weight:400; padding:0 10px 10px 0;}
+  td{padding:11px 10px 11px 0; border-top:1px solid var(--line);}
+  td.tic{font-family:'IBM Plex Mono',monospace; font-weight:500;}
+  .bar{height:8px; border-radius:4px; background:var(--line); overflow:hidden; min-width:80px;}
+  .bar i{display:block; height:100%; width:0; transition:width .9s cubic-bezier(.2,.8,.3,1);}
+  .pos{color:var(--teal-deep);} .neg{color:var(--rust);}
+  .empty{color:var(--ink-faint); font-style:italic; font-size:14px;}
+  .foot{padding:40px 0 80px; text-align:center; font-size:13.5px; color:var(--ink-faint);}
+  @media (max-width:760px){ .wrap{padding:0 20px;} nav{padding:16px 20px;} .panel{padding:20px;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">Licentia<span class="dot">.</span></a>
+  <div class="navlinks">
+    <a href="index.html">Home</a><a href="funds.html">Funds</a>
+    <a class="active" href="compare.html">Compare</a><a href="account.html">Account</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="tag">Comparison tool</div>
+    <h1>Use our tool to better understand your investments.</h1>
+    <div class="questions">
+      <div class="q">&ldquo;Do they <b>overlap</b>?&rdquo;</div>
+      <div class="q">&ldquo;Am I actually <b>diversified</b>?&rdquo;</div>
+      <div class="q">&ldquo;How do they <b>perform</b> against other options?&rdquo;</div>
+    </div>
+  </div>
+
+  <div class="picker">
+    <div class="picker-head">
+      <h2>Pick two or three funds</h2>
+      <div class="slots" id="slots"></div>
+    </div>
+    <div id="stepFamily">
+      <div class="step-hint">Start with a fund family — these are the managers whose funds we track.</div>
+      <div class="families" id="families"></div>
+    </div>
+    <div id="stepFunds" style="display:none;">
+      <div class="fam-head">
+        <button class="back" id="back">&larr; All fund families</button>
+        <div class="fam-title" id="famTitle"></div>
+      </div>
+      <div class="search"><span class="mag">&#9906;</span>
+        <input id="q" type="text" placeholder="Filter within this family…" autocomplete="off">
+      </div>
+      <div class="results" id="results"></div>
+      <div class="count" id="count"></div>
+    </div>
+  </div>
+
+  <div class="out" id="out">
+    <div class="panel">
+      <h3>How much are you really diversifying?</h3>
+      <div class="sub">Overlap is measured after looking through funds that hold other funds.</div>
+      <div id="warn"></div>
+      <div class="score-row">
+        <div class="gauge">
+          <svg width="170" height="170">
+            <circle cx="85" cy="85" r="72" fill="none" stroke="rgba(21,32,25,0.10)" stroke-width="15"/>
+            <circle id="arc" cx="85" cy="85" r="72" fill="none" stroke="var(--gold)" stroke-width="15"
+                    stroke-linecap="round" stroke-dasharray="452" stroke-dashoffset="452"
+                    style="transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.3,1), stroke .4s"/>
+          </svg>
+          <div class="gauge-num" id="num">0</div>
+        </div>
+        <div class="verdict">
+          <div class="v-label" id="vlabel">—</div>
+          <p id="vtext">Pick funds above to see how much their exposure overlaps.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Where they hold the same companies</h3>
+      <div class="sub">Positions that appear in more than one of your picks.</div>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="panel">
+      <h3>How they perform against each other</h3>
+      <div class="sub">Trailing twelve months. Yield is what it paid; total return is what you actually kept.</div>
+      <div id="perf"></div>
+    </div>
+  </div>
+
+  <div class="foot">Preview of a redesigned comparison tool — not yet live on the site.</div>
+</div>
+
+<script>
+let FUNDS = {}, PICKED = [], FILTER = 'all', QUERY = '';
+
+fetch('data/funds.json?cb=' + Math.random())
+  .then(r => r.json())
+  .then(data => {
+    Object.entries(data).forEach(([t, v]) => {
+      if (v.holdings && Object.keys(v.holdings).length) FUNDS[t] = v;
+    });
+    buildFamilies();
+    renderSlots();
+  });
+
+// --- look-through: a fund holding funds must be expanded before comparing ---
+const _cache = {};
+function lookThrough(t, depth, seen){
+  depth = depth || 0; seen = seen || new Set();
+  if (depth === 0 && _cache[t]) return _cache[t];
+  const f = FUNDS[t], out = {};
+  if (!f || !f.holdings) return out;
+  seen.add(t);
+  Object.entries(f.holdings).forEach(([k, w]) => {
+    const nested = FUNDS[k];
+    if (nested && nested.holdings && depth < 3 && !seen.has(k)){
+      const inner = lookThrough(k, depth + 1, new Set(seen));
+      const tot = Object.values(inner).reduce((a,b)=>a+b, 0) || 1;
+      Object.entries(inner).forEach(([ik, iw]) => { out[ik] = (out[ik]||0) + w*(iw/tot); });
+    } else { out[k] = (out[k]||0) + w; }
+  });
+  if (depth === 0) _cache[t] = out;
+  return out;
+}
+function overlapPct(a, b){
+  const A = lookThrough(a), B = lookThrough(b);
+  let s = 0;
+  Object.keys(A).forEach(t => { if (B[t] !== undefined) s += Math.min(A[t], B[t]); });
+  return s;
+}
+function sharedOf(a, b){
+  const A = lookThrough(a), B = lookThrough(b);
+  return Object.keys(A).filter(t => B[t] !== undefined)
+    .map(t => ({t, w: Math.min(A[t], B[t])}))
+    .sort((x,y) => y.w - x.w);
+}
+function containment(a, b){
+  const out = [];
+  [[a,b],[b,a]].forEach(([holder, held]) => {
+    const h = FUNDS[holder];
+    if (h && h.holdings && h.holdings[held]) out.push({holder, held, w: h.holdings[held]});
+  });
+  return out;
+}
+
+// A newcomer has no idea where to start with 200 tickers, so the first choice
+// is a manager they may recognise; the fund list only appears inside one.
+function buildFamilies(){
+  const byIssuer = {};
+  Object.entries(FUNDS).forEach(([t, f]) => {
+    const k = f.issuer || 'Other';
+    (byIssuer[k] = byIssuer[k] || []).push([t, f]);
+  });
+  const wrap = document.getElementById('families');
+  wrap.innerHTML = '';
+  Object.entries(byIssuer)
+    .sort((a,b) => b[1].length - a[1].length)
+    .forEach(([issuer, list]) => {
+      const cad = list.filter(([,f]) => f.region === 'CAD').length;
+      const yields = list.map(([,f]) => (f.stats||{}).yield_ttm).filter(v => v !== undefined);
+      const median = yields.sort((a,b)=>a-b)[Math.floor(yields.length/2)];
+      const el = document.createElement('button');
+      el.className = 'fam';
+      el.innerHTML = '<div class="fam-name">' + issuer.replace(' ETFs','').replace(' Asset Management','') + '</div>' +
+        '<div class="fam-meta">' + list.length + ' fund' + (list.length>1?'s':'') +
+        ' &nbsp;·&nbsp; ' + (cad === list.length ? 'Canada' : (cad === 0 ? 'US' : cad + ' CA / ' + (list.length-cad) + ' US')) +
+        (median !== undefined ? '<br><b>' + median.toFixed(1) + '%</b> median yield' : '') + '</div>';
+      el.onclick = () => openFamily(issuer);
+      wrap.appendChild(el);
+    });
+}
+
+function openFamily(issuer){
+  FILTER = issuer; QUERY = '';
+  document.getElementById('q').value = '';
+  document.getElementById('famTitle').textContent = issuer;
+  document.getElementById('stepFamily').style.display = 'none';
+  document.getElementById('stepFunds').style.display = 'block';
+  renderList();
+}
+function closeFamily(){
+  document.getElementById('stepFunds').style.display = 'none';
+  document.getElementById('stepFamily').style.display = 'block';
+}
+
+function matches(t, f){
+  if (f.issuer !== FILTER) return false;
+  if (!QUERY) return true;
+  const q = QUERY.toLowerCase();
+  return t.toLowerCase().includes(q) || (f.name||'').toLowerCase().includes(q);
+}
+
+function renderList(){
+  const box = document.getElementById('results');
+  if (!box) return;
+  box.innerHTML = '';
+  const list = Object.entries(FUNDS).filter(([t,f]) => matches(t,f))
+    .sort((a,b) => ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0));
+  list.slice(0, 60).forEach(([t, f]) => {
+    const st = f.stats || {};
+    const el = document.createElement('button');
+    el.className = 'fund' + (PICKED.includes(t) ? ' picked' : '');
+    el.innerHTML = '<div class="f-tic">' + t + '</div>' +
+      '<div class="f-name">' + (f.name || '') + '</div>' +
+      '<div class="f-stat">' + (st.yield_ttm !== undefined ? '<b>' + st.yield_ttm.toFixed(1) + '%</b> yield' : 'yield n/a') +
+      (st.aum_display ? ' &nbsp;·&nbsp; ' + st.aum_display : '') + '</div>';
+    el.onclick = () => toggle(t);
+    box.appendChild(el);
+  });
+  const cnt = document.getElementById('count');
+  if (cnt) cnt.textContent = list.length + ' fund' + (list.length===1?'':'s') +
+    ' in this family' + (list.length > 60 ? ' — showing the 60 largest' : '');
+}
+
+function toggle(t){
+  const i = PICKED.indexOf(t);
+  if (i > -1) PICKED.splice(i, 1);
+  else if (PICKED.length < 3) PICKED.push(t);
+  else { PICKED.shift(); PICKED.push(t); }
+  renderSlots(); renderList(); renderOut();
+}
+
+function renderSlots(){
+  const box = document.getElementById('slots');
+  box.innerHTML = '';
+  PICKED.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'slot';
+    el.innerHTML = t + '<span class="x">&times;</span>';
+    el.querySelector('.x').onclick = () => toggle(t);
+    box.appendChild(el);
+  });
+  for (let i = PICKED.length; i < 2; i++){
+    const el = document.createElement('div');
+    el.className = 'slot empty';
+    el.textContent = 'pick a fund';
+    box.appendChild(el);
+  }
+}
+
+function renderOut(){
+  const out = document.getElementById('out');
+  if (PICKED.length < 2){ out.classList.remove('on'); return; }
+  out.classList.add('on');
+
+  const pairs = [];
+  for (let i = 0; i < PICKED.length; i++)
+    for (let j = i+1; j < PICKED.length; j++) pairs.push([PICKED[i], PICKED[j]]);
+
+  const score = Math.round(pairs.reduce((s,[a,b]) => s + overlapPct(a,b), 0) / pairs.length);
+
+  const arc = document.getElementById('arc');
+  const C = 2 * Math.PI * 72;
+  arc.style.strokeDashoffset = C - Math.min(score,100)/100 * C;
+  let label, text, colour;
+  if (score < 15){ label='Low redundancy'; colour='var(--teal)';
+    text='These funds hold largely different companies. Holding both spreads your income rather than doubling it up.'; }
+  else if (score < 35){ label='Moderate redundancy'; colour='var(--gold)';
+    text='Some real overlap, usually a handful of shared large caps. Not duplicates, but not independent either.'; }
+  else { label='High redundancy'; colour='var(--rust)';
+    text='These lean on the same companies. Holding both mostly doubles one bet, and you pay two management fees to do it.'; }
+  arc.style.stroke = colour;
+  document.getElementById('vlabel').textContent = label;
+  document.getElementById('vlabel').style.color = colour;
+  document.getElementById('vtext').textContent = text;
+  countTo(document.getElementById('num'), score);
+
+  // containment beats any percentage
+  const warns = [];
+  pairs.forEach(([a,b]) => containment(a,b).forEach(n => warns.push(n)));
+  document.getElementById('warn').innerHTML = warns.length ? warns.map(n =>
+    '<div class="warn"><strong>' + n.holder + ' already holds ' + n.held + '</strong> at ' +
+    n.w.toFixed(1) + '% of its portfolio — you would pay two management fees for one position.</div>').join('') : '';
+
+  // shared companies
+  const seen = {};
+  pairs.forEach(([a,b]) => sharedOf(a,b).forEach(o => { seen[o.t] = Math.max(seen[o.t]||0, o.w); }));
+  const chips = document.getElementById('chips');
+  const entries = Object.entries(seen).sort((a,b) => b[1]-a[1]);
+  chips.innerHTML = entries.length ? '' :
+    '<div class="empty">No shared holdings, even after looking through to the underlying companies.</div>';
+  entries.slice(0, 24).forEach(([t,w]) => {
+    const c = document.createElement('div');
+    c.className = 'chip' + (w >= 4 ? ' hot' : '');
+    c.innerHTML = t + ' <span style="opacity:.6">' + w.toFixed(1) + '%</span>';
+    chips.appendChild(c);
+  });
+
+  renderPerf();
+}
+
+function countTo(el, target){
+  const from = parseInt(el.textContent, 10) || 0;
+  const t0 = performance.now();
+  function step(t){
+    const p = Math.min(1, (t - t0) / 700);
+    el.textContent = Math.round(from + (target - from) * (1 - Math.pow(1-p, 3)));
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function renderPerf(){
+  const rows = PICKED.map(t => {
+    const st = FUNDS[t].stats || {};
+    return {t, name: FUNDS[t].name, y: st.yield_ttm, r: st.total_return_1y};
+  });
+  const maxY = Math.max(...rows.map(r => r.y || 0), 1);
+  const box = document.getElementById('perf');
+  box.innerHTML =
+    '<table><thead><tr><th>Fund</th><th>Yield</th><th style="width:34%"></th><th>Total return</th><th>Reading</th></tr></thead><tbody>' +
+    rows.map(r => {
+      const read = (r.y === undefined || r.r === undefined || r.r === null) ? '—'
+        : (r.r < 0 ? 'paid out while losing value'
+          : (r.y > r.r ? 'part of the payout came from capital' : 'earned more than it paid out'));
+      return '<tr><td class="tic">' + r.t + '</td>' +
+        '<td>' + (r.y !== undefined ? r.y.toFixed(1) + '%' : '—') + '</td>' +
+        '<td><div class="bar"><i data-w="' + Math.round((r.y||0)/maxY*100) + '" style="background:var(--teal)"></i></div></td>' +
+        '<td class="' + (r.r < 0 ? 'neg' : 'pos') + '">' + (r.r !== undefined && r.r !== null ? (r.r > 0 ? '+' : '') + r.r.toFixed(1) + '%' : '—') + '</td>' +
+        '<td style="color:var(--ink-faint); font-size:13.5px;">' + read + '</td></tr>';
+    }).join('') + '</tbody></table>';
+  requestAnimationFrame(() => {
+    box.querySelectorAll('.bar i').forEach(b => { b.style.width = b.dataset.w + '%'; });
+  });
+}
+
+document.getElementById('q').addEventListener('input', e => { QUERY = e.target.value; renderList(); });
+document.getElementById('back').addEventListener('click', closeFamily);
+</script>
+</body>
+</html>
