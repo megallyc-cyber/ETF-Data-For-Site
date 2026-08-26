@@ -52,7 +52,7 @@
   .picker-head{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
   .picker-head h2{font-family:'Fraunces',serif; font-weight:500; font-size:21px;}
   .slots{display:flex; gap:10px; flex-wrap:wrap;}
-  .slot{display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--paper);
+  .slot{display:inline-flex; align-items:center; gap:10px; background:var(--teal); color:var(--white);
         border-radius:100px; padding:8px 8px 8px 16px; font-size:14.5px;
         animation:pop .35s cubic-bezier(.2,1.1,.4,1);}
   .slot .x{width:22px; height:22px; border-radius:50%; background:rgba(237,238,231,0.18);
@@ -69,7 +69,13 @@
   .fam-name{font-family:'Fraunces',serif; font-size:19px; line-height:1.2;}
   .fam-meta{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); margin-top:9px;}
   .fam-meta b{color:var(--teal-deep); font-weight:500;}
-  .fam-head{display:flex; align-items:center; gap:16px; margin:18px 0 14px; flex-wrap:wrap;}
+  .fam-rail{display:flex; gap:8px; overflow-x:auto; padding:16px 0 14px; border-bottom:1px solid var(--line);}
+  .rail-chip{flex:none; font-size:13.5px; padding:8px 15px; border-radius:100px; cursor:pointer;
+    border:1px solid var(--line-strong); background:var(--white); color:var(--ink-soft); transition:all .16s;}
+  .rail-chip:hover{border-color:var(--ink); color:var(--ink);}
+  .rail-chip.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+  .rail-chip b{font-weight:400; opacity:.6; margin-left:5px;}
+  .fam-head{display:flex; align-items:center; justify-content:space-between; gap:16px; margin:14px 0 12px; flex-wrap:wrap;}
   .back{font-size:13.5px; color:var(--ink-soft); background:var(--white);
     border:1px solid var(--line-strong); border-radius:100px; padding:8px 16px; cursor:pointer;}
   .back:hover{border-color:var(--ink); color:var(--ink);}
@@ -170,9 +176,10 @@
       <div class="families" id="families"></div>
     </div>
     <div id="stepFunds" style="display:none;">
+      <div class="fam-rail" id="famRail"></div>
       <div class="fam-head">
-        <button class="back" id="back">&larr; All fund families</button>
         <div class="fam-title" id="famTitle"></div>
+        <button class="back" id="back">See all families</button>
       </div>
       <div class="search"><span class="mag">&#9906;</span>
         <input id="q" type="text" placeholder="Filter within this family…" autocomplete="off">
@@ -300,12 +307,29 @@ function buildFamilies(){
     });
 }
 
+function buildRail(){
+  const byIssuer = {};
+  Object.values(FUNDS).forEach(f => { const k = f.issuer || "Other"; byIssuer[k] = (byIssuer[k]||0)+1; });
+  const rail = document.getElementById("famRail");
+  rail.innerHTML = "";
+  Object.entries(byIssuer).sort((a,b) => b[1]-a[1]).forEach(([issuer, n]) => {
+    const c = document.createElement("button");
+    c.className = "rail-chip" + (issuer === FILTER ? " on" : "");
+    c.innerHTML = issuer.replace(" ETFs","").replace(" Investments","").replace(" Asset Management","") + "<b>" + n + "</b>";
+    c.onclick = () => openFamily(issuer);
+    rail.appendChild(c);
+  });
+  const active = rail.querySelector(".rail-chip.on");
+  if (active) active.scrollIntoView({block:"nearest", inline:"center"});
+}
+
 function openFamily(issuer){
   FILTER = issuer; QUERY = '';
   document.getElementById('q').value = '';
   document.getElementById('famTitle').textContent = issuer;
   document.getElementById('stepFamily').style.display = 'none';
   document.getElementById('stepFunds').style.display = 'block';
+  buildRail();
   renderList();
 }
 function closeFamily(){
