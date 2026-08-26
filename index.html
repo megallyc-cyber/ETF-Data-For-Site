@@ -53,7 +53,7 @@
 
   /* --- cinematic hero: three beats revealed by scroll position, so the
      reader sets the pace and nothing moves while they are reading. */
-  .hero-track{ height:300vh; position:relative; }
+  .hero-track{ height:calc(100vh + 400px); position:relative; }
   .hero-stage{ position:sticky; top:0; height:100vh; display:flex; flex-direction:column;
     align-items:center; justify-content:center; text-align:center; padding:0 24px; overflow:hidden; }
   .beat{ position:absolute; max-width:900px; padding:0 24px; opacity:0; transform:translateY(26px);
@@ -83,7 +83,7 @@
     .beat{position:static; opacity:1; transform:none; transition:none;}
     .beat-dots, .hero-cue{display:none;} }
   @media (max-width:640px){
-    .hero-track{height:260vh;}
+    .hero-track{height:calc(100vh + 320px);}
     .beat-3 .btns{flex-direction:column; align-items:stretch;}
     .btn-ghost{margin-left:0;} }
 
@@ -262,7 +262,7 @@
     </div>
     <div class="beat beat-2" id="beat2">
       <h2>Investing doesn't need to be intimidating.<br>It can be easy &mdash; &amp; even <em>pay you monthly</em>.</h2>
-      <p class="lede">No jargon walls, no fine print you need a finance degree to parse. Just a clear walk from "what's a stock" to building an income portfolio that actually makes sense to you.</p>
+      
     </div>
     <div class="beat beat-3" id="beat3">
       <div class="choose">Where would you like to start?</div>
@@ -605,9 +605,9 @@ window.addEventListener('resize', buildPath);
 window.addEventListener('scroll', updateProgress);
 
 // --- hero beats -------------------------------------------------------
-// Sentinels down the track decide which beat shows. IntersectionObserver
-// works whether the window or the body is the scrolling element, which a
-// scroll listener on window does not.
+// One wheel notch (~100px) moves one beat. Boundaries are fixed pixel
+// distances into the track rather than fractions of it, so pacing does not
+// change with viewport height.
 (function(){
   var track = document.getElementById("heroTrack");
   if (!track) return;
@@ -618,8 +618,10 @@ window.addEventListener('scroll', updateProgress);
     beats.forEach(function(b){ if(b) b.classList.add("on"); });
     return;
   }
-  var current = 0;
-  function show(i){
+  var current = -1;
+  function paint(){
+    var into = -track.getBoundingClientRect().top;
+    var i = into < 110 ? 0 : (into < 230 ? 1 : 2);
     if (i === current) return;
     current = i;
     beats.forEach(function(b, n){
@@ -630,24 +632,12 @@ window.addEventListener('scroll', updateProgress);
     dots.forEach(function(d, n){ d.classList.toggle("on", n === i); });
     if (cue) cue.style.opacity = (i === 2) ? "0" : "0.9";
   }
-  var marks = [0.02, 0.36, 0.70].map(function(pct, i){
-    var el = document.createElement("div");
-    el.style.cssText = "position:absolute;left:0;width:1px;height:1px;top:" + (pct*100) + "%";
-    el.setAttribute("data-beat", i);
-    track.appendChild(el);
-    return el;
-  });
-  var seen = {0:true};
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      var i = +e.target.getAttribute("data-beat");
-      if (e.isIntersecting) seen[i] = true; else delete seen[i];
-    });
-    var keys = Object.keys(seen).map(Number);
-    show(keys.length ? Math.max.apply(null, keys) : 0);
-  }, {rootMargin: "-45% 0px -45% 0px"});
-  marks.forEach(function(m){ io.observe(m); });
+  window.addEventListener("scroll", paint, {passive:true});
+  document.addEventListener("scroll", paint, {passive:true, capture:true});
+  window.addEventListener("resize", paint);
+  paint();
 })();
+
 </script>
 
 </body>
