@@ -66,11 +66,15 @@
   /* Percentage caps resolve against the grid column, so the block can never
      be wider than its column. A fixed px cap wider than the column silently
      disables justify-self, which is what threw the right-hand stops out. */
-  .stop-text{width:100%; max-width:min(470px, 94%); justify-self:center; grid-row:1; align-self:center;}
-  .stop-art{width:100%; max-width:min(430px, 94%); height:410px; justify-self:center;
+  .stop-text{width:100%; max-width:min(470px, 96%); grid-row:1; align-self:center;}
+  .stop-art{width:100%; max-width:min(430px, 96%); height:390px;
             grid-row:1; align-self:center;
             display:flex; align-items:center; justify-content:center;}
-  .stop-art svg{max-width:100%; max-height:410px; width:auto; height:auto; overflow:visible;}
+  .stop-art svg{max-width:100%; max-height:390px; width:auto; height:auto; overflow:visible;}
+  .stop.left  .stop-text{justify-self:end;}
+  .stop.left  .stop-art {justify-self:start;}
+  .stop.right .stop-text{justify-self:start;}
+  .stop.right .stop-art {justify-self:end;}
 
   /* staggered entrance — every element arrives, nothing just appears */
   .stop-num,.stop h3,.lead,.foot,.stop-art{
@@ -369,7 +373,7 @@
           <span class="ftext">When the company does well your slice is worth more — and sometimes it pays you part of the profits directly. That payment is a dividend.</span></div>
       </div>
       <div class="stop-art">
-        <svg viewBox="0 0 240 240">
+        <svg viewBox="26 26 188 188">
           <circle cx="120" cy="120" r="86" fill="#F5F5F0" stroke="rgba(21,32,25,0.18)" stroke-width="1.5"/>
           <circle cx="120" cy="120" r="52" fill="none" stroke="#C89B3C" stroke-width="68"
                   class="wedge" transform="rotate(-90 120 120)"/>
@@ -391,7 +395,7 @@
           <span class="ftext">It trades on the exchange exactly like a single stock — one price, buy or sell any time the market is open.</span></div>
       </div>
       <div class="stop-art">
-        <svg viewBox="0 0 240 240">
+        <svg viewBox="26 48 190 190">
           <g class="bob1"><circle cx="82" cy="92" r="18" fill="#EEEDFE" stroke="#26215C" stroke-width="1.5"/></g>
           <g class="bob2"><circle cx="120" cy="76" r="18" fill="#E6F1FB" stroke="#042C53" stroke-width="1.5"/></g>
           <g class="bob3"><circle cx="158" cy="92" r="18" fill="#E1F5EE" stroke="#04342C" stroke-width="1.5"/></g>
@@ -413,7 +417,7 @@
           <span class="ftext">"Covered" means the fund already owns the shares it's promising. It isn't betting money it doesn't have.</span></div>
       </div>
       <div class="stop-art">
-        <svg viewBox="0 0 240 220">
+        <svg viewBox="14 26 230 174">
           <path d="M30,124 L152,124 L140,192 L42,192 Z" fill="none" stroke="#152019" stroke-width="2" class="draw"/>
           <line x1="22" y1="124" x2="160" y2="124" stroke="#152019" stroke-width="2" class="draw"/>
           <circle cx="60" cy="102" r="14" fill="#E1F5EE" stroke="#04342C" stroke-width="1.5" class="fade"/>
@@ -437,7 +441,7 @@
           <span class="ftext">They pay for that ticket whether they use it or not. If the stock never reaches $22 it expires worthless and the fund keeps the cash. That cash is the premium.</span></div>
       </div>
       <div class="stop-art">
-        <svg viewBox="0 0 240 190">
+        <svg viewBox="6 26 228 161">
           <rect x="22" y="34" width="196" height="112" rx="7" fill="#F5F5F0" stroke="#152019" stroke-width="2" class="draw"/>
           <line x1="22" y1="90" x2="218" y2="90" stroke="#152019" stroke-dasharray="5 4" opacity="0.4" class="fade"/>
           <circle cx="22" cy="90" r="8" fill="#EDEEE7" stroke="#152019" stroke-width="1.5" class="fade"/>
@@ -460,7 +464,7 @@
           <span class="ftext">Steadier cash now, in exchange for the biggest gains later. Neither good nor bad on its own — it depends what you need.</span></div>
       </div>
       <div class="stop-art">
-        <svg viewBox="0 0 260 262">
+        <svg viewBox="26 0 230 265">
           <text x="186" y="20" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#712B13" class="fade">upside you give up</text>
           <path d="M126,96 L242,96 L242,36 Z" fill="#A6452C" class="fade pulse" opacity="0.18"/>
           <path d="M34,176 L80,158 L126,96 L184,96 L242,96 L242,176 Z" fill="#1F5C4E" opacity="0.55" class="fade"/>
@@ -490,7 +494,7 @@
           <span class="ftext">Always read total return next to yield, never instead of it. Some funds on this site pay over 80% a year while losing most of their value.</span></div>
       </div>
       <div class="stop-art">
-        <svg viewBox="0 0 240 220">
+        <svg viewBox="22 17 202 211">
           <line x1="30" y1="180" x2="216" y2="180" stroke="rgba(21,32,25,0.25)"/>
           <rect x="60" y="54" width="50" height="126" fill="#1F5C4E" opacity="0.9" class="grow"/>
           <rect x="146" y="128" width="50" height="52" fill="#A6452C" opacity="0.9" class="grow"/>
@@ -513,7 +517,7 @@
           <span class="ftext">Premiums move with volatility, so one good month is not a yearly rate. That is exactly how a fund ends up advertising a number it cannot repeat.</span></div>
       </div>
       <div class="stop-art">
-        <svg viewBox="0 0 260 240">
+        <svg viewBox="15 18 230 214">
           <rect x="26" y="26" width="208" height="150" rx="6" fill="#F5F5F0" stroke="#152019" stroke-width="2" class="draw"/>
           <text x="46" y="62" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#6E766E" class="fade">PREMIUM PER SHARE</text>
           <text x="214" y="62" text-anchor="end" font-family="Fraunces, serif" font-size="19" fill="#152019" class="fade">$0.35</text>
