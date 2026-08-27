@@ -489,12 +489,17 @@ function renderOut(){
 function countTo(el, target){
   const from = parseInt(el.textContent, 10) || 0;
   const t0 = performance.now();
+  let done = false;
   function step(t){
+    if (done) return;
     const p = Math.min(1, (t - t0) / 700);
     el.textContent = Math.round(from + (target - from) * (1 - Math.pow(1-p, 3)));
-    if (p < 1) requestAnimationFrame(step);
+    if (p < 1) requestAnimationFrame(step); else done = true;
   }
   requestAnimationFrame(step);
+  // Browsers pause animation frames in background tabs, which would leave the
+  // number stranded on its old value. Land it regardless.
+  setTimeout(function(){ if (!done){ done = true; el.textContent = target; } }, 800);
 }
 
 function renderPerf(){
