@@ -57,19 +57,23 @@
      reaches it, with a gold thread drawing down between them — the same idea
      as the learn path, so the two pages feel related. */
   .reveal{position:relative; max-width:1000px; margin:0 auto; padding:4vh 24px 0;}
-  .rev-line{position:absolute; left:50%; top:0; bottom:0; width:2px;
-    background:rgba(21,32,25,0.10); transform:translateX(-50%);}
-  .rev-line i{position:absolute; left:0; top:0; width:100%; height:0;
-    background:linear-gradient(180deg,#1F5C4E 0%,#C89B3C 60%,#8F6B22 100%);
-    transition:height .25s linear;}
+  /* The thread links the lines rather than running through them: each block
+     carries a node above it and a connector below, so nothing crosses type. */
+  .node{width:13px; height:13px; border-radius:50%; background:var(--paper);
+    border:2px solid var(--line-strong); margin-bottom:30px; z-index:2;
+    transition:border-color .45s ease, background .45s ease, transform .45s cubic-bezier(.2,1.2,.4,1);}
+  .step.in .node{border-color:var(--gold-deep); background:var(--gold); transform:scale(1.3);}
+  .node-end{width:17px; height:17px;}
+  .step::after{content:''; position:absolute; left:50%; bottom:0; width:2px; height:56px;
+    transform:translateX(-50%) scaleY(0); transform-origin:top;
+    background:linear-gradient(180deg, var(--gold) 0%, rgba(200,155,60,0.25) 100%);
+    transition:transform .7s cubic-bezier(.2,.8,.3,1) .25s;}
+  .step.in::after{transform:translateX(-50%) scaleY(1);}
+  .step:last-of-type::after{display:none;}
   .step{min-height:64vh; display:flex; flex-direction:column; align-items:center;
     justify-content:center; text-align:center; position:relative; padding:40px 0;}
   .step:first-of-type{min-height:74vh;}
-  .dot{width:13px; height:13px; border-radius:50%; background:var(--paper);
-    border:2px solid var(--line-strong); margin-bottom:34px; z-index:2;
-    transition:border-color .45s ease, background .45s ease, transform .45s cubic-bezier(.2,1.2,.4,1);}
-  .step.in .dot{border-color:var(--gold-deep); background:var(--gold); transform:scale(1.25);}
-  .dot-end{width:17px; height:17px;}
+  
   .step h1, .step h2, .step .choose, .step .btns, .step .count{
     opacity:0; transform:translateY(26px);
     transition:opacity .75s cubic-bezier(.2,.7,.3,1), transform .75s cubic-bezier(.2,.7,.3,1);}
@@ -89,14 +93,14 @@
     text-transform:uppercase; color:var(--ink-faint); margin-bottom:30px;}
   .step-cta .btns{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
   @media (max-width:640px){
-    .rev-line{left:22px;}
     .step{align-items:flex-start; text-align:left; padding-left:52px; min-height:56vh;}
-    .dot{position:absolute; left:16px; top:50%; margin:0;}
+    .node{position:absolute; left:16px; top:50%; margin:0;}
+    .step::after{left:22px;}
     .step-cta .btns{flex-direction:column; align-items:stretch; width:100%;}
   }
   @media (prefers-reduced-motion: reduce){
     .step h1,.step h2,.step .choose,.step .btns,.step .count{opacity:1; transform:none;}
-    .rev-line i{transition:none;}
+    .step::after{transition:none;}
   }
   .landing-foot{ text-align:center; padding:0 24px 46px; font-family:'IBM Plex Mono',monospace;
     font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); }
@@ -275,26 +279,25 @@
 </nav>
 
 <div class="reveal" id="reveal">
-  <div class="rev-line"><i id="revFill"></i></div>
-
+  
   <section class="step" data-step>
-    <div class="dot"></div>
+    <div class="node"></div>
     <h1>The best all-in-one platform for income focused investing.</h1>
   </section>
 
   <section class="step" data-step>
-    <div class="dot"></div>
+    <div class="node"></div>
     <h2>Investing doesn't need to be intimidating.<br>It can be easy &mdash; and even <em>pay you monthly</em>.</h2>
   </section>
 
   <section class="step" data-step>
-    <div class="dot"></div>
+    <div class="node"></div>
     <h2>Every Canadian and US covered-call ETF in one place.</h2>
     <span class="count"><b>206</b> funds, updated daily</span>
   </section>
 
   <section class="step step-cta" data-step>
-    <div class="dot dot-end"></div>
+    <div class="node node-end"></div>
     <div class="choose">Where would you like to start?</div>
     <div class="btns">
       <a class="btn btn-primary" href="learn-preview.html">Start learning &rarr;</a>
@@ -311,12 +314,10 @@
 // behind to show how far through the introduction they have come.
 (function(){
   var steps = [].slice.call(document.querySelectorAll('[data-step]'));
-  var fill = document.getElementById('revFill');
   var wrap = document.getElementById('reveal');
   if (!steps.length) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     steps.forEach(function(s){ s.classList.add('in'); });
-    if (fill) fill.style.height = '100%';
     return;
   }
   if ('IntersectionObserver' in window){
@@ -327,17 +328,6 @@
   } else {
     steps.forEach(function(s){ s.classList.add('in'); });
   }
-  function paint(){
-    if (!fill || !wrap) return;
-    var r = wrap.getBoundingClientRect();
-    var p = (window.innerHeight * 0.55 - r.top) / (r.height || 1);
-    fill.style.height = Math.max(0, Math.min(1, p)) * 100 + '%';
-  }
-  window.addEventListener('scroll', paint, {passive:true});
-  document.addEventListener('scroll', paint, {passive:true, capture:true});
-  window.addEventListener('resize', paint);
-  window.addEventListener('load', paint);
-  paint();
   steps[0].classList.add('in');
 })();
 </script>
