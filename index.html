@@ -59,17 +59,37 @@
   .reveal{position:relative; max-width:1000px; margin:0 auto; padding:4vh 24px 0;}
   /* The thread links the lines rather than running through them: each block
      carries a node above it and a connector below, so nothing crosses type. */
-  .node{width:13px; height:13px; border-radius:50%; background:var(--paper);
+  .node{position:relative; width:14px; height:14px; border-radius:50%; background:var(--paper);
     border:2px solid var(--line-strong); margin-bottom:30px; z-index:2;
     transition:border-color .45s ease, background .45s ease, transform .45s cubic-bezier(.2,1.2,.4,1);}
   .step.in .node{border-color:var(--gold-deep); background:var(--gold); transform:scale(1.3);}
-  .node-end{width:17px; height:17px;}
-  .step::after{content:''; position:absolute; left:50%; bottom:0; width:2px; height:56px;
-    transform:translateX(-50%) scaleY(0); transform-origin:top;
+  /* a ring breathes out of the node so the marker never looks inert */
+  .node::before{content:''; position:absolute; inset:-6px; border-radius:50%;
+    border:1.5px solid var(--gold); opacity:0; transform:scale(.6);}
+  .step.in .node::before{animation:ripple 2.6s ease-out .35s infinite;}
+  @keyframes ripple{
+    0%{opacity:.55; transform:scale(.6);}
+    70%{opacity:0; transform:scale(2.1);}
+    100%{opacity:0; transform:scale(2.1);}
+  }
+  .node-end{width:18px; height:18px;}
+  .step.in .node-end::before{animation-duration:2s;}
+
+  /* the connector draws downward, then a chevron keeps nudging toward the
+     next line so it is obvious the page continues */
+  .link{position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:6px; pointer-events:none;}
+  .link i{display:block; width:2px; height:54px; transform:scaleY(0); transform-origin:top;
     background:linear-gradient(180deg, var(--gold) 0%, rgba(200,155,60,0.25) 100%);
-    transition:transform .7s cubic-bezier(.2,.8,.3,1) .25s;}
-  .step.in::after{transform:translateX(-50%) scaleY(1);}
-  .step:last-of-type::after{display:none;}
+    transition:transform .75s cubic-bezier(.2,.8,.3,1) .2s;}
+  .step.in .link i{transform:scaleY(1);}
+  .link svg{width:15px; height:9px; opacity:0; transition:opacity .5s ease .9s;}
+  .step.in .link svg{opacity:1; animation:nudge 1.9s ease-in-out 1.1s infinite;}
+  @keyframes nudge{
+    0%,100%{transform:translateY(0); opacity:.45;}
+    50%{transform:translateY(7px); opacity:1;}
+  }
+  .step:last-of-type .link{display:none;}
   .step{min-height:64vh; display:flex; flex-direction:column; align-items:center;
     justify-content:center; text-align:center; position:relative; padding:40px 0;}
   .step:first-of-type{min-height:74vh;}
@@ -89,9 +109,32 @@
   .count{display:block; font-family:'IBM Plex Mono',monospace; font-size:15px;
     letter-spacing:0.08em; color:var(--ink-faint); margin-top:22px;}
   .count b{color:var(--teal-deep); font-weight:500; font-size:19px;}
-  .step-cta .choose{font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.16em;
-    text-transform:uppercase; color:var(--ink-faint); margin-bottom:30px;}
-  .step-cta .btns{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .step-cta .choose{margin-bottom:38px;}
+  .step-cta .kicker{display:block; font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+    letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:16px;}
+  .step-cta .ask{display:block; font-family:'Fraunces',serif; font-weight:500;
+    font-size:clamp(26px,3.6vw,42px); line-height:1.18; letter-spacing:-0.015em; color:var(--ink);}
+  .step-cta .ask em{font-style:italic; color:var(--gold-deep);}
+  .step-cta .btns{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .step-cta .btn{position:relative; overflow:hidden; border-radius:100px; border:none;
+    padding:17px 34px; font-size:16px; font-weight:500; letter-spacing:0.01em;
+    text-decoration:none; display:inline-flex; align-items:center; gap:11px;
+    transition:transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s ease, background .22s ease;}
+  .step-cta .btn-primary{background:linear-gradient(135deg, #1F5C4E 0%, #123D33 100%);
+    color:#FFFFFF; box-shadow:0 6px 18px rgba(18,61,51,0.26);}
+  .step-cta .btn-primary:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(18,61,51,0.34);}
+  .step-cta .btn-primary .arrow{transition:transform .22s ease;}
+  .step-cta .btn-primary:hover .arrow{transform:translateX(5px);}
+  /* a slow sheen so the primary action catches the eye without shouting */
+  .step-cta .btn-primary::after{content:''; position:absolute; top:0; left:-60%; width:40%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.22), transparent);
+    animation:sheen 4.5s ease-in-out 1.6s infinite;}
+  @keyframes sheen{0%{left:-60%;} 55%{left:130%;} 100%{left:130%;}}
+  .step-cta .btn-ghost{background:transparent; color:var(--ink);
+    box-shadow:inset 0 0 0 1.5px var(--line-strong);}
+  .step-cta .btn-ghost:hover{transform:translateY(-3px); background:var(--white);
+    box-shadow:inset 0 0 0 1.5px var(--ink), 0 8px 20px rgba(21,32,25,0.10);}
+  .step-cta .btn-ghost .dotmark{width:7px; height:7px; border-radius:50%; background:var(--gold-deep);}
   @media (max-width:640px){
     .step{align-items:flex-start; text-align:left; padding-left:52px; min-height:56vh;}
     .node{position:absolute; left:16px; top:50%; margin:0;}
@@ -100,7 +143,10 @@
   }
   @media (prefers-reduced-motion: reduce){
     .step h1,.step h2,.step .choose,.step .btns,.step .count{opacity:1; transform:none;}
-    .step::after{transition:none;}
+    .link i{transform:scaleY(1); transition:none;}
+    .link svg{opacity:1; animation:none;}
+    .step.in .node::before{animation:none;}
+    .step-cta .btn-primary::after{animation:none;}
   }
   .landing-foot{ text-align:center; padding:0 24px 46px; font-family:'IBM Plex Mono',monospace;
     font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); }
@@ -283,26 +329,31 @@
   <section class="step" data-step>
     <div class="node"></div>
     <h1>The best all-in-one platform for income focused investing.</h1>
+    <div class="link"><i></i><svg viewBox="0 0 15 9" fill="none"><path d="M1 1l6.5 6.5L14 1" stroke="#8F6B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </section>
 
   <section class="step" data-step>
     <div class="node"></div>
     <h2>Investing doesn't need to be intimidating.<br>It can be easy &mdash; and even <em>pay you monthly</em>.</h2>
+    <div class="link"><i></i><svg viewBox="0 0 15 9" fill="none"><path d="M1 1l6.5 6.5L14 1" stroke="#8F6B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </section>
 
   <section class="step" data-step>
     <div class="node"></div>
     <h2>Every Canadian and US covered-call ETF in one place.</h2>
     <span class="count"><b>206</b> funds, updated daily</span>
+    <div class="link"><i></i><svg viewBox="0 0 15 9" fill="none"><path d="M1 1l6.5 6.5L14 1" stroke="#8F6B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </section>
 
   <section class="step step-cta" data-step>
     <div class="node node-end"></div>
-    <div class="choose">Where would you like to start?</div>
+    <div class="choose"><span class="kicker">Two ways in</span>
+      <span class="ask">So &mdash; where would you like to <em>begin</em>?</span></div>
     <div class="btns">
-      <a class="btn btn-primary" href="learn-preview.html">Start learning &rarr;</a>
-      <a class="btn btn-ghost" href="compare-preview.html">ETF Comparison Tool</a>
+      <a class="btn btn-primary" href="learn-preview.html">Start learning <span class="arrow">&rarr;</span></a>
+      <a class="btn btn-ghost" href="compare-preview.html"><span class="dotmark"></span>Compare ETFs</a>
     </div>
+    <div class="link"><i></i><svg viewBox="0 0 15 9" fill="none"><path d="M1 1l6.5 6.5L14 1" stroke="#8F6B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </section>
 </div>
 
