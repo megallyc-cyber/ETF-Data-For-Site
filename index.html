@@ -108,24 +108,31 @@
   .step h2 em{font-style:italic; color:var(--gold-deep);}
   /* A slow rotation of every manager whose funds we hold data for — it says
      more about coverage than a number on its own. */
-  .marquee{position:relative; width:100vw; max-width:100vw; margin:38px -24px 0;
+  .marquee{position:relative; width:100vw; max-width:100vw; margin:42px -24px 0; padding:6px 0;
     overflow:hidden;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);}
-  .mq-track{display:flex; gap:14px; width:max-content; animation:marquee 46s linear infinite;}
+  .mq-track{display:flex; gap:16px; width:max-content; animation:marquee 46s linear infinite;}
   .marquee:hover .mq-track{animation-play-state:paused;}
   @keyframes marquee{from{transform:translateX(0);} to{transform:translateX(-50%);}}
-  .mq-item{flex:none; display:flex; align-items:center; gap:9px; background:var(--white);
+  /* One fixed box size for every provider so the strip reads as a row of
+     equals, with each mark scaled to fit inside rather than overflowing. */
+  .mq-item{flex:none; display:flex; align-items:center; justify-content:center; gap:14px;
+    width:236px; height:82px; padding:0 22px; box-sizing:border-box;
+    background:var(--white); border:1px solid var(--line); border-left:3px solid var(--mq);
+    border-radius:10px; white-space:nowrap;
     text-decoration:none; cursor:pointer;
-    transition:transform .18s, box-shadow .18s;
-    border:1px solid var(--line); border-left:3px solid var(--mq); border-radius:8px;
-    padding:11px 17px; white-space:nowrap;}
+    transition:transform .18s, box-shadow .18s;}
   .mq-item:hover{transform:translateY(-3px); box-shadow:0 6px 16px rgba(21,32,25,0.12);}
-  .mq-name{font-family:'Fraunces',serif; font-size:16.5px; color:var(--mq); line-height:1;}
-  /* real marks where the issuer publishes one; a wordmark where they do not */
-  .mq-logo{height:22px; width:auto; max-width:132px; display:block; color:var(--mq);}
-  .mq-logo svg{height:22px; width:auto; max-width:132px; display:block;}
-  .mq-n{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
+  .mq-logo{display:flex; align-items:center; justify-content:center;
+    height:38px; width:132px; color:var(--mq); flex:none;}
+  /* both kinds of mark get the same envelope */
+  .mq-logo svg, .mq-logo img{max-height:38px; max-width:132px;
+    height:auto; width:auto; object-fit:contain; display:block;}
+  .mq-name{font-family:'Fraunces',serif; font-size:19px; color:var(--mq); line-height:1.15;
+    text-align:center; white-space:normal; max-width:132px;}
+  .mq-n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint);
+    flex:none; padding-left:13px; border-left:1px solid var(--line);}
   .count{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px;
     letter-spacing:0.08em; color:var(--ink-faint); margin-top:26px;}
   .count b{color:var(--teal-deep); font-weight:500; font-size:19px;}
