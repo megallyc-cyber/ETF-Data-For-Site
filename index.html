@@ -77,8 +77,10 @@
 
   /* the connector draws downward, then a chevron keeps nudging toward the
      next line so it is obvious the page continues */
-  .link{position:absolute; left:50%; bottom:0; transform:translateX(-50%);
-    display:flex; flex-direction:column; align-items:center; gap:6px; pointer-events:none;}
+  /* The connector sits in the flow beneath the content rather than pinned to
+     the section edge, so it can never ride over the last line of text. */
+  .link{display:flex; flex-direction:column; align-items:center; gap:8px;
+    margin-top:44px; pointer-events:none;}
   .link i{display:block; width:2px; height:54px; transform:scaleY(0); transform-origin:top;
     background:linear-gradient(180deg, var(--gold) 0%, rgba(200,155,60,0.25) 100%);
     transition:transform .75s cubic-bezier(.2,.8,.3,1) .2s;}
@@ -91,7 +93,7 @@
   }
   .step:last-of-type .link{display:none;}
   .step{min-height:64vh; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; text-align:center; position:relative; padding:40px 0;}
+    justify-content:center; text-align:center; position:relative; padding:56px 0 40px;}
   .step:first-of-type{min-height:74vh;}
   
   .step h1, .step h2, .step .choose, .step .btns, .step .count{
@@ -134,7 +136,7 @@
   .mq-n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint);
     flex:none; padding-left:13px; border-left:1px solid var(--line);}
   .count{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px;
-    letter-spacing:0.08em; color:var(--ink-faint); margin-top:26px;}
+    letter-spacing:0.08em; color:var(--ink-faint); margin-top:30px;}
   .count b{color:var(--teal-deep); font-weight:500; font-size:19px;}
   .step-cta .choose{margin-bottom:38px;}
   .step-cta .kicker{display:block; font-family:'IBM Plex Mono',monospace; font-size:15px;
