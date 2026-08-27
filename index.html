@@ -119,6 +119,9 @@
     border:1px solid var(--line); border-left:3px solid var(--mq); border-radius:8px;
     padding:11px 17px; white-space:nowrap;}
   .mq-name{font-family:'Fraunces',serif; font-size:16.5px; color:var(--mq); line-height:1;}
+  /* real marks where the issuer publishes one; a wordmark where they do not */
+  .mq-logo{height:22px; width:auto; max-width:132px; display:block; color:var(--mq);}
+  .mq-logo svg{height:22px; width:auto; max-width:132px; display:block;}
   .mq-n{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
   .count{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px;
     letter-spacing:0.08em; color:var(--ink-faint); margin-top:26px;}
@@ -413,22 +416,30 @@
     'Defiance':'#B3142F','REX Shares':'#0E6E70','ProShares':'#00539B',
     'Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'
   };
-  fetch('data/funds.json?cb=' + Math.random())
-    .then(function(r){ return r.json(); })
-    .then(function(data){
+  Promise.all([
+    fetch('data/funds.json?cb=' + Math.random()).then(function(r){ return r.json(); }),
+    fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
+  ])
+    .then(function(pair){
+      var data = pair[0];
+      LOGOS = pair[1] || {};
       var by = {};
       Object.values(data).forEach(function(f){
         var k = f.issuer || 'Other';
         by[k] = (by[k] || 0) + 1;
       });
       var rows = Object.entries(by).sort(function(a,b){ return b[1] - a[1]; });
+      var LOGOS = {};
       function chip(pair){
         var el = document.createElement('div');
         el.className = 'mq-item';
         el.style.setProperty('--mq', COLOUR[pair[0]] || '#1F5C4E');
-        el.innerHTML = '<span class="mq-name">' +
-          pair[0].replace(' ETFs','').replace(' Asset Management','').replace(' Investments','') +
-          '</span><span class="mq-n">' + pair[1] + '</span>';
+        var mark = LOGOS[pair[0]]
+          ? '<span class="mq-logo">' + LOGOS[pair[0]] + '</span>'
+          : '<span class="mq-name">' +
+            pair[0].replace(' ETFs','').replace(' Asset Management','').replace(' Investments','') +
+            '</span>';
+        el.innerHTML = mark + '<span class="mq-n">' + pair[1] + '</span>';
         return el;
       }
       // two passes so the loop can wrap without a visible seam
