@@ -430,11 +430,12 @@
   };
   Promise.all([
     fetch('data/funds.json?cb=' + Math.random()).then(function(r){ return r.json(); }),
-    fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
+    fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+    fetch('data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
   ])
     .then(function(pair){
       var data = pair[0];
-      LOGOS = pair[1] || {};
+      LOGOS = Object.assign({}, pair[1] || {}, pair[2] || {});
       var by = {};
       Object.values(data).forEach(function(f){
         var k = f.issuer || 'Other';
