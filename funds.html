@@ -243,7 +243,35 @@ function init(){
   // arriving back from a fund page: drop straight into that region's list
   const wanted = (new RegExp('[?&]region=([^&]*)').exec(window.location.search) || [])[1];
   if (wanted === 'CAD' || wanted === 'US') setTimeout(() => selectRegion(wanted), 0);
-  document.getElementById('count-us').textContent = us + ' funds';
+
+
+  // Arriving from the provider carousel: open the right region, then jump to
+  // that issuer's group and mark it so the reason for the jump is obvious.
+  function issuerFromQuery(){
+    var m = (window.location.search || '').match(/[?&]issuer=([^&]+)/);
+    if (!m) return;
+    var want = decodeURIComponent(m[1].replace(/\+/g, ' '));
+    var entry = Object.entries(FUNDS).find(function(e){ return (e[1].issuer || '') === want; });
+    if (!entry) return;
+    var region = entry[1].region === 'US' ? 'US' : 'CAD';
+    setTimeout(function(){
+      selectRegion(region);
+      setTimeout(function(){
+        var groups = document.querySelectorAll('.issuer-group');
+        for (var i = 0; i < groups.length; i++){
+          var head = groups[i].querySelector('h2, h3, .issuer-name');
+          if (head && head.textContent.trim().indexOf(want) === 0){
+            groups[i].scrollIntoView({behavior:'smooth', block:'start'});
+            groups[i].style.transition = 'background .4s';
+            groups[i].style.background = 'rgba(200,155,60,0.13)';
+            setTimeout(function(g){ return function(){ g.style.background = 'transparent'; }; }(groups[i]), 2200);
+            break;
+          }
+        }
+      }, 420);
+    }, 60);
+  }
+  issuerFromQuery();  document.getElementById('count-us').textContent = us + ' funds';
 
   document.querySelectorAll('.flag-card').forEach(card => {
     card.addEventListener('click', () => selectRegion(card.dataset.region));
