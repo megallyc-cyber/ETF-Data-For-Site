@@ -116,8 +116,11 @@
   .marquee:hover .mq-track{animation-play-state:paused;}
   @keyframes marquee{from{transform:translateX(0);} to{transform:translateX(-50%);}}
   .mq-item{flex:none; display:flex; align-items:center; gap:9px; background:var(--white);
+    text-decoration:none; cursor:pointer;
+    transition:transform .18s, box-shadow .18s;
     border:1px solid var(--line); border-left:3px solid var(--mq); border-radius:8px;
     padding:11px 17px; white-space:nowrap;}
+  .mq-item:hover{transform:translateY(-3px); box-shadow:0 6px 16px rgba(21,32,25,0.12);}
   .mq-name{font-family:'Fraunces',serif; font-size:16.5px; color:var(--mq); line-height:1;}
   /* real marks where the issuer publishes one; a wordmark where they do not */
   .mq-logo{height:22px; width:auto; max-width:132px; display:block; color:var(--mq);}
@@ -430,8 +433,10 @@
       });
       var rows = Object.entries(by).sort(function(a,b){ return b[1] - a[1]; });
       function chip(pair){
-        var el = document.createElement('div');
+        var el = document.createElement('a');
         el.className = 'mq-item';
+        el.href = 'funds.html?issuer=' + encodeURIComponent(pair[0]);
+        el.title = 'See all ' + pair[1] + ' ' + pair[0] + ' funds';
         el.style.setProperty('--mq', COLOUR[pair[0]] || '#1F5C4E');
         var mark = LOGOS[pair[0]]
           ? '<span class="mq-logo">' + LOGOS[pair[0]] + '</span>'
