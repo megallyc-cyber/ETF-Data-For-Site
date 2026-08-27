@@ -429,7 +429,6 @@
         by[k] = (by[k] || 0) + 1;
       });
       var rows = Object.entries(by).sort(function(a,b){ return b[1] - a[1]; });
-      var LOGOS = {};
       function chip(pair){
         var el = document.createElement('div');
         el.className = 'mq-item';
