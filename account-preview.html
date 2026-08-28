@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account — Licentia</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--ink);
+    font-family:'Inter',ui-sans-serif,sans-serif; -webkit-font-smoothing:antialiased;}
+  nav{display:flex; align-items:center; justify-content:space-between;
+    padding:18px 34px; border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:var(--paper); z-index:20;}
+  .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    letter-spacing:-0.02em; font-size:17px; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  .brand-bird{display:inline-block; width:24px; height:15px; margin-left:8px; vertical-align:-1px;}
+  .navlinks{display:flex; gap:26px;}
+  .navlinks a{font-size:13.5px; color:var(--ink-soft); text-decoration:none;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a.active{color:var(--ember-deep);}
+  /* Two columns: the reason to sign up on the left, the form on the right.
+     The old page asked for a password with nothing offered in return. */
+  .split{display:grid; grid-template-columns:1.05fr 1fr; min-height:calc(100vh - 63px);}
+  @media(max-width:900px){ .split{grid-template-columns:1fr;} .pitch{display:none;} }
+  .pitch{background:var(--ink); color:var(--paper); padding:64px 56px;
+    display:flex; flex-direction:column; justify-content:center;}
+  .pitch-kicker{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--ember); margin-bottom:18px;}
+  .pitch h2{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(28px,3.4vw,42px);
+    line-height:1.12; letter-spacing:-0.02em; margin-bottom:16px;}
+  .pitch p{font-size:15.5px; line-height:1.7; color:rgba(242,239,233,0.72); max-width:44ch;}
+  .pitch-stats{display:flex; gap:38px; margin:38px 0 34px; flex-wrap:wrap;}
+  .ps .v{font-family:'Fraunces',serif; font-size:30px; line-height:1; color:var(--ember);}
+  .ps .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.12em;
+    text-transform:uppercase; color:rgba(242,239,233,0.5); margin-top:7px;}
+  .perks{list-style:none; display:flex; flex-direction:column; gap:13px;}
+  .perks li{display:flex; gap:12px; align-items:flex-start; font-size:14.5px;
+    color:rgba(242,239,233,0.8); line-height:1.5;}
+  .perks svg{flex:none; margin-top:3px;}
+  .formside{display:flex; align-items:center; justify-content:center; padding:56px 32px;}
+  .card{width:100%; max-width:392px;}
+  h1{font-family:'Fraunces',serif; font-weight:500; font-size:31px; letter-spacing:-0.02em; margin-bottom:7px;}
+  .sub{font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin-bottom:28px;}
+  .oauth{width:100%; display:flex; align-items:center; justify-content:center; gap:11px;
+    padding:13px 18px; border-radius:10px; border:1px solid var(--line-strong);
+    background:var(--white); color:var(--ink); font-family:inherit; font-size:14.5px;
+    font-weight:500; cursor:pointer; transition:border-color .16s, box-shadow .16s, transform .16s;}
+  .oauth:hover{border-color:var(--ink); box-shadow:0 4px 14px rgba(28,34,48,0.09); transform:translateY(-1px);}
+  .oauth:disabled{opacity:.55; cursor:not-allowed; transform:none; box-shadow:none;}
+  .oauth svg{flex:none;}
+  .or{display:flex; align-items:center; gap:14px; margin:22px 0;}
+  .or i{flex:1; height:1px; background:var(--line); display:block;}
+  .or span{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ink-faint);}
+  .tabs{display:flex; gap:6px; background:rgba(28,34,48,0.05); padding:4px;
+    border-radius:100px; margin-bottom:20px;}
+  .tab{flex:1; padding:9px 14px; border:none; border-radius:100px; background:none;
+    font-family:inherit; font-size:13.5px; color:var(--ink-soft); cursor:pointer; transition:all .16s;}
+  .tab.active{background:var(--white); color:var(--ink); font-weight:500;
+    box-shadow:0 1px 4px rgba(28,34,48,0.10);}
+  form div{margin-bottom:15px;}
+  label{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:7px;}
+  input{width:100%; padding:12px 14px; border-radius:9px; border:1px solid var(--line-strong);
+    background:var(--white); font-family:inherit; font-size:15px; color:var(--ink);
+    transition:border-color .16s, box-shadow .16s;}
+  input:focus{outline:none; border-color:var(--ember); box-shadow:0 0 0 3px rgba(255,107,53,0.15);}
+  .primary{width:100%; padding:14px; border:none; border-radius:9px; cursor:pointer;
+    background:var(--ink); color:var(--paper); font-family:inherit; font-size:15px;
+    font-weight:500; transition:transform .16s, box-shadow .16s;}
+  .primary:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(28,34,48,0.18);}
+  .primary:disabled{opacity:.6; cursor:wait; transform:none; box-shadow:none;}
+  .msg{margin-top:16px; padding:12px 14px; border-radius:9px; font-size:13.5px; line-height:1.5;}
+  .msg.bad{background:rgba(229,72,77,0.10); color:#A32C31; border:1px solid rgba(229,72,77,0.28);}
+  .msg.good{background:rgba(76,183,130,0.12); color:#2C7A55; border:1px solid rgba(76,183,130,0.30);}
+  .hint{margin-top:18px; font-size:12.5px; color:var(--ink-faint); line-height:1.6;}
+  .acct-card{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--white);}
+  .row{display:flex; justify-content:space-between; gap:16px; padding:14px 18px;
+    border-bottom:1px solid var(--line); font-size:14px;}
+  .row:last-child{border-bottom:none;}
+  .row span:first-child{color:var(--ink-faint);}
+  .mono{font-family:'IBM Plex Mono',monospace; font-size:13px;}
+  .ghost{padding:11px 20px; border-radius:9px; border:1px solid var(--line-strong);
+    background:none; font-family:inherit; font-size:14px; color:var(--ink); cursor:pointer;
+    display:inline-flex; align-items:center; transition:all .16s;}
+  .ghost:hover{border-color:var(--ink); background:var(--white);}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Licentia<img class="brand-bird" src="assets/bird.svg" alt="" width="24" height="15"></a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="funds.html">Covered Call Funds</a>
+    <a href="compare.html">Compare</a>
+    <a class="active" href="account.html">Account</a>
+  </div>
+</nav>
+
+<div class="split">
+  <section class="pitch">
+    <div class="pitch-kicker">Free while Licentia is in beta</div>
+    <h2>Keep track of what you're actually holding.</h2>
+    <p>An account saves the funds you're watching and the portfolios you build, so the
+       analysis follows you between devices.</p>
+    <div class="pitch-stats">
+      <div class="ps"><div class="v" id="sFunds">206</div><div class="k">funds tracked</div></div>
+      <div class="ps"><div class="v" id="sIssuers">17</div><div class="k">fund managers</div></div>
+      <div class="ps"><div class="v" id="sYield">12.1%</div><div class="k">median yield</div></div>
+    </div>
+    <ul class="perks">
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Save funds to a watchlist and come back to them</li>
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Build a portfolio and see its combined yield and overlap</li>
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        No ads, and your holdings are never sold or shared</li>
+    </ul>
+  </section>
+
+  <section class="formside">
+    <div class="card"><div id="stage"></div></div>
+  </section>
+</div>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+// Publishable key: designed to ship in the browser. Everything that actually
+// protects data is row-level security on the Supabase side, never this string.
+const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+const stage = document.getElementById('stage');
+let mode = 'signin';
+let googleReady = null;
+
+// Ask Supabase which providers are actually on, so the Google button can
+// explain itself instead of throwing a raw "provider is not enabled".
+async function checkProviders(){
+  try{
+    const r = await fetch(SUPABASE_URL + '/auth/v1/settings', {headers:{apikey: SUPABASE_KEY}});
+    const j = await r.json();
+    googleReady = !!(j.external && j.external.google);
+  } catch(e){ googleReady = false; }
+}
+
+function say(text, kind){
+  const el = document.getElementById('msg');
+  if (!el) return;
+  el.className = 'msg' + (kind ? ' ' + kind : '');
+  el.textContent = text;
+  el.style.display = 'block';
+}
+
+const G = '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">'
+  + '<path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/>'
+  + '<path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/>'
+  + '<path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"/>'
+  + '<path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/>'
+  + '</svg>';
+
+async function signInWithGoogle(btn){
+  btn.disabled = true;
+  const original = btn.innerHTML;
+  btn.innerHTML = 'Redirecting to Google…';
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin + window.location.pathname,
+      queryParams: { prompt: 'select_account' }
+    }
+  });
+  if (error){
+    btn.disabled = false;
+    btn.innerHTML = original;
+    say(/not enabled/i.test(error.message)
+      ? 'Google sign-in is not switched on for this project yet. Email sign-in works below.'
+      : error.message, 'bad');
+  }
+}
+
+function authView(){
+  stage.innerHTML =
+    '<h1>' + (mode === 'signup' ? 'Create your account' : 'Welcome back') + '</h1>'
+  + '<div class="sub">' + (mode === 'signup'
+      ? 'One account keeps your watchlist and portfolios in sync.'
+      : 'Sign in to pick up where you left off.') + '</div>'
+  + '<button class="oauth" id="google" type="button">' + G + '<span>Continue with Google</span></button>'
+  + '<div class="or"><i></i><span>or with email</span><i></i></div>'
+  + '<div class="tabs">'
+  + '<button class="tab ' + (mode === 'signin' ? 'active' : '') + '" data-mode="signin">Sign in</button>'
+  + '<button class="tab ' + (mode === 'signup' ? 'active' : '') + '" data-mode="signup">Create account</button>'
+  + '</div>'
+  + '<form id="authForm">'
+  + '<div><label for="email">Email</label>'
+  + '<input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>'
+  + '<div><label for="password">Password</label>'
+  + '<input id="password" type="password" required minlength="8" autocomplete="'
+  + (mode === 'signup' ? 'new-password' : 'current-password')
+  + '" placeholder="At least 8 characters"></div>'
+  + '<button class="primary" type="submit" id="go">'
+  + (mode === 'signup' ? 'Create account' : 'Sign in') + '</button>'
+  + '</form>'
+  + '<div class="msg" id="msg" style="display:none;"></div>'
+  + '<div class="hint">' + (mode === 'signup'
+      ? 'We will email you a confirmation link. You can delete your account at any time.'
+      : 'Signing in keeps your saved funds and portfolios on any device.') + '</div>';
+
+  const gbtn = document.getElementById('google');
+  gbtn.addEventListener('click', function(){ signInWithGoogle(gbtn); });
+  if (googleReady === false){
+    gbtn.disabled = true;
+    gbtn.title = 'Google sign-in has not been enabled on this project yet';
+  }
+  stage.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){ mode = b.dataset.mode; authView(); });
+  });
+  document.getElementById('authForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn = document.getElementById('go');
+    btn.disabled = true;
+    btn.textContent = mode === 'signup' ? 'Creating…' : 'Signing in…';
+    const res = mode === 'signup'
+      ? await sb.auth.signUp({ email: email, password: password })
+      : await sb.auth.signInWithPassword({ email: email, password: password });
+    btn.disabled = false;
+    btn.textContent = mode === 'signup' ? 'Create account' : 'Sign in';
+    if (res.error){ say(res.error.message, 'bad'); return; }
+    if (mode === 'signup' && res.data.user && !res.data.session){
+      say('Check ' + email + ' for a confirmation link, then sign in.', 'good');
+      return;
+    }
+    render();
+  });
+}
+
+function accountView(session){
+  const u = session.user;
+  const created = u.created_at ? new Date(u.created_at).toISOString().slice(0, 10) : '—';
+  const via = (u.app_metadata && u.app_metadata.provider) || 'email';
+  const name = (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || null;
+  stage.innerHTML =
+    '<h1>You are signed in</h1>'
+  + '<div class="sub">Saved funds and portfolios will appear here as those features land.</div>'
+  + '<div class="acct-card">'
+  + (name ? '<div class="row"><span>Name</span><span>' + name + '</span></div>' : '')
+  + '<div class="row"><span>Email</span><span class="mono">' + (u.email || '—') + '</span></div>'
+  + '<div class="row"><span>Signed in with</span><span class="mono">' + via + '</span></div>'
+  + '<div class="row"><span>Member since</span><span class="mono">' + created + '</span></div>'
+  + '<div class="row"><span>User ID</span><span class="mono">' + u.id.slice(0, 8) + '…</span></div>'
+  + '</div>'
+  + '<div style="margin-top:22px; display:flex; gap:10px; flex-wrap:wrap;">'
+  + '<button class="ghost" id="out">Sign out</button>'
+  + '<a class="ghost" href="funds.html" style="text-decoration:none;">Browse funds</a>'
+  + '<a class="ghost" href="compare.html" style="text-decoration:none;">Compare funds</a>'
+  + '</div><div class="msg" id="msg" style="display:none;"></div>';
+  document.getElementById('out').addEventListener('click', async function(){
+    await sb.auth.signOut();
+    render();
+  });
+}
+
+async function render(){
+  const r = await sb.auth.getSession();
+  if (r.data.session) accountView(r.data.session); else authView();
+}
+
+// the pitch numbers come from the same file the rest of the site reads
+fetch('data/funds.json?cb=' + Math.random())
+  .then(function(r){ return r.ok ? r.json() : null; })
+  .then(function(d){
+    if (!d) return;
+    const rows = Object.values(d);
+    const ys = rows.map(function(f){ return (f.stats||{}).yield_ttm; })
+                   .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
+    const iss = new Set(rows.map(function(f){ return f.issuer; }));
+    document.getElementById('sFunds').textContent = rows.length;
+    document.getElementById('sIssuers').textContent = iss.size;
+    if (ys.length) document.getElementById('sYield').textContent = ys[Math.floor(ys.length/2)].toFixed(1) + '%';
+  })
+  .catch(function(){});
+
+sb.auth.onAuthStateChange(function(){ render(); });
+checkProviders().then(render);
+</script>
+</body>
+</html>
