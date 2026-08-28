@@ -97,6 +97,15 @@
     text-transform:none; color:var(--fam); line-height:1;}
   .issuer-count{margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11.5px;
     color:var(--ink-faint); white-space:nowrap;}
+  .issuer-aside{display:flex; flex-direction:column; justify-content:center; gap:10px;
+    padding:18px 20px; border-radius:8px; border:1px dashed var(--line-strong);
+    border-left:3px solid var(--fam); background:rgba(0,0,0,0.012);}
+  .aside-line{display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint);}
+  .aside-line b{font-family:'Fraunces',serif; font-size:19px; color:var(--fam); font-weight:400;}
+  .aside-cta{margin-top:4px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    color:var(--fam); text-decoration:none;}
+  .aside-cta:hover{text-decoration:underline;}
   .fund-card{border-left:3px solid var(--fam) !important; border-radius:8px !important;
     transition:transform .16s, box-shadow .16s;}
   .fund-card:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(21,32,25,0.10);}
@@ -342,6 +351,7 @@ function renderResults(){
   const issuers = new Set(list.map(([t,f]) => f.issuer));
   document.getElementById('resultsSub').textContent = `${list.length} funds across ${issuers.size} issuers`;
   buildRail(list);
+  setTimeout(fitAsides, 0);
 
   const groupsEl = document.getElementById('fundGroups');
   groupsEl.innerHTML = '';
@@ -362,6 +372,42 @@ function renderResults(){
   }
 }
 
+
+function fmtPct(v){ return v === undefined ? '—' : v.toFixed(1) + '%'; }
+function buildAside(issuer, funds){
+  const el = document.createElement('div');
+  el.className = 'issuer-aside';
+  const ys = funds.map(function(f){ return (f[1].stats||{}).yield_ttm; })
+                  .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
+  const med = ys.length ? ys[Math.floor(ys.length/2)] : undefined;
+  const aum = funds.reduce(function(t,f){ return t + (((f[1].stats||{}).aum_musd)||0); }, 0);
+  const cad = funds.filter(function(f){ return f[1].region === 'CAD'; }).length;
+  el.innerHTML =
+    '<div class="aside-line"><span>median yield</span><b>' + fmtPct(med) + '</b></div>' +
+    '<div class="aside-line"><span>combined size</span><b>' + (aum ? fmtAum(aum) : '—') + '</b></div>' +
+    '<div class="aside-line"><span>market</span><span>' +
+      (cad === funds.length ? 'Canada' : (cad === 0 ? 'United States' : cad + ' CA / ' + (funds.length-cad) + ' US')) +
+    '</span></div>' +
+    '<a class="aside-cta" href="compare.html">Compare these funds &#8594;</a>';
+  return el;
+}
+
+// The grid is fixed-width columns, so work out how many are unused and let the
+// panel span them. Re-run on resize because the column count changes.
+function fitAsides(){
+  document.querySelectorAll('.issuer-group').forEach(function(g){
+    const grid = g.querySelector('.fund-grid');
+    const aside = g.querySelector('.issuer-aside');
+    if (!grid || !aside) return;
+    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+    const cards = grid.querySelectorAll('.fund-card').length;
+    const spare = cols - (cards % cols || cols);
+    if (spare <= 0){ aside.style.display = 'none'; }
+    else { aside.style.display = 'flex'; aside.style.gridColumn = 'span ' + spare; }
+  });
+}
+window.addEventListener('resize', fitAsides);
+
 function buildGroup(label, funds){
   const wrap = document.createElement('div');
   wrap.className = 'issuer-group';
@@ -379,6 +425,7 @@ function buildGroup(label, funds){
   const grid = document.createElement('div');
   grid.className = 'fund-grid';
   funds.forEach(([ticker, f]) => grid.appendChild(buildCard(ticker, f)));
+  if (label) grid.appendChild(buildAside(label, funds));
   wrap.appendChild(grid);
   return wrap;
 }
