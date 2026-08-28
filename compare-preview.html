@@ -180,6 +180,30 @@
   .vp-dot{width:9px; height:9px; border-radius:50%; background:currentColor;}
   .perf-note{font-size:13.5px; color:var(--ink-faint); margin-top:10px; line-height:1.55;}
   .empty{color:var(--ink-faint); font-style:italic; font-size:14px;}
+
+  .panel-h{font-family:'Fraunces',serif; font-size:21px; margin:0 0 4px;}
+  .sec-row{margin-bottom:20px;}
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:7px;}
+  .sec-tic{font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500;}
+  .sec-top{font-size:12px; color:var(--ink-faint);}
+  .sec-bar{display:flex; height:26px; border-radius:6px; overflow:hidden; background:var(--line);}
+  .sec-seg{transition:filter .15s;}
+  .sec-seg:hover{filter:brightness(1.15);}
+  .sec-legend{display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:14px; padding-top:14px;
+    border-top:1px solid var(--line);}
+  .sec-key{display:inline-flex; align-items:center; gap:7px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-soft);}
+  .sec-dot{width:11px; height:11px; border-radius:3px; flex:none;}
+  .radar-wrap{display:flex; gap:24px; align-items:center; flex-wrap:wrap;}
+  #radar{width:min(460px,100%); height:auto;}
+  .radar-key{display:flex; flex-direction:column; gap:9px;}
+  .rk{display:flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:12px;}
+  .rk i{width:14px; height:3px; border-radius:2px; display:block;}
+  .scatter-wrap{width:100%;}
+  #scatter{width:100%; height:auto;}
+  .ax{stroke:var(--line-strong); stroke-width:1;}
+  .axlab{font-family:'IBM Plex Mono',monospace; font-size:10px; fill:var(--ink-faint);}
+  .gridline{stroke:var(--line); stroke-width:1; stroke-dasharray:3 4;}
   .foot{padding:40px 0 80px; text-align:center; font-size:13.5px; color:var(--ink-faint);}
   @media (max-width:760px){ .wrap{padding:0 20px;} nav{padding:16px 20px;} .panel{padding:20px;} }
 </style>
@@ -247,6 +271,27 @@
       <div class="sub">Trailing twelve months. Yield is what it paid; total return is what you actually kept.</div>
       <div id="perf"></div>
     </div>
+
+  <div class="panel">
+    <h3 class="panel-h">What they actually hold</h3>
+    <div class="sub">Sector mix after looking through any fund that holds other funds.
+      Options and cash are shown separately &mdash; for a covered call fund they are the strategy, not a gap.</div>
+    <div id="sectors"></div>
+  </div>
+
+  <div class="panel">
+    <h3 class="panel-h">Shape of each fund</h3>
+    <div class="sub">Five measures, each ranked against all 206 tracked funds.
+      A wider shape is not better &mdash; it is a different set of trade-offs.</div>
+    <div class="radar-wrap"><svg id="radar" viewBox="0 0 460 400"></svg>
+      <div id="radarKey" class="radar-key"></div></div>
+  </div>
+
+  <div class="panel">
+    <h3 class="panel-h">Where they sit in the market</h3>
+    <div class="sub">Every tracked fund plotted by yield against total return. Your picks are highlighted.</div>
+    <div class="scatter-wrap"><svg id="scatter" viewBox="0 0 700 400"></svg></div>
+  </div>
   </div>
 
   <div class="hint" id="hint"></div>
@@ -269,6 +314,8 @@ fetch('data/funds.json?cb=' + Math.random())
     });
     buildFamilies();
     renderSlots();
+    // sector and AUM data arrive alongside the funds; redraw once they land
+    loadExtras().then(function(){ if (PICKED.length > 1) renderOut(); });
   });
 
 // --- look-through: a fund holding funds must be expanded before comparing ---
@@ -442,6 +489,143 @@ function syncCta(){
   cta.classList.toggle('on', !resultsVisible);
 }
 
+
+// --- sector, radar and scatter ------------------------------------------
+// All three read the same records the rest of the page uses, so the pictures
+// cannot drift from the numbers printed above them.
+let SECTORS = {}, AUM_PATCH = {};
+const SECTOR_ORDER = ['Technology','Financials','Health Care','Consumer Discretionary',
+  'Consumer Staples','Energy','Industrials','Materials','Real Estate','Utilities',
+  'Communication Services','Fund / ETF','Options','Cash','Unclassified'];
+const SECTOR_COLOUR = {'Technology':'#3B6FD4','Financials':'#1F7A5C','Health Care':'#C2417F',
+  'Consumer Discretionary':'#E2571E','Consumer Staples':'#8A6D3B','Energy':'#B3142F',
+  'Industrials':'#5B6472','Materials':'#7A5CA8','Real Estate':'#0E7C7B','Utilities':'#2F7FA8',
+  'Communication Services':'#D18B1F','Fund / ETF':'#9AA3AE','Options':'#6E4B9E',
+  'Cash':'#B8BCC2','Unclassified':'#D6D3CC'};
+
+function loadExtras(){
+  return Promise.all([
+    fetch('data/sectors.json?cb='+Math.random()).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+    fetch('data/aum_patch.json?cb='+Math.random()).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};})
+  ]).then(function(p){
+    SECTORS = (p[0] && p[0].map) ? p[0].map : {};
+    AUM_PATCH = p[1] || {};
+    Object.keys(AUM_PATCH).forEach(function(t){
+      if (FUNDS[t]){
+        FUNDS[t].stats = FUNDS[t].stats || {};
+        if (FUNDS[t].stats.aum_musd == null){
+          FUNDS[t].stats.aum_musd = AUM_PATCH[t].aum_musd;
+          FUNDS[t].stats.aum_display = AUM_PATCH[t].aum_display;
+        }
+      }
+    });
+  });
+}
+function sectorMix(t){
+  const flat = lookThrough(t, 0, new Set());
+  const mix = {}; let total = 0;
+  Object.keys(flat).forEach(function(h){
+    const s = SECTORS[h] || 'Unclassified';
+    mix[s] = (mix[s]||0) + flat[h]; total += flat[h];
+  });
+  if (!total) return null;
+  Object.keys(mix).forEach(function(k){ mix[k] = mix[k]/total*100; });
+  return mix;
+}
+function renderSectors(){
+  const box = document.getElementById('sectors'); if (!box) return;
+  const used = {}; let html = '';
+  PICKED.forEach(function(t){
+    const mix = sectorMix(t);
+    if (!mix){ html += '<div class="sec-row"><div class="sec-head"><span class="sec-tic">'+t+'</span><span class="sec-top">holdings not published</span></div></div>'; return; }
+    const parts = SECTOR_ORDER.filter(function(s){return mix[s]>0;}).map(function(s){return [s,mix[s]];});
+    const top = parts.slice().sort(function(a,b){return b[1]-a[1];})[0];
+    let bar = '';
+    parts.forEach(function(p){ used[p[0]] = true;
+      bar += '<div class="sec-seg" style="width:'+p[1].toFixed(2)+'%;background:'+SECTOR_COLOUR[p[0]]+'" title="'+p[0]+' '+p[1].toFixed(1)+'%"></div>'; });
+    html += '<div class="sec-row"><div class="sec-head"><span class="sec-tic">'+t+'</span><span class="sec-top">mostly <b>'+top[0]+'</b> at '+top[1].toFixed(0)+'%</span></div><div class="sec-bar">'+bar+'</div></div>';
+  });
+  box.innerHTML = html + '<div class="sec-legend">' + SECTOR_ORDER.filter(function(s){return used[s];})
+    .map(function(s){ return '<span class="sec-key"><i class="sec-dot" style="background:'+SECTOR_COLOUR[s]+'"></i>'+s+'</span>'; }).join('') + '</div>';
+}
+function top5(t){
+  const h = Object.values((FUNDS[t]||{}).holdings||{});
+  if (!h.length) return null;
+  return h.sort(function(a,b){return b-a;}).slice(0,5).reduce(function(a,b){return a+b;},0);
+}
+function pct(sorted,v){
+  if (v===null||v===undefined||!sorted.length) return 0;
+  let n=0; for (let i=0;i<sorted.length;i++) if (sorted[i]<=v) n++;
+  return n/sorted.length;
+}
+function scales(){
+  const all = Object.entries(FUNDS);
+  function vals(fn){ return all.map(fn).filter(function(v){return v!==null&&v!==undefined&&isFinite(v);}).sort(function(a,b){return a-b;}); }
+  return {y:vals(function(e){return (e[1].stats||{}).yield_ttm;}),
+          r:vals(function(e){return (e[1].stats||{}).total_return_1y;}),
+          s:vals(function(e){return (e[1].stats||{}).aum_musd;}),
+          c:vals(function(e){return Object.keys(e[1].holdings||{}).length||null;}),
+          k:vals(function(e){return top5(e[0]);})};
+}
+function renderRadar(){
+  const svg = document.getElementById('radar'); if (!svg) return;
+  const S = scales();
+  const axes = [['Yield',function(t){return pct(S.y,(FUNDS[t].stats||{}).yield_ttm);}],
+                ['Total return',function(t){return pct(S.r,(FUNDS[t].stats||{}).total_return_1y);}],
+                ['Fund size',function(t){return pct(S.s,(FUNDS[t].stats||{}).aum_musd);}],
+                ['Holdings',function(t){return pct(S.c,Object.keys(FUNDS[t].holdings||{}).length||null);}],
+                ['Concentration',function(t){return pct(S.k,top5(t));}]];
+  const cx=200, cy=195, R=130, N=axes.length;
+  function pt(i,r){ const a=-Math.PI/2+i*2*Math.PI/N; return [cx+Math.cos(a)*R*r, cy+Math.sin(a)*R*r]; }
+  let g='';
+  [0.25,0.5,0.75,1].forEach(function(r){
+    g += '<polygon points="'+axes.map(function(_,i){return pt(i,r).map(function(v){return v.toFixed(1);}).join(',');}).join(' ')+'" fill="none" class="gridline"/>'; });
+  axes.forEach(function(a,i){
+    const p=pt(i,1), lp=pt(i,1.18);
+    g += '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" class="gridline"/>';
+    let an='middle'; if(lp[0]>cx+6) an='start'; if(lp[0]<cx-6) an='end';
+    g += '<text x="'+lp[0].toFixed(1)+'" y="'+(lp[1]+4).toFixed(1)+'" text-anchor="'+an+'" class="axlab">'+a[0]+'</text>'; });
+  const cols=['#FF6B35','#2F7FA8','#1F7A5C']; let key='';
+  PICKED.forEach(function(t,idx){
+    const c=cols[idx%cols.length];
+    g += '<polygon points="'+axes.map(function(a,i){return pt(i,Math.max(0.04,a[1](t))).map(function(v){return v.toFixed(1);}).join(',');}).join(' ')+'" fill="'+c+'" fill-opacity="0.16" stroke="'+c+'" stroke-width="2.2"/>';
+    key += '<div class="rk"><i style="background:'+c+'"></i>'+t+'</div>'; });
+  svg.innerHTML = g;
+  const k=document.getElementById('radarKey'); if(k) k.innerHTML=key;
+}
+function renderScatter(){
+  const svg = document.getElementById('scatter'); if (!svg) return;
+  const pts = Object.entries(FUNDS).map(function(e){ const st=e[1].stats||{};
+    return {t:e[0], y:st.yield_ttm, r:st.total_return_1y}; })
+    .filter(function(p){ return p.y!==undefined && p.r!==undefined && p.r!==null; });
+  if (!pts.length) return;
+  const W=700,H=400,L=54,B=44,T=18,Rp=18;
+  const yMax=Math.min(Math.max.apply(null,pts.map(function(p){return p.y;})),120);
+  const rs=pts.map(function(p){return p.r;});
+  const rMin=Math.max(Math.min.apply(null,rs),-60), rMax=Math.min(Math.max.apply(null,rs),120);
+  function X(v){ return L+Math.min(v,yMax)/yMax*(W-L-Rp); }
+  function Y(v){ return H-B-(Math.max(Math.min(v,rMax),rMin)-rMin)/(rMax-rMin)*(H-B-T); }
+  let g='';
+  for (let i=0;i<=4;i++){
+    const yv=yMax*i/4, xv=rMin+(rMax-rMin)*i/4;
+    g+='<line x1="'+X(yv).toFixed(1)+'" y1="'+T+'" x2="'+X(yv).toFixed(1)+'" y2="'+(H-B)+'" class="gridline"/>';
+    g+='<line x1="'+L+'" y1="'+Y(xv).toFixed(1)+'" x2="'+(W-Rp)+'" y2="'+Y(xv).toFixed(1)+'" class="gridline"/>';
+    g+='<text x="'+X(yv).toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle" class="axlab">'+yv.toFixed(0)+'%</text>';
+    g+='<text x="'+(L-8)+'" y="'+(Y(xv)+4).toFixed(1)+'" text-anchor="end" class="axlab">'+xv.toFixed(0)+'%</text>'; }
+  if (rMin<0 && rMax>0) g+='<line x1="'+L+'" y1="'+Y(0).toFixed(1)+'" x2="'+(W-Rp)+'" y2="'+Y(0).toFixed(1)+'" class="ax"/>';
+  g+='<text x="'+(W/2)+'" y="'+(H-6)+'" text-anchor="middle" class="axlab">YIELD (TTM)</text>';
+  g+='<text transform="translate(14,'+(H/2)+') rotate(-90)" text-anchor="middle" class="axlab">TOTAL RETURN (1Y)</text>';
+  pts.forEach(function(p){ if (PICKED.indexOf(p.t)!==-1) return;
+    g+='<circle cx="'+X(p.y).toFixed(1)+'" cy="'+Y(p.r).toFixed(1)+'" r="3" fill="#8A9099" fill-opacity="0.33"/>'; });
+  const cols=['#FF6B35','#2F7FA8','#1F7A5C'];
+  PICKED.forEach(function(t,i){
+    const p=pts.find(function(x){return x.t===t;}); if(!p) return;
+    const c=cols[i%cols.length];
+    g+='<circle cx="'+X(p.y).toFixed(1)+'" cy="'+Y(p.r).toFixed(1)+'" r="7" fill="'+c+'" stroke="#fff" stroke-width="2"/>';
+    g+='<text x="'+(X(p.y)+11).toFixed(1)+'" y="'+(Y(p.r)+4).toFixed(1)+'" class="axlab" style="font-size:12px;fill:'+c+'">'+t+'</text>'; });
+  svg.innerHTML = g;
+}
+
 function renderOut(){
   const out = document.getElementById('out');
   if (PICKED.length < 2){ out.classList.remove('on'); return; }
@@ -491,6 +675,9 @@ function renderOut(){
   });
 
   renderPerf();
+  renderSectors();
+  renderRadar();
+  renderScatter();
 }
 
 function countTo(el, target){
