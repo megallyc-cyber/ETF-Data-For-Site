@@ -93,11 +93,25 @@
 
   .market-cards{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   @media(max-width:720px){.market-cards{grid-template-columns:1fr;}}
+  /* National colours, so the choice reads instantly: Canadian red on the
+     left, American navy with a red seam on the right. */
+  .pick-line{display:flex; align-items:center; gap:16px; margin:6px 0 18px;}
+  .pick-rule{flex:1; height:1px; background:var(--line);}
+  .pick-word{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--ink-faint);}
   .market{position:relative; overflow:hidden; text-align:left; cursor:pointer;
-    background:var(--white); border:1px solid var(--line); border-top:3px solid var(--mk);
-    border-radius:12px; padding:24px 26px 22px; font-family:inherit;
-    transition:transform .18s, box-shadow .18s, border-color .18s;}
-  .market:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(21,32,25,0.12);}
+    border:1px solid rgba(var(--mkrgb),0.34); border-radius:12px;
+    padding:26px 26px 22px; font-family:inherit;
+    background:linear-gradient(158deg, rgba(var(--mkrgb),0.18) 0%, rgba(var(--mkrgb),0.06) 45%,
+      rgba(255,255,255,0.9) 100%);
+    transition:transform .18s, box-shadow .18s, border-color .18s, background .2s;}
+  .market:hover{transform:translateY(-4px); border-color:rgba(var(--mkrgb),0.6);
+    box-shadow:0 16px 34px rgba(var(--mkrgb),0.20);
+    background:linear-gradient(158deg, rgba(var(--mkrgb),0.30) 0%, rgba(var(--mkrgb),0.10) 48%,
+      rgba(255,255,255,0.92) 100%);}
+  /* a flag-coloured band across the top, drawn rather than pictured */
+  .market::before{content:''; position:absolute; top:0; left:0; right:0; height:5px;
+    background:var(--band);}
   .market-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
   .market-name{font-family:'Fraunces',serif; font-size:23px; color:var(--ink);}
   .market-n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--mk);}
@@ -124,9 +138,11 @@
   .issuer-rail{display:flex; gap:8px; overflow-x:auto; padding:14px 0 16px;
     margin-bottom:8px; border-bottom:1px solid var(--line);}
   .rail-chip{flex:none; display:inline-flex; align-items:center; gap:7px; font-size:12.5px;
-    padding:7px 13px; border-radius:7px; cursor:pointer; background:var(--white);
-    color:var(--ink-soft); border:1px solid var(--line); border-left:3px solid var(--fam);
-    transition:transform .15s, box-shadow .15s;}
+    padding:7px 14px; border-radius:8px; cursor:pointer; color:var(--fam);
+    background:linear-gradient(150deg, rgba(var(--famrgb),0.16) 0%, rgba(var(--famrgb),0.05) 100%);
+    border:1px solid rgba(var(--famrgb),0.30);
+    transition:transform .15s, box-shadow .15s, background .15s;}
+  .rail-chip:hover{background:linear-gradient(150deg, rgba(var(--famrgb),0.26) 0%, rgba(var(--famrgb),0.10) 100%);}
   .rail-chip:hover{transform:translateY(-2px); box-shadow:0 4px 12px rgba(21,32,25,0.09);}
   .rail-chip b{font-weight:400; opacity:.55; font-family:'IBM Plex Mono',monospace; font-size:11px;}
   .issuer-group{margin-bottom:46px;}
@@ -145,23 +161,31 @@
   .issuer-count{margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11.5px;
     color:var(--ink-faint); white-space:nowrap;}
   .issuer-aside{display:flex; flex-direction:column; justify-content:center; gap:10px;
-    padding:18px 20px; border-radius:8px; border:1px dashed var(--line-strong);
-    border-left:3px solid var(--fam); background:rgba(0,0,0,0.012);}
+    padding:18px 22px; border-radius:10px; border:1px solid rgba(var(--famrgb),0.22);
+    background:linear-gradient(200deg, rgba(var(--famrgb),0.13) 0%, rgba(var(--famrgb),0.03) 60%,
+      rgba(255,255,255,0.6) 100%);}
   .aside-line{display:flex; justify-content:space-between; align-items:baseline; gap:14px;
     font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint);}
   .aside-line b{font-family:'Fraunces',serif; font-size:19px; color:var(--fam); font-weight:400;}
   .aside-cta{margin-top:4px; font-family:'IBM Plex Mono',monospace; font-size:11px;
     color:var(--fam); text-decoration:none;}
   .aside-cta:hover{text-decoration:underline;}
-  .fund-card{border-left:3px solid var(--fam) !important; border-radius:8px !important;
-    transition:transform .16s, box-shadow .16s;}
+  /* the manager's colour washes through the card rather than sitting in a
+     stripe down one edge */
+  .fund-card{border:1px solid rgba(var(--famrgb),0.26) !important; border-radius:10px !important;
+    background:linear-gradient(158deg, rgba(var(--famrgb),0.14) 0%, rgba(var(--famrgb),0.035) 48%,
+      rgba(255,255,255,0.72) 100%) !important;
+    transition:transform .16s, box-shadow .16s, background .18s, border-color .16s;}
+  .fund-card:hover{border-color:rgba(var(--famrgb),0.5) !important;
+    background:linear-gradient(158deg, rgba(var(--famrgb),0.24) 0%, rgba(var(--famrgb),0.08) 52%,
+      rgba(255,255,255,0.8) 100%) !important;}
   .fund-card:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(21,32,25,0.10);}
   .card-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
   .fund-yield{font-family:'Fraunces',serif; font-size:25px; line-height:1; color:var(--fam);}
   .fund-yield small{font-size:13px; opacity:.7;}
   .fund-yield.na{font-size:12px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
-  .fund-foot{display:flex; justify-content:space-between; align-items:center; gap:10px;
-    margin-top:12px; padding-top:9px; border-top:1px solid var(--line);
+  .fund-foot{border-top:1px solid rgba(var(--famrgb),0.18); display:flex; justify-content:space-between; align-items:center; gap:10px;
+    margin-top:12px; padding-top:9px;
     font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
   .fund-foot .missing{opacity:.55; font-style:italic;}
   .fund-open{color:var(--fam); opacity:.9;}
@@ -228,6 +252,7 @@
     <p class="landing-lede">Yields, holdings, distributions and size for every fund we track &mdash;
       taken from the issuers themselves and refreshed daily.</p>
     <div class="stat-strip" id="statStrip"></div>
+    <div class="pick-line"><span class="pick-rule"></span><span class="pick-word">Pick one</span><span class="pick-rule"></span></div>
     <div class="market-cards" id="marketCards"></div>
     <button class="browse-all" id="browseAll">Or browse every fund together &darr;</button>
   </div>
@@ -371,6 +396,17 @@ const FAM_COLOUR = {
   'Defiance':'#B3142F','REX Shares':'#0E6E70','ProShares':'#00539B',
   'Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'
 };
+
+function hexToRgb(h){
+  const n = parseInt(h.slice(1), 16);
+  return ((n>>16)&255) + ',' + ((n>>8)&255) + ',' + (n&255);
+}
+function paintFam(el, issuer){
+  const c = famColour(issuer);
+  el.style.setProperty('--fam', c);
+  el.style.setProperty('--famrgb', hexToRgb(c));
+}
+
 function famColour(i){ return FAM_COLOUR[i] || '#1F5C4E'; }
 function shortIssuer(i){
   // one brand, two arms — spell out which is which
@@ -399,7 +435,7 @@ function buildRail(list){
   Object.entries(counts).sort(function(a,b){ return b[1]-a[1]; }).forEach(function(pair){
     const c = document.createElement('button');
     c.className = 'rail-chip';
-    c.style.setProperty('--fam', famColour(pair[0]));
+    paintFam(c, pair[0]);
     c.innerHTML = shortIssuer(pair[0]) + '<b>' + pair[1] + '</b>';
     c.onclick = function(){
       const el = document.getElementById('issuer-' + pair[0].replace(/[^a-z0-9]+/gi,'-').toLowerCase());
@@ -446,11 +482,15 @@ function buildLanding(){
   const wrap = document.getElementById('marketCards');
   if (!wrap) return;
   wrap.innerHTML = '';
-  [['CAD','Canada','#C8102E'], ['US','United States','#1B3A6B']].forEach(function(m){
+  [['CAD','Canada','#C8102E','linear-gradient(90deg,#C8102E 0 22%,#FFFFFF 22% 78%,#C8102E 78% 100%)'],
+   ['US','United States','#1B3A6B','linear-gradient(90deg,#B31942 0 33%,#FFFFFF 33% 66%,#1B3A6B 66% 100%)']
+  ].forEach(function(m){
     const st = marketStats(function(f){ return f.region === m[0]; });
     const el = document.createElement('button');
     el.className = 'market';
     el.style.setProperty('--mk', m[2]);
+    el.style.setProperty('--mkrgb', hexToRgb(m[2]));
+    el.style.setProperty('--band', m[3]);
     const logos = st.topIssuers.map(function(i){
       return LOGOS[i] ? '<span title="' + i + '">' + LOGOS[i] + '</span>' : '';
     }).join('');
@@ -509,6 +549,7 @@ function fmtPct(v){ return v === undefined ? '—' : v.toFixed(1) + '%'; }
 function buildAside(issuer, funds){
   const el = document.createElement('div');
   el.className = 'issuer-aside';
+  paintFam(el, issuer);
   const ys = funds.map(function(f){ return (f[1].stats||{}).yield_ttm; })
                   .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
   const med = ys.length ? ys[Math.floor(ys.length/2)] : undefined;
@@ -582,7 +623,7 @@ function setTrackedCount(n){
 function buildCard(ticker, f){
   const card = document.createElement('a');
   card.className = 'fund-card';
-  card.style.setProperty('--fam', famColour(f.issuer));
+  paintFam(card, f.issuer);
   card.href = 'fund.html?t=' + encodeURIComponent(ticker);
   const holdingsArr = Object.entries(f.holdings).sort((a,b) => b[1]-a[1]);
   const st = f.stats || {};
