@@ -71,6 +71,50 @@
      Each manager owns a colour and its own mark, so the page reads as a set
      of distinct houses rather than one grid. Colour stays on structure —
      rules, edges, logos — and never floods the card bodies. */
+  /* ---- landing --------------------------------------------------------
+     Leads with what the directory actually holds rather than asking a bare
+     question, so the numbers do the work of persuading anyone to scroll. */
+  .landing{min-height:calc(100vh - 70px); display:flex; align-items:center;
+    padding:60px 0 80px;}
+  .landing-inner{width:100%; max-width:1000px; margin:0 auto; padding:0 28px;}
+  .landing-kicker{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--gold-deep); margin-bottom:20px;}
+  .landing-title{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(32px,4.6vw,56px);
+    line-height:1.08; letter-spacing:-0.02em; margin:0 0 18px;}
+  .landing-lede{font-size:16.5px; line-height:1.65; color:var(--ink-soft); max-width:56ch; margin:0 0 40px;}
+
+  .stat-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; margin-bottom:34px;}
+  .stat{background:var(--paper); padding:18px 20px;}
+  .stat .v{font-family:'Fraunces',serif; font-size:30px; line-height:1; color:var(--teal-deep);}
+  .stat .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:8px;}
+
+  .market-cards{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:720px){.market-cards{grid-template-columns:1fr;}}
+  .market{position:relative; overflow:hidden; text-align:left; cursor:pointer;
+    background:var(--white); border:1px solid var(--line); border-top:3px solid var(--mk);
+    border-radius:12px; padding:24px 26px 22px; font-family:inherit;
+    transition:transform .18s, box-shadow .18s, border-color .18s;}
+  .market:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(21,32,25,0.12);}
+  .market-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+  .market-name{font-family:'Fraunces',serif; font-size:23px; color:var(--ink);}
+  .market-n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--mk);}
+  .market-figs{display:flex; gap:26px; margin-top:16px; flex-wrap:wrap;}
+  .market-fig .fv{font-family:'Fraunces',serif; font-size:21px; color:var(--ink);}
+  .market-fig .fk{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:5px;}
+  .market-logos{display:flex; align-items:center; gap:14px; margin-top:20px;
+    padding-top:16px; border-top:1px solid var(--line); flex-wrap:wrap; min-height:20px;}
+  .market-logos span{height:18px; display:flex; align-items:center; opacity:.65;}
+  .market-logos svg, .market-logos img{height:18px; width:auto; max-width:74px; object-fit:contain;}
+  .market-go{margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--mk);}
+
+  .browse-all{display:block; margin:26px auto 0; background:none; border:none; cursor:pointer;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em;
+    color:var(--ink-faint); transition:color .16s;}
+  .browse-all:hover{color:var(--ink);}
   .region-row{display:flex; gap:8px; flex-wrap:wrap;}
   .region-btn{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.06em;
     padding:8px 15px; border-radius:100px; cursor:pointer; background:none;
@@ -177,12 +221,24 @@
   </div>
 </nav>
 
+<section class="landing" id="landing">
+  <div class="landing-inner">
+    <div class="landing-kicker">The fund directory</div>
+    <h1 class="landing-title">Every covered call and<br>income fund, in one place.</h1>
+    <p class="landing-lede">Yields, holdings, distributions and size for every fund we track &mdash;
+      taken from the issuers themselves and refreshed daily.</p>
+    <div class="stat-strip" id="statStrip"></div>
+    <div class="market-cards" id="marketCards"></div>
+    <button class="browse-all" id="browseAll">Or browse every fund together &darr;</button>
+  </div>
+</section>
+
 <!-- STAGE 2: results -->
 <div id="results-stage">
   <div class="results-head">
     <div class="results-head-left">
       <div>
-        <h1 class="results-title" id="resultsTitle">Covered call &amp; income funds</h1>
+        <h2 class="results-title" id="resultsTitle">Covered call &amp; income funds</h2>
         <div class="results-sub" id="resultsSub">— funds across — issuers</div>
       </div>
     </div>
@@ -236,7 +292,7 @@ function init(){
   const cad = Object.values(FUNDS).filter(f => f.region === 'CAD').length;
   const us = Object.values(FUNDS).filter(f => f.region === 'US').length;
     setTrackedCount(Object.keys(FUNDS).length);
-    loadLogos().then(function(){ selectRegion('ALL'); });
+    loadLogos().then(function(){ buildLanding(); selectRegion('ALL'); });
   // arriving back from a fund page: drop straight into that region's list
   const wanted = (new RegExp('[?&]region=([^&]*)').exec(window.location.search) || [])[1];
   if (wanted === 'CAD' || wanted === 'US') setTimeout(() => selectRegion(wanted), 0);
@@ -274,7 +330,9 @@ function init(){
     }, 60);
   }
 
-  document.querySelectorAll('.region-btn').forEach(function(b){
+  const ba = document.getElementById('browseAll');
+if (ba) ba.addEventListener('click', function(){ selectRegion('ALL'); jumpToList(); });
+document.querySelectorAll('.region-btn').forEach(function(b){
     b.addEventListener('click', function(){ selectRegion(b.dataset.region); });
   });
 
@@ -352,6 +410,72 @@ function buildRail(list){
     };
     rail.appendChild(c);
   });
+}
+
+
+// ---- landing ---------------------------------------------------------
+// Everything here is computed from the same data the list uses, so the
+// headline numbers can never drift from what is shown below.
+function marketStats(pred){
+  const list = Object.entries(FUNDS).filter(function(e){ return pred(e[1]); });
+  const ys = list.map(function(e){ return (e[1].stats||{}).yield_ttm; })
+                 .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
+  const aum = list.reduce(function(t,e){ return t + (((e[1].stats||{}).aum_musd)||0); }, 0);
+  const counts = {};
+  list.forEach(function(e){ counts[e[1].issuer] = (counts[e[1].issuer]||0) + 1; });
+  return {
+    funds: list.length,
+    issuers: Object.keys(counts).length,
+    medYield: ys.length ? ys[Math.floor(ys.length/2)] : null,
+    aum: aum,
+    topIssuers: Object.entries(counts).sort(function(a,b){ return b[1]-a[1]; })
+                 .slice(0,5).map(function(p){ return p[0]; })
+  };
+}
+
+function buildLanding(){
+  const all = marketStats(function(){ return true; });
+  const strip = document.getElementById('statStrip');
+  if (strip){
+    strip.innerHTML =
+      stat(all.funds, 'funds tracked') +
+      stat(all.issuers, 'fund managers') +
+      stat(all.aum ? fmtAum(all.aum) : '\u2014', 'combined size') +
+      stat(all.medYield !== null ? all.medYield.toFixed(1) + '%' : '\u2014', 'median yield');
+  }
+  const wrap = document.getElementById('marketCards');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  [['CAD','Canada','#C8102E'], ['US','United States','#1B3A6B']].forEach(function(m){
+    const st = marketStats(function(f){ return f.region === m[0]; });
+    const el = document.createElement('button');
+    el.className = 'market';
+    el.style.setProperty('--mk', m[2]);
+    const logos = st.topIssuers.map(function(i){
+      return LOGOS[i] ? '<span title="' + i + '">' + LOGOS[i] + '</span>' : '';
+    }).join('');
+    el.innerHTML =
+      '<div class="market-head"><span class="market-name">' + m[1] + '</span>' +
+        '<span class="market-n">' + st.funds + ' funds</span></div>' +
+      '<div class="market-figs">' +
+        fig(st.medYield !== null ? st.medYield.toFixed(1) + '%' : '\u2014', 'median yield') +
+        fig(st.issuers, 'managers') +
+        fig(st.aum ? fmtAum(st.aum) : '\u2014', 'combined size') +
+      '</div>' +
+      '<div class="market-logos">' + logos + '</div>' +
+      '<div class="market-go">See ' + m[1] + ' funds &#8594;</div>';
+    el.onclick = function(){ selectRegion(m[0]); jumpToList(); };
+    wrap.appendChild(el);
+  });
+}
+function stat(v,k){ return '<div class="stat"><div class="v">' + v + '</div><div class="k">' + k + '</div></div>'; }
+function fig(v,k){ return '<div class="market-fig"><div class="fv">' + v + '</div><div class="fk">' + k + '</div></div>'; }
+function jumpToList(){
+  const el = document.getElementById('results-stage');
+  if (!el) return;
+  const nav = document.querySelector('nav');
+  const navH = nav ? nav.getBoundingClientRect().height : 0;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.pageYOffset - navH - 18, behavior:'smooth'});
 }
 
 function renderResults(){
