@@ -95,6 +95,9 @@
     object-fit:contain; display:block;}
   .issuer-name{font-family:'Fraunces',serif; font-size:20px; letter-spacing:0;
     text-transform:none; color:var(--fam); line-height:1;}
+  .issuer-market{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--fam); opacity:.85; border:1px solid currentColor;
+    border-radius:100px; padding:3px 9px; white-space:nowrap;}
   .issuer-count{margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11.5px;
     color:var(--ink-faint); white-space:nowrap;}
   .issuer-aside{display:flex; flex-direction:column; justify-content:center; gap:10px;
@@ -311,7 +314,12 @@ const FAM_COLOUR = {
   'Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'
 };
 function famColour(i){ return FAM_COLOUR[i] || '#1F5C4E'; }
-function shortIssuer(i){ return i.replace(' ETFs','').replace(' Asset Management','').replace(' Investments',''); }
+function shortIssuer(i){
+  // one brand, two arms — spell out which is which
+  if (i === 'Global X') return 'Global X US';
+  if (i === 'Global X Canada') return 'Global X Canada';
+  return i.replace(' ETFs','').replace(' Asset Management','').replace(' Investments','');
+}
 let LOGOS = {};
 function loadLogos(){
   return Promise.all([
@@ -416,9 +424,14 @@ function buildGroup(label, funds){
     wrap.id = 'issuer-' + label.replace(/[^a-z0-9]+/gi,'-').toLowerCase();
     const head = document.createElement('div');
     head.className = 'issuer-head';
+    const cadN = funds.filter(function(f){ return f[1].region === 'CAD'; }).length;
+    const market = cadN === funds.length ? 'Canada'
+                 : cadN === 0 ? 'United States'
+                 : cadN + ' CA / ' + (funds.length - cadN) + ' US';
     head.innerHTML = (LOGOS[label]
         ? '<span class="issuer-logo">' + LOGOS[label] + '</span>'
         : '<span class="issuer-name">' + shortIssuer(label) + '</span>')
+      + '<span class="issuer-market">' + market + '</span>'
       + '<span class="issuer-count">' + funds.length + ' fund' + (funds.length>1?'s':'') + '</span>';
     wrap.appendChild(head);
   }
