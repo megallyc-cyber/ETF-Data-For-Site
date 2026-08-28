@@ -9,10 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#EDEEE7; --paper-raised:#F5F5F0; --ink:#152019; --ink-soft:#3F4A42;
-    --ink-faint:#6E766E; --gold:#C89B3C; --gold-deep:#8F6B22; --teal:#1F5C4E;
-    --teal-deep:#123D33; --rust:#A6452C;
-    --line:rgba(21,32,25,0.14); --line-strong:rgba(21,32,25,0.28);
+    /* Ember — matches the mark. Names unchanged so existing rules keep working. */
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --rust-deep:#B3323A;
+    --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
@@ -242,7 +247,7 @@
 <body>
 
 <nav>
-  <a class="brand" href="#">Licentia<span class="dot">.</span></a>
+  <a class="brand" href="#">Licentia<img class="brand-bird" src="assets/bird.svg" alt="" width="24" height="15"></a>
   <div class="navlinks">
     <a href="#">Home</a><a class="active" href="#">Learn</a><a href="#">Overlap tool</a>
     <a href="#">Funds</a><a href="#">Account</a>
