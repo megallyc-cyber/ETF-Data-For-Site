@@ -193,6 +193,8 @@
     border-top:1px solid var(--line);}
   .sec-key{display:inline-flex; align-items:center; gap:7px;
     font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-soft);}
+  .sec-undisc{background:repeating-linear-gradient(45deg,#E2DFD8,#E2DFD8 4px,#F2EFE9 4px,#F2EFE9 8px);}
+  .sec-partial{color:var(--rust); font-style:italic;}
   .sec-dot{width:11px; height:11px; border-radius:3px; flex:none;}
   .radar-wrap{display:flex; gap:24px; align-items:center; flex-wrap:wrap;}
   #radar{width:min(460px,100%); height:auto;}
@@ -529,24 +531,36 @@ function sectorMix(t){
     mix[s] = (mix[s]||0) + flat[h]; total += flat[h];
   });
   if (!total) return null;
+  // Several issuers publish only a slice of the book. Report what share was
+  // actually seen so the mix is never passed off as the whole fund.
+  const captured = total;
   Object.keys(mix).forEach(function(k){ mix[k] = mix[k]/total*100; });
-  return mix;
+  return {mix: mix, captured: captured};
 }
 function renderSectors(){
   const box = document.getElementById('sectors'); if (!box) return;
   const used = {}; let html = '';
   PICKED.forEach(function(t){
-    const mix = sectorMix(t);
-    if (!mix){ html += '<div class="sec-row"><div class="sec-head"><span class="sec-tic">'+t+'</span><span class="sec-top">holdings not published</span></div></div>'; return; }
+    const res = sectorMix(t);
+    if (!res){ html += '<div class="sec-row"><div class="sec-head"><span class="sec-tic">'+t+'</span><span class="sec-top">holdings not published</span></div></div>'; return; }
+    const mix = res.mix, cap = res.captured;
     const parts = SECTOR_ORDER.filter(function(s){return mix[s]>0;}).map(function(s){return [s,mix[s]];});
     const top = parts.slice().sort(function(a,b){return b[1]-a[1];})[0];
     let bar = '';
     parts.forEach(function(p){ used[p[0]] = true;
-      bar += '<div class="sec-seg" style="width:'+p[1].toFixed(2)+'%;background:'+SECTOR_COLOUR[p[0]]+'" title="'+p[0]+' '+p[1].toFixed(1)+'%"></div>'; });
-    html += '<div class="sec-row"><div class="sec-head"><span class="sec-tic">'+t+'</span><span class="sec-top">mostly <b>'+top[0]+'</b> at '+top[1].toFixed(0)+'%</span></div><div class="sec-bar">'+bar+'</div></div>';
+      bar += '<div class="sec-seg" style="width:'+(p[1]*cap/100).toFixed(2)+'%;background:'+SECTOR_COLOUR[p[0]]+'" title="'+p[0]+' '+p[1].toFixed(1)+'% of disclosed"></div>'; });
+    if (cap < 99){
+      bar += '<div class="sec-seg sec-undisc" style="width:'+(100-cap).toFixed(2)+'%" title="not disclosed by the issuer"></div>';
+    }
+    const note = cap < 60
+      ? '<span class="sec-partial">only ' + cap.toFixed(0) + '% of this fund is disclosed</span>'
+      : 'mostly <b>' + top[0] + '</b> at ' + top[1].toFixed(0) + '%';
+    html += '<div class="sec-row"><div class="sec-head"><span class="sec-tic">'+t+'</span><span class="sec-top">'+note+'</span></div><div class="sec-bar">'+bar+'</div></div>';
   });
-  box.innerHTML = html + '<div class="sec-legend">' + SECTOR_ORDER.filter(function(s){return used[s];})
-    .map(function(s){ return '<span class="sec-key"><i class="sec-dot" style="background:'+SECTOR_COLOUR[s]+'"></i>'+s+'</span>'; }).join('') + '</div>';
+  let legend = SECTOR_ORDER.filter(function(s){return used[s];})
+    .map(function(s){ return '<span class="sec-key"><i class="sec-dot" style="background:'+SECTOR_COLOUR[s]+'"></i>'+s+'</span>'; }).join('');
+  legend += '<span class="sec-key"><i class="sec-dot sec-undisc"></i>Not disclosed</span>';
+  box.innerHTML = html + '<div class="sec-legend">' + legend + '</div>';
 }
 function top5(t){
   const h = Object.values((FUNDS[t]||{}).holdings||{});
