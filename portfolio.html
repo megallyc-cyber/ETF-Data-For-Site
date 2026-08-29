@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio — Licentia</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--ink);
+    font-family:'Inter',ui-sans-serif,sans-serif; -webkit-font-smoothing:antialiased;}
+  nav{display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:11px 26px; background:var(--ink); position:sticky; top:0; z-index:40; flex-wrap:wrap;}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; color:var(--paper); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  .brand-bird{display:inline-block; width:25px; height:16px; margin-left:8px; vertical-align:-1px;}
+  .navlinks{display:flex; gap:7px; flex-wrap:wrap;}
+  .navlinks a{font-size:13.5px; padding:8px 15px; border-radius:100px; text-decoration:none;
+    border:1px solid rgba(242,239,233,0.24); color:rgba(242,239,233,0.74);
+    white-space:nowrap; transition:all .16s;}
+  .navlinks a:hover{border-color:var(--paper); color:var(--paper);}
+  .navlinks a.active{background:var(--ember); border-color:var(--ember); color:var(--ink); font-weight:500;}
+  @media(max-width:820px){ nav{padding:10px 16px;} .navlinks a{padding:7px 11px; font-size:12.5px;} }
+  .wrap{max-width:1180px; margin:0 auto; padding:36px 26px 90px;}
+  .head-row{display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  h1{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(28px,3.4vw,40px);
+    letter-spacing:-0.02em; line-height:1.1; margin-bottom:8px;}
+  .sub{font-size:15px; color:var(--ink-soft); line-height:1.6; max-width:62ch;}
+  .tier{position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:10px;
+    padding:14px 26px; border-radius:100px; color:var(--paper);
+    background:linear-gradient(115deg, var(--ink) 0%, #33405C 45%, var(--ink) 100%);
+    background-size:220% 100%; animation:tierdrift 9s ease-in-out infinite;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.12em;
+    text-transform:uppercase; white-space:nowrap; box-shadow:0 6px 18px rgba(28,34,48,0.20);}
+  .tier b{color:var(--ember); font-weight:500; letter-spacing:0.06em;}
+  @keyframes tierdrift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  @media (prefers-reduced-motion: reduce){ .tier{animation:none;} }
+  .panel{background:var(--white); border:1px solid var(--line); border-radius:13px;
+    padding:22px 24px; margin-top:22px;}
+  .panel h2{font-family:'Fraunces',serif; font-weight:500; font-size:19px; margin-bottom:4px;}
+  .panel .note{font-size:13px; color:var(--ink-faint); line-height:1.55; margin-bottom:16px;}
+  .totals{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px;
+    overflow:hidden; margin-top:26px;}
+  .tot{background:var(--white); padding:17px 18px;}
+  .tot .v{font-family:'Fraunces',serif; font-size:27px; line-height:1;}
+  .tot .v.up{color:var(--up);} .tot .v.down{color:var(--down);}
+  .tot .v.small{font-size:14px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
+  .tot .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.11em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:8px;}
+  table{width:100%; border-collapse:collapse;}
+  th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.11em;
+    text-transform:uppercase; color:var(--ink-faint); font-weight:400;
+    padding:0 10px 10px; border-bottom:1px solid var(--line);}
+  th.r, td.r{text-align:right;}
+  td{padding:13px 10px; border-bottom:1px solid var(--line); font-size:14px; vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  .tic{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:14px;}
+  .nm{font-size:12.5px; color:var(--ink-soft); line-height:1.35;}
+  .num{font-family:'IBM Plex Mono',monospace; font-size:13.5px;}
+  .pos{color:var(--up);} .neg{color:var(--down);}
+  .rowbtn{background:none; border:none; cursor:pointer; color:var(--ink-faint); font-size:16px; padding:2px 5px;}
+  .rowbtn:hover{color:var(--rust);}
+  .addform{display:grid; grid-template-columns:1.4fr 1fr 1fr auto; gap:10px; align-items:end;}
+  @media(max-width:760px){ .addform{grid-template-columns:1fr;} }
+  label{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.11em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
+  input, select{width:100%; padding:11px 13px; border-radius:9px; border:1px solid var(--line-strong);
+    background:var(--paper-raised); font-family:inherit; font-size:14.5px; color:var(--ink);}
+  input:focus, select:focus{outline:none; border-color:var(--ember); box-shadow:0 0 0 3px rgba(255,107,53,0.15);}
+  .primary{padding:12px 22px; border:none; border-radius:9px; cursor:pointer;
+    background:var(--ink); color:var(--paper); font-family:inherit; font-size:14.5px;
+    font-weight:500; transition:transform .16s, box-shadow .16s; white-space:nowrap;}
+  .primary:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(28,34,48,0.18);}
+  .primary:disabled{opacity:.55; cursor:wait; transform:none;}
+  .ghost{display:inline-block; padding:11px 20px; border-radius:9px; border:1px solid var(--line-strong);
+    background:none; font-family:inherit; font-size:14px; color:var(--ink); cursor:pointer;
+    text-decoration:none; transition:all .16s;}
+  .ghost:hover{border-color:var(--ink); background:var(--white);}
+  .empty{padding:38px 24px; text-align:center; color:var(--ink-faint); font-size:14px; line-height:1.7;}
+  .gate{max-width:560px; margin:70px auto; text-align:center;}
+  .gate p{font-size:15px; color:var(--ink-soft); line-height:1.7; margin-bottom:26px;}
+  .msg{margin-top:14px; padding:12px 14px; border-radius:9px; font-size:13.5px; line-height:1.5;}
+  .msg.bad{background:rgba(229,72,77,0.10); color:#A32C31; border:1px solid rgba(229,72,77,0.28);}
+  .msg.good{background:rgba(76,183,130,0.12); color:#2C7A55; border:1px solid rgba(76,183,130,0.30);}
+  .foot{margin-top:30px; font-size:12px; color:var(--ink-faint); line-height:1.7; max-width:72ch;}
+</style>
+  <link rel="stylesheet" href="assets/pro.css">
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Licentia<img class="brand-bird" src="assets/bird.svg" alt="" width="25" height="16"></a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="learn.html">Learn</a>
+    <a href="funds.html">Funds</a>
+    <a href="compare.html">Comparison Tool</a>
+    <a href="portfolio-builder.html">Portfolio Builder</a>
+    <a class="active" href="portfolio.html">My Portfolio</a>
+    <a href="backtest.html">Backtesting</a>
+    <a href="account.html">My Account</a>
+  </div>
+</nav>
+
+<div class="wrap" id="wrap">
+  <div id="stage"></div>
+</div>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+const stage = document.getElementById('stage');
+
+// The table stores real positions — shares and cost basis — not weights, so
+// this page reports what a holding is actually worth and actually pays, and
+// the Builder's weights stay a separate planning exercise.
+let FUNDS = {}, ROWS = [], session = null;
+
+function money(v, dp){
+  if (v === null || v === undefined || !isFinite(v)) return '—';
+  return '$' + v.toLocaleString('en-US', {minimumFractionDigits: dp === undefined ? 0 : dp,
+                                          maximumFractionDigits: dp === undefined ? 0 : dp});
+}
+function pct(v, dp){ return (v === null || v === undefined || !isFinite(v)) ? '—' : v.toFixed(dp === undefined ? 1 : dp) + '%'; }
+
+// One position's worth, income and profit. Price and yield come from the same
+// dataset the rest of the site uses.
+function derive(row){
+  const f = FUNDS[row.ticker] || null;
+  const st = f ? (f.stats || {}) : {};
+  const price = st.price;
+  const shares = Number(row.shares) || 0;
+  const cost = row.cost_basis === null || row.cost_basis === undefined ? null : Number(row.cost_basis);
+  const value = (price !== undefined && price !== null) ? shares * price : null;
+  const income = (value !== null && st.yield_ttm !== undefined) ? value * st.yield_ttm / 100 : null;
+  const spent = (cost !== null) ? shares * cost : null;
+  const pl = (value !== null && spent !== null) ? value - spent : null;
+  const plPct = (pl !== null && spent) ? pl / spent * 100 : null;
+  const yoc = (income !== null && spent) ? income / spent * 100 : null;
+  return {fund:f, price:price, shares:shares, cost:cost, value:value,
+          income:income, spent:spent, pl:pl, plPct:plPct, yoc:yoc, yieldNow:st.yield_ttm};
+}
+
+function say(text, kind){
+  const el = document.getElementById('msg');
+  if (!el) return;
+  el.className = 'msg ' + (kind || '');
+  el.textContent = text;
+  el.style.display = 'block';
+}
+
+function gateView(){
+  stage.innerHTML =
+    '<div class="gate">'
+  + '<h1>Your portfolio lives here</h1>'
+  + '<p>Sign in to keep a record of what you actually hold. Licentia works out what it is '
+  + 'worth today, what it pays over a year, and what you are earning on the money you put in.</p>'
+  + '<a class="primary" style="text-decoration:none" href="account.html">Sign in or create an account</a>'
+  + '<div style="margin-top:14px"><a class="ghost" href="portfolio-builder.html">Try the builder without an account</a></div>'
+  + '</div>';
+}
+
+function portfolioView(){
+  stage.innerHTML =
+    '<div class="head-row">'
+  + '<div><h1>My Portfolio</h1><p class="sub">What you hold, what it is worth now, and what it pays. '
+  + 'Prices and yields come from the same daily data as the rest of the site.</p></div>'
+  + '<div class="tier" id="tierBadge">Free Account</div>'
+  + '</div>'
+  + '<div class="totals" id="totals"></div>'
+  + '<div class="panel"><h2>Holdings</h2>'
+  + '<div class="note">Cost basis is what you paid per share. Leave it blank if you would rather not track it — '
+  + 'everything except profit and yield on cost still works.</div>'
+  + '<div id="rows"></div></div>'
+  + '<div class="panel"><h2>Add a holding</h2>'
+  + '<div class="note">Pick a fund we track, then say how many shares you own.</div>'
+  + '<div class="addform">'
+  + '<div><label for="tk">Fund</label><select id="tk"></select></div>'
+  + '<div><label for="sh">Shares</label><input id="sh" type="number" min="0" step="any" placeholder="100"></div>'
+  + '<div><label for="cb">Cost per share</label><input id="cb" type="number" min="0" step="any" placeholder="optional"></div>'
+  + '<button class="primary" id="add">Add holding</button>'
+  + '</div><div class="msg" id="msg" style="display:none"></div></div>'
+  + '<p class="foot">Yields are trailing twelve months: distributions paid over the last year divided by '
+  + 'the latest price. A trailing yield describes what a fund has paid, not what it will pay. '
+  + 'Figures are for your own record keeping and are not advice.</p>';
+
+  const sel = document.getElementById('tk');
+  Object.entries(FUNDS)
+    .sort(function(a,b){ return a[0] < b[0] ? -1 : 1; })
+    .forEach(function(e){
+      const o = document.createElement('option');
+      o.value = e[0];
+      o.textContent = e[0] + ' — ' + e[1].name;
+      sel.appendChild(o);
+    });
+
+  document.getElementById('add').addEventListener('click', addHolding);
+  renderRows();
+  renderTotals();
+}
+
+function renderRows(){
+  const box = document.getElementById('rows');
+  if (!box) return;
+  if (!ROWS.length){
+    box.innerHTML = '<div class="empty">Nothing here yet.<br>'
+      + 'Add a holding below, or <a href="portfolio-builder.html" style="color:var(--ember-deep)">plan one in the builder</a> first.</div>';
+    return;
+  }
+  let html = '<table><thead><tr>'
+    + '<th>Fund</th><th class="r">Shares</th><th class="r">Price</th><th class="r">Value</th>'
+    + '<th class="r">Yield</th><th class="r">Income / yr</th><th class="r">Profit</th><th></th>'
+    + '</tr></thead><tbody>';
+  ROWS.forEach(function(r){
+    const d = derive(r);
+    html += '<tr>'
+      + '<td><div class="tic">' + r.ticker + '</div><div class="nm">' + (d.fund ? d.fund.name : 'not in our data') + '</div></td>'
+      + '<td class="r num">' + d.shares.toLocaleString('en-US') + '</td>'
+      + '<td class="r num">' + (d.price !== undefined && d.price !== null ? money(d.price, 2) : '—') + '</td>'
+      + '<td class="r num">' + money(d.value) + '</td>'
+      + '<td class="r num">' + pct(d.yieldNow) + '</td>'
+      + '<td class="r num">' + money(d.income) + '</td>'
+      + '<td class="r num ' + (d.pl === null ? '' : (d.pl < 0 ? 'neg' : 'pos')) + '">'
+        + (d.pl === null ? '—' : money(d.pl) + ' (' + pct(d.plPct) + ')') + '</td>'
+      + '<td class="r"><button class="rowbtn" data-id="' + r.id + '" title="Remove">&times;</button></td>'
+      + '</tr>';
+  });
+  html += '</tbody></table>';
+  box.innerHTML = html;
+  box.querySelectorAll('.rowbtn').forEach(function(b){
+    b.addEventListener('click', function(){ removeHolding(b.dataset.id); });
+  });
+}
+
+function renderTotals(){
+  const box = document.getElementById('totals');
+  if (!box) return;
+  let value = 0, income = 0, spent = 0, valueKnown = false, spentKnown = false;
+  ROWS.forEach(function(r){
+    const d = derive(r);
+    if (d.value !== null){ value += d.value; valueKnown = true; }
+    if (d.income !== null) income += d.income;
+    if (d.spent !== null){ spent += d.spent; spentKnown = true; }
+  });
+  const pl = (valueKnown && spentKnown) ? value - spent : null;
+  const plPct = (pl !== null && spent) ? pl / spent * 100 : null;
+  const yieldOnValue = (valueKnown && value) ? income / value * 100 : null;
+  const yoc = (spentKnown && spent) ? income / spent * 100 : null;
+  function cell(v, k, cls){
+    return '<div class="tot"><div class="v ' + (cls || '') + '">' + v + '</div><div class="k">' + k + '</div></div>';
+  }
+  box.innerHTML =
+    cell(valueKnown ? money(value) : '—', 'portfolio value')
+  + cell(income ? money(income) : '—', 'income a year')
+  + cell(income ? money(income / 12) : '—', 'income a month')
+  + cell(pct(yieldOnValue), 'yield on value')
+  + cell(spentKnown ? pct(yoc) : 'add cost basis', 'yield on cost', spentKnown ? '' : 'small')
+  + cell(pl === null ? 'add cost basis' : money(pl) + ' (' + pct(plPct) + ')', 'profit',
+         pl === null ? 'small' : (pl < 0 ? 'down' : 'up'));
+}
+
+async function loadRows(){
+  const res = await sb.from('portfolio_holdings')
+    .select('id,ticker,shares,cost_basis,created_at')
+    .order('created_at', {ascending: true});
+  if (res.error){ say(res.error.message, 'bad'); return; }
+  ROWS = res.data || [];
+}
+
+async function addHolding(){
+  const btn = document.getElementById('add');
+  const ticker = document.getElementById('tk').value;
+  const shares = Number(document.getElementById('sh').value);
+  const cbRaw = document.getElementById('cb').value;
+  const cost = cbRaw === '' ? null : Number(cbRaw);
+  if (!ticker || !shares || shares <= 0){ say('Enter a fund and a share count above zero.', 'bad'); return; }
+  btn.disabled = true; btn.textContent = 'Adding…';
+  const res = await sb.from('portfolio_holdings').insert({
+    user_id: session.user.id, ticker: ticker, shares: shares, cost_basis: cost
+  }).select();
+  btn.disabled = false; btn.textContent = 'Add holding';
+  if (res.error){ say(res.error.message, 'bad'); return; }
+  document.getElementById('sh').value = '';
+  document.getElementById('cb').value = '';
+  say(ticker + ' added.', 'good');
+  await loadRows();
+  renderRows(); renderTotals();
+}
+
+async function removeHolding(id){
+  // a single row, removed on purpose by its owner — not a bulk delete
+  const res = await sb.from('portfolio_holdings').delete().eq('id', id);
+  if (res.error){ say(res.error.message, 'bad'); return; }
+  await loadRows();
+  renderRows(); renderTotals();
+}
+
+async function boot(){
+  const s = await sb.auth.getSession();
+  session = s.data.session;
+  if (!session){ gateView(); return; }
+  const d = await fetch('data/funds.json?cb=' + Math.random()).then(function(r){ return r.json(); });
+  FUNDS = d;
+  const patch = await fetch('data/aum_patch.json?cb=' + Math.random())
+    .then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; });
+  Object.keys(patch).forEach(function(t){
+    if (FUNDS[t]){ FUNDS[t].stats = FUNDS[t].stats || {};
+      if (FUNDS[t].stats.aum_musd == null) FUNDS[t].stats.aum_musd = patch[t].aum_musd; }
+  });
+  await loadRows();
+  portfolioView();
+}
+
+sb.auth.onAuthStateChange(function(){ boot(); });
+boot();
+</script>
+</body>
+</html>
