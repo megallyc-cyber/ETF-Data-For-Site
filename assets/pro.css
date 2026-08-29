@@ -1,0 +1,117 @@
+/* ---------------------------------------------------------------------------
+   Licentia Pro — the paid surface.
+
+   The restraint is the point. Ember stays the brand accent everywhere so a Pro
+   member still recognises the product; gold is reserved for the things a
+   member is paying for — the figures, the status, the edges of the surfaces
+   the work happens on. Used everywhere it would read as costume jewellery.
+--------------------------------------------------------------------------- */
+body.pro{
+  --champagne:#E9D6A8;
+  --gold:#C9A227;
+  --gold-deep:#8C6B1F;
+  --gold-line:rgba(201,162,39,0.34);
+  --gold-wash:rgba(201,162,39,0.06);
+  /* a warmer paper: the same room, better lighting */
+  --paper:#F4F1E8;
+  --paper-raised:#FCFAF4;
+}
+
+/* --- the mark carries a quiet PRO chip rather than a recoloured bird ------ */
+body.pro .brand::after{
+  content:'PRO';
+  margin-left:11px;
+  padding:3px 9px 2px;
+  border-radius:4px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  letter-spacing:0.18em;
+  color:#1C2230;
+  background:linear-gradient(120deg,var(--champagne) 0%,var(--gold) 52%,var(--champagne) 100%);
+  background-size:200% 100%;
+  animation:proshimmer 7s ease-in-out infinite;
+  vertical-align:2px;
+}
+@keyframes proshimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* --- a single hairline of gold under the bar: the seam of a good binding -- */
+body.pro nav{
+  border-bottom:1px solid transparent;
+  background-image:linear-gradient(var(--ink),var(--ink)),
+    linear-gradient(90deg,transparent,var(--gold) 22%,var(--champagne) 50%,var(--gold) 78%,transparent);
+  background-origin:border-box;
+  background-clip:padding-box,border-box;
+}
+body.pro .navlinks a.active{
+  background:linear-gradient(120deg,var(--champagne) 0%,var(--gold) 55%,var(--champagne) 100%);
+  border-color:var(--gold);
+  color:#1C2230;
+}
+body.pro .navlinks a:hover{border-color:var(--champagne); color:var(--champagne);}
+
+/* --- surfaces: warmer, with a lit top edge --------------------------------- */
+body.pro .panel{
+  border-color:var(--gold-line);
+  background:
+    linear-gradient(180deg,var(--gold-wash) 0%,transparent 120px),
+    var(--white);
+  box-shadow:0 1px 0 rgba(255,255,255,0.7) inset, 0 10px 30px -22px rgba(140,107,31,0.55);
+}
+body.pro .panel::before{
+  content:''; display:block; height:2px; margin:-22px -24px 18px;
+  border-radius:13px 13px 0 0;
+  background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--champagne) 50%,var(--gold) 70%,transparent);
+}
+
+/* --- the numbers are what is being paid for ------------------------------- */
+body.pro .tot .v,
+body.pro .ps .v,
+body.pro .stat .v{
+  background:linear-gradient(110deg,var(--gold-deep) 0%,var(--gold) 40%,var(--champagne) 62%,var(--gold) 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+}
+body.pro .tot .v.up,
+body.pro .tot .v.down{ -webkit-text-fill-color:initial; color:inherit; background:none; }
+
+/* --- status pill: the one place gold is allowed to move ------------------- */
+body.pro .tier{
+  background:linear-gradient(115deg,var(--gold-deep) 0%,var(--gold) 45%,var(--champagne) 70%,var(--gold) 100%);
+  background-size:220% 100%;
+  color:#1C2230;
+  box-shadow:0 8px 24px -8px rgba(140,107,31,0.6);
+}
+body.pro .tier b{color:#1C2230;}
+body.pro .tier::after{
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,0.5),transparent);
+}
+
+/* --- unlocked: what used to be a padlock is now yours --------------------- */
+body.pro .locked-row{
+  border-style:solid;
+  border-color:var(--gold-line);
+  background:var(--gold-wash);
+  color:var(--gold-deep);
+}
+body.pro .plan.on{
+  border-color:var(--gold);
+  background:linear-gradient(150deg,rgba(201,162,39,0.16),rgba(233,214,168,0.05));
+}
+body.pro .plan .pn{color:var(--champagne);}
+body.pro .cta{
+  background:linear-gradient(120deg,var(--champagne),var(--gold));
+  color:#1C2230;
+}
+
+/* --- buttons and rules pick up the warmer line ---------------------------- */
+body.pro .primary{
+  background:linear-gradient(120deg,#232B3D,#1C2230);
+  border:1px solid var(--gold-line);
+}
+body.pro .primary:hover{box-shadow:0 10px 26px -12px rgba(140,107,31,0.75);}
+body.pro .search:focus,
+body.pro input:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,0.18);}
+
+@media (prefers-reduced-motion: reduce){
+  body.pro .brand::after{animation:none;}
+}
