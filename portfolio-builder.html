@@ -143,6 +143,7 @@
     border:1px solid rgba(242,239,233,0.3); color:var(--paper); text-decoration:none; font-size:14px;}
   .foot{margin-top:34px; font-size:12px; color:var(--ink-faint); line-height:1.7; max-width:70ch;}
 </style>
+<link rel="stylesheet" href="assets/pro.css">
 </head>
 <body>
 <nav>
@@ -212,6 +213,8 @@ const TIERS = {
   paid:   {label:'Licentia Pro', holdings:99, universe:999, save:true,  sectors:true,  overlap:true}
 };
 let tier = 'free';
+// ?pro=1 previews the paid surface while billing is still being built
+const PREVIEW_PRO = /[?&]pro=1/.test(window.location.search);
 let FUNDS = {}, SECTORS = {}, UNIVERSE = [], PICKED = [], WEIGHTS = {};
 
 const FAM_COLOUR = {
@@ -255,6 +258,7 @@ function lookThrough(t, depth, seen){
 function limits(){ return TIERS[tier]; }
 
 function setTierUI(){
+  document.body.classList.toggle('pro', tier === 'paid');
   const L = limits();
   const badge = document.getElementById('tierBadge');
   badge.className = 'tier' + (tier === 'paid' ? ' pro' : '');
@@ -543,7 +547,7 @@ Promise.all([
     }
   });
   const session = res[3].data.session;
-  tier = session ? 'member' : 'free';
+  tier = PREVIEW_PRO ? 'paid' : (session ? 'member' : 'free');
   buildUniverse();
   loadLocal();
   // a signed-out visitor may have more picks saved than the free tier allows
@@ -557,7 +561,7 @@ Promise.all([
 });
 
 sb.auth.onAuthStateChange(function(_e, session){
-  tier = session ? 'member' : 'free';
+  tier = PREVIEW_PRO ? 'paid' : (session ? 'member' : 'free');
   const L = limits();
   if (PICKED.length > L.holdings) PICKED = PICKED.slice(0, L.holdings);
   if (Object.keys(FUNDS).length) render();
