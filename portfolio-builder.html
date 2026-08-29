@@ -182,9 +182,9 @@ const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 // site, so anyone can read the data file directly. It is here to make the
 // paid tier worth buying, not to hide public information.
 const TIERS = {
-  free:   {label:'Free',    holdings:3,  universe:25,  save:false, sectors:false, overlap:false},
-  member: {label:'Account', holdings:6,  universe:60,  save:true,  sectors:true,  overlap:false},
-  paid:   {label:'Premium', holdings:99, universe:999, save:true,  sectors:true,  overlap:true}
+  free:   {label:'No Account',    holdings:3,  universe:25,  save:false, sectors:false, overlap:false},
+  member: {label:'Free Account', holdings:6,  universe:60,  save:true,  sectors:true,  overlap:false},
+  paid:   {label:'Licentia Pro', holdings:99, universe:999, save:true,  sectors:true,  overlap:true}
 };
 let tier = 'free';
 let FUNDS = {}, SECTORS = {}, UNIVERSE = [], PICKED = [], WEIGHTS = {};
@@ -235,7 +235,7 @@ function setTierUI(){
     L.label + ' &mdash; <b>' + (L.holdings > 50 ? 'all funds' : L.holdings + ' funds') + '</b>';
   document.getElementById('pickNote').textContent = L.universe >= 999
     ? 'All ' + Object.keys(FUNDS).length + ' tracked funds are available on your plan.'
-    : 'The ' + L.label.toLowerCase() + ' builder covers the ' + L.universe + ' largest funds by size.';
+    : 'This tier covers the ' + L.universe + ' largest funds by size.';
 }
 
 function buildUniverse(){
@@ -271,7 +271,7 @@ function renderPicks(){
   if (hidden > 0){
     const row = document.createElement('div');
     row.className = 'locked-row';
-    row.innerHTML = '&#128274; ' + hidden + ' more funds available on Premium';
+    row.innerHTML = '&#128274; ' + hidden + ' more funds available on Licentia Pro';
     box.appendChild(row);
   }
 }
@@ -421,7 +421,7 @@ function renderOverlap(){
   if (PICKED.length < 2){ wrap.innerHTML = ''; return; }
   if (!limits().overlap){
     wrap.innerHTML = '<div class="locked-row" style="margin-top:14px">&#128274; '
-      + 'Overlap between your funds — available on Premium</div>';
+      + 'Overlap between your funds — available on Licentia Pro</div>';
     return;
   }
   const pairs = [];
@@ -457,22 +457,22 @@ function renderUpsell(){
            + '<a class="ghost" href="account.html">Sign in</a>';
   } else if (tier === 'member'){
     heading = 'Unlock the full universe';
-    blurb = 'Premium opens all ' + totalFunds + ' tracked funds, removes the holdings limit, and adds pairwise overlap so you can see exactly where two funds buy the same companies.';
-    action = '<button class="cta" id="upgrade">See Premium</button>';
+    blurb = 'Licentia Pro opens all ' + totalFunds + ' tracked funds, removes the holdings limit, and adds pairwise overlap so you can see exactly where two funds buy the same companies.';
+    action = '<button class="cta" id="upgrade">See Licentia Pro</button>';
   } else {
-    heading = 'You are on Premium';
+    heading = 'You are on Licentia Pro';
     blurb = 'All ' + totalFunds + ' funds, unlimited holdings, sector look-through and overlap analysis are switched on.';
     action = '';
   }
   box.innerHTML = '<h3>' + heading + '</h3><p>' + blurb + '</p>'
     + '<div class="plans">'
-    + plan('Free', tier==='free', ['3 funds at a time','25 largest funds','Blended yield and return'])
-    + plan('Free account', tier==='member', ['6 funds at a time','60 largest funds','Sector look-through','Save your portfolio'])
-    + plan('Premium', tier==='paid', ['All ' + totalFunds + ' funds','No holdings limit','Overlap between funds','Backtesting when it lands'])
+    + plan('No Account', tier==='free', ['3 funds at a time','25 largest funds','Blended yield and return'])
+    + plan('Free Account', tier==='member', ['6 funds at a time','60 largest funds','Sector look-through','Save your portfolio'])
+    + plan('Licentia Pro', tier==='paid', ['All ' + totalFunds + ' funds','No holdings limit','Overlap between funds','Backtesting when it lands'])
     + '</div>' + action;
   const up = document.getElementById('upgrade');
   if (up) up.onclick = function(){
-    alert('Premium is not open yet — this is where checkout will go.');
+    alert('Licentia Pro is not open yet — this is where checkout will go.');
   };
 }
 
@@ -493,12 +493,8 @@ function saveLocal(){
   try{ localStorage.setItem('LICENTIA_BUILD', JSON.stringify({picked:PICKED, weights:WEIGHTS})); }catch(e){}
 }
 function loadLocal(){
-  try{
-    const raw = localStorage.getItem('LICENTIA_BUILD');
-    if (!raw) return;
-    const d = JSON.parse(raw);
-    if (Array.isArray(d.picked)){ PICKED = d.picked.filter(function(t){ return FUNDS[t]; }); WEIGHTS = d.weights||{}; }
-  }catch(e){}
+  // deliberately does nothing: the builder opens empty so the first pick is
+  // always the reader's own choice
 }
 
 document.getElementById('search').addEventListener('input', renderPicks);
