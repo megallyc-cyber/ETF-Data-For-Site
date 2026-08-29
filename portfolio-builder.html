@@ -144,6 +144,93 @@
   .ghost{display:inline-block; margin-top:16px; margin-left:10px; padding:12px 20px; border-radius:9px;
     border:1px solid rgba(242,239,233,0.3); color:var(--paper); text-decoration:none; font-size:14px;}
   .foot{margin-top:34px; font-size:12px; color:var(--ink-faint); line-height:1.7; max-width:70ch;}
+
+  /* ---- guided flow ------------------------------------------------------
+     One question at a time. The progress rail is always visible so the reader
+     knows how much is left and can go back without losing an answer. */
+  .rail{display:flex; align-items:center; gap:0; margin:26px 0 34px; flex-wrap:wrap;}
+  .step-dot{display:flex; align-items:center; gap:10px; flex:none;}
+  .step-dot i{width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; font-style:normal;
+    border:1px solid var(--line-strong); color:var(--ink-faint); background:var(--white);
+    transition:all .2s;}
+  .step-dot span{font-size:12.5px; color:var(--ink-faint); white-space:nowrap;}
+  .step-dot.on i{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+  .step-dot.on span{color:var(--ink); font-weight:500;}
+  .step-dot.done i{background:var(--ember); border-color:var(--ember); color:var(--ink);}
+  .step-dot.done span{color:var(--ink-soft);}
+  .rail hr{flex:1; min-width:16px; height:1px; border:none; background:var(--line-strong); margin:0 12px;}
+  @media(max-width:860px){ .step-dot span{display:none;} .rail hr{margin:0 6px;} }
+
+  .qwrap{max-width:900px;}
+  .qhead{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(24px,3vw,34px);
+    letter-spacing:-0.02em; line-height:1.15; margin-bottom:10px;}
+  .qsub{font-size:15px; color:var(--ink-soft); line-height:1.65; max-width:60ch; margin-bottom:26px;}
+
+  .opts{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:13px;}
+  .opt{position:relative; text-align:left; cursor:pointer; font-family:inherit;
+    background:var(--white); border:1px solid var(--line-strong); border-radius:12px;
+    padding:20px 22px; transition:transform .16s, box-shadow .16s, border-color .16s;}
+  .opt:hover{transform:translateY(-3px); box-shadow:0 10px 26px rgba(28,34,48,0.12); border-color:var(--ink);}
+  .opt.sel{border-color:var(--ember); box-shadow:0 0 0 3px rgba(255,107,53,0.16);}
+  .opt .ot{font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px;}
+  .opt .od{font-size:13px; color:var(--ink-soft); line-height:1.55;}
+  .opt .oflag{display:inline-block; margin-top:11px; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase;
+    padding:4px 9px; border-radius:100px;}
+  .oflag.warn{background:rgba(229,72,77,0.12); color:#A32C31;}
+  .oflag.note{background:rgba(255,107,53,0.13); color:var(--ember-deep);}
+  .oflag.calm{background:rgba(76,183,130,0.14); color:#2C7A55;}
+
+  .amount{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .amount .cur{font-family:'Fraunces',serif; font-size:30px; color:var(--ink-faint);}
+  .amount input{max-width:260px; font-family:'Fraunces',serif; font-size:30px; padding:10px 14px;}
+  .chips{display:flex; gap:9px; flex-wrap:wrap; margin-top:16px;}
+  .chip{padding:9px 16px; border-radius:100px; border:1px solid var(--line-strong);
+    background:var(--white); font-family:inherit; font-size:13.5px; cursor:pointer; transition:all .15s;}
+  .chip:hover{border-color:var(--ink);}
+  .chip.sel{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+
+  .disclaim{margin-top:22px; border-left:3px solid var(--ember); background:rgba(255,107,53,0.07);
+    padding:16px 20px; border-radius:0 10px 10px 0; font-size:13.5px; line-height:1.7; color:var(--ink-soft);}
+  .disclaim b{color:var(--ink);}
+  .disclaim.hot{border-left-color:var(--rust); background:rgba(229,72,77,0.08);}
+
+  .navrow{display:flex; align-items:center; gap:12px; margin-top:30px; flex-wrap:wrap;}
+  .helpme{margin-top:26px; padding:20px 22px; border-radius:12px; color:var(--paper);
+    background:linear-gradient(150deg, var(--ink) 0%, #2A3346 100%);
+    display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;}
+  .helpme p{font-size:14px; line-height:1.6; color:rgba(242,239,233,0.78); max-width:52ch;}
+  .helpme b{color:var(--paper); font-weight:500;}
+
+  .working{text-align:center; padding:70px 20px;}
+  .working .bar{max-width:420px; height:4px; margin:24px auto 0; border-radius:4px;
+    background:var(--line); overflow:hidden;}
+  .working .bar i{display:block; height:100%; width:0; background:var(--ember);
+    transition:width .35s ease;}
+  .working .msg2{margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+    color:var(--ink-faint); letter-spacing:0.06em;}
+
+  .recs{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; margin-top:8px;}
+  .rec{background:var(--white); border:1px solid var(--line); border-radius:13px; padding:22px 24px;
+    display:flex; flex-direction:column;}
+  .rec.best{border-color:var(--ember); box-shadow:0 0 0 3px rgba(255,107,53,0.13);}
+  .rec .rtag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ember-deep); margin-bottom:8px;}
+  .rec h3{font-family:'Fraunces',serif; font-weight:500; font-size:21px; margin-bottom:6px;}
+  .rec .rdesc{font-size:13px; color:var(--ink-soft); line-height:1.55; margin-bottom:16px;}
+  .rstats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--line);
+    border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:16px;}
+  .rstat{background:var(--white); padding:12px 13px;}
+  .rstat .v{font-family:'Fraunces',serif; font-size:20px; line-height:1;}
+  .rstat .k{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:6px;}
+  .rhold{display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--line);}
+  .rhold:last-of-type{border-bottom:none;}
+  .rhold .rt{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; min-width:54px;}
+  .rhold .rn{flex:1; font-size:12px; color:var(--ink-soft); line-height:1.35;}
+  .rhold .rw{font-family:'IBM Plex Mono',monospace; font-size:13px;}
+  .rfoot{margin-top:auto; padding-top:16px;}
 </style>
 <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -161,43 +248,16 @@
     <a href="account.html">My Account</a>
   </div>
 </nav>
-
 <div class="wrap">
   <div class="head-row">
     <div>
       <h1>Portfolio Builder</h1>
-      <p class="sub">Put a few income funds together and see what the combination actually pays,
-        what it holds underneath, and where it doubles up on itself.</p>
+      <p class="sub">Answer a few questions and we will put together some income portfolios
+        from the funds we track, with the overlap taken out.</p>
     </div>
-    <div class="tier" id="tierBadge">Free &mdash; <b id="tierLimit">3 funds</b></div>
+    <div class="tier" id="tierBadge">No Account</div>
   </div>
-
-  <div class="grid">
-    <div class="panel">
-      <h2>Choose funds</h2>
-      <div class="note" id="pickNote">This tier covers the largest funds by size.</div>
-      <input class="search" id="search" type="search" placeholder="Search ticker or name…" autocomplete="off">
-      <div class="picklist" id="picklist"></div>
-    </div>
-
-    <div class="panel">
-      <h2>Your portfolio</h2>
-      <div class="note">Weights are percentages of the money you would put in. They do not have to
-        add to 100 while you are working, but the figures below assume they do.</div>
-      <div class="panel-body">
-        <div id="holdings"></div>
-        <div class="weightbar" id="weightbar"></div>
-        <div class="wnote" id="wnote"></div>
-        <div class="totals" id="totals"></div>
-        <div id="secWrap"></div>
-        <div id="overlapWrap"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="upsell" id="upsell"></div>
-
-  <p class="foot" id="foot"></p>
+  <div id="stage"></div>
 </div>
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -205,39 +265,52 @@ const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ---- tiers -------------------------------------------------------------
-// The gate is a product decision, not a security boundary: this is a static
-// site, so anyone can read the data file directly. It is here to make the
-// paid tier worth buying, not to hide public information.
+const PREVIEW_PRO = /[?&]pro=1/.test(window.location.search);
 const TIERS = {
-  free:   {label:'No Account',    holdings:3,  universe:25,  save:false, sectors:false, overlap:false},
-  member: {label:'Free Account', holdings:6,  universe:60,  save:true,  sectors:true,  overlap:false},
-  paid:   {label:'Licentia Pro', holdings:99, universe:999, save:true,  sectors:true,  overlap:true}
+  free:   {label:'No Account',   universe:25,  overlap:false},
+  member: {label:'Free Account', universe:60,  overlap:true},
+  paid:   {label:'Licentia Pro', universe:999, overlap:true}
 };
 let tier = 'free';
-// ?pro=1 previews the paid surface while billing is still being built
-const PREVIEW_PRO = /[?&]pro=1/.test(window.location.search);
-let FUNDS = {}, SECTORS = {}, UNIVERSE = [], PICKED = [], WEIGHTS = {};
+let FUNDS = {}, SECTORS = {}, UNIVERSE = [];
 
-const FAM_COLOUR = {
-  'BMO ETFs':'#0075BE','Hamilton ETFs':'#123D66','Harvest ETFs':'#C9821F','Evolve ETFs':'#0F9B8E',
-  'Purpose Investments':'#E2571E','Global X Canada':'#1B6AC9','Global X':'#1B6AC9',
-  'NEOS Investments':'#1F7A5C','YieldMax':'#D1442F','J.P. Morgan Asset Management':'#3C2415',
-  'iShares':'#3A3A3A','Roundhill':'#5B3FA8','Defiance':'#B3142F','REX Shares':'#0E6E70',
-  'ProShares':'#00539B','Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'
-};
+// what the reader has told us so far
+const A = {country:null, amount:null, yieldBand:null, sectors:[], auto:false};
+let stepIx = 0;
+
 const SECTOR_COLOUR = {
   'Technology':'#3B6FD4','Financials':'#1F7A5C','Health Care':'#C2417F','Consumer Discretionary':'#E2571E',
   'Consumer Staples':'#8A6D3B','Energy':'#B3142F','Industrials':'#5B6472','Materials':'#7A5CA8',
   'Real Estate':'#0E7C7B','Utilities':'#2F7FA8','Communication Services':'#D18B1F',
   'Fund / ETF':'#9AA3AE','Options':'#6E4B9E','Cash':'#B8BCC2','Unclassified':'#D6D3CC'
 };
-function famColour(i){ return FAM_COLOUR[i] || '#2F3E57'; }
-function hexToRgb(h){ const n=parseInt(h.slice(1),16); return ((n>>16)&255)+','+((n>>8)&255)+','+(n&255); }
-function paint(el, issuer){ const c=famColour(issuer); el.style.setProperty('--fam',c); el.style.setProperty('--famrgb',hexToRgb(c)); }
-function fmtAum(m){ if(m==null) return null; return m>=1000 ? '$'+(m/1000).toFixed(1)+'B' : '$'+Math.round(m)+'M'; }
 
-// look-through so a fund of funds is measured on what it really owns
+// Yield bands. The disclaimers are the honest part of this page: a high
+// trailing yield is a fact about the past, and on covered call funds it is
+// often partly your own capital coming back to you.
+const BANDS = [
+  {id:'5-10',  lo:5,  hi:10,  label:'5 – 10%',  flag:'calm', flagText:'steadiest',
+   note:'The calmest end of this market. These funds usually write options on part of the portfolio only, so they keep more of the upside when markets rise. Expect the smallest cheques and the least drama.'},
+  {id:'10-15', lo:10, hi:15,  label:'10 – 15%', flag:'note', flagText:'common range',
+   note:'Where most covered call funds sit. You are trading away some of the gain when markets rally in exchange for income that arrives whether they rally or not. Total return can still be healthy, but check it fund by fund.'},
+  {id:'15-20', lo:15, hi:20,  label:'15 – 20%', flag:'warn', flagText:'read this',
+   note:'At this level a meaningful part of the distribution is often return of capital — your own money handed back, which shrinks the fund price over time. A 17% yield alongside a 4% total return means you are being paid with your own principal. Always read the total return next to the yield.'},
+  {id:'20+',   lo:20, hi:999, label:'20% and up', flag:'warn', flagText:'highest risk',
+   note:'These are usually single stock option funds. The yield is real money but the fund price can fall faster than the income arrives, so total return is frequently negative. Several funds in this band have paid out more than 20% while losing value. Treat the headline yield as the least useful number on the page.'}
+];
+
+function fmtMoney(v){
+  if (v === null || v === undefined || !isFinite(v)) return '—';
+  return '$' + Math.round(v).toLocaleString('en-US');
+}
+function famColour(i){
+  const m = {'BMO ETFs':'#0075BE','Hamilton ETFs':'#123D66','Harvest ETFs':'#C9821F','Evolve ETFs':'#0F9B8E',
+    'Purpose Investments':'#E2571E','Global X Canada':'#1B6AC9','Global X':'#1B6AC9','NEOS Investments':'#1F7A5C',
+    'YieldMax':'#D1442F','J.P. Morgan Asset Management':'#3C2415','iShares':'#3A3A3A','Roundhill':'#5B3FA8',
+    'Defiance':'#B3142F','REX Shares':'#0E6E70','ProShares':'#00539B','Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'};
+  return m[i] || '#2F3E57';
+}
+
 const _cache = {};
 function lookThrough(t, depth, seen){
   depth = depth||0; seen = seen||new Set();
@@ -256,282 +329,424 @@ function lookThrough(t, depth, seen){
   if (depth===0) _cache[t] = out;
   return out;
 }
-
-function limits(){ return TIERS[tier]; }
-
-function setTierUI(){
-  document.body.classList.toggle('pro', tier === 'paid');
-  const L = limits();
-  const badge = document.getElementById('tierBadge');
-  badge.className = 'tier' + (tier === 'paid' ? ' pro' : '');
-  badge.innerHTML =
-    L.label + ' &mdash; <b>' + (L.holdings > 50 ? 'all funds' : L.holdings + ' funds') + '</b>';
-  document.getElementById('pickNote').textContent = L.universe >= 999
-    ? 'All ' + Object.keys(FUNDS).length + ' tracked funds are available on your plan.'
-    : 'This tier covers the ' + L.universe + ' largest funds by size.';
+function overlapPct(a, b){
+  const A1 = lookThrough(a,0,new Set()), B1 = lookThrough(b,0,new Set());
+  const sa = Object.values(A1).reduce(function(x,y){return x+y;},0) || 1;
+  const sb = Object.values(B1).reduce(function(x,y){return x+y;},0) || 1;
+  let shared = 0;
+  Object.keys(A1).forEach(function(k){ if (B1[k] !== undefined) shared += Math.min(A1[k]/sa, B1[k]/sb); });
+  return shared * 100;
 }
-
-function buildUniverse(){
-  const all = Object.entries(FUNDS)
-    .filter(function(e){ return (e[1].stats||{}).yield_ttm !== undefined; })
-    .sort(function(a,b){ return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); });
-  UNIVERSE = all;
-}
-
-function renderPicks(){
-  const L = limits();
-  const q = (document.getElementById('search').value||'').trim().toUpperCase();
-  const box = document.getElementById('picklist');
-  const allowed = UNIVERSE.slice(0, L.universe);
-  const shown = allowed.filter(function(e){
-    return !q || e[0].indexOf(q) === 0 || e[1].name.toUpperCase().indexOf(q) !== -1;
-  });
-  box.innerHTML = '';
-  shown.slice(0, 120).forEach(function(e){
-    const t = e[0], f = e[1], st = f.stats||{};
-    const b = document.createElement('button');
-    b.className = 'pick'; b.type = 'button';
-    paint(b, f.issuer);
-    const already = PICKED.indexOf(t) !== -1;
-    b.disabled = already || PICKED.length >= L.holdings;
-    b.innerHTML = '<span class="tic">' + t + '</span>'
-      + '<span class="nm">' + f.name + '</span>'
-      + '<span class="yl">' + (st.yield_ttm !== undefined ? st.yield_ttm.toFixed(1) + '%' : '—') + '</span>';
-    b.onclick = function(){ addHolding(t); };
-    box.appendChild(b);
-  });
-  const hidden = UNIVERSE.length - allowed.length;
-  if (hidden > 0){
-    const row = document.createElement('div');
-    row.className = 'locked-row';
-    row.innerHTML = '&#128274; ' + hidden + ' more funds available on Licentia Pro';
-    box.appendChild(row);
-  }
-}
-
-function addHolding(t){
-  const L = limits();
-  if (PICKED.length >= L.holdings || PICKED.indexOf(t) !== -1) return;
-  PICKED.push(t);
-  const even = Math.round(100 / PICKED.length);
-  PICKED.forEach(function(p){ WEIGHTS[p] = even; });
-  render();
-}
-function removeHolding(t){
-  PICKED = PICKED.filter(function(p){ return p !== t; });
-  delete WEIGHTS[t];
-  render();
-}
-
-function renderHoldings(){
-  const box = document.getElementById('holdings');
-  if (!PICKED.length){
-    box.innerHTML = '<div class="empty">Pick a fund on the left to start building.<br>'
-      + 'You will see the blended yield, what it holds underneath, and where it overlaps.</div>';
-    document.getElementById('weightbar').innerHTML = '';
-    document.getElementById('wnote').textContent = '';
-    return;
-  }
-  box.innerHTML = '';
-  PICKED.forEach(function(t){
-    const f = FUNDS[t];
-    const row = document.createElement('div');
-    row.className = 'holding';
-    paint(row, f.issuer);
-    row.innerHTML = '<span class="tic">' + t + '</span>'
-      + '<span class="nm">' + f.name + '</span>'
-      + '<input class="wt" type="number" min="0" max="100" step="1" value="' + (WEIGHTS[t]||0) + '">'
-      + '<span style="font-size:12px;color:var(--ink-faint)">%</span>'
-      + '<button class="rm" title="Remove">&times;</button>';
-    row.querySelector('.wt').addEventListener('input', function(ev){
-      WEIGHTS[t] = Math.max(0, Math.min(100, Number(ev.target.value)||0));
-      renderTotals(); renderWeightBar(); renderSectors(); renderOverlap();
+function sectorMix(tickers, weights){
+  const mix = {}; let total = 0;
+  tickers.forEach(function(t, i){
+    const flat = lookThrough(t,0,new Set());
+    const inner = Object.values(flat).reduce(function(a,b){return a+b;},0);
+    if (!inner) return;
+    const w = weights[i];
+    total += w;
+    Object.keys(flat).forEach(function(h){
+      const s = SECTORS[h] || 'Unclassified';
+      mix[s] = (mix[s]||0) + (flat[h]/inner) * w;
     });
-    row.querySelector('.rm').onclick = function(){ removeHolding(t); };
-    box.appendChild(row);
   });
+  if (!total) return {};
+  Object.keys(mix).forEach(function(k){ mix[k] = mix[k]/total*100; });
+  return mix;
 }
 
-function totalWeight(){ return PICKED.reduce(function(s,t){ return s + (WEIGHTS[t]||0); }, 0); }
-
-function renderWeightBar(){
-  const bar = document.getElementById('weightbar');
-  const note = document.getElementById('wnote');
-  const tot = totalWeight();
-  bar.innerHTML = '';
-  PICKED.forEach(function(t){
-    const d = document.createElement('div');
-    d.style.width = (tot ? (WEIGHTS[t]||0)/Math.max(tot,100)*100 : 0) + '%';
-    d.style.background = famColour(FUNDS[t].issuer);
-    d.title = t + ' ' + (WEIGHTS[t]||0) + '%';
-    bar.appendChild(d);
+// ---- the model ---------------------------------------------------------
+// Deterministic and explainable on purpose. Every fund that appears in a
+// result can be traced to the filters below, and nothing is invented: yield,
+// total return and holdings all come from the tracked dataset.
+function eligible(){
+  const L = TIERS[tier];
+  let list = Object.entries(FUNDS).filter(function(e){
+    const st = e[1].stats || {};
+    if (st.yield_ttm === undefined) return false;
+    if (A.country === 'CAD' && e[1].region !== 'CAD') return false;
+    if (A.country === 'US'  && e[1].region !== 'US')  return false;
+    return true;
   });
-  if (!PICKED.length){ note.textContent = ''; return; }
-  note.className = 'wnote' + (Math.round(tot) === 100 ? '' : ' bad');
-  note.textContent = Math.round(tot) === 100
-    ? 'Weights add to 100%.'
-    : 'Weights add to ' + Math.round(tot) + '% — figures below are scaled as if they summed to 100.';
+  // the tier caps how much of the market the reader can draw on
+  list.sort(function(a,b){ return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); });
+  return list.slice(0, L.universe);
 }
 
-function renderTotals(){
-  const box = document.getElementById('totals');
-  if (!PICKED.length){ box.innerHTML = ''; return; }
-  const tot = totalWeight() || 1;
-  let y = 0, r = 0, mer = 0, yCov = 0, rCov = 0, merCov = 0;
-  PICKED.forEach(function(t){
+function inBand(t, band){
+  const y = (FUNDS[t].stats||{}).yield_ttm;
+  return y >= band.lo && y < band.hi;
+}
+
+// A fund earns its place on total return, not on yield. Yield is what the
+// reader asked for; total return is whether they actually kept anything.
+function quality(t){
+  const st = FUNDS[t].stats || {};
+  const ret = (st.total_return_1y === undefined || st.total_return_1y === null) ? 0 : st.total_return_1y;
+  const size = Math.log10(Math.max((st.aum_musd||10), 10));
+  const holdings = Object.keys(FUNDS[t].holdings||{}).length;
+  const disclosed = holdings ? 1 : 0;
+  return ret + size * 1.5 + disclosed * 2;
+}
+
+function sectorFit(t){
+  if (!A.sectors.length) return 0;
+  const flat = lookThrough(t,0,new Set());
+  const inner = Object.values(flat).reduce(function(a,b){return a+b;},0);
+  if (!inner) return 0;
+  let hit = 0;
+  Object.keys(flat).forEach(function(h){
+    if (A.sectors.indexOf(SECTORS[h] || 'Unclassified') !== -1) hit += flat[h];
+  });
+  return hit / inner * 100;
+}
+
+// Greedy: take the strongest fund, then keep adding whichever candidate adds
+// the most new ground — high quality, low overlap with what is already in.
+function assemble(pool, count, mode){
+  if (!pool.length) return [];
+  const picked = [];
+  const scored = pool.slice().sort(function(a,b){
+    if (mode === 'income') return (FUNDS[b].stats.yield_ttm) - (FUNDS[a].stats.yield_ttm);
+    if (mode === 'sector') return sectorFit(b) - sectorFit(a);
+    return quality(b) - quality(a);
+  });
+  picked.push(scored[0]);
+  while (picked.length < count){
+    let best = null, bestScore = -1e9;
+    for (const cand of scored){
+      if (picked.indexOf(cand) !== -1) continue;
+      let worstOverlap = 0;
+      picked.forEach(function(p){ worstOverlap = Math.max(worstOverlap, overlapPct(cand, p)); });
+      const q = mode === 'income' ? FUNDS[cand].stats.yield_ttm
+              : mode === 'sector' ? sectorFit(cand)
+              : quality(cand);
+      const score = q - worstOverlap * 0.9;
+      if (score > bestScore){ bestScore = score; best = cand; }
+    }
+    if (!best) break;
+    picked.push(best);
+  }
+  return picked;
+}
+
+function summarise(tickers, weights){
+  let y = 0, r = 0, rCov = 0, mer = 0, merCov = 0;
+  tickers.forEach(function(t, i){
     const st = FUNDS[t].stats || {};
-    const w = (WEIGHTS[t]||0)/tot;
-    if (st.yield_ttm !== undefined){ y += st.yield_ttm * w; yCov += w; }
+    const w = weights[i] / 100;
+    y += st.yield_ttm * w;
     if (st.total_return_1y !== undefined && st.total_return_1y !== null){ r += st.total_return_1y * w; rCov += w; }
     if (st.mer !== undefined && st.mer !== null){ mer += st.mer * w; merCov += w; }
   });
-  function cell(v, k, cls){
-    return '<div class="tot"><div class="v ' + (cls||'') + '">' + v + '</div><div class="k">' + k + '</div></div>';
+  let worst = 0, pairs = 0, sum = 0;
+  for (let i=0;i<tickers.length;i++) for (let j=i+1;j<tickers.length;j++){
+    const v = overlapPct(tickers[i], tickers[j]);
+    worst = Math.max(worst, v); sum += v; pairs++;
   }
-  function ratio(sum, cov){
-    if (!cov || cov < 0.0001) return null;
-    const v = sum / cov;
-    return isFinite(v) ? v : null;
-  }
-  const income = ratio(y, yCov), ret = ratio(r, rCov), fee = ratio(mer, merCov);
-  box.innerHTML =
-    cell(income !== null ? income.toFixed(1) + '%' : '—', 'blended yield')
-  + cell(ret !== null ? ret.toFixed(1) + '%' : '—', 'total return 1y', ret !== null && ret < 0 ? 'down' : 'up')
-  + cell(fee !== null ? fee.toFixed(2) + '%' : 'not published', 'weighted MER', fee === null ? 'small' : '')
-  + cell(PICKED.length, 'funds held');
+  return {yield:y, ret: rCov ? r/rCov : null, mer: merCov ? mer/merCov : null,
+          overlapAvg: pairs ? sum/pairs : 0, overlapWorst: worst,
+          income: A.amount ? A.amount * y / 100 : null};
 }
 
-function sectorMixFor(picks){
-  const tot = totalWeight() || 1;
-  const mix = {}; let seen = 0;
-  picks.forEach(function(t){
-    const flat = lookThrough(t, 0, new Set());
-    const inner = Object.values(flat).reduce(function(a,b){ return a+b; }, 0);
-    if (!inner) return;
-    const w = (WEIGHTS[t]||0)/tot;
-    seen += w;
-    Object.keys(flat).forEach(function(h){
-      const s = SECTORS[h] || 'Unclassified';
-      mix[s] = (mix[s]||0) + (flat[h]/inner) * w * 100;
-    });
+// Three portfolios, each honest about what it is optimising for.
+function buildRecommendations(){
+  const pool = eligible().map(function(e){ return e[0]; });
+  const band = BANDS.find(function(b){ return b.id === A.yieldBand; });
+  let inBandPool = band ? pool.filter(function(t){ return inBand(t, band); }) : pool;
+  // if the band is thin, widen rather than return nothing
+  let widened = false;
+  if (inBandPool.length < 4){ inBandPool = pool; widened = true; }
+
+  const size = Math.min(4, Math.max(3, inBandPool.length));
+  const specs = [
+    {tag:'Balanced', mode:'quality', desc:'Built on total return first, then spread out so the funds are not buying the same companies.'},
+    {tag:'Income first', mode:'income', desc:'Leans into the highest yields your answers allow. Check the total return line before you act on it.'},
+    {tag:'Spread widest', mode:'sector', desc:A.sectors.length
+      ? 'Weighted towards the sectors you chose, while keeping overlap down.'
+      : 'Deliberately picks funds that hold different things, so one bad sector does not take the whole portfolio with it.'}
+  ];
+  return specs.map(function(spec){
+    const picks = assemble(inBandPool, size, spec.mode);
+    const w = picks.map(function(){ return Math.round(1000 / picks.length) / 10; });
+    return {tag:spec.tag, desc:spec.desc, picks:picks, weights:w,
+            stats:summarise(picks, w), widened:widened};
   });
-  return {mix: mix, coverage: seen};
 }
 
-function renderSectors(){
-  const wrap = document.getElementById('secWrap');
-  if (!PICKED.length){ wrap.innerHTML = ''; return; }
-  if (!limits().sectors){
-    wrap.innerHTML = '<div class="locked-row" style="margin-top:6px">&#128274; '
-      + 'What these funds hold underneath — sign in to see the sector mix</div>';
-    return;
-  }
-  const res = sectorMixFor(PICKED);
-  const parts = Object.entries(res.mix).sort(function(a,b){ return b[1]-a[1]; });
-  if (!parts.length){ wrap.innerHTML = ''; return; }
-  let bar = '', legend = '';
-  parts.forEach(function(p){
-    bar += '<div style="width:' + p[1].toFixed(2) + '%;background:' + (SECTOR_COLOUR[p[0]]||'#ccc') + '" title="' + p[0] + ' ' + p[1].toFixed(1) + '%"></div>';
-    legend += '<span class="sk"><i style="background:' + (SECTOR_COLOUR[p[0]]||'#ccc') + '"></i>' + p[0] + ' ' + p[1].toFixed(0) + '%</span>';
-  });
-  wrap.innerHTML = '<h2 style="font-family:Fraunces,serif;font-weight:500;font-size:17px;margin-top:6px">What it holds underneath</h2>'
-    + '<div class="secbar">' + bar + '</div><div class="seclegend">' + legend + '</div>';
+// ---- the flow ----------------------------------------------------------
+const STEPS = [
+  {id:'country', label:'Country'},
+  {id:'amount',  label:'Amount'},
+  {id:'yield',   label:'Yield'},
+  {id:'sectors', label:'Sectors'},
+  {id:'result',  label:'Portfolios'}
+];
+
+function rail(){
+  return '<div class="rail">' + STEPS.map(function(s, i){
+    const cls = i === stepIx ? 'on' : (i < stepIx ? 'done' : '');
+    return '<div class="step-dot ' + cls + '"><i>' + (i < stepIx ? '&#10003;' : (i+1)) + '</i><span>' + s.label + '</span></div>'
+      + (i < STEPS.length - 1 ? '<hr>' : '');
+  }).join('') + '</div>';
 }
 
-function overlapPct(a, b){
-  const A = lookThrough(a,0,new Set()), B = lookThrough(b,0,new Set());
-  const sa = Object.values(A).reduce(function(x,y){return x+y;},0) || 1;
-  const sb = Object.values(B).reduce(function(x,y){return x+y;},0) || 1;
-  let shared = 0;
-  Object.keys(A).forEach(function(k){
-    if (B[k] !== undefined) shared += Math.min(A[k]/sa, B[k]/sb);
-  });
-  return shared * 100;
+function helpBar(){
+  return '<div class="helpme"><p><b>Not sure?</b> Answer nothing else and we will build three portfolios '
+    + 'from what you have told us so far, each aiming at something different.</p>'
+    + '<button class="cta" id="autoBuild">I am new to this, build it for me</button></div>';
 }
 
-function renderOverlap(){
-  const wrap = document.getElementById('overlapWrap');
-  if (PICKED.length < 2){ wrap.innerHTML = ''; return; }
-  if (!limits().overlap){
-    wrap.innerHTML = '<div class="locked-row" style="margin-top:14px">&#128274; '
-      + 'Overlap between your funds — available on Licentia Pro</div>';
-    return;
-  }
-  const pairs = [];
-  for (let i=0;i<PICKED.length;i++) for (let j=i+1;j<PICKED.length;j++) pairs.push([PICKED[i],PICKED[j]]);
-  const rows = pairs.map(function(p){
-    const v = overlapPct(p[0],p[1]);
-    return {pair:p, v:v};
-  }).sort(function(a,b){ return b.v-a.v; });
-  const avg = rows.reduce(function(s,r){ return s+r.v; },0)/rows.length;
-  wrap.innerHTML = '<h2 style="font-family:Fraunces,serif;font-weight:500;font-size:17px;margin-top:18px">Where they double up</h2>'
-    + '<div class="note" style="font-size:13px;color:var(--ink-faint);margin-bottom:10px">'
-    + 'Average overlap across every pair is ' + avg.toFixed(0) + '%. Higher means you are buying the same companies twice.</div>'
-    + rows.slice(0,6).map(function(r){
-        return '<div class="wnote" style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)">'
-          + '<span>' + r.pair[0] + ' &amp; ' + r.pair[1] + '</span><b>' + r.v.toFixed(0) + '%</b></div>';
-      }).join('');
-}
-
-function renderUpsell(){
-  const box = document.getElementById('upsell');
-  const L = limits();
-  const totalFunds = Object.keys(FUNDS).length;
-  function plan(name, on, items){
-    return '<div class="plan' + (on ? ' on' : '') + '"><div class="pn">' + name + '</div><ul>'
-      + items.map(function(i){ return '<li><span style="color:var(--ember)">&bull;</span>' + i + '</li>'; }).join('')
-      + '</ul></div>';
-  }
-  let heading, blurb, action;
-  if (tier === 'free'){
-    heading = 'Keep going with a free account';
-    blurb = 'A free account doubles the funds you can hold, shows what your portfolio owns underneath, and saves it so it is there next time.';
-    action = '<a class="cta" href="account.html">Create a free account</a>'
-           + '<a class="ghost" href="account.html">Sign in</a>';
-  } else if (tier === 'member'){
-    heading = 'Unlock the full universe';
-    blurb = 'Licentia Pro opens all ' + totalFunds + ' tracked funds, removes the holdings limit, and adds pairwise overlap so you can see exactly where two funds buy the same companies.';
-    action = '<button class="cta" id="upgrade">See Licentia Pro</button>';
-  } else {
-    heading = 'You are on Licentia Pro';
-    blurb = 'All ' + totalFunds + ' funds, unlimited holdings, sector look-through and overlap analysis are switched on.';
-    action = '';
-  }
-  box.innerHTML =
-    '<div class="upsell-copy"><h3>' + heading + '</h3><p>' + blurb + '</p>' + action + '</div>'
-  + '<div class="plans">'
-    + plan('No Account', tier==='free', ['3 funds at a time','25 largest funds','Blended yield and return'])
-    + plan('Free Account', tier==='member', ['6 funds at a time','60 largest funds','Sector look-through','Save your portfolio'])
-    + plan('Licentia Pro', tier==='paid', ['All ' + totalFunds + ' funds','No holdings limit','Overlap between funds','Backtesting when it lands'])
-  + '</div>';
-  const up = document.getElementById('upgrade');
-  if (up) up.onclick = function(){
-    alert('Licentia Pro is not open yet — this is where checkout will go.');
-  };
+function optButton(sel, title, desc, flag, flagText){
+  return '<button class="opt' + (sel ? ' sel' : '') + '" type="button">'
+    + '<div class="ot">' + title + '</div><div class="od">' + desc + '</div>'
+    + (flag ? '<span class="oflag ' + flag + '">' + flagText + '</span>' : '')
+    + '</button>';
 }
 
 function render(){
-  setTierUI();
-  renderPicks();
-  renderHoldings();
-  renderWeightBar();
-  renderTotals();
-  renderSectors();
-  renderOverlap();
-  renderUpsell();
-  saveLocal();
+  const step = STEPS[stepIx];
+  const box = document.getElementById('stage');
+  document.body.classList.toggle('pro', tier === 'paid');
+  const badge = document.getElementById('tierBadge');
+  if (badge){
+    badge.className = 'tier' + (tier === 'paid' ? ' pro' : '');
+    badge.innerHTML = TIERS[tier].label + ' &mdash; <b>' +
+      (TIERS[tier].universe > 500 ? 'all funds' : TIERS[tier].universe + ' funds') + '</b>';
+  }
+  if (step.id === 'country')  return renderCountry(box);
+  if (step.id === 'amount')   return renderAmount(box);
+  if (step.id === 'yield')    return renderYield(box);
+  if (step.id === 'sectors')  return renderSectors(box);
+  if (step.id === 'result')   return renderResult(box);
 }
 
-// keep an in-progress portfolio across a reload, even signed out
-function saveLocal(){
-  try{ localStorage.setItem('LICENTIA_BUILD', JSON.stringify({picked:PICKED, weights:WEIGHTS})); }catch(e){}
-}
-function loadLocal(){
-  // deliberately does nothing: the builder opens empty so the first pick is
-  // always the reader's own choice
+function wire(box){
+  const auto = document.getElementById('autoBuild');
+  if (auto) auto.addEventListener('click', function(){ A.auto = true; stepIx = 4; render(); });
+  const back = document.getElementById('back');
+  if (back) back.addEventListener('click', function(){ stepIx = Math.max(0, stepIx-1); render(); });
+  const next = document.getElementById('next');
+  if (next) next.addEventListener('click', function(){ stepIx = Math.min(4, stepIx+1); render(); });
 }
 
-document.getElementById('search').addEventListener('input', renderPicks);
+function renderCountry(box){
+  box.innerHTML = rail()
+    + '<div class="qwrap"><div class="qhead">Where do you invest?</div>'
+    + '<p class="qsub">Canadian and American funds are taxed differently and hold different companies. '
+    + 'We will only suggest funds you can reasonably buy.</p>'
+    + '<div class="opts" id="opts">'
+    + optButton(A.country==='CAD','Canada','Listed in Canada, priced in Canadian dollars. 148 funds tracked.','calm','TSX listed')
+    + optButton(A.country==='US','United States','Listed in the US, priced in US dollars. 58 funds tracked.','calm','US listed')
+    + optButton(A.country==='BOTH','Either is fine','Show me the whole market and let the numbers decide.','note','widest choice')
+    + '</div>' + helpBar() + '</div>';
+  const vals = ['CAD','US','BOTH'];
+  box.querySelectorAll('#opts .opt').forEach(function(b, i){
+    b.addEventListener('click', function(){ A.country = vals[i]; stepIx = 1; render(); });
+  });
+  wire(box);
+}
+
+function renderAmount(box){
+  const presets = [5000, 25000, 100000, 250000];
+  box.innerHTML = rail()
+    + '<div class="qwrap"><div class="qhead">How much are you putting in?</div>'
+    + '<p class="qsub">Only used to show what the income would actually be in dollars. '
+    + 'Nothing is saved anywhere unless you sign in and save it yourself.</p>'
+    + '<div class="amount"><span class="cur">$</span>'
+    + '<input id="amt" type="number" min="0" step="1000" placeholder="25,000" value="' + (A.amount||'') + '"></div>'
+    + '<div class="chips" id="chips">' + presets.map(function(p){
+        return '<button class="chip' + (A.amount===p?' sel':'') + '" type="button">$' + p.toLocaleString('en-US') + '</button>';
+      }).join('') + '</div>'
+    + '<div class="navrow"><button class="ghost" id="back">Back</button>'
+    + '<button class="primary" id="next">Continue</button></div>'
+    + helpBar() + '</div>';
+  const amt = document.getElementById('amt');
+  amt.addEventListener('input', function(){ A.amount = Number(amt.value) || null; });
+  box.querySelectorAll('#chips .chip').forEach(function(b, i){
+    b.addEventListener('click', function(){ A.amount = presets[i]; render(); });
+  });
+  wire(box);
+}
+
+function renderYield(box){
+  const band = BANDS.find(function(b){ return b.id === A.yieldBand; });
+  box.innerHTML = rail()
+    + '<div class="qwrap"><div class="qhead">What kind of income are you after?</div>'
+    + '<p class="qsub">Higher is not better. On this kind of fund a bigger yield usually means '
+    + 'giving up more of the growth, and sometimes it means being paid with your own capital.</p>'
+    + '<div class="opts" id="opts">'
+    + BANDS.map(function(b){
+        return optButton(A.yieldBand===b.id, b.label,
+          b.id==='5-10' ? 'Modest cheques, most of the market movement kept.'
+          : b.id==='10-15' ? 'The middle of this market, where most funds sit.'
+          : b.id==='15-20' ? 'Large cheques. Check what is left of the total return.'
+          : 'The largest cheques on offer and the largest risk to your capital.',
+          b.flag, b.flagText);
+      }).join('')
+    + '</div>'
+    + (band ? '<div class="disclaim' + (band.flag==='warn'?' hot':'') + '"><b>' + band.label + ':</b> ' + band.note + '</div>' : '')
+    + '<div class="navrow"><button class="ghost" id="back">Back</button>'
+    + (band ? '<button class="primary" id="next">Continue</button>' : '') + '</div>'
+    + helpBar() + '</div>';
+  box.querySelectorAll('#opts .opt').forEach(function(b, i){
+    b.addEventListener('click', function(){ A.yieldBand = BANDS[i].id; render(); });
+  });
+  wire(box);
+}
+
+function renderSectors(box){
+  const all = ['Technology','Financials','Energy','Health Care','Utilities','Real Estate',
+               'Consumer Staples','Consumer Discretionary','Industrials','Materials','Communication Services'];
+  box.innerHTML = rail()
+    + '<div class="qwrap"><div class="qhead">Anything you particularly want to own?</div>'
+    + '<p class="qsub">Pick as many as you like, or skip this entirely. If you skip it we will '
+    + 'spread across whatever gives the best mix instead.</p>'
+    + '<div class="chips" id="secs">' + all.map(function(s){
+        return '<button class="chip' + (A.sectors.indexOf(s)!==-1?' sel':'') + '" type="button">' + s + '</button>';
+      }).join('') + '</div>'
+    + '<div class="navrow"><button class="ghost" id="back">Back</button>'
+    + '<button class="primary" id="next">Build my portfolios</button>'
+    + '<button class="ghost" id="skip">Skip, no preference</button></div>'
+    + helpBar() + '</div>';
+  box.querySelectorAll('#secs .chip').forEach(function(b, i){
+    b.addEventListener('click', function(){
+      const s = all[i], at = A.sectors.indexOf(s);
+      if (at === -1) A.sectors.push(s); else A.sectors.splice(at, 1);
+      render();
+    });
+  });
+  const skip = document.getElementById('skip');
+  if (skip) skip.addEventListener('click', function(){ A.sectors = []; stepIx = 4; render(); });
+  wire(box);
+}
+
+function renderResult(box){
+  // a short, visible pass so it is clear work is being done, then the results
+  box.innerHTML = rail()
+    + '<div class="working"><div class="qhead">Building your portfolios</div>'
+    + '<div class="bar"><i id="pbar"></i></div><div class="msg2" id="pmsg">Reading the fund data…</div></div>';
+  const steps = [
+    'Filtering to funds you can buy…',
+    'Checking what each one actually holds…',
+    'Measuring overlap between candidates…',
+    'Assembling three portfolios…'
+  ];
+  let i = 0;
+  const bar = document.getElementById('pbar');
+  const msg = document.getElementById('pmsg');
+  const timer = setInterval(function(){
+    i++;
+    if (bar) bar.style.width = Math.min(100, i * 26) + '%';
+    if (msg && steps[i-1]) msg.textContent = steps[i-1];
+    if (i >= 4){
+      clearInterval(timer);
+      setTimeout(function(){ showRecs(box); }, 320);
+    }
+  }, 330);
+}
+
+function showRecs(box){
+  const recs = buildRecommendations();
+  const band = BANDS.find(function(b){ return b.id === A.yieldBand; });
+  const answered = [];
+  if (A.country) answered.push(A.country === 'CAD' ? 'Canada' : A.country === 'US' ? 'United States' : 'either market');
+  if (A.amount) answered.push(fmtMoney(A.amount));
+  if (band) answered.push(band.label + ' target');
+  if (A.sectors.length) answered.push(A.sectors.length + ' sector' + (A.sectors.length>1?'s':''));
+
+  let html = rail()
+    + '<div class="qwrap" style="max-width:100%">'
+    + '<div class="qhead">Three ways to do it</div>'
+    + '<p class="qsub">' + (answered.length
+        ? 'Based on ' + answered.join(', ') + '. '
+        : 'You skipped the questions, so these are built on the whole market. ')
+    + 'Each portfolio is equally weighted and picked to avoid buying the same companies twice.</p>';
+
+  if (recs[0] && recs[0].widened){
+    html += '<div class="disclaim"><b>A note:</b> too few funds sat inside the yield band you chose, '
+      + 'so we widened the search rather than hand you a portfolio of one or two funds.</div>';
+  }
+
+  html += '<div class="recs">';
+  recs.forEach(function(r, ix){
+    const s = r.stats;
+    const eroding = s.ret !== null && s.yield > 15 && s.ret < s.yield / 2;
+    html += '<div class="rec' + (ix===0?' best':'') + '">'
+      + '<div class="rtag">' + r.tag + (ix===0 ? ' · our pick' : '') + '</div>'
+      + '<h3>' + fmtPct(s.yield) + ' a year</h3>'
+      + '<p class="rdesc">' + r.desc + '</p>'
+      + '<div class="rstats">'
+        + '<div class="rstat"><div class="v">' + fmtPct(s.yield) + '</div><div class="k">blended yield</div></div>'
+        + '<div class="rstat"><div class="v" style="color:' + (s.ret !== null && s.ret < 0 ? 'var(--down)' : 'var(--up)') + '">'
+          + (s.ret === null ? '—' : fmtPct(s.ret)) + '</div><div class="k">total return 1y</div></div>'
+        + '<div class="rstat"><div class="v">' + Math.round(s.overlapAvg) + '%</div><div class="k">avg overlap</div></div>'
+      + '</div>';
+    if (A.amount) html += '<div class="rdesc" style="margin-bottom:14px"><b>' + fmtMoney(s.income)
+      + '</b> a year, about <b>' + fmtMoney(s.income/12) + '</b> a month on ' + fmtMoney(A.amount) + '.</div>';
+    r.picks.forEach(function(t, i){
+      const f = FUNDS[t];
+      html += '<div class="rhold"><span class="rt" style="color:' + famColour(f.issuer) + '">' + t + '</span>'
+        + '<span class="rn">' + f.name + '</span><span class="rw">' + r.weights[i] + '%</span></div>';
+    });
+    if (eroding){
+      html += '<div class="disclaim hot" style="margin-top:14px;font-size:12.5px">'
+        + '<b>Worth pausing on:</b> this pays ' + fmtPct(s.yield) + ' but returned '
+        + fmtPct(s.ret) + ' in total over the past year. The gap is capital coming back to you, '
+        + 'not profit.</div>';
+    }
+    html += '<div class="rfoot"><button class="primary" data-ix="' + ix + '">Use this portfolio</button></div>'
+      + '</div>';
+  });
+  html += '</div>';
+
+  html += '<div class="navrow"><button class="ghost" id="restart">Start again</button>'
+    + '<a class="ghost" href="portfolio.html">Go to My Portfolio</a></div>'
+    + '<p class="foot" style="margin-top:26px;font-size:12px;color:var(--ink-faint);line-height:1.7;max-width:74ch">'
+    + 'These portfolios are assembled by a simple rules-based model from published fund data: '
+    + 'trailing yield, one year total return, and what each fund holds underneath. They are a starting '
+    + 'point for your own research, not financial advice, and no one at Licentia knows your tax position, '
+    + 'time horizon or anything else about your circumstances. Past distributions do not predict future ones.'
+    + '</p></div>';
+
+  box.innerHTML = html;
+  window.__recs = recs;
+  box.querySelectorAll('.rfoot .primary').forEach(function(b){
+    b.addEventListener('click', function(){ useRec(Number(b.dataset.ix)); });
+  });
+  const rs = document.getElementById('restart');
+  if (rs) rs.addEventListener('click', function(){
+    A.country=null; A.amount=null; A.yieldBand=null; A.sectors=[]; A.auto=false; stepIx=0; render();
+  });
+}
+
+function fmtPct(v){ return (v===null||v===undefined||!isFinite(v)) ? '—' : v.toFixed(1) + '%'; }
+
+async function useRec(ix){
+  const r = window.__recs[ix];
+  const s = await sb.auth.getSession();
+  if (!s.data.session){
+    alert('Sign in first and this will save straight to My Portfolio.');
+    window.location.href = 'account.html';
+    return;
+  }
+  if (!A.amount){
+    alert('Go back and enter an amount so we can work out how many shares that is.');
+    return;
+  }
+  // weights become share counts at today's price, so the saved rows mean something
+  const rows = r.picks.map(function(t, i){
+    const price = (FUNDS[t].stats||{}).price;
+    if (!price) return null;
+    const dollars = A.amount * r.weights[i] / 100;
+    return {user_id: s.data.session.user.id, ticker: t,
+            shares: Math.floor(dollars / price), cost_basis: price};
+  }).filter(Boolean);
+  if (!rows.length){ alert('No prices available for those funds right now.'); return; }
+  const res = await sb.from('portfolio_holdings').insert(rows);
+  if (res.error){ alert(res.error.message); return; }
+  window.location.href = 'portfolio.html';
+}
 
 Promise.all([
   fetch('data/funds.json?cb=' + Math.random()).then(function(r){ return r.json(); }),
@@ -543,29 +758,15 @@ Promise.all([
   SECTORS = (res[1] && res[1].map) ? res[1].map : {};
   const patch = res[2] || {};
   Object.keys(patch).forEach(function(t){
-    if (FUNDS[t]){
-      FUNDS[t].stats = FUNDS[t].stats || {};
-      if (FUNDS[t].stats.aum_musd == null) FUNDS[t].stats.aum_musd = patch[t].aum_musd;
-    }
+    if (FUNDS[t]){ FUNDS[t].stats = FUNDS[t].stats || {};
+      if (FUNDS[t].stats.aum_musd == null) FUNDS[t].stats.aum_musd = patch[t].aum_musd; }
   });
-  const session = res[3].data.session;
-  tier = PREVIEW_PRO ? 'paid' : (session ? 'member' : 'free');
-  buildUniverse();
-  loadLocal();
-  // a signed-out visitor may have more picks saved than the free tier allows
-  const L = limits();
-  if (PICKED.length > L.holdings) PICKED = PICKED.slice(0, L.holdings);
+  tier = PREVIEW_PRO ? 'paid' : (res[3].data.session ? 'member' : 'free');
   render();
-  document.getElementById('foot').innerHTML =
-    'Yields are trailing twelve months, calculated as distributions paid divided by the latest price. '
-  + 'Sector and overlap figures look through any fund that holds other funds. '
-  + 'Figures are for research only and are not a recommendation to buy anything.';
 });
 
 sb.auth.onAuthStateChange(function(_e, session){
   tier = PREVIEW_PRO ? 'paid' : (session ? 'member' : 'free');
-  const L = limits();
-  if (PICKED.length > L.holdings) PICKED = PICKED.slice(0, L.holdings);
   if (Object.keys(FUNDS).length) render();
 });
 </script>
