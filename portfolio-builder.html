@@ -114,11 +114,13 @@
   .wnote{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
   .wnote.bad{color:var(--rust);}
 
-  .secbar{display:flex; height:22px; border-radius:6px; overflow:hidden; background:var(--line); margin:8px 0 12px;}
-  .seclegend{display:flex; flex-wrap:wrap; gap:9px 16px;}
-  .sk{display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace;
-    font-size:11px; color:var(--ink-soft);}
-  .sk i{width:10px; height:10px; border-radius:3px; display:block;}
+  .secbar{display:flex; height:30px; border-radius:6px; overflow:hidden; background:var(--line); margin:8px 0 12px;}
+  /* legend sized to be read, not squinted at */
+  .seclegend{display:flex; flex-wrap:wrap; gap:12px 22px;}
+  .sk{display:inline-flex; align-items:center; gap:9px;
+    font-family:'Inter',ui-sans-serif,sans-serif; font-size:13.5px; color:var(--ink);}
+  .sk i{width:15px; height:15px; border-radius:4px; display:block; flex:none;
+    box-shadow:0 0 0 1px rgba(28,34,48,0.10) inset;}
 
   .upsell{margin-top:22px; border-radius:13px; padding:28px 30px; color:var(--paper);
     background:linear-gradient(150deg, var(--ink) 0%, #2A3346 100%);
