@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Builder — Licentia</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--ink);
+    font-family:'Inter',ui-sans-serif,sans-serif; -webkit-font-smoothing:antialiased;}
+  nav{display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:11px 26px; background:var(--ink); position:sticky; top:0; z-index:40; flex-wrap:wrap;}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; color:var(--paper); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  .brand-bird{display:inline-block; width:25px; height:16px; margin-left:8px; vertical-align:-1px;}
+  .navlinks{display:flex; gap:7px; flex-wrap:wrap;}
+  .navlinks a{font-size:13.5px; padding:8px 15px; border-radius:100px; text-decoration:none;
+    border:1px solid rgba(242,239,233,0.24); color:rgba(242,239,233,0.74);
+    white-space:nowrap; transition:all .16s;}
+  .navlinks a:hover{border-color:var(--paper); color:var(--paper);}
+  .navlinks a.active{background:var(--ember); border-color:var(--ember); color:var(--ink); font-weight:500;}
+  @media(max-width:820px){ nav{padding:10px 16px;} .navlinks a{padding:7px 11px; font-size:12.5px;} }
+
+  .wrap{max-width:1180px; margin:0 auto; padding:36px 26px 90px;}
+  .head-row{display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  h1{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(28px,3.4vw,40px);
+    letter-spacing:-0.02em; line-height:1.1; margin-bottom:8px;}
+  .sub{font-size:15px; color:var(--ink-soft); line-height:1.6; max-width:60ch;}
+  .tier{display:inline-flex; align-items:center; gap:9px; padding:9px 16px; border-radius:100px;
+    background:var(--white); border:1px solid var(--line-strong);
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink-soft); white-space:nowrap;}
+  .tier b{color:var(--ember-deep); font-weight:500;}
+
+  .grid{display:grid; grid-template-columns:1fr 1.15fr; gap:22px; margin-top:30px; align-items:start;}
+  @media(max-width:960px){ .grid{grid-template-columns:1fr;} }
+  .panel{background:var(--white); border:1px solid var(--line); border-radius:13px; padding:22px 24px;}
+  .panel h2{font-family:'Fraunces',serif; font-weight:500; font-size:19px; margin-bottom:4px;}
+  .panel .note{font-size:13px; color:var(--ink-faint); line-height:1.55; margin-bottom:16px;}
+
+  .search{width:100%; padding:11px 14px; border-radius:9px; border:1px solid var(--line-strong);
+    font-family:inherit; font-size:14.5px; background:var(--paper-raised); margin-bottom:12px;}
+  .search:focus{outline:none; border-color:var(--ember); box-shadow:0 0 0 3px rgba(255,107,53,0.14);}
+  .picklist{max-height:420px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;}
+  .pick{display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:9px;
+    border:1px solid rgba(var(--famrgb),0.22); cursor:pointer; text-align:left;
+    background:linear-gradient(150deg, rgba(var(--famrgb),0.10) 0%, rgba(var(--famrgb),0.02) 60%, rgba(255,255,255,0.7) 100%);
+    font-family:inherit; transition:transform .14s, box-shadow .14s;}
+  .pick:hover{transform:translateY(-1px); box-shadow:0 4px 12px rgba(28,34,48,0.09);}
+  .pick:disabled{opacity:.42; cursor:not-allowed; transform:none; box-shadow:none;}
+  .pick .tic{font-family:'IBM Plex Mono',monospace; font-size:13.5px; font-weight:500; min-width:56px;}
+  .pick .nm{flex:1; font-size:12.5px; color:var(--ink-soft); line-height:1.35;}
+  .pick .yl{font-family:'Fraunces',serif; font-size:17px; color:var(--fam);}
+  .locked-row{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:9px;
+    border:1px dashed var(--line-strong); font-size:12.5px; color:var(--ink-faint);}
+
+  .holding{display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px;
+    border:1px solid rgba(var(--famrgb),0.26); margin-bottom:9px;
+    background:linear-gradient(155deg, rgba(var(--famrgb),0.13) 0%, rgba(var(--famrgb),0.03) 55%, rgba(255,255,255,0.75) 100%);}
+  .holding .tic{font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500; min-width:58px;}
+  .holding .nm{flex:1; font-size:12.5px; color:var(--ink-soft); line-height:1.35;}
+  .wt{width:74px; padding:7px 9px; border-radius:7px; border:1px solid var(--line-strong);
+    font-family:'IBM Plex Mono',monospace; font-size:13px; text-align:right; background:var(--white);}
+  .wt:focus{outline:none; border-color:var(--ember);}
+  .rm{background:none; border:none; cursor:pointer; color:var(--ink-faint); font-size:17px; padding:0 4px;}
+  .rm:hover{color:var(--rust);}
+  .empty{padding:26px 18px; text-align:center; color:var(--ink-faint); font-size:13.5px;
+    border:1px dashed var(--line-strong); border-radius:10px; line-height:1.6;}
+
+  .totals{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:11px; overflow:hidden; margin:18px 0;}
+  .tot{background:var(--white); padding:15px 16px;}
+  .tot .v{font-family:'Fraunces',serif; font-size:25px; line-height:1;}
+  .tot .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.11em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:7px;}
+  .tot .v.up{color:var(--up);} .tot .v.down{color:var(--down);}
+
+  .weightbar{display:flex; height:12px; border-radius:6px; overflow:hidden; background:var(--line); margin-bottom:6px;}
+  .weightbar div{transition:width .25s;}
+  .wnote{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
+  .wnote.bad{color:var(--rust);}
+
+  .secbar{display:flex; height:22px; border-radius:6px; overflow:hidden; background:var(--line); margin:8px 0 12px;}
+  .seclegend{display:flex; flex-wrap:wrap; gap:9px 16px;}
+  .sk{display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace;
+    font-size:11px; color:var(--ink-soft);}
+  .sk i{width:10px; height:10px; border-radius:3px; display:block;}
+
+  .upsell{margin-top:22px; border-radius:13px; padding:24px; color:var(--paper);
+    background:linear-gradient(150deg, var(--ink) 0%, #2A3346 100%);}
+  .upsell h3{font-family:'Fraunces',serif; font-weight:500; font-size:21px; margin-bottom:8px;}
+  .upsell p{font-size:14px; line-height:1.65; color:rgba(242,239,233,0.76); max-width:56ch;}
+  .plans{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin-top:18px;}
+  .plan{border:1px solid rgba(242,239,233,0.2); border-radius:11px; padding:16px 18px;}
+  .plan.on{border-color:var(--ember); background:rgba(255,107,53,0.10);}
+  .plan .pn{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ember); margin-bottom:9px;}
+  .plan ul{list-style:none; display:flex; flex-direction:column; gap:7px;}
+  .plan li{font-size:13px; color:rgba(242,239,233,0.82); line-height:1.45; display:flex; gap:8px;}
+  .cta{display:inline-block; margin-top:16px; padding:12px 22px; border-radius:9px;
+    background:var(--ember); color:var(--ink); font-weight:500; font-size:14.5px;
+    text-decoration:none; border:none; cursor:pointer; font-family:inherit; transition:transform .16s;}
+  .cta:hover{transform:translateY(-2px);}
+  .ghost{display:inline-block; margin-top:16px; margin-left:10px; padding:12px 20px; border-radius:9px;
+    border:1px solid rgba(242,239,233,0.3); color:var(--paper); text-decoration:none; font-size:14px;}
+  .foot{margin-top:34px; font-size:12px; color:var(--ink-faint); line-height:1.7; max-width:70ch;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Licentia<img class="brand-bird" src="assets/bird.svg" alt="" width="25" height="16"></a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="learn.html">Learn</a>
+    <a href="funds.html">Funds</a>
+    <a href="compare.html">Comparison Tool</a>
+    <a class="active" href="portfolio-builder.html">Portfolio Builder</a>
+    <a href="portfolio.html">My Portfolio</a>
+    <a href="backtest.html">Backtesting</a>
+    <a href="account.html">My Account</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="head-row">
+    <div>
+      <h1>Portfolio Builder</h1>
+      <p class="sub">Put a few income funds together and see what the combination actually pays,
+        what it holds underneath, and where it doubles up on itself.</p>
+    </div>
+    <div class="tier" id="tierBadge">Free &mdash; <b id="tierLimit">3 funds</b></div>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Choose funds</h2>
+      <div class="note" id="pickNote">The free builder covers the largest funds by size.</div>
+      <input class="search" id="search" type="search" placeholder="Search ticker or name…" autocomplete="off">
+      <div class="picklist" id="picklist"></div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h2>Your portfolio</h2>
+        <div class="note">Weights are percentages of the money you would put in. They do not have to
+          add to 100 while you are working, but the figures below assume they do.</div>
+        <div id="holdings"></div>
+        <div class="weightbar" id="weightbar"></div>
+        <div class="wnote" id="wnote"></div>
+        <div class="totals" id="totals"></div>
+        <div id="secWrap"></div>
+        <div id="overlapWrap"></div>
+      </div>
+
+      <div class="upsell" id="upsell"></div>
+    </div>
+  </div>
+
+  <p class="foot" id="foot"></p>
+</div>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ---- tiers -------------------------------------------------------------
+// The gate is a product decision, not a security boundary: this is a static
+// site, so anyone can read the data file directly. It is here to make the
+// paid tier worth buying, not to hide public information.
+const TIERS = {
+  free:   {label:'Free',    holdings:3,  universe:25,  save:false, sectors:false, overlap:false},
+  member: {label:'Account', holdings:6,  universe:60,  save:true,  sectors:true,  overlap:false},
+  paid:   {label:'Premium', holdings:99, universe:999, save:true,  sectors:true,  overlap:true}
+};
+let tier = 'free';
+let FUNDS = {}, SECTORS = {}, UNIVERSE = [], PICKED = [], WEIGHTS = {};
+
+const FAM_COLOUR = {
+  'BMO ETFs':'#0075BE','Hamilton ETFs':'#123D66','Harvest ETFs':'#C9821F','Evolve ETFs':'#0F9B8E',
+  'Purpose Investments':'#E2571E','Global X Canada':'#1B6AC9','Global X':'#1B6AC9',
+  'NEOS Investments':'#1F7A5C','YieldMax':'#D1442F','J.P. Morgan Asset Management':'#3C2415',
+  'iShares':'#3A3A3A','Roundhill':'#5B3FA8','Defiance':'#B3142F','REX Shares':'#0E6E70',
+  'ProShares':'#00539B','Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'
+};
+const SECTOR_COLOUR = {
+  'Technology':'#3B6FD4','Financials':'#1F7A5C','Health Care':'#C2417F','Consumer Discretionary':'#E2571E',
+  'Consumer Staples':'#8A6D3B','Energy':'#B3142F','Industrials':'#5B6472','Materials':'#7A5CA8',
+  'Real Estate':'#0E7C7B','Utilities':'#2F7FA8','Communication Services':'#D18B1F',
+  'Fund / ETF':'#9AA3AE','Options':'#6E4B9E','Cash':'#B8BCC2','Unclassified':'#D6D3CC'
+};
+function famColour(i){ return FAM_COLOUR[i] || '#2F3E57'; }
+function hexToRgb(h){ const n=parseInt(h.slice(1),16); return ((n>>16)&255)+','+((n>>8)&255)+','+(n&255); }
+function paint(el, issuer){ const c=famColour(issuer); el.style.setProperty('--fam',c); el.style.setProperty('--famrgb',hexToRgb(c)); }
+function fmtAum(m){ if(m==null) return null; return m>=1000 ? '$'+(m/1000).toFixed(1)+'B' : '$'+Math.round(m)+'M'; }
+
+// look-through so a fund of funds is measured on what it really owns
+const _cache = {};
+function lookThrough(t, depth, seen){
+  depth = depth||0; seen = seen||new Set();
+  if (depth===0 && _cache[t]) return _cache[t];
+  const f = FUNDS[t], out = {};
+  if (!f || !f.holdings) return out;
+  seen.add(t);
+  Object.entries(f.holdings).forEach(function(e){
+    const k=e[0], w=e[1], nested=FUNDS[k];
+    if (nested && nested.holdings && depth<3 && !seen.has(k)){
+      const inner = lookThrough(k, depth+1, new Set(seen));
+      const tot = Object.values(inner).reduce(function(a,b){return a+b;},0) || 1;
+      Object.entries(inner).forEach(function(p){ out[p[0]] = (out[p[0]]||0) + w*(p[1]/tot); });
+    } else { out[k] = (out[k]||0) + w; }
+  });
+  if (depth===0) _cache[t] = out;
+  return out;
+}
+
+function limits(){ return TIERS[tier]; }
+
+function setTierUI(){
+  const L = limits();
+  document.getElementById('tierBadge').innerHTML =
+    L.label + ' &mdash; <b>' + (L.holdings > 50 ? 'all funds' : L.holdings + ' funds') + '</b>';
+  document.getElementById('pickNote').textContent = L.universe >= 999
+    ? 'All ' + Object.keys(FUNDS).length + ' tracked funds are available on your plan.'
+    : 'The ' + L.label.toLowerCase() + ' builder covers the ' + L.universe + ' largest funds by size.';
+}
+
+function buildUniverse(){
+  const all = Object.entries(FUNDS)
+    .filter(function(e){ return (e[1].stats||{}).yield_ttm !== undefined; })
+    .sort(function(a,b){ return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); });
+  UNIVERSE = all;
+}
+
+function renderPicks(){
+  const L = limits();
+  const q = (document.getElementById('search').value||'').trim().toUpperCase();
+  const box = document.getElementById('picklist');
+  const allowed = UNIVERSE.slice(0, L.universe);
+  const shown = allowed.filter(function(e){
+    return !q || e[0].indexOf(q) === 0 || e[1].name.toUpperCase().indexOf(q) !== -1;
+  });
+  box.innerHTML = '';
+  shown.slice(0, 120).forEach(function(e){
+    const t = e[0], f = e[1], st = f.stats||{};
+    const b = document.createElement('button');
+    b.className = 'pick'; b.type = 'button';
+    paint(b, f.issuer);
+    const already = PICKED.indexOf(t) !== -1;
+    b.disabled = already || PICKED.length >= L.holdings;
+    b.innerHTML = '<span class="tic">' + t + '</span>'
+      + '<span class="nm">' + f.name + '</span>'
+      + '<span class="yl">' + (st.yield_ttm !== undefined ? st.yield_ttm.toFixed(1) + '%' : '—') + '</span>';
+    b.onclick = function(){ addHolding(t); };
+    box.appendChild(b);
+  });
+  const hidden = UNIVERSE.length - allowed.length;
+  if (hidden > 0){
+    const row = document.createElement('div');
+    row.className = 'locked-row';
+    row.innerHTML = '&#128274; ' + hidden + ' more funds available on Premium';
+    box.appendChild(row);
+  }
+}
+
+function addHolding(t){
+  const L = limits();
+  if (PICKED.length >= L.holdings || PICKED.indexOf(t) !== -1) return;
+  PICKED.push(t);
+  const even = Math.round(100 / PICKED.length);
+  PICKED.forEach(function(p){ WEIGHTS[p] = even; });
+  render();
+}
+function removeHolding(t){
+  PICKED = PICKED.filter(function(p){ return p !== t; });
+  delete WEIGHTS[t];
+  render();
+}
+
+function renderHoldings(){
+  const box = document.getElementById('holdings');
+  if (!PICKED.length){
+    box.innerHTML = '<div class="empty">Pick a fund on the left to start building.<br>'
+      + 'You will see the blended yield, what it holds underneath, and where it overlaps.</div>';
+    document.getElementById('weightbar').innerHTML = '';
+    document.getElementById('wnote').textContent = '';
+    return;
+  }
+  box.innerHTML = '';
+  PICKED.forEach(function(t){
+    const f = FUNDS[t];
+    const row = document.createElement('div');
+    row.className = 'holding';
+    paint(row, f.issuer);
+    row.innerHTML = '<span class="tic">' + t + '</span>'
+      + '<span class="nm">' + f.name + '</span>'
+      + '<input class="wt" type="number" min="0" max="100" step="1" value="' + (WEIGHTS[t]||0) + '">'
+      + '<span style="font-size:12px;color:var(--ink-faint)">%</span>'
+      + '<button class="rm" title="Remove">&times;</button>';
+    row.querySelector('.wt').addEventListener('input', function(ev){
+      WEIGHTS[t] = Math.max(0, Math.min(100, Number(ev.target.value)||0));
+      renderTotals(); renderWeightBar(); renderSectors(); renderOverlap();
+    });
+    row.querySelector('.rm').onclick = function(){ removeHolding(t); };
+    box.appendChild(row);
+  });
+}
+
+function totalWeight(){ return PICKED.reduce(function(s,t){ return s + (WEIGHTS[t]||0); }, 0); }
+
+function renderWeightBar(){
+  const bar = document.getElementById('weightbar');
+  const note = document.getElementById('wnote');
+  const tot = totalWeight();
+  bar.innerHTML = '';
+  PICKED.forEach(function(t){
+    const d = document.createElement('div');
+    d.style.width = (tot ? (WEIGHTS[t]||0)/Math.max(tot,100)*100 : 0) + '%';
+    d.style.background = famColour(FUNDS[t].issuer);
+    d.title = t + ' ' + (WEIGHTS[t]||0) + '%';
+    bar.appendChild(d);
+  });
+  if (!PICKED.length){ note.textContent = ''; return; }
+  note.className = 'wnote' + (Math.round(tot) === 100 ? '' : ' bad');
+  note.textContent = Math.round(tot) === 100
+    ? 'Weights add to 100%.'
+    : 'Weights add to ' + Math.round(tot) + '% — figures below are scaled as if they summed to 100.';
+}
+
+function renderTotals(){
+  const box = document.getElementById('totals');
+  if (!PICKED.length){ box.innerHTML = ''; return; }
+  const tot = totalWeight() || 1;
+  let y = 0, r = 0, mer = 0, yCov = 0, rCov = 0, merCov = 0;
+  PICKED.forEach(function(t){
+    const st = FUNDS[t].stats || {};
+    const w = (WEIGHTS[t]||0)/tot;
+    if (st.yield_ttm !== undefined){ y += st.yield_ttm * w; yCov += w; }
+    if (st.total_return_1y !== undefined && st.total_return_1y !== null){ r += st.total_return_1y * w; rCov += w; }
+    if (st.mer !== undefined && st.mer !== null){ mer += st.mer * w; merCov += w; }
+  });
+  function cell(v, k, cls){
+    return '<div class="tot"><div class="v ' + (cls||'') + '">' + v + '</div><div class="k">' + k + '</div></div>';
+  }
+  const income = yCov ? (y/yCov) : null;
+  box.innerHTML =
+    cell(income !== null ? income.toFixed(1) + '%' : '—', 'blended yield')
+  + cell(rCov ? (r/rCov).toFixed(1) + '%' : '—', 'total return 1y', rCov && (r/rCov) < 0 ? 'down' : 'up')
+  + cell(merCov ? (mer/merCov).toFixed(2) + '%' : '—', 'weighted MER')
+  + cell(PICKED.length, 'funds held');
+}
+
+function sectorMixFor(picks){
+  const tot = totalWeight() || 1;
+  const mix = {}; let seen = 0;
+  picks.forEach(function(t){
+    const flat = lookThrough(t, 0, new Set());
+    const inner = Object.values(flat).reduce(function(a,b){ return a+b; }, 0);
+    if (!inner) return;
+    const w = (WEIGHTS[t]||0)/tot;
+    seen += w;
+    Object.keys(flat).forEach(function(h){
+      const s = SECTORS[h] || 'Unclassified';
+      mix[s] = (mix[s]||0) + (flat[h]/inner) * w * 100;
+    });
+  });
+  return {mix: mix, coverage: seen};
+}
+
+function renderSectors(){
+  const wrap = document.getElementById('secWrap');
+  if (!PICKED.length){ wrap.innerHTML = ''; return; }
+  if (!limits().sectors){
+    wrap.innerHTML = '<div class="locked-row" style="margin-top:6px">&#128274; '
+      + 'What these funds hold underneath — sign in to see the sector mix</div>';
+    return;
+  }
+  const res = sectorMixFor(PICKED);
+  const parts = Object.entries(res.mix).sort(function(a,b){ return b[1]-a[1]; });
+  if (!parts.length){ wrap.innerHTML = ''; return; }
+  let bar = '', legend = '';
+  parts.forEach(function(p){
+    bar += '<div style="width:' + p[1].toFixed(2) + '%;background:' + (SECTOR_COLOUR[p[0]]||'#ccc') + '" title="' + p[0] + ' ' + p[1].toFixed(1) + '%"></div>';
+    legend += '<span class="sk"><i style="background:' + (SECTOR_COLOUR[p[0]]||'#ccc') + '"></i>' + p[0] + ' ' + p[1].toFixed(0) + '%</span>';
+  });
+  wrap.innerHTML = '<h2 style="font-family:Fraunces,serif;font-weight:500;font-size:17px;margin-top:6px">What it holds underneath</h2>'
+    + '<div class="secbar">' + bar + '</div><div class="seclegend">' + legend + '</div>';
+}
+
+function overlapPct(a, b){
+  const A = lookThrough(a,0,new Set()), B = lookThrough(b,0,new Set());
+  const sa = Object.values(A).reduce(function(x,y){return x+y;},0) || 1;
+  const sb = Object.values(B).reduce(function(x,y){return x+y;},0) || 1;
+  let shared = 0;
+  Object.keys(A).forEach(function(k){
+    if (B[k] !== undefined) shared += Math.min(A[k]/sa, B[k]/sb);
+  });
+  return shared * 100;
+}
+
+function renderOverlap(){
+  const wrap = document.getElementById('overlapWrap');
+  if (PICKED.length < 2){ wrap.innerHTML = ''; return; }
+  if (!limits().overlap){
+    wrap.innerHTML = '<div class="locked-row" style="margin-top:14px">&#128274; '
+      + 'Overlap between your funds — available on Premium</div>';
+    return;
+  }
+  const pairs = [];
+  for (let i=0;i<PICKED.length;i++) for (let j=i+1;j<PICKED.length;j++) pairs.push([PICKED[i],PICKED[j]]);
+  const rows = pairs.map(function(p){
+    const v = overlapPct(p[0],p[1]);
+    return {pair:p, v:v};
+  }).sort(function(a,b){ return b.v-a.v; });
+  const avg = rows.reduce(function(s,r){ return s+r.v; },0)/rows.length;
+  wrap.innerHTML = '<h2 style="font-family:Fraunces,serif;font-weight:500;font-size:17px;margin-top:18px">Where they double up</h2>'
+    + '<div class="note" style="font-size:13px;color:var(--ink-faint);margin-bottom:10px">'
+    + 'Average overlap across every pair is ' + avg.toFixed(0) + '%. Higher means you are buying the same companies twice.</div>'
+    + rows.slice(0,6).map(function(r){
+        return '<div class="wnote" style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)">'
+          + '<span>' + r.pair[0] + ' &amp; ' + r.pair[1] + '</span><b>' + r.v.toFixed(0) + '%</b></div>';
+      }).join('');
+}
+
+function renderUpsell(){
+  const box = document.getElementById('upsell');
+  const L = limits();
+  const totalFunds = Object.keys(FUNDS).length;
+  function plan(name, on, items){
+    return '<div class="plan' + (on ? ' on' : '') + '"><div class="pn">' + name + '</div><ul>'
+      + items.map(function(i){ return '<li><span style="color:var(--ember)">&bull;</span>' + i + '</li>'; }).join('')
+      + '</ul></div>';
+  }
+  let heading, blurb, action;
+  if (tier === 'free'){
+    heading = 'Keep going with a free account';
+    blurb = 'A free account doubles the funds you can hold, shows what your portfolio owns underneath, and saves it so it is there next time.';
+    action = '<a class="cta" href="account.html">Create a free account</a>'
+           + '<a class="ghost" href="account.html">Sign in</a>';
+  } else if (tier === 'member'){
+    heading = 'Unlock the full universe';
+    blurb = 'Premium opens all ' + totalFunds + ' tracked funds, removes the holdings limit, and adds pairwise overlap so you can see exactly where two funds buy the same companies.';
+    action = '<button class="cta" id="upgrade">See Premium</button>';
+  } else {
+    heading = 'You are on Premium';
+    blurb = 'All ' + totalFunds + ' funds, unlimited holdings, sector look-through and overlap analysis are switched on.';
+    action = '';
+  }
+  box.innerHTML = '<h3>' + heading + '</h3><p>' + blurb + '</p>'
+    + '<div class="plans">'
+    + plan('Free', tier==='free', ['3 funds at a time','25 largest funds','Blended yield and return'])
+    + plan('Free account', tier==='member', ['6 funds at a time','60 largest funds','Sector look-through','Save your portfolio'])
+    + plan('Premium', tier==='paid', ['All ' + totalFunds + ' funds','No holdings limit','Overlap between funds','Backtesting when it lands'])
+    + '</div>' + action;
+  const up = document.getElementById('upgrade');
+  if (up) up.onclick = function(){
+    alert('Premium is not open yet — this is where checkout will go.');
+  };
+}
+
+function render(){
+  setTierUI();
+  renderPicks();
+  renderHoldings();
+  renderWeightBar();
+  renderTotals();
+  renderSectors();
+  renderOverlap();
+  renderUpsell();
+  saveLocal();
+}
+
+// keep an in-progress portfolio across a reload, even signed out
+function saveLocal(){
+  try{ localStorage.setItem('LICENTIA_BUILD', JSON.stringify({picked:PICKED, weights:WEIGHTS})); }catch(e){}
+}
+function loadLocal(){
+  try{
+    const raw = localStorage.getItem('LICENTIA_BUILD');
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (Array.isArray(d.picked)){ PICKED = d.picked.filter(function(t){ return FUNDS[t]; }); WEIGHTS = d.weights||{}; }
+  }catch(e){}
+}
+
+document.getElementById('search').addEventListener('input', renderPicks);
+
+Promise.all([
+  fetch('data/funds.json?cb=' + Math.random()).then(function(r){ return r.json(); }),
+  fetch('data/sectors.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+  fetch('data/aum_patch.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+  sb.auth.getSession()
+]).then(function(res){
+  FUNDS = res[0];
+  SECTORS = (res[1] && res[1].map) ? res[1].map : {};
+  const patch = res[2] || {};
+  Object.keys(patch).forEach(function(t){
+    if (FUNDS[t]){
+      FUNDS[t].stats = FUNDS[t].stats || {};
+      if (FUNDS[t].stats.aum_musd == null) FUNDS[t].stats.aum_musd = patch[t].aum_musd;
+    }
+  });
+  const session = res[3].data.session;
+  tier = session ? 'member' : 'free';
+  buildUniverse();
+  loadLocal();
+  // a signed-out visitor may have more picks saved than the free tier allows
+  const L = limits();
+  if (PICKED.length > L.holdings) PICKED = PICKED.slice(0, L.holdings);
+  render();
+  document.getElementById('foot').innerHTML =
+    'Yields are trailing twelve months, calculated as distributions paid divided by the latest price. '
+  + 'Sector and overlap figures look through any fund that holds other funds. '
+  + 'Figures are for research only and are not a recommendation to buy anything.';
+});
+
+sb.auth.onAuthStateChange(function(_e, session){
+  tier = session ? 'member' : 'free';
+  const L = limits();
+  if (PICKED.length > L.holdings) PICKED = PICKED.slice(0, L.holdings);
+  if (Object.keys(FUNDS).length) render();
+});
+</script>
+</body>
+</html>
