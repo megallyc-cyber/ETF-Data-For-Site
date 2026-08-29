@@ -82,6 +82,8 @@
     background:var(--line); border:1px solid var(--line); border-radius:11px; overflow:hidden; margin:18px 0;}
   .tot{background:var(--white); padding:15px 16px;}
   .tot .v{font-family:'Fraunces',serif; font-size:25px; line-height:1;}
+  .tot .v:not(:has(*)){overflow-wrap:anywhere;}
+  .tot .v.small{font-size:14px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
   .tot .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.11em;
     text-transform:uppercase; color:var(--ink-faint); margin-top:7px;}
   .tot .v.up{color:var(--up);} .tot .v.down{color:var(--down);}
@@ -353,11 +355,16 @@ function renderTotals(){
   function cell(v, k, cls){
     return '<div class="tot"><div class="v ' + (cls||'') + '">' + v + '</div><div class="k">' + k + '</div></div>';
   }
-  const income = yCov ? (y/yCov) : null;
+  function ratio(sum, cov){
+    if (!cov || cov < 0.0001) return null;
+    const v = sum / cov;
+    return isFinite(v) ? v : null;
+  }
+  const income = ratio(y, yCov), ret = ratio(r, rCov), fee = ratio(mer, merCov);
   box.innerHTML =
     cell(income !== null ? income.toFixed(1) + '%' : '—', 'blended yield')
-  + cell(rCov ? (r/rCov).toFixed(1) + '%' : '—', 'total return 1y', rCov && (r/rCov) < 0 ? 'down' : 'up')
-  + cell(merCov ? (mer/merCov).toFixed(2) + '%' : '—', 'weighted MER')
+  + cell(ret !== null ? ret.toFixed(1) + '%' : '—', 'total return 1y', ret !== null && ret < 0 ? 'down' : 'up')
+  + cell(fee !== null ? fee.toFixed(2) + '%' : 'not published', 'weighted MER', fee === null ? 'small' : '')
   + cell(PICKED.length, 'funds held');
 }
 
