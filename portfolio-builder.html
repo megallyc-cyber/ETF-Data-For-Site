@@ -231,6 +231,47 @@
   .rhold .rn{flex:1; font-size:12px; color:var(--ink-soft); line-height:1.35;}
   .rhold .rw{font-family:'IBM Plex Mono',monospace; font-size:13px;}
   .rfoot{margin-top:auto; padding-top:16px;}
+
+  /* ---- movement between steps ------------------------------------------
+     Each step slides in from the direction you are travelling, so going back
+     feels like going back rather than another jump forward. */
+  .qwrap{animation:stepIn .34s cubic-bezier(.22,.9,.3,1) both;}
+  .qwrap.rev{animation-name:stepInRev;}
+  @keyframes stepIn{from{opacity:0; transform:translateX(26px);} to{opacity:1; transform:none;}}
+  @keyframes stepInRev{from{opacity:0; transform:translateX(-26px);} to{opacity:1; transform:none;}}
+  .rail .step-dot i{transition:background .3s, border-color .3s, color .3s, transform .3s;}
+  .step-dot.on i{transform:scale(1.08);}
+  @media (prefers-reduced-motion: reduce){ .qwrap{animation:none;} }
+
+  /* ---- the flow's own buttons ------------------------------------------
+     The generic dark button read as a form control from another page. These
+     belong to the flow: forward is ember and weighted, back is quiet. */
+  .btn-next{display:inline-flex; align-items:center; gap:10px; padding:14px 26px;
+    border:none; border-radius:100px; cursor:pointer; font-family:inherit;
+    font-size:15px; font-weight:500; color:var(--ink);
+    background:linear-gradient(120deg, #FF8355 0%, var(--ember) 55%, var(--ember-deep) 100%);
+    background-size:180% 100%; box-shadow:0 8px 22px -8px rgba(255,107,53,0.75);
+    transition:transform .16s, box-shadow .16s, background-position .35s;}
+  .btn-next:hover{transform:translateY(-2px); background-position:100% 50%;
+    box-shadow:0 12px 28px -8px rgba(255,107,53,0.85);}
+  .btn-next:active{transform:translateY(0);}
+  .btn-next svg{flex:none;}
+  .btn-back{display:inline-flex; align-items:center; gap:9px; padding:13px 20px;
+    border-radius:100px; border:1px solid var(--line-strong); background:none;
+    font-family:inherit; font-size:14px; color:var(--ink-soft); cursor:pointer;
+    transition:all .16s;}
+  .btn-back:hover{border-color:var(--ink); color:var(--ink); background:var(--white);
+    transform:translateX(-2px);}
+  .btn-quiet{background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:13.5px; color:var(--ink-faint); text-decoration:underline;
+    text-underline-offset:3px; padding:13px 4px;}
+  .btn-quiet:hover{color:var(--ink);}
+  .navrow{display:flex; align-items:center; gap:14px; margin-top:30px; flex-wrap:wrap;}
+  .navrow .spacer{flex:1;}
+  body.pro .btn-next{color:#1C2230;
+    background:linear-gradient(120deg,#E9D6A8 0%,#C9A227 55%,#8C6B1F 100%);
+    background-size:180% 100%; box-shadow:0 8px 22px -8px rgba(201,162,39,0.75);}
+  body.pro .btn-next:hover{box-shadow:0 12px 28px -8px rgba(201,162,39,0.85);}
 </style>
 <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -277,6 +318,7 @@ let FUNDS = {}, SECTORS = {}, UNIVERSE = [];
 // what the reader has told us so far
 const A = {country:null, amount:null, yieldBand:null, sectors:[], auto:false};
 let stepIx = 0;
+let goingBack = false;
 
 const SECTOR_COLOUR = {
   'Technology':'#3B6FD4','Financials':'#1F7A5C','Health Care':'#C2417F','Consumer Discretionary':'#E2571E',
@@ -504,6 +546,11 @@ function optButton(sel, title, desc, flag, flagText){
     + '</button>';
 }
 
+function goTo(ix){
+  goingBack = ix < stepIx;
+  stepIx = Math.max(0, Math.min(4, ix));
+  render();
+}
 function render(){
   const step = STEPS[stepIx];
   const box = document.getElementById('stage');
@@ -520,14 +567,26 @@ function render(){
   if (step.id === 'sectors')  return renderSectors(box);
   if (step.id === 'result')   return renderResult(box);
 }
+function applyDirection(box){
+  const q = box.querySelector('.qwrap, .working');
+  if (q && goingBack) q.classList.add('rev');
+  goingBack = false;
+}
 
+function backBtn(){
+  return stepIx === 0 ? '' : '<button class="btn-back" id="back"><svg width="15" height="10" viewBox="0 0 15 10" fill="none"><path d="M14 5H2M5.5 1.5 2 5l3.5 3.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>Back</button>';
+}
+function nextBtn(text){
+  return '<button class="btn-next" id="next">' + (text || 'Continue') + '<svg width="15" height="10" viewBox="0 0 15 10" fill="none"><path d="M1 5h12M9.5 1.5 13 5l-3.5 3.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+}
 function wire(box){
+  applyDirection(box);
   const auto = document.getElementById('autoBuild');
-  if (auto) auto.addEventListener('click', function(){ A.auto = true; stepIx = 4; render(); });
+  if (auto) auto.addEventListener('click', function(){ A.auto = true; goTo(4); });
   const back = document.getElementById('back');
-  if (back) back.addEventListener('click', function(){ stepIx = Math.max(0, stepIx-1); render(); });
+  if (back) back.addEventListener('click', function(){ goTo(stepIx - 1); });
   const next = document.getElementById('next');
-  if (next) next.addEventListener('click', function(){ stepIx = Math.min(4, stepIx+1); render(); });
+  if (next) next.addEventListener('click', function(){ goTo(stepIx + 1); });
 }
 
 function renderCountry(box){
@@ -539,10 +598,13 @@ function renderCountry(box){
     + optButton(A.country==='CAD','Canada','Listed in Canada, priced in Canadian dollars. 148 funds tracked.','calm','TSX listed')
     + optButton(A.country==='US','United States','Listed in the US, priced in US dollars. 58 funds tracked.','calm','US listed')
     + optButton(A.country==='BOTH','Either is fine','Show me the whole market and let the numbers decide.','note','widest choice')
-    + '</div>' + helpBar() + '</div>';
+    + '</div>'
+    + '<div class="navrow"><span class="spacer"></span>'
+    + (A.country ? nextBtn('Continue') : '') + '</div>'
+    + helpBar() + '</div>';
   const vals = ['CAD','US','BOTH'];
   box.querySelectorAll('#opts .opt').forEach(function(b, i){
-    b.addEventListener('click', function(){ A.country = vals[i]; stepIx = 1; render(); });
+    b.addEventListener('click', function(){ A.country = vals[i]; goTo(1); });
   });
   wire(box);
 }
@@ -558,8 +620,7 @@ function renderAmount(box){
     + '<div class="chips" id="chips">' + presets.map(function(p){
         return '<button class="chip' + (A.amount===p?' sel':'') + '" type="button">$' + p.toLocaleString('en-US') + '</button>';
       }).join('') + '</div>'
-    + '<div class="navrow"><button class="ghost" id="back">Back</button>'
-    + '<button class="primary" id="next">Continue</button></div>'
+    + '<div class="navrow">' + backBtn() + '<span class="spacer"></span>' + nextBtn('Continue') + '</div>'
     + helpBar() + '</div>';
   const amt = document.getElementById('amt');
   amt.addEventListener('input', function(){ A.amount = Number(amt.value) || null; });
@@ -586,8 +647,8 @@ function renderYield(box){
       }).join('')
     + '</div>'
     + (band ? '<div class="disclaim' + (band.flag==='warn'?' hot':'') + '"><b>' + band.label + ':</b> ' + band.note + '</div>' : '')
-    + '<div class="navrow"><button class="ghost" id="back">Back</button>'
-    + (band ? '<button class="primary" id="next">Continue</button>' : '') + '</div>'
+    + '<div class="navrow">' + backBtn() + '<span class="spacer"></span>'
+    + (band ? nextBtn('Continue') : '') + '</div>'
     + helpBar() + '</div>';
   box.querySelectorAll('#opts .opt').forEach(function(b, i){
     b.addEventListener('click', function(){ A.yieldBand = BANDS[i].id; render(); });
@@ -605,9 +666,9 @@ function renderSectors(box){
     + '<div class="chips" id="secs">' + all.map(function(s){
         return '<button class="chip' + (A.sectors.indexOf(s)!==-1?' sel':'') + '" type="button">' + s + '</button>';
       }).join('') + '</div>'
-    + '<div class="navrow"><button class="ghost" id="back">Back</button>'
-    + '<button class="primary" id="next">Build my portfolios</button>'
-    + '<button class="ghost" id="skip">Skip, no preference</button></div>'
+    + '<div class="navrow">' + backBtn()
+    + '<button class="btn-quiet" id="skip">Skip, no preference</button>'
+    + '<span class="spacer"></span>' + nextBtn('Build my portfolios') + '</div>'
     + helpBar() + '</div>';
   box.querySelectorAll('#secs .chip').forEach(function(b, i){
     b.addEventListener('click', function(){
@@ -617,7 +678,7 @@ function renderSectors(box){
     });
   });
   const skip = document.getElementById('skip');
-  if (skip) skip.addEventListener('click', function(){ A.sectors = []; stepIx = 4; render(); });
+  if (skip) skip.addEventListener('click', function(){ A.sectors = []; goTo(4); });
   wire(box);
 }
 
@@ -695,13 +756,17 @@ function showRecs(box){
         + fmtPct(s.ret) + ' in total over the past year. The gap is capital coming back to you, '
         + 'not profit.</div>';
     }
-    html += '<div class="rfoot"><button class="primary" data-ix="' + ix + '">Use this portfolio</button></div>'
+    html += '<div class="rfoot"><button class="btn-next" style="width:100%;justify-content:center" data-ix="' + ix + '">Use this portfolio'
+      + '<svg width="15" height="10" viewBox="0 0 15 10" fill="none"><path d="M1 5h12M9.5 1.5 13 5l-3.5 3.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>'
       + '</div>';
   });
   html += '</div>';
 
-  html += '<div class="navrow"><button class="ghost" id="restart">Start again</button>'
-    + '<a class="ghost" href="portfolio.html">Go to My Portfolio</a></div>'
+  html += '<div class="navrow">'
+    + '<button class="btn-back" id="back">' + '<svg width="15" height="10" viewBox="0 0 15 10" fill="none"><path d="M14 5H2M5.5 1.5 2 5l3.5 3.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' + 'Change my answers</button>'
+    + '<button class="btn-quiet" id="restart">Start again</button>'
+    + '<span class="spacer"></span>'
+    + '<a class="btn-back" href="portfolio.html">Go to My Portfolio</a></div>'
     + '<p class="foot" style="margin-top:26px;font-size:12px;color:var(--ink-faint);line-height:1.7;max-width:74ch">'
     + 'These portfolios are assembled by a simple rules-based model from published fund data: '
     + 'trailing yield, one year total return, and what each fund holds underneath. They are a starting '
@@ -710,8 +775,11 @@ function showRecs(box){
     + '</p></div>';
 
   box.innerHTML = html;
+  applyDirection(box);
   window.__recs = recs;
-  box.querySelectorAll('.rfoot .primary').forEach(function(b){
+  const rb = document.getElementById('back');
+  if (rb) rb.addEventListener('click', function(){ goTo(3); });
+  box.querySelectorAll('.rfoot .btn-next').forEach(function(b){
     b.addEventListener('click', function(){ useRec(Number(b.dataset.ix)); });
   });
   const rs = document.getElementById('restart');
