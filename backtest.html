@@ -177,51 +177,57 @@
   .gridline{stroke:var(--line); stroke-width:1;}
   .axlab{font-family:'IBM Plex Mono',monospace; font-size:10px; fill:var(--ink-faint);}
 
-  /* --lab: this page runs dark. Analysis tools earn a different room. */
-  body{
-    --paper:#151A24; --paper-raised:#1B2230; --white:#1E2634;
-    --ink:#EDEFF3; --ink-soft:#A6AEBC; --ink-faint:#76808E;
-    --line:rgba(237,239,243,0.13); --line-strong:rgba(237,239,243,0.26);
-    background:
-      radial-gradient(1100px 520px at 15% -10%, rgba(255,107,53,0.10), transparent 60%),
-      radial-gradient(900px 460px at 92% 4%, rgba(47,62,87,0.55), transparent 62%),
-      #151A24;
-    color:var(--ink);
-  }
-  nav{background:#0F131C; border-bottom:1px solid rgba(237,239,243,0.10);}
-  .panel{background:linear-gradient(168deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 60%, transparent 100%), #1B2230;
-    border-color:rgba(237,239,243,0.13);
-    box-shadow:0 20px 50px -30px rgba(0,0,0,0.9);}
-  h1, .sec-title{color:#F6F7F9;}
-  .tier{background:linear-gradient(115deg,#222B3C 0%,#33405C 45%,#222B3C 100%);
-    background-size:220% 100%; color:#EDEFF3;}
-  .sbtn{background:rgba(237,239,243,0.05); color:var(--ink); border-color:rgba(237,239,243,0.20);}
-  .sbtn:hover{border-color:#EDEFF3;}
-  .sbtn.on{background:#EDEFF3; color:#151A24; border-color:#EDEFF3;}
-  .sbtn.down.on{background:#E5484D; border-color:#E5484D; color:#fff;}
-  .sbtn.up.on{background:#4CB782; border-color:#4CB782; color:#10251B;}
-  .rb{background:rgba(237,239,243,0.05); color:var(--ink); border-color:rgba(237,239,243,0.20);}
-  .rb.on{background:#EDEFF3; color:#151A24; border-color:#EDEFF3;}
-  .cc, .tot{background:#1E2634;}
-  .cmp, .split3, .totals{background:rgba(237,239,243,0.13); border-color:rgba(237,239,243,0.13);}
-  input, select, .search{background:#141A25; color:var(--ink); border-color:rgba(237,239,243,0.22);}
-  .pickmenu{background:#1B2230; border-color:rgba(237,239,243,0.22);
-    box-shadow:0 18px 42px rgba(0,0,0,0.6);}
-  .pickgroup{background:#141A25; border-bottom-color:rgba(237,239,243,0.10);}
-  .pickrow{border-bottom-color:rgba(237,239,243,0.08);}
-  .empty{border-color:rgba(237,239,243,0.20);}
-  .gridline{stroke:rgba(237,239,243,0.10);}
-  .axlab{fill:#76808E;}
-  .slider{accent-color:#FF6B35;}
-  .foot{color:#76808E;}
-
   .regime{display:inline-block; padding:11px 18px; border-radius:10px;
     font-family:'Fraunces',serif; font-size:19px; letter-spacing:-0.01em;}
-  .regime.cut{background:rgba(229,72,77,0.16); color:#FF9A9D; border:1px solid rgba(229,72,77,0.42);}
-  .regime.strain{background:rgba(255,107,53,0.15); color:#FFA983; border:1px solid rgba(255,107,53,0.40);}
-  .regime.hold, .regime.flat, .regime.steady{background:rgba(237,239,243,0.07); color:#D6DAE2;
-    border:1px solid rgba(237,239,243,0.20);}
-  .regime.strong{background:rgba(76,183,130,0.16); color:#7FD9AC; border:1px solid rgba(76,183,130,0.42);}
+  .regime.cut{background:rgba(229,72,77,0.10); color:#A32C31; border:1px solid rgba(229,72,77,0.35);}
+  .regime.strain{background:rgba(255,107,53,0.11); color:var(--ember-deep); border:1px solid rgba(255,107,53,0.36);}
+  .regime.hold, .regime.flat, .regime.steady{background:rgba(28,34,48,0.05); color:var(--ink-soft);
+    border:1px solid var(--line-strong);}
+  .regime.strong{background:rgba(76,183,130,0.12); color:#2C7A55; border:1px solid rgba(76,183,130,0.40);}
+
+  .whose{display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:16px 19px; border-radius:12px; margin-bottom:20px;
+    border:1px solid var(--line-strong); background:var(--paper-raised);}
+  .whose.mine{border-color:rgba(76,183,130,0.45); background:rgba(76,183,130,0.07);}
+  .whose .wt{font-size:15.5px; line-height:1.45;}
+  .whose .wsub{font-size:13px; color:var(--ink-faint); margin-top:4px; line-height:1.5;}
+  .whose .spacer{flex:1;}
+  .miniadd{display:grid; grid-template-columns:1.5fr 1fr auto; gap:10px; align-items:end; margin-top:16px;}
+  @media(max-width:700px){ .miniadd{grid-template-columns:1fr;} }
+  .srow{display:flex; align-items:center; gap:12px; padding:11px 13px; margin-bottom:8px;
+    border-radius:10px; border:1px solid rgba(var(--famrgb),0.26);
+    background:linear-gradient(155deg, rgba(var(--famrgb),0.11) 0%, rgba(var(--famrgb),0.03) 60%, rgba(255,255,255,0.75) 100%);}
+  .srow .st{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:14px; min-width:56px;}
+  .srow .sn{flex:1; font-size:12.5px; color:var(--ink-soft); line-height:1.35;}
+  .srow .sv{font-family:'IBM Plex Mono',monospace; font-size:13px;}
+  .srow .sx{background:none; border:none; cursor:pointer; color:var(--ink-faint); font-size:17px;}
+  .srow .sx:hover{color:var(--rust);}
+  /* the before-and-after is the answer, so it stops being small print */
+  .cmp{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;
+    background:none; border:none; margin-top:26px;}
+  .cc{background:var(--white); border:1px solid var(--line); border-radius:13px; padding:20px 22px;}
+  .cc .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.13em;
+    text-transform:uppercase; color:var(--ink-faint); margin:0 0 14px;}
+  .cc .now{font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--ink-faint);}
+  .cc .arrow{font-size:16px; color:var(--ink-faint); margin:5px 0 3px;}
+  .cc .then{font-family:'Fraunces',serif; font-size:36px; line-height:1.05; letter-spacing:-0.02em;}
+  .cc .then.neg{color:var(--down);} .cc .then.pos{color:var(--up);}
+  .cc .delta{display:inline-block; margin-top:12px; padding:5px 11px; border-radius:100px;
+    font-family:'IBM Plex Mono',monospace; font-size:12px;}
+  .cc .delta.neg{background:rgba(229,72,77,0.12); color:#A32C31;}
+  .cc .delta.pos{background:rgba(76,183,130,0.14); color:#2C7A55;}
+  .cc .delta.flat{background:rgba(28,34,48,0.06); color:var(--ink-faint);}
+
+  /* The legend decodes the chart, so it gets real size, and the two labels get
+     room instead of running into each other. */
+  .legend{display:flex; gap:14px; flex-wrap:wrap; margin-top:20px;}
+  .lg{display:inline-flex; align-items:center; gap:16px; padding:16px 20px;
+    border-radius:12px; border:1px solid var(--line-strong); background:var(--white);
+    flex:1 1 300px; font-size:16px;}
+  .lg i{width:38px; height:5px; border-radius:3px; display:block; flex:none;}
+  .lg .lgtext{display:flex; flex-direction:column; gap:6px; min-width:0;}
+  .lg .lgt{font-weight:500; font-size:16.5px; line-height:1.25;}
+  .lg .lgs{font-size:13.5px; color:var(--ink-soft); line-height:1.5;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -299,6 +305,9 @@ const sb = createClient('https://sopzbiuwakowbuqgwpmg.supabase.co',
                         'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j');
 
 let FUNDS = {}, RATIOS = {}, ROWS = [], session = null;
+// A working copy. Editing it never writes to portfolio_holdings, so a member
+// can try a change before committing to it for real.
+let SCRATCH = null, PICK2 = null;
 let shift = -20, assume = 'hold', CHOSEN = null, RANGE = 'max';
 let SERIES = null;
 
@@ -351,8 +360,9 @@ function regimeFor(shiftPct){
     note:'A strong rally lifts NAV, and a bigger base can support a bigger payment. Do not expect it to rise in step with the market though: calls written against the portfolio give away most of a rally, and calm markets pay thinner premium. Modelled rising at about a third of the price move.'};
 }
 
+function activeRows(){ return SCRATCH ? SCRATCH : ROWS; }
 function currentBook(){
-  return ROWS.map(function(r){
+  return activeRows().map(function(r){
     const f = FUNDS[r.ticker];
     if (!f) return null;
     const st = f.stats || {};
@@ -413,16 +423,44 @@ function renderStress(){
   lab.className = 'shift ' + (shift < 0 ? 'neg' : 'pos');
 
   const src = document.getElementById('holdSource');
-  if (!ROWS.length){
-    src.innerHTML = '<div class="empty" style="margin-bottom:18px">No holdings to test yet.<br>'
-      + '<a href="portfolio.html" style="color:var(--ember-deep)">Add them in My Portfolio</a> '
-      + 'or <a href="portfolio-builder.html" style="color:var(--ember-deep)">build one first</a>.</div>';
-    document.getElementById('cmp').innerHTML = '';
-    return;
+  const signedIn = !!session;
+  const editing = !!SCRATCH;
+  let banner = '';
+  if (signedIn && !editing && ROWS.length){
+    banner = '<div class="whose mine"><div><div class="wt"><b>Backtesting is showing your current portfolio.</b></div>'
+      + '<div class="wsub">' + ROWS.length + ' holding' + (ROWS.length>1?'s':'') + ' from My Portfolio, priced at the latest close.</div></div>'
+      + '<span class="spacer"></span><button class="ghost" id="customise">Try changes to it</button></div>';
+  } else if (signedIn && editing){
+    banner = '<div class="whose"><div><div class="wt"><b>Trying out changes.</b></div>'
+      + '<div class="wsub">Nothing here is saved. Your real portfolio stays exactly as it was.</div></div>'
+      + '<span class="spacer"></span><button class="ghost" id="revert">Back to my portfolio</button></div>';
+  } else if (signedIn){
+    if (!SCRATCH) SCRATCH = [];
+    banner = '<div class="whose"><div><div class="wt"><b>Your portfolio is empty.</b></div>'
+      + '<div class="wsub">Add holdings below to test them, or save them in My Portfolio to keep them.</div></div></div>';
+  } else {
+    if (!SCRATCH) SCRATCH = [];
+    banner = '<div class="whose"><div><div class="wt"><b>Testing holdings you type in.</b></div>'
+      + '<div class="wsub">Nothing is saved and no account is needed. '
+      + '<a href="account.html" style="color:var(--ember-deep)">Sign in</a> to test your own portfolio instead.</div></div></div>';
   }
-  src.innerHTML = '<div class="note" style="margin-bottom:14px">Testing your '
-    + ROWS.length + ' holding' + (ROWS.length>1?'s':'') + ' from My Portfolio.</div>';
-
+  let editor = '';
+  if (SCRATCH){
+    editor = '<div id="scratch"></div><div class="miniadd">'
+      + '<div class="fundpicker"><label for="tk2">Add a fund</label><div id="pickHost2"></div></div>'
+      + '<div><label for="sh2">Shares</label><input id="sh2" type="number" min="0" step="any" placeholder="100"></div>'
+      + '<button class="primary" id="add2">Add</button></div>';
+  }
+  src.innerHTML = banner + editor;
+  const cust = document.getElementById('customise');
+  if (cust) cust.onclick = function(){
+    SCRATCH = ROWS.map(function(r){ return {ticker:r.ticker, shares:r.shares, cost_basis:r.cost_basis}; });
+    renderStress();
+  };
+  const rev = document.getElementById('revert');
+  if (rev) rev.onclick = function(){ SCRATCH = null; renderStress(); };
+  if (SCRATCH) wireScratch();
+  if (!activeRows().length){ document.getElementById('cmp').innerHTML = ''; return; }
   const s = stressed();
   const yv0 = s.v0 ? s.i0/s.v0*100 : null;
   const yv1 = s.v1 ? s.i1/s.v1*100 : null;
@@ -430,21 +468,34 @@ function renderStress(){
   const yc1 = s.spentKnown && s.spent ? s.i1/s.spent*100 : null;
   const pl1 = s.spentKnown ? s.v1 - s.spent : null;
 
-  function cell(now, then, k, cls){
-    return '<div class="cc"><div class="now">now ' + now + '</div>'
+  function cell(now, then, k, cls, delta, dcls){
+    return '<div class="cc"><div class="k">' + k + '</div>'
+      + '<div class="now">now ' + now + '</div>'
+      + '<div class="arrow">&darr;</div>'
       + '<div class="then ' + (cls||'') + '">' + then + '</div>'
-      + '<div class="k">' + k + '</div></div>';
+      + (delta ? '<div class="delta ' + (dcls||'flat') + '">' + delta + '</div>' : '')
+      + '</div>';
+  }
+  function dOf(a, b, asPoints){
+    if (a === null || b === null || a === undefined || b === undefined || !isFinite(a) || !isFinite(b)) return ['',''];
+    const diff = b - a;
+    const cls = diff < -0.005 ? 'neg' : (diff > 0.005 ? 'pos' : 'flat');
+    if (asPoints) return [(diff>=0?'+':'') + diff.toFixed(1) + ' pts', cls];
+    const rel = a ? diff/a*100 : 0;
+    return [(diff>=0?'+':'') + money(diff) + ' (' + (rel>=0?'+':'') + rel.toFixed(1) + '%)', cls];
   }
   const dv = s.v1 - s.v0, di = s.i1 - s.i0;
+  const pl0 = s.spentKnown ? s.v0 - s.spent : null;
+  const dV = dOf(s.v0, s.v1), dY = dOf(s.i0, s.i1), dM = dOf(s.i0/12, s.i1/12);
+  const dYV = dOf(yv0, yv1, true), dYC = dOf(yc0, yc1, true), dPL = dOf(pl0, pl1);
   document.getElementById('cmp').innerHTML =
-    cell(money(s.v0), money(s.v1), 'portfolio value', dv < 0 ? 'neg' : 'pos')
-  + cell(money(s.i0), money(s.i1), 'income a year', di < 0 ? 'neg' : (di > 0 ? 'pos' : ''))
-  + cell(money(s.i0/12), money(s.i1/12), 'income a month', di < 0 ? 'neg' : (di > 0 ? 'pos' : ''))
-  + cell(pct(yv0), pct(yv1), 'yield on value')
-  + cell(yc0 === null ? '\u2014' : pct(yc0), yc1 === null ? 'add cost basis' : pct(yc1), 'yield on cost')
-  + cell(s.spentKnown ? money(s.v0 - s.spent) : '\u2014',
-         pl1 === null ? 'add cost basis' : money(pl1), 'profit',
-         pl1 === null ? '' : (pl1 < 0 ? 'neg' : 'pos'));
+    cell(money(s.v0), money(s.v1), 'portfolio value', dv < 0 ? 'neg' : 'pos', dV[0], dV[1])
+  + cell(money(s.i0), money(s.i1), 'income a year', di < 0 ? 'neg' : (di > 0 ? 'pos' : ''), dY[0], dY[1])
+  + cell(money(s.i0/12), money(s.i1/12), 'income a month', di < 0 ? 'neg' : (di > 0 ? 'pos' : ''), dM[0], dM[1])
+  + cell(pct(yv0), pct(yv1), 'yield on value', '', dYV[0], dYV[1])
+  + cell(yc0 === null ? '\u2014' : pct(yc0), yc1 === null ? 'add cost basis' : pct(yc1), 'yield on cost', '', dYC[0], dYC[1])
+  + cell(pl0 === null ? '\u2014' : money(pl0), pl1 === null ? 'add cost basis' : money(pl1), 'profit',
+         pl1 === null ? '' : (pl1 < 0 ? 'neg' : 'pos'), dPL[0], dPL[1]);
 }
 
 // ---- section two: total return vs price --------------------------------
@@ -518,10 +569,10 @@ function renderChart(){
   svg.innerHTML = g;
 
   legend.innerHTML =
-    '<span class="lg"><i style="background:'+col+'"></i><span>'
+    '<span class="lg"><i style="background:'+col+'"></i><span class="lgtext">'
       + '<span class="lgt">Total return</span>'
       + '<span class="lgs">Every distribution bought more units</span></span></span>'
-  + (pr ? '<span class="lg"><i style="background:#9AA3B2"></i><span>'
+  + (pr ? '<span class="lg"><i style="background:#8A9099"></i><span class="lgtext">'
       + '<span class="lgt">Price only</span>'
       + '<span class="lgs">Distributions taken as cash and spent</span></span></span>' : '');
 
@@ -546,6 +597,77 @@ function renderChart(){
   }
 }
 
+// ---- scratch holdings --------------------------------------------------
+function wireScratch(){
+  const box = document.getElementById('scratch');
+  if (box){
+    if (!SCRATCH.length){
+      box.innerHTML = '<div class="empty">No holdings yet. Add one below, then pick a market move to see what happens to it.</div>';
+    } else {
+      box.innerHTML = '';
+      SCRATCH.forEach(function(r, ix){
+        const f = FUNDS[r.ticker] || {};
+        const st = f.stats || {};
+        const val = st.price ? st.price * Number(r.shares) : null;
+        const row = document.createElement('div');
+        row.className = 'srow';
+        paintEl(row, f.issuer);
+        row.innerHTML = '<span class="st">' + r.ticker + '</span>'
+          + '<span class="sn">' + (f.name || '') + '</span>'
+          + '<span class="sv">' + Number(r.shares).toLocaleString('en-US') + ' sh</span>'
+          + '<span class="sv">' + (val === null ? '\u2014' : money(val)) + '</span>'
+          + '<button class="sx" title="Remove">&times;</button>';
+        row.querySelector('.sx').onclick = function(){ SCRATCH.splice(ix, 1); renderStress(); };
+        box.appendChild(row);
+      });
+    }
+  }
+  buildPicker2();
+  const add = document.getElementById('add2');
+  if (add) add.onclick = function(){
+    const sh = Number(document.getElementById('sh2').value);
+    if (!PICK2 || !sh || sh <= 0) return;
+    SCRATCH.push({ticker: PICK2, shares: sh, cost_basis: (FUNDS[PICK2].stats||{}).price || null});
+    PICK2 = null;
+    renderStress();
+  };
+}
+function buildPicker2(){
+  const host = document.getElementById('pickHost2');
+  if (!host) return;
+  if (PICK2){
+    const f = FUNDS[PICK2];
+    host.innerHTML = '<div class="pickchosen"><span class="ct">' + PICK2 + '</span>'
+      + '<span class="cn">' + f.name + '</span><button class="cx">&times;</button></div>';
+    paintEl(host.querySelector('.pickchosen'), f.issuer);
+    host.querySelector('.cx').onclick = function(){ PICK2 = null; buildPicker2(); };
+    return;
+  }
+  host.innerHTML = '<input id="tk2" type="text" autocomplete="off" placeholder="e.g. HMAX">';
+  const input = document.getElementById('tk2');
+  let menu = null;
+  function close(){ if (menu){ menu.remove(); menu = null; } }
+  function open(){
+    close();
+    menu = document.createElement('div');
+    menu.className = 'pickmenu';
+    matches(input.value).forEach(function(e){
+      const st = e[1].stats || {};
+      const b = document.createElement('button');
+      b.className = 'pickrow'; b.type = 'button';
+      paintEl(b, e[1].issuer);
+      b.innerHTML = '<span class="pt">' + e[0] + '</span><span class="pn">' + e[1].name + '</span>'
+        + '<span class="py">' + (st.yield_ttm !== undefined ? st.yield_ttm.toFixed(1) + '%' : '\u2014') + '</span>';
+      b.onmousedown = function(ev){ ev.preventDefault(); PICK2 = e[0]; close(); buildPicker2(); };
+      menu.appendChild(b);
+    });
+    host.appendChild(menu);
+  }
+  input.addEventListener('input', open);
+  input.addEventListener('focus', open);
+  input.addEventListener('blur', function(){ setTimeout(close, 120); });
+}
+
 function wireHover(){
   const svg = document.getElementById("chart");
   const box = document.getElementById("hoverbox");
@@ -563,9 +685,9 @@ function wireHover(){
     const x = P.X(i);
     const old = svg.querySelector("#cursor"); if (old) old.remove();
     var marks = "<g id=\"cursor\">";
-    marks += "<line x1=\"" + x.toFixed(1) + "\" y1=\"" + P.T + "\" x2=\"" + x.toFixed(1) + "\" y2=\"" + (P.H - P.B) + "\" stroke=\"rgba(237,239,243,0.35)\" stroke-width=\"1\"/>";
-    marks += "<circle cx=\"" + x.toFixed(1) + "\" cy=\"" + P.Y(P.tr[i]).toFixed(1) + "\" r=\"5\" fill=\"" + P.col + "\" stroke=\"#151A24\" stroke-width=\"2\"/>";
-    if (P.pr) marks += "<circle cx=\"" + x.toFixed(1) + "\" cy=\"" + P.Y(P.pr[i]).toFixed(1) + "\" r=\"5\" fill=\"#9AA3B2\" stroke=\"#151A24\" stroke-width=\"2\"/>";
+    marks += "<line x1=\"" + x.toFixed(1) + "\" y1=\"" + P.T + "\" x2=\"" + x.toFixed(1) + "\" y2=\"" + (P.H - P.B) + "\" stroke=\"rgba(28,34,48,0.30)\" stroke-width=\"1\"/>";
+    marks += "<circle cx=\"" + x.toFixed(1) + "\" cy=\"" + P.Y(P.tr[i]).toFixed(1) + "\" r=\"5\" fill=\"" + P.col + "\" stroke=\"#FFFFFF\" stroke-width=\"2\"/>";
+    if (P.pr) marks += "<circle cx=\"" + x.toFixed(1) + "\" cy=\"" + P.Y(P.pr[i]).toFixed(1) + "\" r=\"5\" fill=\"#8A9099\" stroke=\"#FFFFFF\" stroke-width=\"2\"/>";
     marks += "</g" + ">";
     svg.insertAdjacentHTML("beforeend", marks);
     const p = P.pts[i];
@@ -573,7 +695,7 @@ function wireHover(){
     const prGain = P.pr ? P.pr[i] - 100 : null;
     var h = "<div class=\"hd\">" + p.d + "</div>";
     h += "<div class=\"hr\"><i style=\"background:" + P.col + "\"></i>Total return<b>" + (trGain>=0?"+":"") + trGain.toFixed(1) + "%</b></div>";
-    if (P.pr) h += "<div class=\"hr\"><i style=\"background:#9AA3B2\"></i>Price only<b>" + (prGain>=0?"+":"") + prGain.toFixed(1) + "%</b></div>";
+    if (P.pr) h += "<div class=\"hr\"><i style=\"background:#8A9099\"></i>Price only<b>" + (prGain>=0?"+":"") + prGain.toFixed(1) + "%</b></div>";
     if (p.close) h += "<div class=\"hr\" style=\"opacity:.75\"><i style=\"background:transparent\"></i>Unit price<b>$" + p.close.toFixed(2) + "</b></div>";
     box.innerHTML = h;
     box.style.opacity = 1;
