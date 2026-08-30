@@ -273,22 +273,22 @@
     background-size:180% 100%; box-shadow:0 8px 22px -8px rgba(201,162,39,0.75);}
   body.pro .btn-next:hover{box-shadow:0 12px 28px -8px rgba(201,162,39,0.85);}
 
+  /* --pay-neutral: emphasis comes from scale, not from a coloured panel */
   .payline{display:grid; grid-template-columns:1.15fr 1fr; gap:1px; margin:4px 0 16px;
-    border-radius:11px; overflow:hidden; background:rgba(255,107,53,0.22);
-    border:1px solid rgba(255,107,53,0.30);}
-  .pay{background:linear-gradient(150deg, rgba(255,107,53,0.13) 0%, rgba(255,107,53,0.04) 70%, rgba(255,255,255,0.85) 100%);
-    padding:15px 17px;}
-  .pay .pv{font-family:'Fraunces',serif; font-size:31px; line-height:1; color:var(--ember-deep);
+    border-radius:11px; overflow:hidden; background:var(--line);
+    border:1px solid var(--line);}
+  .pay{background:var(--white); padding:15px 17px;}
+  .pay .pv{font-family:'Fraunces',serif; font-size:31px; line-height:1; color:var(--ink);
     letter-spacing:-0.01em;}
-  .pay.sec .pv{font-size:23px; color:var(--ink);}
+  .pay.sec .pv{font-size:23px; color:var(--ink-soft);}
   .pay .pk{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em;
     text-transform:uppercase; color:var(--ink-faint); margin-top:8px;}
   .payon{font-size:12px; color:var(--ink-faint); margin:-8px 0 16px;}
-  body.pro .payline{background:rgba(201,162,39,0.26); border-color:rgba(201,162,39,0.38);}
-  body.pro .pay{background:linear-gradient(150deg, rgba(201,162,39,0.15) 0%, rgba(201,162,39,0.04) 70%, rgba(255,255,255,0.85) 100%);}
+  body.pro .payline{background:var(--gold-line); border-color:var(--gold-line);}
+  body.pro .pay{background:var(--white);}
   body.pro .pay .pv{background:linear-gradient(110deg,#8C6B1F 0%,#C9A227 45%,#E9D6A8 68%,#C9A227 100%);
     -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
-  body.pro .pay.sec .pv{-webkit-text-fill-color:initial; background:none; color:var(--ink);}
+  body.pro .pay.sec .pv{-webkit-text-fill-color:initial; background:none; color:var(--ink-soft);}
   @media(max-width:420px){ .payline{grid-template-columns:1fr;} }
 </style>
 <link rel="stylesheet" href="assets/pro.css">
