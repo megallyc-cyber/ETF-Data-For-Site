@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio Builder — Licentia</title>
+<title>Income ETF Portfolio Builder — Build a Dividend Portfolio | Licentia</title>
+  <meta name="description" content="Answer a few questions and get income portfolios built from real fund data, with the overlap taken out. See the monthly and yearly income before you commit a dollar.">
+  <link rel="canonical" href="https://licentia.ca/portfolio-builder.html">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1C2230">
+  <link rel="icon" type="image/svg+xml" href="assets/bird.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licentia">
+  <meta property="og:locale" content="en_CA">
+  <meta property="og:title" content="Income ETF Portfolio Builder — Build a Dividend Portfolio | Licentia">
+  <meta property="og:description" content="Answer a few questions and get income portfolios built from real fund data, with the overlap taken out. See the monthly and yearly income before you commit a dollar.">
+  <meta property="og:url" content="https://licentia.ca/portfolio-builder.html">
+  <meta property="og:image" content="https://licentia.ca/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Income ETF Portfolio Builder — Build a Dividend Portfolio | Licentia">
+  <meta name="twitter:description" content="Answer a few questions and get income portfolios built from real fund data, with the overlap taken out. See the monthly and yearly income before you commit a dollar.">
+  <meta name="twitter:image" content="https://licentia.ca/assets/og-card.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -292,6 +308,21 @@
   @media(max-width:420px){ .payline{grid-template-columns:1fr;} }
 </style>
 <link rel="stylesheet" href="assets/pro.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://licentia.ca/portfolio-builder.html",
+  "url": "https://licentia.ca/portfolio-builder.html",
+  "name": "Income portfolio builder",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any modern web browser",
+  "inLanguage": "en-CA",
+  "isPartOf": {
+    "@id": "https://licentia.ca/#website"
+  }
+}
+  </script>
 </head>
 <body>
 <nav>
@@ -307,7 +338,7 @@
     <a href="account.html">My Account</a>
   </div>
 </nav>
-<div class="wrap">
+<main class="wrap">
   <div class="head-row">
     <div>
       <h1>Portfolio Builder</h1>
@@ -841,7 +872,7 @@ function showRecs(box){
     + 'trailing yield, one year total return, and what each fund holds underneath. They are a starting '
     + 'point for your own research, not financial advice, and no one at Licentia knows your tax position, '
     + 'time horizon or anything else about your circumstances. Past distributions do not predict future ones.'
-    + '</p></div>';
+    + '</p></main>';
 
   box.innerHTML = html;
   applyDirection(box);
