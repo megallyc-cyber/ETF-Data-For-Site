@@ -272,6 +272,24 @@
     background:linear-gradient(120deg,#E9D6A8 0%,#C9A227 55%,#8C6B1F 100%);
     background-size:180% 100%; box-shadow:0 8px 22px -8px rgba(201,162,39,0.75);}
   body.pro .btn-next:hover{box-shadow:0 12px 28px -8px rgba(201,162,39,0.85);}
+
+  .payline{display:grid; grid-template-columns:1.15fr 1fr; gap:1px; margin:4px 0 16px;
+    border-radius:11px; overflow:hidden; background:rgba(255,107,53,0.22);
+    border:1px solid rgba(255,107,53,0.30);}
+  .pay{background:linear-gradient(150deg, rgba(255,107,53,0.13) 0%, rgba(255,107,53,0.04) 70%, rgba(255,255,255,0.85) 100%);
+    padding:15px 17px;}
+  .pay .pv{font-family:'Fraunces',serif; font-size:31px; line-height:1; color:var(--ember-deep);
+    letter-spacing:-0.01em;}
+  .pay.sec .pv{font-size:23px; color:var(--ink);}
+  .pay .pk{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:8px;}
+  .payon{font-size:12px; color:var(--ink-faint); margin:-8px 0 16px;}
+  body.pro .payline{background:rgba(201,162,39,0.26); border-color:rgba(201,162,39,0.38);}
+  body.pro .pay{background:linear-gradient(150deg, rgba(201,162,39,0.15) 0%, rgba(201,162,39,0.04) 70%, rgba(255,255,255,0.85) 100%);}
+  body.pro .pay .pv{background:linear-gradient(110deg,#8C6B1F 0%,#C9A227 45%,#E9D6A8 68%,#C9A227 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  body.pro .pay.sec .pv{-webkit-text-fill-color:initial; background:none; color:var(--ink);}
+  @media(max-width:420px){ .payline{grid-template-columns:1fr;} }
 </style>
 <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -780,8 +798,15 @@ function showRecs(box){
           + (s.ret === null ? '—' : fmtPct(s.ret)) + '</div><div class="k">total return 1y</div></div>'
         + '<div class="rstat"><div class="v">' + Math.round(s.overlapAvg) + '%</div><div class="k">avg overlap</div></div>'
       + '</div>';
-    if (A.amount) html += '<div class="rdesc" style="margin-bottom:14px"><b>' + fmtMoney(s.income)
-      + '</b> a year, about <b>' + fmtMoney(s.income/12) + '</b> a month on ' + fmtMoney(A.amount) + '.</div>';
+    if (A.amount){
+      html += '<div class="payline">'
+        + '<div class="pay"><div class="pv">' + fmtMoney(s.income/12) + '</div>'
+        + '<div class="pk">income a month</div></div>'
+        + '<div class="pay sec"><div class="pv">' + fmtMoney(s.income) + '</div>'
+        + '<div class="pk">income a year</div></div>'
+        + '</div>'
+        + '<div class="payon">on ' + fmtMoney(A.amount) + ' invested</div>';
+    }
     r.picks.forEach(function(t, i){
       const f = FUNDS[t];
       html += '<div class="rhold"><span class="rt" style="color:' + famColour(f.issuer) + '">' + t + '</span>'
