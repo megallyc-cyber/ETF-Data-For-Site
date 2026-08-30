@@ -115,3 +115,52 @@ body.pro input:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162
 @media (prefers-reduced-motion: reduce){
   body.pro .brand::after{animation:none;}
 }
+
+/* ---------------------------------------------------------------------------
+   Components built after the first Pro pass. Same rule as before: gold lands
+   on the figures, the status and the edges of a surface — never on everything.
+--------------------------------------------------------------------------- */
+
+/* --- the guided builder ------------------------------------------------- */
+body.pro .opt.sel{border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,0.18);}
+body.pro .step-dot.done i{background:var(--gold); border-color:var(--gold); color:#1C2230;}
+body.pro .oflag.note{background:rgba(201,162,39,0.16); color:var(--gold-deep);}
+body.pro .disclaim{border-left-color:var(--gold); background:rgba(201,162,39,0.07);}
+body.pro .rec.best{border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,0.15);}
+body.pro .rec .rtag{color:var(--gold-deep);}
+body.pro .rstat .v{
+  background:linear-gradient(110deg,var(--gold-deep) 0%,var(--gold) 40%,var(--champagne) 62%,var(--gold) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+body.pro .chip.sel{background:linear-gradient(120deg,var(--champagne),var(--gold)); border-color:var(--gold); color:#1C2230;}
+
+/* --- portfolio and backtesting ------------------------------------------ */
+body.pro .cc{border-color:var(--gold-line);
+  background:linear-gradient(180deg,var(--gold-wash) 0%,transparent 90px), var(--white);}
+body.pro .cc .then{
+  background:linear-gradient(110deg,var(--gold-deep) 0%,var(--gold) 40%,var(--champagne) 62%,var(--gold) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+/* gains and losses keep their own colours: tinting those gold would mislead */
+body.pro .cc .then.pos, body.pro .cc .then.neg,
+body.pro .tot .v.up, body.pro .tot .v.down{
+  -webkit-text-fill-color:initial; background:none;}
+body.pro .whose.mine{border-color:var(--gold); background:rgba(201,162,39,0.09);}
+body.pro .sbtn.on{background:linear-gradient(120deg,var(--champagne),var(--gold));
+  border-color:var(--gold); color:#1C2230;}
+body.pro .rb.on{background:linear-gradient(120deg,var(--champagne),var(--gold));
+  border-color:var(--gold); color:#1C2230;}
+body.pro .regime.strong{border-color:var(--gold); background:rgba(201,162,39,0.14); color:var(--gold-deep);}
+body.pro .lg{border-color:var(--gold-line);}
+body.pro .srow, body.pro .pickchosen{border-color:var(--gold-line);}
+body.pro .slider{accent-color:var(--gold);}
+
+/* --- shared controls ----------------------------------------------------- */
+body.pro .btn-next{color:#1C2230; box-shadow:0 8px 22px -8px rgba(201,162,39,0.75);
+  background:linear-gradient(120deg,var(--champagne) 0%,var(--gold) 55%,var(--gold-deep) 100%);
+  background-size:180% 100%;}
+body.pro .btn-next:hover{box-shadow:0 12px 28px -8px rgba(201,162,39,0.85);}
+body.pro .btn-back:hover{border-color:var(--gold-deep); color:var(--gold-deep);}
+body.pro .fund-card{border-color:var(--gold-line) !important;}
+body.pro .issuer-market{border-color:var(--gold-line);}
+body.pro .region-btn.active{background:linear-gradient(120deg,var(--champagne),var(--gold));
+  border-color:var(--gold); color:#1C2230;}
+body.pro .rail-chip{border-color:var(--gold-line);}
