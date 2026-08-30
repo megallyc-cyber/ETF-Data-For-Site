@@ -492,27 +492,55 @@ function summarise(tickers, weights){
 }
 
 // Three portfolios, each honest about what it is optimising for.
+function relaxBand(pool, band){
+  // Widen in steps rather than abandoning the answer entirely: the band
+  // itself, then a few points either side, and only then the whole market.
+  if (!band) return {pool: pool, how: 'none', range: null};
+  const strict = pool.filter(function(t){ return inBand(t, band); });
+  if (strict.length >= 4) return {pool: strict, how: 'none', range: [band.lo, band.hi]};
+  const widths = [3, 6, 10];
+  for (const w of widths){
+    const lo = Math.max(0, band.lo - w), hi = band.hi + w;
+    const near = pool.filter(function(t){
+      const y = (FUNDS[t].stats||{}).yield_ttm;
+      return y >= lo && y < hi;
+    });
+    if (near.length >= 4) return {pool: near, how: 'widened', range: [lo, hi]};
+  }
+  return {pool: pool, how: 'all', range: null};
+}
+
 function buildRecommendations(){
   const pool = eligible().map(function(e){ return e[0]; });
   const band = BANDS.find(function(b){ return b.id === A.yieldBand; });
-  let inBandPool = band ? pool.filter(function(t){ return inBand(t, band); }) : pool;
-  // if the band is thin, widen rather than return nothing
-  let widened = false;
-  if (inBandPool.length < 4){ inBandPool = pool; widened = true; }
+  const relaxed = relaxBand(pool, band);
+  const working = relaxed.pool;
 
-  const size = Math.min(4, Math.max(3, inBandPool.length));
+  // Someone who asked for 15-20% should never be handed a 58% fund, even if
+  // the search had to widen to find enough candidates.
+  const ceiling = band ? band.hi : Infinity;
+  const capped = band ? working.filter(function(t){ return (FUNDS[t].stats||{}).yield_ttm < ceiling; }) : working;
+  const incomePool = capped.length >= 3 ? capped : working;
+  const cappedApplied = band && capped.length >= 3;
+
+  const size = Math.min(4, Math.max(3, working.length));
   const specs = [
-    {tag:'Balanced', mode:'quality', desc:'Built on total return first, then spread out so the funds are not buying the same companies.'},
-    {tag:'Income first', mode:'income', desc:'Leans into the highest yields your answers allow. Check the total return line before you act on it.'},
-    {tag:'Spread widest', mode:'sector', desc:A.sectors.length
-      ? 'Weighted towards the sectors you chose, while keeping overlap down.'
-      : 'Deliberately picks funds that hold different things, so one bad sector does not take the whole portfolio with it.'}
+    {tag:'Balanced', pool:working, mode:'quality',
+     desc:'Built on total return first, then spread out so the funds are not buying the same companies.'},
+    {tag:'Income first', pool:incomePool, mode:'income',
+     desc: cappedApplied
+       ? 'The highest yields available without going past the ' + band.label + ' you asked for.'
+       : 'Leans into the highest yields your answers allow. Check the total return line before you act on it.'},
+    {tag:'Spread widest', pool:working, mode:'sector',
+     desc: A.sectors.length
+       ? 'Weighted towards the sectors you chose, while keeping overlap down.'
+       : 'Deliberately picks funds that hold different things, so one bad sector does not take the whole portfolio with it.'}
   ];
   return specs.map(function(spec){
-    const picks = assemble(inBandPool, size, spec.mode);
+    const picks = assemble(spec.pool, Math.min(size, spec.pool.length), spec.mode);
     const w = picks.map(function(){ return Math.round(1000 / picks.length) / 10; });
     return {tag:spec.tag, desc:spec.desc, picks:picks, weights:w,
-            stats:summarise(picks, w), widened:widened};
+            stats:summarise(picks, w), relaxed:relaxed, band:band};
   });
 }
 
@@ -724,15 +752,24 @@ function showRecs(box){
         : 'You skipped the questions, so these are built on the whole market. ')
     + 'Each portfolio is equally weighted and picked to avoid buying the same companies twice.</p>';
 
-  if (recs[0] && recs[0].widened){
-    html += '<div class="disclaim"><b>A note:</b> too few funds sat inside the yield band you chose, '
-      + 'so we widened the search rather than hand you a portfolio of one or two funds.</div>';
+  const rel = recs[0] && recs[0].relaxed;
+  if (rel && rel.how === 'widened'){
+    html += '<div class="disclaim"><b>We had to widen the search.</b> Too few funds sat inside '
+      + (band ? band.label : 'the band you chose')
+      + ' on your plan, so we looked at ' + rel.range[0] + '\u2013' + rel.range[1] + '% instead. '
+      + 'Nothing here yields more than ' + (band ? band.hi + '%' : 'your target') + '.</div>';
+  } else if (rel && rel.how === 'all'){
+    html += '<div class="disclaim hot"><b>Not enough funds matched.</b> Even after widening, '
+      + 'too few funds sat near ' + (band ? band.label : 'your target')
+      + ' on your plan, so these are drawn from the whole market you can see. '
+      + 'Treat the yields below as what is available rather than what you asked for.</div>';
   }
 
   html += '<div class="recs">';
   recs.forEach(function(r, ix){
     const s = r.stats;
     const eroding = s.ret !== null && s.yield > 15 && s.ret < s.yield / 2;
+    const overBand = r.band && s.yield > r.band.hi + 0.05;
     html += '<div class="rec' + (ix===0?' best':'') + '">'
       + '<div class="rtag">' + r.tag + (ix===0 ? ' · our pick' : '') + '</div>'
       + '<h3>' + fmtPct(s.yield) + ' a year</h3>'
@@ -750,6 +787,12 @@ function showRecs(box){
       html += '<div class="rhold"><span class="rt" style="color:' + famColour(f.issuer) + '">' + t + '</span>'
         + '<span class="rn">' + f.name + '</span><span class="rw">' + r.weights[i] + '%</span></div>';
     });
+    if (overBand){
+      html += '<div class="disclaim" style="margin-top:14px;font-size:12.5px">'
+        + '<b>Above your band:</b> this blends to ' + fmtPct(s.yield) + ', past the '
+        + r.band.label + ' you picked. There were not enough funds inside the band to build '
+        + 'a spread portfolio without going over.</div>';
+    }
     if (eroding){
       html += '<div class="disclaim hot" style="margin-top:14px;font-size:12.5px">'
         + '<b>Worth pausing on:</b> this pays ' + fmtPct(s.yield) + ' but returned '
