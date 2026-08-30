@@ -1,0 +1,27 @@
+# Licentia — https://licentia.ca
+# Public research pages are open to crawlers. Anything that only makes sense
+# for a signed-in person is kept out of the index: it is either empty or
+# personal to one account, so it has nothing to offer a search result.
+
+User-agent: *
+Allow: /
+
+# Personal, account-only surfaces
+Disallow: /account.html
+Disallow: /portfolio.html
+
+# Preview and working copies that duplicate a live page
+Disallow: /funds-preview.html
+Disallow: /compare-preview.html
+Disallow: /account-preview.html
+Disallow: /learn-preview.html
+Disallow: /index_2.html
+
+# Raw data and build plumbing, not pages
+Disallow: /data/
+Disallow: /assets/pro.js
+
+# The Pro preview flag produces a duplicate of every page
+Disallow: /*?pro=
+
+Sitemap: https://licentia.ca/sitemap.xml
