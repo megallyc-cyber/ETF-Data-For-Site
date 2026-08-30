@@ -116,7 +116,22 @@
   .pickrow .pn{flex:1; font-size:12.5px; color:var(--ink-soft); line-height:1.35;}
   .pickrow .py{font-family:'Fraunces',serif; font-size:16px; color:var(--fam);}
   .picknone{padding:14px 15px; font-size:13px; color:var(--ink-faint);}
-  .pickhint{font-size:11.5px; color:var(--ink-faint); margin-top:6px;}
+  .pickhint{position:absolute; top:calc(100% + 5px); left:0;
+    font-size:11.5px; color:var(--ink-faint); white-space:nowrap; pointer-events:none;}
+  .addform{align-items:end;}
+  .addform > div{min-width:0;}
+  .fundpicker{position:relative; padding-bottom:0;}
+  /* every control on the row ends up the same height */
+  .fundpicker input, .pickchosen{height:44px;}
+  .addform input, .addform .primary{height:44px;}
+  .pickchosen{box-sizing:border-box;}
+  /* 2. group the matches by manager so a long list reads as a set of houses */
+  .pickgroup{padding:9px 13px 5px; font-family:'IBM Plex Mono',monospace; font-size:9.5px;
+    letter-spacing:0.13em; text-transform:uppercase; color:var(--ink-faint);
+    background:var(--paper); border-bottom:1px solid var(--line); position:sticky; top:0;}
+  .pickgroup i{display:inline-block; width:7px; height:7px; border-radius:2px;
+    margin-right:7px; background:var(--fam); vertical-align:0;}
+
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -254,7 +269,15 @@ function matches(q){
     else if (t.indexOf(q) !== -1) contains.push(e);
     else if (n.indexOf(q) !== -1) named.push(e);
   });
-  return starts.concat(contains, named).slice(0, 8);
+  const ranked = starts.concat(contains, named).slice(0, 8);
+  // hold each manager's funds together without losing the ranking order
+  const seen = [], byIssuer = {};
+  ranked.forEach(function(e){
+    const k = e[1].issuer;
+    if (!byIssuer[k]){ byIssuer[k] = []; seen.push(k); }
+    byIssuer[k].push(e);
+  });
+  return seen.reduce(function(acc, k){ return acc.concat(byIssuer[k]); }, []);
 }
 
 function buildPicker(){
@@ -283,8 +306,17 @@ function buildPicker(){
     if (!rows.length){
       menu.innerHTML = '<div class="picknone">Nothing matches that. Try a ticker like HMAX.</div>';
     } else {
+      let lastIssuer = null;
       rows.forEach(function(e, i){
         const st = e[1].stats || {};
+        if (e[1].issuer !== lastIssuer){
+          lastIssuer = e[1].issuer;
+          const g = document.createElement('div');
+          g.className = 'pickgroup';
+          paintEl(g, e[1].issuer);
+          g.innerHTML = '<i></i>' + e[1].issuer;
+          menu.appendChild(g);
+        }
         const b = document.createElement('button');
         b.className = 'pickrow'; b.type = 'button';
         paintEl(b, e[1].issuer);
