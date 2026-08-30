@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio — Licentia</title>
+<title>ETF Backtesting — Total Return and Market Stress Test | Licentia</title>
+  <meta name="description" content="See how an income portfolio holds up in a bear or bull market, and how much of an ETF total return came from distributions rather than price.">
+  <link rel="canonical" href="https://licentia.ca/backtest.html">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1C2230">
+  <link rel="icon" type="image/svg+xml" href="assets/bird.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licentia">
+  <meta property="og:locale" content="en_CA">
+  <meta property="og:title" content="ETF Backtesting — Total Return and Market Stress Test | Licentia">
+  <meta property="og:description" content="See how an income portfolio holds up in a bear or bull market, and how much of an ETF total return came from distributions rather than price.">
+  <meta property="og:url" content="https://licentia.ca/backtest.html">
+  <meta property="og:image" content="https://licentia.ca/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ETF Backtesting — Total Return and Market Stress Test | Licentia">
+  <meta name="twitter:description" content="See how an income portfolio holds up in a bear or bull market, and how much of an ETF total return came from distributions rather than price.">
+  <meta name="twitter:image" content="https://licentia.ca/assets/og-card.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -230,6 +246,21 @@
   .lg .lgs{font-size:13.5px; color:var(--ink-soft); line-height:1.5;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://licentia.ca/backtest.html",
+  "url": "https://licentia.ca/backtest.html",
+  "name": "Portfolio stress test and total return chart",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any modern web browser",
+  "inLanguage": "en-CA",
+  "isPartOf": {
+    "@id": "https://licentia.ca/#website"
+  }
+}
+  </script>
 </head>
 <body>
 <nav>
@@ -245,7 +276,7 @@
     <a href="account.html">My Account</a>
   </div>
 </nav>
-<div class="wrap">
+<main class="wrap">
   <div class="head-row">
     <div>
       <h1>Backtesting</h1>
@@ -758,7 +789,7 @@ function buildPicker(){
       b.onmousedown=function(ev){ ev.preventDefault(); pick(e[0]); };
       menu.appendChild(b);
     });
-    if (!rows.length) menu.innerHTML='<div class="picknone">Nothing matches that.</div>';
+    if (!rows.length) menu.innerHTML='<div class="picknone">Nothing matches that.</main>';
     host.appendChild(menu);
   }
   async function pick(t){
