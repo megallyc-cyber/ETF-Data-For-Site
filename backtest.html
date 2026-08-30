@@ -176,6 +176,52 @@
     overflow:hidden; margin-top:20px;}
   .gridline{stroke:var(--line); stroke-width:1;}
   .axlab{font-family:'IBM Plex Mono',monospace; font-size:10px; fill:var(--ink-faint);}
+
+  /* --lab: this page runs dark. Analysis tools earn a different room. */
+  body{
+    --paper:#151A24; --paper-raised:#1B2230; --white:#1E2634;
+    --ink:#EDEFF3; --ink-soft:#A6AEBC; --ink-faint:#76808E;
+    --line:rgba(237,239,243,0.13); --line-strong:rgba(237,239,243,0.26);
+    background:
+      radial-gradient(1100px 520px at 15% -10%, rgba(255,107,53,0.10), transparent 60%),
+      radial-gradient(900px 460px at 92% 4%, rgba(47,62,87,0.55), transparent 62%),
+      #151A24;
+    color:var(--ink);
+  }
+  nav{background:#0F131C; border-bottom:1px solid rgba(237,239,243,0.10);}
+  .panel{background:linear-gradient(168deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.012) 60%, transparent 100%), #1B2230;
+    border-color:rgba(237,239,243,0.13);
+    box-shadow:0 20px 50px -30px rgba(0,0,0,0.9);}
+  h1, .sec-title{color:#F6F7F9;}
+  .tier{background:linear-gradient(115deg,#222B3C 0%,#33405C 45%,#222B3C 100%);
+    background-size:220% 100%; color:#EDEFF3;}
+  .sbtn{background:rgba(237,239,243,0.05); color:var(--ink); border-color:rgba(237,239,243,0.20);}
+  .sbtn:hover{border-color:#EDEFF3;}
+  .sbtn.on{background:#EDEFF3; color:#151A24; border-color:#EDEFF3;}
+  .sbtn.down.on{background:#E5484D; border-color:#E5484D; color:#fff;}
+  .sbtn.up.on{background:#4CB782; border-color:#4CB782; color:#10251B;}
+  .rb{background:rgba(237,239,243,0.05); color:var(--ink); border-color:rgba(237,239,243,0.20);}
+  .rb.on{background:#EDEFF3; color:#151A24; border-color:#EDEFF3;}
+  .cc, .tot{background:#1E2634;}
+  .cmp, .split3, .totals{background:rgba(237,239,243,0.13); border-color:rgba(237,239,243,0.13);}
+  input, select, .search{background:#141A25; color:var(--ink); border-color:rgba(237,239,243,0.22);}
+  .pickmenu{background:#1B2230; border-color:rgba(237,239,243,0.22);
+    box-shadow:0 18px 42px rgba(0,0,0,0.6);}
+  .pickgroup{background:#141A25; border-bottom-color:rgba(237,239,243,0.10);}
+  .pickrow{border-bottom-color:rgba(237,239,243,0.08);}
+  .empty{border-color:rgba(237,239,243,0.20);}
+  .gridline{stroke:rgba(237,239,243,0.10);}
+  .axlab{fill:#76808E;}
+  .slider{accent-color:#FF6B35;}
+  .foot{color:#76808E;}
+
+  .regime{display:inline-block; padding:11px 18px; border-radius:10px;
+    font-family:'Fraunces',serif; font-size:19px; letter-spacing:-0.01em;}
+  .regime.cut{background:rgba(229,72,77,0.16); color:#FF9A9D; border:1px solid rgba(229,72,77,0.42);}
+  .regime.strain{background:rgba(255,107,53,0.15); color:#FFA983; border:1px solid rgba(255,107,53,0.40);}
+  .regime.hold, .regime.flat, .regime.steady{background:rgba(237,239,243,0.07); color:#D6DAE2;
+    border:1px solid rgba(237,239,243,0.20);}
+  .regime.strong{background:rgba(76,183,130,0.16); color:#7FD9AC; border:1px solid rgba(76,183,130,0.42);}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -212,7 +258,7 @@
       <div class="scen" id="scen"></div>
       <input class="slider" id="slider" type="range" min="-50" max="50" step="1" value="-20">
       <div class="shift neg" id="shiftLabel">-20%</div>
-      <div class="note" style="margin-top:14px">What happens to the distributions?</div>
+      <div class="note" style="margin-top:18px">What this does to the distributions</div>
       <div class="assume" id="assume"></div>
       <div class="note" id="assumeNote" style="margin-top:8px"></div>
       <div class="cmp" id="cmp"></div>
@@ -234,7 +280,7 @@
       </div>
       <div style="margin-top:28px">
         <div class="rangebar" id="rangebar"></div>
-        <div class="chartwrap"><svg id="chart" viewBox="0 0 900 380"></svg></div>
+        <div class="chartwrap"><svg id="chart" viewBox="0 0 900 380"></svg><div class="hoverbox" id="hoverbox"></div></div>
         <div class="legend" id="legend"></div>
         <div class="split3" id="retStats"></div>
         <div class="note" id="chartNote" style="margin-top:14px"></div>
@@ -275,11 +321,35 @@ function pct(v, dp){ return (v===null||v===undefined||!isFinite(v)) ? '\u2014' :
 // Deliberately two assumptions rather than one. A covered call fund's
 // distribution is not a promise, and pretending income is untouched by a
 // 30% drawdown would be the most misleading thing this page could do.
-const ASSUMPTIONS = {
-  hold: {label:'Distributions hold', note:'The funds keep paying the same dollars per share. This is what usually happens for a shallow move, and what issuers aim for.'},
-  half: {label:'They fall half as fast', note:'Distributions drop at half the rate the price does. A reasonable middle case: option premium shrinks with the price but not one for one.'},
-  track:{label:'They track the price', note:'Distributions fall exactly in line with the price. The harsh case, and closer to what happened to several funds in 2022.'}
-};
+// What happens to income is a consequence of the market you picked, not a
+// separate opinion. A covered call fund's payout tracks option premium and
+// NAV, so a deep drawdown drags it down whether anyone likes it or not.
+function regimeFor(shiftPct){
+  if (shiftPct <= -30) return {
+    id:'cut', factor: 1 + shiftPct/100,
+    label:'Distributions likely fall hard',
+    note:'A drop this size takes the fund price with it, and distributions are paid out of a smaller base. Several covered call funds cut their monthly payment during 2022 for exactly this reason. Modelled falling in line with the price.'};
+  if (shiftPct <= -15) return {
+    id:'strain', factor: 1 + shiftPct/200,
+    label:'Distributions come under pressure',
+    note:'Option premium usually rises when markets fall, which cushions the payout, but a smaller NAV eventually pulls it down. Modelled falling at about half the rate of the price.'};
+  if (shiftPct < 0) return {
+    id:'hold', factor: 1,
+    label:'Distributions likely hold',
+    note:'A shallow pullback rarely changes the monthly cheque. Higher volatility often means richer option premium, which is what funds are selling.'};
+  if (shiftPct === 0) return {
+    id:'flat', factor: 1,
+    label:'Distributions unchanged',
+    note:'No move, no change to what the funds pay.'};
+  if (shiftPct <= 15) return {
+    id:'steady', factor: 1,
+    label:'Distributions hold',
+    note:'A modest rally leaves the payout roughly where it is. Covered call funds cap their upside, so a rising market lifts the price far less than it lifts the index.'};
+  return {
+    id:'strong', factor: 1 + Math.min(shiftPct, 45)/100 * 0.30,
+    label:'Distributions hold, and may edge higher',
+    note:'A strong rally lifts NAV, and a bigger base can support a bigger payment. Do not expect it to rise in step with the market though: calls written against the portfolio give away most of a rally, and calm markets pay thinner premium. Modelled rising at about a third of the price move.'};
+}
 
 function currentBook(){
   return ROWS.map(function(r){
@@ -304,8 +374,7 @@ function stressed(){
     v1 += b.value * m;
     i0 += b.income;
     // income per share is unchanged under 'hold'; the others scale it down
-    const factor = assume === 'hold' ? 1 : (assume === 'half' ? 1 + (shift/100)/2 : m);
-    i1 += b.income * Math.max(0, factor);
+    i1 += b.income * Math.max(0, regimeFor(shift).factor);
     if (b.spent !== null){ spent += b.spent; spentKnown = true; }
   });
   return {v0, v1, i0, i1, spent, spentKnown, count: book.length};
@@ -331,16 +400,10 @@ function renderScenarios(){
     b.onclick = function(){ shift = s.v; document.getElementById('slider').value = s.v; renderStress(); };
     box.appendChild(b);
   });
+  const r = regimeFor(shift);
   const a = document.getElementById('assume');
-  a.innerHTML = '';
-  Object.entries(ASSUMPTIONS).forEach(function(e){
-    const b = document.createElement('button');
-    b.className = 'abtn' + (assume === e[0] ? ' on' : '');
-    b.textContent = e[1].label;
-    b.onclick = function(){ assume = e[0]; renderStress(); };
-    a.appendChild(b);
-  });
-  document.getElementById('assumeNote').textContent = ASSUMPTIONS[assume].note;
+  a.innerHTML = '<div class="regime ' + r.id + '">' + r.label + '</div>';
+  document.getElementById('assumeNote').textContent = r.note;
 }
 
 function renderStress(){
@@ -448,13 +511,19 @@ function renderChart(){
     const idx = Math.round(i*(pts.length-1)/(ticks-1));
     g += '<text x="'+X(idx).toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle" class="axlab">'+pts[idx].d.slice(0,7)+'</text>';
   }
-  const col = famC((FUNDS[SERIES.ticker]||{}).issuer);
+  const col = '#4CB782';
+  window.__plot = {pts:pts, tr:tr, pr:pr, X:X, Y:Y, W:W, H:H, L:L, R:R, T:T, B:B, col:col};
   if (pr) g += '<path d="'+path(pr)+'" fill="none" stroke="#8A9099" stroke-width="2" stroke-dasharray="5 4"/>';
   g += '<path d="'+path(tr)+'" fill="none" stroke="'+col+'" stroke-width="2.6"/>';
   svg.innerHTML = g;
 
-  legend.innerHTML = '<span class="lg"><i style="background:'+col+'"></i>Total return, distributions reinvested</span>'
-    + (pr ? '<span class="lg"><i style="background:#8A9099"></i>Price only, distributions taken as cash</span>' : '');
+  legend.innerHTML =
+    '<span class="lg"><i style="background:'+col+'"></i><span>'
+      + '<span class="lgt">Total return</span>'
+      + '<span class="lgs">Every distribution bought more units</span></span></span>'
+  + (pr ? '<span class="lg"><i style="background:#9AA3B2"></i><span>'
+      + '<span class="lgt">Price only</span>'
+      + '<span class="lgs">Distributions taken as cash and spent</span></span></span>' : '');
 
   const trEnd = tr[tr.length-1] - 100;
   const prEnd = pr ? pr[pr.length-1] - 100 : null;
@@ -475,6 +544,43 @@ function renderChart(){
   } else {
     note.textContent = 'No price-only series for this fund yet, so only the reinvested line is shown.';
   }
+}
+
+function wireHover(){
+  const svg = document.getElementById("chart");
+  const box = document.getElementById("hoverbox");
+  if (!svg || !box) return;
+  function hide(){ box.style.opacity = 0; const o = svg.querySelector("#cursor"); if (o) o.remove(); }
+  svg.addEventListener("mouseleave", hide);
+  svg.addEventListener("mousemove", function(ev){
+    const P = window.__plot;
+    if (!P) return;
+    const r = svg.getBoundingClientRect();
+    const vx = (ev.clientX - r.left) / r.width * P.W;
+    if (vx < P.L || vx > P.W - P.R){ hide(); return; }
+    const frac = (vx - P.L) / (P.W - P.L - P.R);
+    const i = Math.max(0, Math.min(P.pts.length - 1, Math.round(frac * (P.pts.length - 1))));
+    const x = P.X(i);
+    const old = svg.querySelector("#cursor"); if (old) old.remove();
+    var marks = "<g id=\"cursor\">";
+    marks += "<line x1=\"" + x.toFixed(1) + "\" y1=\"" + P.T + "\" x2=\"" + x.toFixed(1) + "\" y2=\"" + (P.H - P.B) + "\" stroke=\"rgba(237,239,243,0.35)\" stroke-width=\"1\"/>";
+    marks += "<circle cx=\"" + x.toFixed(1) + "\" cy=\"" + P.Y(P.tr[i]).toFixed(1) + "\" r=\"5\" fill=\"" + P.col + "\" stroke=\"#151A24\" stroke-width=\"2\"/>";
+    if (P.pr) marks += "<circle cx=\"" + x.toFixed(1) + "\" cy=\"" + P.Y(P.pr[i]).toFixed(1) + "\" r=\"5\" fill=\"#9AA3B2\" stroke=\"#151A24\" stroke-width=\"2\"/>";
+    marks += "</g" + ">";
+    svg.insertAdjacentHTML("beforeend", marks);
+    const p = P.pts[i];
+    const trGain = P.tr[i] - 100;
+    const prGain = P.pr ? P.pr[i] - 100 : null;
+    var h = "<div class=\"hd\">" + p.d + "</div>";
+    h += "<div class=\"hr\"><i style=\"background:" + P.col + "\"></i>Total return<b>" + (trGain>=0?"+":"") + trGain.toFixed(1) + "%</b></div>";
+    if (P.pr) h += "<div class=\"hr\"><i style=\"background:#9AA3B2\"></i>Price only<b>" + (prGain>=0?"+":"") + prGain.toFixed(1) + "%</b></div>";
+    if (p.close) h += "<div class=\"hr\" style=\"opacity:.75\"><i style=\"background:transparent\"></i>Unit price<b>$" + p.close.toFixed(2) + "</b></div>";
+    box.innerHTML = h;
+    box.style.opacity = 1;
+    const px = x / P.W * r.width;
+    box.style.left = (px > r.width - 200 ? px - 186 : px + 16) + "px";
+    box.style.top = "14px";
+  });
 }
 
 // ---- fund picker (same type-ahead as My Portfolio) ---------------------
@@ -579,6 +685,7 @@ Promise.all([
     ROWS = q.error ? [] : (q.data || []);
   }
   renderRanges();
+  wireHover();
   buildPicker();
   renderStress();
   // open on the largest fund so the chart is never empty
