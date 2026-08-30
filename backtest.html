@@ -816,4 +816,5 @@ Promise.all([
     .sort(function(a,b){ return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); })[0];
   if (biggest){ CHOSEN = biggest[0]; buildPicker(); SERIES = await loadSeries(CHOSEN); renderChart(); }
 });
-</script>\n</body>\n</html>
+</script>\n<script src="assets/pro.js"></script>
+</body>\n</html>
