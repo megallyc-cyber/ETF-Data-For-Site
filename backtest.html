@@ -812,9 +812,17 @@ function buildPicker(){
     host.appendChild(menu);
   }
   async function pick(t){
-    CHOSEN=t; close(); buildPicker();
-    SERIES = await loadSeries(t);
-    renderChart();
+    CHOSEN = t; close(); buildPicker();
+    try {
+      SERIES = await loadSeries(t);
+      if (!SERIES) throw new Error('no price history stored for ' + t);
+      renderChart();
+    } catch (err){
+      SERIES = null;
+      window.__plot = null;
+      const note = document.getElementById('chartNote');
+      if (note) note.textContent = 'Could not chart ' + t + ': ' + err.message;
+    }
   }
   input.addEventListener('input', open);
   input.addEventListener('focus', open);
@@ -851,7 +859,15 @@ Promise.all([
   RATIOS = (res[1] && res[1].funds) ? res[1].funds : {};
   session = res[2].data.session;
   const badge = document.getElementById('tierBadge');
-  if (badge) badge.textContent = session ? 'Free Account' : 'No Account';
+  if (badge){
+    // same entitlement source as assets/pro.js, so the badge cannot disagree
+    // with the surface the reader is looking at
+    const u = session ? (session.user || {}) : null;
+    const tier = u ? ((u.app_metadata && u.app_metadata.tier) ||
+                      (u.user_metadata && u.user_metadata.tier) || null) : null;
+    badge.textContent = !session ? 'No Account' : (tier === 'pro' ? 'Licentia Pro' : 'Free Account');
+    badge.className = 'tier' + (tier === 'pro' ? ' pro' : '');
+  }
   if (session){
     const q = await sb.from('portfolio_holdings').select('id,ticker,shares,cost_basis');
     ROWS = q.error ? [] : (q.data || []);
