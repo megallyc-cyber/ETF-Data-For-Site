@@ -219,7 +219,14 @@
   .whose .wt{font-size:15.5px; line-height:1.45;}
   .whose .wsub{font-size:13px; color:var(--ink-faint); margin-top:4px; line-height:1.5;}
   .whose .spacer{flex:1;}
-  .miniadd{display:grid; grid-template-columns:1.5fr 1fr auto; gap:10px; align-items:end; margin-top:16px;}
+  .miniadd{display:grid; grid-template-columns:1.6fr 1fr auto; gap:12px; align-items:end; margin-top:20px;}
+  .miniadd input, .miniadd .primary{height:46px;}
+  .miniadd .fundpicker input, .miniadd .pickchosen{height:46px; box-sizing:border-box;}
+  /* the holdings you are testing, then a rule, then what you are testing them
+     against: the two were running into each other */
+  #holdSource{padding-bottom:26px; margin-bottom:26px; border-bottom:1px solid var(--line);}
+  .scen{margin-top:0; margin-bottom:14px;}
+  .shift{margin-top:4px;}
   @media(max-width:700px){ .miniadd{grid-template-columns:1fr;} }
   .srow{display:flex; align-items:center; gap:12px; padding:11px 13px; margin-bottom:8px;
     border-radius:10px; border:1px solid rgba(var(--famrgb),0.26);
@@ -465,6 +472,14 @@ function renderStress(){
   lab.className = 'shift ' + (shift < 0 ? 'neg' : 'pos');
 
   const src = document.getElementById('holdSource');
+  const scen = document.getElementById('scen');
+  if (scen && !document.getElementById('scenLabel')){
+    const lab = document.createElement('div');
+    lab.className = 'note'; lab.id = 'scenLabel';
+    lab.style.margin = '0 0 12px';
+    lab.textContent = 'Pick a market move to test against';
+    scen.parentNode.insertBefore(lab, scen);
+  }
   const signedIn = !!session;
   const editing = !!SCRATCH;
   let banner = '';
@@ -700,7 +715,17 @@ function buildPicker2(){
     close();
     menu = document.createElement('div');
     menu.className = 'pickmenu';
+    var lastIssuer = null;
     matches(input.value).forEach(function(e){
+      // group under the manager, exactly as the My Portfolio picker does
+      if (e[1].issuer !== lastIssuer){
+        lastIssuer = e[1].issuer;
+        const g = document.createElement('div');
+        g.className = 'pickgroup';
+        paintEl(g, e[1].issuer);
+        g.innerHTML = '<i></i>' + e[1].issuer;
+        menu.appendChild(g);
+      }
       const st = e[1].stats || {};
       const b = document.createElement('button');
       b.className = 'pickrow'; b.type = 'button';
