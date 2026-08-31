@@ -257,23 +257,30 @@
   /* ---- site navigation ------------------------------------------------
      Identical on every page so the bar never appears to move or rename
      itself as you browse. */
-  nav{display:flex; align-items:center; justify-content:space-between; gap:20px;
-    padding:11px 26px; background:var(--ink); position:sticky; top:0; z-index:40;
-    border-bottom:none; flex-wrap:wrap;}
-  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif !important;
-    font-weight:700; font-size:19px; letter-spacing:-0.02em;
-    color:var(--paper) !important; text-decoration:none; cursor:pointer;
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; position:sticky; top:0; z-index:40; flex-wrap:wrap;
+    background:linear-gradient(180deg, rgba(242,239,233,0.97) 0%, rgba(242,239,233,0.86) 100%);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; color:var(--ink); text-decoration:none;
     display:inline-flex; align-items:center;}
   .brand-bird{display:inline-block; width:25px; height:16px; margin-left:8px; vertical-align:-1px;}
-  .navlinks{display:flex; gap:7px; flex-wrap:wrap;}
-  .navlinks a{font-family:'Inter',ui-sans-serif,sans-serif; font-size:13.5px;
-    padding:8px 15px; border-radius:100px; text-decoration:none;
-    border:1px solid rgba(242,239,233,0.24); color:rgba(242,239,233,0.74);
-    white-space:nowrap; transition:all .16s;}
-  .navlinks a:hover{border-color:var(--paper); color:var(--paper);}
-  .navlinks a.active{background:var(--ember); border-color:var(--ember);
-    color:var(--ink); font-weight:500;}
-  @media(max-width:820px){ nav{padding:10px 16px;} .navlinks a{padding:7px 11px; font-size:12.5px;} }
+  .navlinks{display:flex; gap:26px; flex-wrap:wrap; align-items:center;}
+  .navlinks a{font-family:'Inter',ui-sans-serif,sans-serif; font-size:14px;
+    padding:5px 0; text-decoration:none; border:none; border-radius:0;
+    color:var(--ink-soft); white-space:nowrap; position:relative; transition:color .16s;}
+  /* the underline marks the page you are on and previews the one you are opening */
+  .navlinks a::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    border-radius:2px; background:var(--ember); transform:scaleX(0);
+    transform-origin:left center; transition:transform .2s ease;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:hover::after{transform:scaleX(0.45);}
+  .navlinks a.active{color:var(--ink); font-weight:500;}
+  .navlinks a.active::after{transform:scaleX(1);}
+  @media(max-width:820px){ nav{padding:12px 16px; gap:16px;} .navlinks{gap:15px;} .navlinks a{font-size:12.5px;} }
+
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -308,11 +315,9 @@
   </div>
 </nav>
 <main>
-<div class="note">Proposal v4 — curve has its own lane, everything animates in, explainer moves vertically.</div>
 
 <div class="part-flag">Part <b>1</b> of 2 &nbsp;&middot;&nbsp; the crash course</div>
 <div class="intro">
-  <div class="tag">Start here</div>
   <h2>The whole idea, in about a minute..</h2>
 </div>
 
@@ -412,7 +417,6 @@
 
 <div class="bridge" id="detail">
   <div class="bridge-rule"></div>
-  <div class="tag">Part 2 of 2</div>
   <h2>Scroll down to get into the fine details of how this works.</h2>
   <p>Seven stops, each building on the last.</p>
   <div class="bridge-cue">&darr;</div>
