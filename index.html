@@ -64,33 +64,42 @@
      through, it is a door with four handles. */
   main{flex:1; display:flex;}
   .home{flex:1; max-width:1180px; margin:0 auto; width:100%;
-    padding:clamp(18px,3vh,40px) 26px clamp(16px,2.6vh,30px);
-    display:flex; flex-direction:column; justify-content:center; gap:clamp(16px,2.6vh,32px);}
+    padding:clamp(14px,2.2vh,30px) 26px clamp(14px,2.2vh,26px);
+    display:flex; flex-direction:column; justify-content:center; gap:clamp(14px,2.3vh,28px);}
 
   .home-head{text-align:center; max-width:min(880px, 92vw); margin:0 auto;}
-  .home-bird{width:34px; height:22px; display:block; margin:0 auto clamp(10px,1.6vh,18px);}
+  .home-bird{width:30px; height:19px; display:block; margin:0 auto clamp(8px,1.2vh,14px);}
   .home h1{font-family:'Fraunces',serif; font-weight:500;
-    font-size:clamp(28px,3.5vw,46px); line-height:1.08; letter-spacing:-0.026em;
+    font-size:clamp(26px,3.2vw,43px); line-height:1.07; letter-spacing:-0.026em;
     max-width:16ch; margin:0 auto;}
-  .home-sub{font-size:clamp(14.5px,1.35vw,17px); line-height:1.5; color:var(--ink-soft);
-    margin:clamp(9px,1.4vh,15px) auto 0; max-width:46ch;}
+  .home-sub{font-family:'Fraunces',serif; font-weight:400;
+    font-size:clamp(17px,1.9vw,23px); line-height:1.42; color:var(--ink-soft);
+    margin:clamp(10px,1.5vh,16px) auto 0; max-width:36ch; letter-spacing:-0.01em;}
+  /* the promise is the point of the sentence, so it is the only lit part */
+  .home-sub b{color:var(--ink); font-weight:500; white-space:nowrap;
+    background:linear-gradient(transparent 58%, rgba(255,107,53,0.22) 58%, rgba(255,107,53,0.22) 94%, transparent 94%);
+    padding:0 2px;}
   .home-sub b{color:var(--ink); font-weight:500;}
 
   /* the numbers that justify the claim above them */
-  .home-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
-    background:var(--line); border:1px solid var(--line); border-radius:13px;
-    overflow:hidden; max-width:760px; margin:0 auto; width:100%;}
-  .home-stat{background:var(--white); padding:clamp(11px,1.7vh,17px) 14px; text-align:center;}
-  .home-stat .v{font-family:'Fraunces',serif; font-size:clamp(20px,2.4vw,29px); line-height:1;}
-  .home-stat .k{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.12em;
-    text-transform:uppercase; color:var(--ink-faint); margin-top:7px;}
+  /* Numbers read better as type on paper than as a row of boxes; the hairlines
+     do the separating that borders were doing before. */
+  .home-stats{display:flex; align-items:center; justify-content:center;
+    flex-wrap:wrap; gap:clamp(20px,4vw,58px); margin:0 auto;}
+  .home-stat{position:relative; text-align:center; padding:0 clamp(10px,2vw,26px);}
+  .home-stat + .home-stat::before{content:''; position:absolute; left:0; top:14%; bottom:14%;
+    width:1px; background:var(--line-strong);}
+  .home-stat .v{font-family:'Fraunces',serif; font-weight:500;
+    font-size:clamp(24px,2.9vw,36px); line-height:1; letter-spacing:-0.02em; color:var(--ink);}
+  .home-stat .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:9px;}
   @media(max-width:640px){ .home-stats{grid-template-columns:repeat(2,1fr);} }
 
   /* four ways in, weighted equally: the reader picks, we do not steer */
   .home-doors{display:grid; grid-template-columns:repeat(4,1fr); gap:13px; width:100%;}
   @media(max-width:900px){ .home-doors{grid-template-columns:repeat(2,1fr);} }
-  .door{display:flex; flex-direction:column; gap:7px; text-align:left; text-decoration:none;
-    padding:clamp(14px,2vh,20px) clamp(15px,1.6vw,20px); border-radius:13px;
+  .door{display:flex; flex-direction:column; gap:6px; text-align:left; text-decoration:none;
+    padding:clamp(13px,1.7vh,18px) clamp(15px,1.6vw,19px); border-radius:13px;
     border:1px solid var(--line-strong); background:var(--white); color:var(--ink);
     transition:transform .18s cubic-bezier(.2,.75,.3,1), box-shadow .18s, border-color .18s;}
   .door:hover{transform:translateY(-3px); border-color:var(--ink);
@@ -110,17 +119,19 @@
   @media (prefers-reduced-motion: reduce){
     .fade{animation:none; opacity:1; transform:none;}
   }
-  .marquee{position:relative; width:100vw; max-width:100vw; margin:0 -26px; padding:2px 0;
-    overflow:hidden;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);}
-  .mq-track{display:flex; gap:16px; width:max-content; animation:marquee 46s linear infinite;}
+  /* Same width as the cards beneath it, so the page reads as one column
+     rather than a full-bleed band interrupting it. */
+  .marquee{position:relative; width:100%; margin:0; padding:0; overflow:hidden;
+    border-radius:14px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);}
+  .mq-track{display:flex; gap:13px; width:max-content; animation:marquee 46s linear infinite;}
   .marquee:hover .mq-track{animation-play-state:paused;}
   @keyframes marquee{from{transform:translateX(0);} to{transform:translateX(-50%);}}
   /* One fixed box size for every provider so the strip reads as a row of
      equals, with each mark scaled to fit inside rather than overflowing. */
   .mq-item{flex:none; display:flex; align-items:center; justify-content:center; gap:14px;
-    width:186px; height:60px; padding:0 16px; box-sizing:border-box;
+    width:250px; height:clamp(112px,16.5vh,170px); padding:0 24px; box-sizing:border-box;
     background:var(--white); border:1px solid var(--line); border-left:3px solid var(--mq);
     border-radius:10px; white-space:nowrap;
     text-decoration:none; cursor:pointer;
