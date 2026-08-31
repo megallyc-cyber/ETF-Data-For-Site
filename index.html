@@ -98,15 +98,15 @@
     justify-content:center; text-align:center; position:relative; padding:24px 24px 20px;}
   /* the dimmed start only applies once the reveal script is running, so a
      failed script can never leave the page half invisible */
-  .js-reveal .step{opacity:0.7; transform:scale(0.995) translateY(4px);
-    transition:opacity .5s cubic-bezier(.22,.7,.25,1), transform .5s cubic-bezier(.22,.7,.25,1);}
+  .js-reveal .step{opacity:0.72; transform:scale(0.996) translateY(4px);
+    transition:opacity .62s cubic-bezier(.22,.7,.25,1), transform .62s cubic-bezier(.22,.7,.25,1);}
   .js-reveal .step.in{opacity:1; transform:none;}
   .step:first-of-type{min-height:74vh;}
   
   .step h1, .step h2, .step .choose, .step .btns, .step .count{
     opacity:0; transform:translateY(22px);
-    transition:opacity .55s cubic-bezier(.22,.7,.25,1),
-               transform .55s cubic-bezier(.22,.7,.25,1);}
+    transition:opacity .66s cubic-bezier(.22,.7,.25,1),
+               transform .66s cubic-bezier(.22,.7,.25,1);}
   .step.in h1, .step.in h2{opacity:1; transform:none;}
   .step.in .count{opacity:1; transform:none; transition-delay:.3s;}
   .step.in .choose{opacity:1; transform:none;}
@@ -519,9 +519,9 @@
   // before accepting the next is what made scrolling feel like it lagged.
   var pendingIndex = null;
   var rafId = null;
-  var DURATION = 520;
+  var DURATION = 660;
 
-  function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+  function easeOut(t){ return 1 - Math.pow(1 - t, 5); }
 
   function currentIndex(){
     var mid = window.innerHeight / 2;
