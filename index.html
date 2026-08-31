@@ -359,6 +359,29 @@
   .navlinks a.active{color:var(--ink); font-weight:500;}
   .navlinks a.active::after{transform:scaleX(1);}
   @media(max-width:820px){ nav{padding:12px 16px; gap:16px;} .navlinks{gap:15px;} .navlinks a{font-size:12.5px;} }
+
+  /* ---- footer ------------------------------------------------------------
+     The same summary that used to sit on the account page: what the site
+     actually covers, stated once at the end. */
+  .site-foot{margin-top:auto; background:var(--ink); color:var(--paper);
+    padding:clamp(26px,4vmin,44px) 26px clamp(22px,3vmin,34px);}
+  .foot-in{max-width:min(1400px,92vw); margin:0 auto; display:flex; flex-wrap:wrap;
+    align-items:center; justify-content:space-between; gap:clamp(20px,4vmin,48px);}
+  .foot-stats{display:flex; flex-wrap:wrap; gap:clamp(22px,4.5vmin,60px);}
+  .fs .v{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(22px,3vmin,34px);
+    line-height:1; color:var(--ember); letter-spacing:-0.02em;}
+  .fs .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.14em;
+    text-transform:uppercase; color:rgba(242,239,233,0.55); margin-top:8px;}
+  .foot-word{display:flex; flex-direction:column; gap:8px; max-width:34ch;}
+  .foot-mark{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; display:inline-flex; align-items:center; gap:8px;}
+  .foot-mark img{width:25px; height:16px;}
+  .foot-line{font-size:13px; line-height:1.6; color:rgba(242,239,233,0.62);}
+  .foot-small{max-width:min(1400px,92vw); margin:clamp(18px,2.6vmin,26px) auto 0;
+    padding-top:16px; border-top:1px solid rgba(242,239,233,0.14);
+    font-size:11.5px; line-height:1.7; color:rgba(242,239,233,0.42);}
+  body.pro .fs .v{color:var(--gold);}
+  @media(max-width:700px){ .foot-in{flex-direction:column; align-items:flex-start;} }
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -450,6 +473,27 @@
 
 </div>
 </main>
+
+<footer class="site-foot">
+  <div class="foot-in">
+    <div class="foot-word">
+      <span class="foot-mark">Licentia<img src="assets/bird.svg" alt="" width="25" height="16"></span>
+      <span class="foot-line">Independent research on covered call and income ETFs listed in
+        Canada and the United States.</span>
+    </div>
+    <div class="foot-stats">
+      <div class="fs"><div class="v" id="fFunds">206</div><div class="k">funds tracked</div></div>
+      <div class="fs"><div class="v" id="fIssuers">17</div><div class="k">fund managers</div></div>
+      <div class="fs"><div class="v" id="fYield">12.1%</div><div class="k">median yield</div></div>
+      <div class="fs"><div class="v">Daily</div><div class="k">data refreshed</div></div>
+    </div>
+  </div>
+  <div class="foot-small">
+    Figures are taken from the fund issuers and refreshed daily. Yields are trailing twelve months:
+    what a fund has paid, not what it will pay. Licentia is research, not financial advice.
+  </div>
+</footer>
+
 <script>
 
 // --- landing figures ---------------------------------------------------
@@ -475,8 +519,16 @@
                             : (yields[yields.length / 2 - 1] + yields[yields.length / 2]) / 2)
         : null;
       elF.textContent = tickers.length;
+      const fF = document.getElementById('fFunds');
+      const fI = document.getElementById('fIssuers');
+      const fY = document.getElementById('fYield');
+      if (fF) fF.textContent = tickers.length;
+      if (fI) fI.textContent = Object.keys(issuers).length;
       document.getElementById('statIssuers').textContent = Object.keys(issuers).length;
-      if (mid !== null) document.getElementById('statYield').textContent = mid.toFixed(1) + '%';
+      if (mid !== null){
+        document.getElementById('statYield').textContent = mid.toFixed(1) + '%';
+        if (fY) fY.textContent = mid.toFixed(1) + '%';
+      }
     })
     .catch(function(){ /* the hardcoded fallbacks in the markup stand */ });
 })();
