@@ -246,7 +246,7 @@ function portfolioView(){
     '<div class="head-row">'
   + '<div><h1>My Portfolio</h1><p class="sub">What you hold, what it is worth now, and what it pays. '
   + 'Prices and yields come from the same daily data as the rest of the site.</p></div>'
-  + '<div class="tier" id="tierBadge">Free Account</div>'
+  + '<div class="tier" id="tierBadge">Account</div>'
   + '</div>'
   + '<div class="totals" id="totals"></div>'
   + '<div class="panel"><h2>Holdings</h2>'
@@ -427,7 +427,12 @@ function renderTotals(){
   const yieldOnValue = (valueKnown && value) ? income / value * 100 : null;
   const yoc = (spentKnown && spent) ? income / spent * 100 : null;
   function cell(v, k, cls){
-    return '<div class="tot"><div class="v ' + (cls || '') + '">' + v + '</div><div class="k">' + k + '</div></main>';
+    // each cell must close itself; without the final </div> they nest and the
+    // grid collapses into one stepped column
+    return '<div class="tot">'
+      + '<div class="v ' + (cls || '') + '">' + v + '</div>'
+      + '<div class="k">' + k + '</div>'
+      + '</div>';
   }
   box.innerHTML =
     cell(valueKnown ? money(value) : '—', 'portfolio value')
