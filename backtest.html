@@ -551,7 +551,7 @@ async function loadSeries(ticker){
   const csv = await fetch('data/prices/' + ticker + '.csv?cb=' + Math.random())
     .then(function(r){ return r.ok ? r.text() : null; }).catch(function(){ return null; });
   if (!csv) return null;
-  const rows = csv.trim().split('').slice(1).map(function(l){ return l.trim().split(','); })
+  const rows = csv.trim().split('\n').slice(1).map(function(l){ return l.trim().split(','); })
     .filter(function(p){ return p.length >= 2 && p[1]; });
   if (rows.length < 10) return null;
   const steps = (RATIOS[ticker] || {}).r || null;
