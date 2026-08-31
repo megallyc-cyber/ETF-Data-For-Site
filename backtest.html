@@ -784,16 +784,22 @@ function wireHover(){
 function matches(q){
   q = q.trim().toUpperCase();
   const all = Object.entries(FUNDS).filter(function(e){ return RATIOS[e[0]] || true; });
-  if (!q) return all.slice().sort(function(a,b){
-    return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); }).slice(0, 200);
-  const starts=[], contains=[], named=[];
-  all.forEach(function(e){
-    const t=e[0].toUpperCase(), n=(e[1].name||'').toUpperCase();
-    if (t.indexOf(q)===0) starts.push(e);
-    else if (t.indexOf(q)!==-1) contains.push(e);
-    else if (n.indexOf(q)!==-1) named.push(e);
-  });
-  const ranked = starts.concat(contains, named).slice(0, 200);
+  let ranked;
+  if (!q){
+    ranked = all.slice().sort(function(a,b){
+      return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); }).slice(0, 200);
+  } else {
+    const starts=[], contains=[], named=[];
+    all.forEach(function(e){
+      const t=e[0].toUpperCase(), n=(e[1].name||'').toUpperCase();
+      if (t.indexOf(q)===0) starts.push(e);
+      else if (t.indexOf(q)!==-1) contains.push(e);
+      else if (n.indexOf(q)!==-1) named.push(e);
+    });
+    ranked = starts.concat(contains, named).slice(0, 200);
+  }
+  // one heading per manager: hold each house's funds together while keeping the
+  // order the ranking produced
   const seen=[], by={};
   ranked.forEach(function(e){ const k=e[1].issuer; if(!by[k]){by[k]=[]; seen.push(k);} by[k].push(e); });
   return seen.reduce(function(a,k){ return a.concat(by[k]); }, []);
