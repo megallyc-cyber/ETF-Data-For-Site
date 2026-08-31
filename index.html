@@ -34,8 +34,7 @@
     --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-snap-type:y mandatory; scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-snap-type:none; scroll-behavior:auto;} }
+  html{scroll-behavior:auto;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--paper);
@@ -96,8 +95,7 @@
   }
   .step:last-of-type .link{display:none;}
   .step{min-height:100svh; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; text-align:center; position:relative; padding:24px 24px 20px;
-    scroll-snap-align:center; scroll-snap-stop:normal;}
+    justify-content:center; text-align:center; position:relative; padding:24px 24px 20px;}
   /* the dimmed start only applies once the reveal script is running, so a
      failed script can never leave the page half invisible */
   .js-reveal .step{opacity:0.55; transform:scale(0.99) translateY(8px);
@@ -505,6 +503,80 @@
   }, {passive: true});
   window.addEventListener('resize', markVisible, {passive: true});
   markVisible();
+})();
+
+
+// ---- section to section, animated ---------------------------------------
+// CSS scroll snapping moves instantly and the jump cannot be eased, so the
+// movement is animated here instead: one gesture carries you to the next
+// section over three quarters of a second on a soft curve.
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('[data-step]'));
+  if (sections.length < 2) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var animating = false;
+  var DURATION = 760;
+
+  function ease(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
+
+  function currentIndex(){
+    var mid = window.innerHeight / 2;
+    var best = 0, bestGap = Infinity;
+    sections.forEach(function(el, i){
+      var r = el.getBoundingClientRect();
+      var gap = Math.abs((r.top + r.height / 2) - mid);
+      if (gap < bestGap){ bestGap = gap; best = i; }
+    });
+    return best;
+  }
+
+  function glideTo(index){
+    if (index < 0 || index >= sections.length) return;
+    var el = sections[index];
+    var start = window.pageYOffset;
+    var target = start + el.getBoundingClientRect().top
+               - (window.innerHeight - el.getBoundingClientRect().height) / 2;
+    target = Math.max(0, Math.min(target, document.body.scrollHeight - window.innerHeight));
+    var delta = target - start;
+    if (Math.abs(delta) < 2) return;
+    animating = true;
+    var t0 = null;
+    function frame(ts){
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / DURATION);
+      window.scrollTo(0, start + delta * ease(p));
+      if (p < 1) window.requestAnimationFrame(frame);
+      else setTimeout(function(){ animating = false; }, 90);
+    }
+    window.requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('wheel', function(e){
+    if (Math.abs(e.deltaY) < 4) return;
+    e.preventDefault();
+    if (animating) return;
+    glideTo(currentIndex() + (e.deltaY > 0 ? 1 : -1));
+  }, {passive: false});
+
+  window.addEventListener('keydown', function(e){
+    var down = ['ArrowDown','PageDown',' ','Spacebar'].indexOf(e.key) !== -1;
+    var up = ['ArrowUp','PageUp'].indexOf(e.key) !== -1;
+    if (!down && !up) return;
+    if (animating){ e.preventDefault(); return; }
+    e.preventDefault();
+    glideTo(currentIndex() + (down ? 1 : -1));
+  });
+
+  // touch: a deliberate swipe moves one section
+  var touchY = null;
+  window.addEventListener('touchstart', function(e){ touchY = e.touches[0].clientY; }, {passive: true});
+  window.addEventListener('touchend', function(e){
+    if (touchY === null || animating) return;
+    var dy = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) > 45) glideTo(currentIndex() + (dy > 0 ? 1 : -1));
+    touchY = null;
+  }, {passive: true});
 })();
 
 // --- provider marquee --------------------------------------------------
