@@ -128,6 +128,44 @@
   .navlinks a.active::after{transform:scaleX(1);}
   @media(max-width:820px){ nav{padding:12px 16px; gap:16px;} .navlinks{gap:15px;} .navlinks a{font-size:12.5px;} }
 
+
+  /* ---- the account itself -------------------------------------------------
+     Signed in, this is the one page that is about the reader rather than the
+     market, so it is given a face and a name instead of a row of fields. */
+  .idcard{display:flex; align-items:center; gap:18px; padding:22px;
+    border:1px solid var(--line-strong); border-radius:15px; background:var(--white);
+    margin-bottom:20px;}
+  .avatar{position:relative; width:74px; height:74px; border-radius:50%; flex:none;
+    display:grid; place-items:center; overflow:hidden; cursor:pointer;
+    background:linear-gradient(150deg, var(--ink) 0%, #33405C 100%); color:var(--paper);
+    font-family:'Fraunces',serif; font-size:29px; letter-spacing:-0.02em;
+    border:2px solid var(--line-strong);}
+  .avatar img{width:100%; height:100%; object-fit:cover;}
+  .avatar .cam{position:absolute; inset:auto 0 0 0; padding:3px 0; text-align:center;
+    font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:0.1em;
+    text-transform:uppercase; background:rgba(28,34,48,0.72); color:var(--paper); opacity:0;
+    transition:opacity .16s;}
+  .avatar:hover .cam{opacity:1;}
+  .idmeta{flex:1; min-width:0;}
+  .idname{font-family:'Fraunces',serif; font-size:25px; line-height:1.15; letter-spacing:-0.02em;
+    border:none; background:none; padding:2px 4px; margin-left:-4px; width:100%;
+    border-radius:7px; color:var(--ink); font-weight:500;}
+  .idname:hover{background:var(--paper-raised);}
+  .idname:focus{outline:none; background:var(--paper-raised); box-shadow:0 0 0 2px var(--ember);}
+  .idmail{font-size:13.5px; color:var(--ink-faint); margin-top:3px;}
+  .idplan{display:inline-flex; align-items:center; gap:8px; margin-top:10px;
+    padding:6px 13px; border-radius:100px; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; letter-spacing:0.13em; text-transform:uppercase;
+    background:rgba(28,34,48,0.06); color:var(--ink-soft);}
+  .idplan.pro{background:linear-gradient(120deg,#E9D6A8,#C9A227); color:#1C2230;}
+  .saved{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:#2C7A55; opacity:0; transition:opacity .2s;}
+  .saved.on{opacity:1;}
+  .doorrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+  .row{display:flex; justify-content:space-between; gap:16px; padding:11px 0;
+    border-bottom:1px solid var(--line); font-size:14px;}
+  .row:last-child{border-bottom:none;}
+  .mono{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink-soft);}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -149,15 +187,10 @@
 
 <div class="split">
   <section class="pitch">
-    <div class="pitch-kicker">Free while Licentia is in beta</div>
     <h2>Keep track of what you're actually holding.</h2>
     <p>An account saves the funds you're watching and the portfolios you build, so the
        analysis follows you between devices.</p>
-    <div class="pitch-stats">
-      <div class="ps"><div class="v" id="sFunds">206</div><div class="k">funds tracked</div></div>
-      <div class="ps"><div class="v" id="sIssuers">17</div><div class="k">fund managers</div></div>
-      <div class="ps"><div class="v" id="sYield">12.1%</div><div class="k">median yield</div></div>
-    </div>
+    
     <ul class="perks">
       <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Save funds to a watchlist and come back to them</li>
@@ -286,30 +319,93 @@ function authView(){
   });
 }
 
-function accountView(session){
-  const u = session.user;
-  const created = u.created_at ? new Date(u.created_at).toISOString().slice(0, 10) : '—';
-  const via = (u.app_metadata && u.app_metadata.provider) || 'email';
-  const name = (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || null;
+function accountView(u){
+  const meta = u.user_metadata || {};
+  const tier = (u.app_metadata && u.app_metadata.tier) || meta.tier || null;
+  const isPro = tier === 'pro';
+  const name = meta.display_name || meta.full_name || meta.name || (u.email || '').split('@')[0];
+  const created = new Date(u.created_at).toLocaleDateString('en-CA',
+    {year:'numeric', month:'long', day:'numeric'});
+  const avatar = meta.avatar_data || meta.avatar_url || null;
+  const initial = (name || '?').trim().charAt(0).toUpperCase();
+
   stage.innerHTML =
-    '<h1>You are signed in</h1>'
-  + '<div class="sub">Saved funds and portfolios will appear here as those features land.</div>'
-  + '<div class="acct-card">'
-  + (name ? '<div class="row"><span>Name</span><span>' + name + '</span></div>' : '')
-  + '<div class="row"><span>Email</span><span class="mono">' + (u.email || '—') + '</span></div>'
-  + '<div class="row"><span>Signed in with</span><span class="mono">' + via + '</span></div>'
-  + '<div class="row"><span>Member since</span><span class="mono">' + created + '</span></div>'
-  + '<div class="row"><span>User ID</span><span class="mono">' + u.id.slice(0, 8) + '…</span></div>'
-  + '</div>'
-  + '<div style="margin-top:22px; display:flex; gap:10px; flex-wrap:wrap;">'
-  + '<button class="ghost" id="out">Sign out</button>'
-  + '<a class="ghost" href="funds.html" style="text-decoration:none;">Browse funds</a>'
-  + '<a class="ghost" href="compare.html" style="text-decoration:none;">Compare funds</a>'
-  + '</div><div class="msg" id="msg" style="display:none;"></div>';
-  document.getElementById('out').addEventListener('click', async function(){
-    await sb.auth.signOut();
-    render();
+    '<div class="idcard">'
+    + '<div class="avatar" id="avatar" title="Change your picture">'
+      + (avatar ? '<img src="' + avatar + '" alt="">' : initial)
+      + '<span class="cam">edit</span>'
+    + '</div>'
+    + '<div class="idmeta">'
+      + '<input class="idname" id="idname" value="' + name.replace(/"/g, '&quot;') + '" '
+        + 'aria-label="Your name" spellcheck="false">'
+      + '<div class="idmail">' + u.email + '</div>'
+      + '<span class="idplan' + (isPro ? ' pro' : '') + '">'
+        + (isPro ? 'Licentia Pro' : 'Free account') + '</span>'
+      + ' <span class="saved" id="savedFlag">saved</span>'
+    + '</div>'
+    + '</div>'
+    + '<div class="panel">'
+      + '<h2>Your account</h2>'
+      + '<div class="note">Your name and picture are stored on your account and stay with you '
+        + 'between devices. Nothing here is shown to anyone else.</div>'
+      + '<div class="row"><span>Signed in with</span><span class="mono">'
+        + ((u.app_metadata && u.app_metadata.provider) || 'email') + '</span></div>'
+      + '<div class="row"><span>Member since</span><span class="mono">' + created + '</span></div>'
+      + '<div class="row"><span>Plan</span><span class="mono">'
+        + (isPro ? 'Licentia Pro' : 'Free') + '</span></div>'
+    + '</div>'
+    + '<div class="panel"><h2>Your work</h2>'
+      + '<div class="note">Everything you build is kept against this account.</div>'
+      + '<div class="doorrow">'
+        + '<a class="ghost" href="portfolio.html">My Portfolio</a> '
+        + '<a class="ghost" href="portfolio-builder.html">Portfolio Builder</a> '
+        + '<a class="ghost" href="backtest.html">Backtesting</a>'
+      + '</div></div>'
+    + '<div style="margin-top:20px"><button class="ghost" id="signout">Sign out</button></div>';
+
+  const flag = document.getElementById('savedFlag');
+  function flash(){ flag.classList.add('on'); setTimeout(function(){ flag.classList.remove('on'); }, 1400); }
+
+  // the name saves when you leave the field, so there is no button to hunt for
+  const nameEl = document.getElementById('idname');
+  nameEl.addEventListener('blur', async function(){
+    const v = nameEl.value.trim();
+    if (!v || v === name) return;
+    const r = await sb.auth.updateUser({ data: { display_name: v } });
+    if (!r.error) flash();
   });
+  nameEl.addEventListener('keydown', function(ev){ if (ev.key === 'Enter') nameEl.blur(); });
+
+  // the picture is resized here and stored on the account, so no bucket is needed
+  document.getElementById('avatar').addEventListener('click', function(){
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = function(){
+      const file = inp.files && inp.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(){
+        const img = new Image();
+        img.onload = async function(){
+          const size = 160;
+          const c = document.createElement('canvas');
+          c.width = size; c.height = size;
+          const ctx = c.getContext('2d');
+          const side = Math.min(img.width, img.height);
+          ctx.drawImage(img, (img.width - side)/2, (img.height - side)/2, side, side, 0, 0, size, size);
+          const data = c.toDataURL('image/jpeg', 0.82);
+          const r = await sb.auth.updateUser({ data: { avatar_data: data } });
+          if (!r.error){ flash(); accountView((await sb.auth.getUser()).data.user); }
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    };
+    inp.click();
+  });
+
+  const out = document.getElementById('signout');
+  if (out) out.onclick = async function(){ await sb.auth.signOut(); render(); };
 }
 
 async function render(){
