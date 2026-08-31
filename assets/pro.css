@@ -35,19 +35,21 @@ body.pro .brand::after{
 @keyframes proshimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 /* --- a single hairline of gold under the bar: the seam of a good binding -- */
+/* The bar is paper now, so Pro reads as a gold hairline along its edge
+   rather than a slab of colour. */
 body.pro nav{
   border-bottom:1px solid transparent;
-  background-image:linear-gradient(var(--ink),var(--ink)),
+  background-image:linear-gradient(180deg, rgba(244,241,232,0.97) 0%, rgba(244,241,232,0.86) 100%),
     linear-gradient(90deg,transparent,var(--gold) 22%,var(--champagne) 50%,var(--gold) 78%,transparent);
   background-origin:border-box;
   background-clip:padding-box,border-box;
 }
-body.pro .navlinks a.active{
-  background:linear-gradient(120deg,var(--champagne) 0%,var(--gold) 55%,var(--champagne) 100%);
-  border-color:var(--gold);
-  color:#1C2230;
-}
-body.pro .navlinks a:hover{border-color:var(--champagne); color:var(--champagne);}
+body.pro nav .brand{color:var(--ink) !important;}
+body.pro .navlinks a.active{color:var(--gold-deep); font-weight:500;}
+body.pro .navlinks a.active::after{background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--champagne));}
+body.pro .navlinks a:hover{color:var(--gold-deep);}
+body.pro .navlinks a:hover::after{background:var(--gold);}
+
 
 /* --- surfaces: warmer, with a lit top edge --------------------------------- */
 body.pro .panel{
