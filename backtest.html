@@ -133,7 +133,7 @@
   .pickchosen .cx:hover{color:var(--rust);}
   .pickmenu{position:absolute; z-index:30; left:0; right:0; top:calc(100% + 6px);
     background:var(--white); border:1px solid var(--line-strong); border-radius:11px;
-    box-shadow:0 14px 34px rgba(28,34,48,0.16); overflow:hidden; max-height:290px; overflow-y:auto;}
+    box-shadow:0 14px 34px rgba(28,34,48,0.16); overflow:hidden; max-height:340px; overflow-y:auto;}
   .pickrow{display:flex; align-items:center; gap:11px; width:100%; text-align:left;
     padding:11px 13px; border:none; background:none; cursor:pointer; font-family:inherit;
     border-left:3px solid var(--fam); border-bottom:1px solid var(--line);}
@@ -760,7 +760,7 @@ function matches(q){
   q = q.trim().toUpperCase();
   const all = Object.entries(FUNDS).filter(function(e){ return RATIOS[e[0]] || true; });
   if (!q) return all.slice().sort(function(a,b){
-    return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); }).slice(0,8);
+    return ((b[1].stats||{}).aum_musd||0) - ((a[1].stats||{}).aum_musd||0); }).slice(0, 200);
   const starts=[], contains=[], named=[];
   all.forEach(function(e){
     const t=e[0].toUpperCase(), n=(e[1].name||'').toUpperCase();
@@ -768,7 +768,7 @@ function matches(q){
     else if (t.indexOf(q)!==-1) contains.push(e);
     else if (n.indexOf(q)!==-1) named.push(e);
   });
-  const ranked = starts.concat(contains, named).slice(0,8);
+  const ranked = starts.concat(contains, named).slice(0, 200);
   const seen=[], by={};
   ranked.forEach(function(e){ const k=e[1].issuer; if(!by[k]){by[k]=[]; seen.push(k);} by[k].push(e); });
   return seen.reduce(function(a,k){ return a.concat(by[k]); }, []);
