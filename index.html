@@ -57,7 +57,7 @@
   /* Each line owns its own stretch of the page and arrives as the reader
      reaches it, with a gold thread drawing down between them — the same idea
      as the learn path, so the two pages feel related. */
-  .reveal{position:relative; max-width:1000px; margin:0 auto; padding:4vh 24px 0;}
+  .reveal{position:relative; max-width:1000px; margin:0 auto; padding:2vh 24px 0;}
   /* The thread links the lines rather than running through them: each block
      carries a node above it and a connector below, so nothing crosses type. */
   /* A bird in flight reads as the brand; a pulsing dot read as a loading
@@ -79,8 +79,8 @@
   /* The connector sits in the flow beneath the content rather than pinned to
      the section edge, so it can never ride over the last line of text. */
   .link{color:var(--ember-deep); display:flex; flex-direction:column; align-items:center; gap:6px;
-    margin-top:40px; pointer-events:none;}
-  .link i{display:block; width:2px; height:66px; transform:scaleY(0); transform-origin:top;
+    margin-top:26px; pointer-events:none;}
+  .link i{display:block; width:2px; height:44px; transform:scaleY(0); transform-origin:top;
     background:linear-gradient(180deg, var(--ember) 0%, rgba(255,107,53,0.12) 100%);
     transition:transform .5s cubic-bezier(.2,.8,.3,1) 0s;}
   .step.in .link i{transform:scaleY(1);}
@@ -94,19 +94,19 @@
     50%{transform:translateY(7px); opacity:1;}
   }
   .step:last-of-type .link{display:none;}
-  .step{min-height:100svh; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; text-align:center; position:relative; padding:24px 24px 20px;}
+  .step{min-height:46svh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; position:relative; padding:38px 24px 30px;}
   /* the dimmed start only applies once the reveal script is running, so a
      failed script can never leave the page half invisible */
-  .js-reveal .step{opacity:0.76; transform:scale(0.997) translateY(3px);
-    transition:opacity .42s cubic-bezier(.2,.75,.3,1), transform .42s cubic-bezier(.2,.75,.3,1);}
+  .js-reveal .step{opacity:0.08; transform:translateY(34px);
+    transition:opacity .75s cubic-bezier(.2,.75,.3,1), transform .75s cubic-bezier(.2,.75,.3,1);}
   .js-reveal .step.in{opacity:1; transform:none;}
   .step:first-of-type{min-height:74vh;}
   
   .step h1, .step h2, .step .choose, .step .btns, .step .count{
     opacity:0; transform:translateY(22px);
-    transition:opacity .45s cubic-bezier(.2,.75,.3,1),
-               transform .45s cubic-bezier(.2,.75,.3,1);}
+    transition:opacity .65s cubic-bezier(.2,.75,.3,1) .1s,
+               transform .65s cubic-bezier(.2,.75,.3,1) .1s;}
   .step.in h1, .step.in h2{opacity:1; transform:none;}
   .step.in .count{opacity:1; transform:none; transition-delay:.3s;}
   .step.in .choose{opacity:1; transform:none;}
@@ -479,9 +479,11 @@
       entries.forEach(function(e){
         // toggle, not add: leaving resets the section so it eases in again
         // next time rather than snapping to a page that is already finished
-        e.target.classList.toggle('in', e.isIntersecting);
+        // only ever adds: removal is left to markVisible, which knows whether
+        // the section has left the screen completely
+        if (e.isIntersecting) e.target.classList.add('in');
       });
-    }, {threshold: 0.45, rootMargin: '0px 0px -5% 0px'});
+    }, {threshold: 0.12, rootMargin: '0px 0px -12% 0px'});
     steps.forEach(function(s){ io.observe(s); });
   } else {
     steps.forEach(function(s){ s.classList.add('in'); });
@@ -489,10 +491,13 @@
   steps[0].classList.add('in');
 
   function markVisible(){
-    var mid = window.innerHeight / 2;
+    var h = window.innerHeight;
     steps.forEach(function(el){
       var r = el.getBoundingClientRect();
-      el.classList.toggle('in', r.top < mid && r.bottom > mid);
+      var entered = r.top < h * 0.86 && r.bottom > h * 0.10;
+      var goneEntirely = r.bottom < -40 || r.top > h + 40;
+      if (entered) el.classList.add('in');
+      else if (goneEntirely) el.classList.remove('in');
     });
   }
   var ticking = false;
