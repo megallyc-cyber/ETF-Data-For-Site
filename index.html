@@ -93,6 +93,11 @@
     width:1px; background:var(--line-strong);}
   .home-stat .v{font-family:'Fraunces',serif; font-weight:500;
     font-size:clamp(23px,3.7vmin,54px); line-height:1; letter-spacing:-0.02em; color:var(--ink);}
+  /* Fraunces sets a very wide ampersand, so it gets its own tracking and a
+     slightly smaller size to sit level with the numerals beside it. */
+  .home-stat .v.ampersand{letter-spacing:0.01em; white-space:nowrap;}
+  .home-stat .v.ampersand span{font-size:0.78em; padding:0 0.1em; color:var(--ink-faint);
+    font-style:italic;}
   .home-stat .k{font-family:'IBM Plex Mono',monospace; font-size:clamp(9.5px,1.15vmin,12px);
     letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-faint); margin-top:clamp(7px,1vmin,12px);}
   @media(max-width:640px){ .home-stats{grid-template-columns:repeat(2,1fr);} }
@@ -414,7 +419,7 @@
   <div class="home-stats fade d2">
     <div class="home-stat"><div class="v" id="statFunds">206</div><div class="k">funds tracked</div></div>
     <div class="home-stat"><div class="v" id="statIssuers">17</div><div class="k">fund managers</div></div>
-    <div class="home-stat"><div class="v">2</div><div class="k">markets covered</div></div>
+    <div class="home-stat"><div class="v ampersand">CA <span>&amp;</span> US</div><div class="k">both markets</div></div>
     <div class="home-stat"><div class="v" id="statYield">12.1%</div><div class="k">median yield</div></div>
   </div>
 
