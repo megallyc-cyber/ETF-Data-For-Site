@@ -82,13 +82,13 @@
     margin-top:40px; pointer-events:none;}
   .link i{display:block; width:2px; height:66px; transform:scaleY(0); transform-origin:top;
     background:linear-gradient(180deg, var(--ember) 0%, rgba(255,107,53,0.12) 100%);
-    transition:transform .9s cubic-bezier(.2,.8,.3,1) .25s;}
+    transition:transform .7s cubic-bezier(.2,.8,.3,1) .1s;}
   .step.in .link i{transform:scaleY(1);}
-  .link svg{width:32px; height:20px; opacity:0; transition:opacity .6s ease 1s;}
+  .link svg{width:32px; height:20px; opacity:0; transition:opacity .45s ease .18s;}
   /* a second chevron trails the first so the cue reads as movement, not a mark */
   .link svg.trail{margin-top:-12px;}
-  .step.in .link svg.trail{opacity:.4; animation:nudge 1.9s ease-in-out 1.35s infinite;}
-  .step.in .link svg{opacity:1; animation:nudge 1.9s ease-in-out 1.1s infinite;}
+  .step.in .link svg.trail{opacity:.4; animation:nudge 1.9s ease-in-out .55s infinite;}
+  .step.in .link svg{opacity:1; animation:nudge 1.9s ease-in-out .35s infinite;}
   @keyframes nudge{
     0%,100%{transform:translateY(0); opacity:.45;}
     50%{transform:translateY(7px); opacity:1;}
@@ -98,15 +98,15 @@
     justify-content:center; text-align:center; position:relative; padding:24px 24px 20px;}
   /* the dimmed start only applies once the reveal script is running, so a
      failed script can never leave the page half invisible */
-  .js-reveal .step{opacity:0.55; transform:scale(0.99) translateY(8px);
-    transition:opacity 1s cubic-bezier(.22,.7,.25,1), transform 1s cubic-bezier(.22,.7,.25,1);}
+  .js-reveal .step{opacity:0.55; transform:scale(0.992) translateY(6px);
+    transition:opacity .8s cubic-bezier(.22,.7,.25,1), transform .8s cubic-bezier(.22,.7,.25,1);}
   .js-reveal .step.in{opacity:1; transform:none;}
   .step:first-of-type{min-height:74vh;}
   
   .step h1, .step h2, .step .choose, .step .btns, .step .count{
     opacity:0; transform:translateY(22px);
-    transition:opacity .95s cubic-bezier(.22,.7,.25,1) .12s,
-               transform .95s cubic-bezier(.22,.7,.25,1) .12s;}
+    transition:opacity .8s cubic-bezier(.22,.7,.25,1),
+               transform .8s cubic-bezier(.22,.7,.25,1);}
   .step.in h1, .step.in h2{opacity:1; transform:none;}
   .step.in .count{opacity:1; transform:none; transition-delay:.3s;}
   .step.in .choose{opacity:1; transform:none;}
@@ -515,8 +515,11 @@
   if (sections.length < 2) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var animating = false;
-  var DURATION = 760;
+  // The glide can be re-aimed mid flight. Waiting for one move to finish
+  // before accepting the next is what made scrolling feel like it lagged.
+  var pendingIndex = null;
+  var rafId = null;
+  var DURATION = 620;
 
   function ease(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
 
@@ -531,50 +534,63 @@
     return best;
   }
 
+  function targetFor(el){
+    var t = window.pageYOffset + el.getBoundingClientRect().top
+          - (window.innerHeight - el.getBoundingClientRect().height) / 2;
+    return Math.max(0, Math.min(t, document.body.scrollHeight - window.innerHeight));
+  }
+
   function glideTo(index){
     if (index < 0 || index >= sections.length) return;
-    var el = sections[index];
+    pendingIndex = index;
     var start = window.pageYOffset;
-    var target = start + el.getBoundingClientRect().top
-               - (window.innerHeight - el.getBoundingClientRect().height) / 2;
-    target = Math.max(0, Math.min(target, document.body.scrollHeight - window.innerHeight));
+    var target = targetFor(sections[index]);
     var delta = target - start;
-    if (Math.abs(delta) < 2) return;
-    animating = true;
+    if (Math.abs(delta) < 2){ pendingIndex = null; return; }
+    if (rafId) window.cancelAnimationFrame(rafId);
     var t0 = null;
     function frame(ts){
       if (t0 === null) t0 = ts;
       var p = Math.min(1, (ts - t0) / DURATION);
       window.scrollTo(0, start + delta * ease(p));
-      if (p < 1) window.requestAnimationFrame(frame);
-      else setTimeout(function(){ animating = false; }, 90);
+      if (p < 1) rafId = window.requestAnimationFrame(frame);
+      else { rafId = null; pendingIndex = null; }
     }
-    window.requestAnimationFrame(frame);
+    rafId = window.requestAnimationFrame(frame);
   }
 
+  // where the next gesture should count from: the place we are heading, if a
+  // move is already under way, otherwise wherever we are sitting
+  function anchorIndex(){
+    return pendingIndex === null ? currentIndex() : pendingIndex;
+  }
+
+  var lastGesture = 0;
   window.addEventListener('wheel', function(e){
     if (Math.abs(e.deltaY) < 4) return;
     e.preventDefault();
-    if (animating) return;
-    glideTo(currentIndex() + (e.deltaY > 0 ? 1 : -1));
+    var now = Date.now();
+    // one move per gesture, but a fresh gesture is honoured immediately
+    if (now - lastGesture < 140) return;
+    lastGesture = now;
+    glideTo(anchorIndex() + (e.deltaY > 0 ? 1 : -1));
   }, {passive: false});
 
   window.addEventListener('keydown', function(e){
     var down = ['ArrowDown','PageDown',' ','Spacebar'].indexOf(e.key) !== -1;
     var up = ['ArrowUp','PageUp'].indexOf(e.key) !== -1;
     if (!down && !up) return;
-    if (animating){ e.preventDefault(); return; }
     e.preventDefault();
-    glideTo(currentIndex() + (down ? 1 : -1));
+    glideTo(anchorIndex() + (down ? 1 : -1));
   });
 
   // touch: a deliberate swipe moves one section
   var touchY = null;
   window.addEventListener('touchstart', function(e){ touchY = e.touches[0].clientY; }, {passive: true});
   window.addEventListener('touchend', function(e){
-    if (touchY === null || animating) return;
+    if (touchY === null) return;
     var dy = touchY - e.changedTouches[0].clientY;
-    if (Math.abs(dy) > 45) glideTo(currentIndex() + (dy > 0 ? 1 : -1));
+    if (Math.abs(dy) > 45) glideTo(anchorIndex() + (dy > 0 ? 1 : -1));
     touchY = null;
   }, {passive: true});
 })();
