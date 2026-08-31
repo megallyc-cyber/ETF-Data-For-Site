@@ -134,7 +134,10 @@
      market, so it is given a face and a name instead of a row of fields. */
   .idcard{display:flex; align-items:center; gap:18px; padding:22px;
     border:1px solid var(--line-strong); border-radius:15px; background:var(--white);
-    margin-bottom:20px;}
+    margin:0 0 20px; box-shadow:0 10px 30px -24px rgba(28,34,48,0.7);}
+  /* the account column is a stack, not a pile of overlapping cards */
+  #stage{display:flex; flex-direction:column; gap:18px;}
+  #stage .panel{margin:0;}
   .avatar{position:relative; width:74px; height:74px; border-radius:50%; flex:none;
     display:grid; place-items:center; overflow:hidden; cursor:pointer;
     background:linear-gradient(150deg, var(--ink) 0%, #33405C 100%); color:var(--paper);
@@ -319,7 +322,10 @@ function authView(){
   });
 }
 
-function accountView(u){
+function accountView(arg){
+  // one caller passes a session, another passes a user: take whichever came
+  const u = (arg && arg.user) ? arg.user : arg;
+  if (!u) return;
   const meta = u.user_metadata || {};
   const tier = (u.app_metadata && u.app_metadata.tier) || meta.tier || null;
   const isPro = tier === 'pro';
