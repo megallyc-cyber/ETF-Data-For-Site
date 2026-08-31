@@ -84,7 +84,7 @@
     background:linear-gradient(180deg, var(--ember) 0%, rgba(255,107,53,0.12) 100%);
     transition:transform .5s cubic-bezier(.2,.8,.3,1) 0s;}
   .step.in .link i{transform:scaleY(1);}
-  .link svg{width:32px; height:20px; opacity:0; transition:opacity .35s ease .05s;}
+  .link svg{width:32px; height:20px; opacity:0; transition:opacity .28s ease 0s;}
   /* a second chevron trails the first so the cue reads as movement, not a mark */
   .link svg.trail{margin-top:-12px;}
   .step.in .link svg.trail{opacity:.4; animation:nudge 1.9s ease-in-out .3s infinite;}
@@ -98,15 +98,15 @@
     justify-content:center; text-align:center; position:relative; padding:24px 24px 20px;}
   /* the dimmed start only applies once the reveal script is running, so a
      failed script can never leave the page half invisible */
-  .js-reveal .step{opacity:0.72; transform:scale(0.996) translateY(4px);
-    transition:opacity .62s cubic-bezier(.22,.7,.25,1), transform .62s cubic-bezier(.22,.7,.25,1);}
+  .js-reveal .step{opacity:0.76; transform:scale(0.997) translateY(3px);
+    transition:opacity .42s cubic-bezier(.2,.75,.3,1), transform .42s cubic-bezier(.2,.75,.3,1);}
   .js-reveal .step.in{opacity:1; transform:none;}
   .step:first-of-type{min-height:74vh;}
   
   .step h1, .step h2, .step .choose, .step .btns, .step .count{
     opacity:0; transform:translateY(22px);
-    transition:opacity .66s cubic-bezier(.22,.7,.25,1),
-               transform .66s cubic-bezier(.22,.7,.25,1);}
+    transition:opacity .45s cubic-bezier(.2,.75,.3,1),
+               transform .45s cubic-bezier(.2,.75,.3,1);}
   .step.in h1, .step.in h2{opacity:1; transform:none;}
   .step.in .count{opacity:1; transform:none; transition-delay:.3s;}
   .step.in .choose{opacity:1; transform:none;}
@@ -519,9 +519,12 @@
   // before accepting the next is what made scrolling feel like it lagged.
   var pendingIndex = null;
   var rafId = null;
-  var DURATION = 660;
+  var TUNE = window.LICENTIA_SCROLL = window.LICENTIA_SCROLL || {};
+  // live-tweakable from the console: LICENTIA_SCROLL.duration = 380
+  if (TUNE.duration === undefined) TUNE.duration = 430;
+  if (TUNE.gate === undefined) TUNE.gate = 55;
 
-  function easeOut(t){ return 1 - Math.pow(1 - t, 5); }
+  function easeOut(t){ return 1 - Math.pow(1 - t, 4); }
 
   function currentIndex(){
     var mid = window.innerHeight / 2;
@@ -551,7 +554,7 @@
     var t0 = null;
     function frame(ts){
       if (t0 === null) t0 = ts;
-      var p = Math.min(1, (ts - t0) / DURATION);
+      var p = Math.min(1, (ts - t0) / TUNE.duration);
       window.scrollTo(0, start + delta * easeOut(p));
       if (p < 1) rafId = window.requestAnimationFrame(frame);
       else { rafId = null; pendingIndex = null; }
@@ -571,7 +574,7 @@
     e.preventDefault();
     var now = Date.now();
     // one move per gesture, but a fresh gesture is honoured immediately
-    if (now - lastGesture < 90) return;
+    if (now - lastGesture < TUNE.gate) return;
     lastGesture = now;
     glideTo(anchorIndex() + (e.deltaY > 0 ? 1 : -1));
   }, {passive: false});
