@@ -131,9 +131,15 @@
   .market-logos svg, .market-logos img{height:18px; width:auto; max-width:74px; object-fit:contain;}
   .market-go{margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--mk);}
 
-  .browse-all{display:block; margin:26px auto 0; background:none; border:none; cursor:pointer;
-    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em;
-    color:var(--ink-faint); transition:color .16s;}
+  /* This is the only hint that there is more below, so it should read as an
+   invitation rather than a footnote. */
+  .browse-all{display:inline-flex; align-items:center; gap:10px;
+    margin:34px auto 0; padding:13px 26px; border-radius:100px;
+    background:var(--white); border:1px solid var(--line-strong); cursor:pointer;
+    font-family:'Inter',ui-sans-serif,sans-serif; font-size:16px; font-weight:500;
+    letter-spacing:0; color:var(--ink); transition:all .18s;}
+  .browse-all:hover{border-color:var(--ember); color:var(--ember-deep);
+    transform:translateY(-2px); box-shadow:0 10px 24px -14px rgba(255,107,53,0.8);}
   .browse-all:hover{color:var(--ink);}
   .region-row{display:flex; gap:8px; flex-wrap:wrap;}
   .region-btn{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.06em;
