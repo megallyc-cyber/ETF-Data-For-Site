@@ -366,8 +366,23 @@ const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const PREVIEW_PRO = /[?&]pro=1/.test(window.location.search)
-  || (function(){ try { return localStorage.getItem('LICENTIA_PRO') === '1'; } catch(e){ return false; } })();
+// Entitlement comes from the account, exactly as assets/pro.js reads it, so a
+// free account can never end up wearing the paid surface. ?pro=1 stays a
+// preview for the current tab only.
+function previewPro(){
+  try {
+    if (/[?&]pro=1/.test(window.location.search)){ sessionStorage.setItem('LICENTIA_PRO_PREVIEW','1'); return true; }
+    if (/[?&]pro=0/.test(window.location.search)){ sessionStorage.removeItem('LICENTIA_PRO_PREVIEW'); return false; }
+    return sessionStorage.getItem('LICENTIA_PRO_PREVIEW') === '1';
+  } catch(e){ return false; }
+}
+function tierOf(session){
+  if (previewPro()) return 'paid';
+  if (!session) return 'free';
+  const u = session.user || {};
+  const t = (u.app_metadata && u.app_metadata.tier) || (u.user_metadata && u.user_metadata.tier) || null;
+  return t === 'pro' ? 'paid' : 'member';
+}
 const TIERS = {
   free:   {label:'No Account',   universe:25,  overlap:false},
   member: {label:'Free Account', universe:60,  overlap:true},
@@ -940,12 +955,12 @@ Promise.all([
     if (FUNDS[t]){ FUNDS[t].stats = FUNDS[t].stats || {};
       if (FUNDS[t].stats.aum_musd == null) FUNDS[t].stats.aum_musd = patch[t].aum_musd; }
   });
-  tier = PREVIEW_PRO ? 'paid' : (res[3].data.session ? 'member' : 'free');
+  tier = tierOf(res[3].data.session);
   render();
 });
 
 sb.auth.onAuthStateChange(function(_e, session){
-  tier = PREVIEW_PRO ? 'paid' : (session ? 'member' : 'free');
+  tier = tierOf(session);
   if (Object.keys(FUNDS).length) render();
 });
 </script>
