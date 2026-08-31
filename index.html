@@ -100,7 +100,7 @@
     scroll-snap-align:center; scroll-snap-stop:normal;}
   /* the dimmed start only applies once the reveal script is running, so a
      failed script can never leave the page half invisible */
-  .js-reveal .step{opacity:0.3; transform:scale(0.985) translateY(10px);
+  .js-reveal .step{opacity:0.55; transform:scale(0.99) translateY(8px);
     transition:opacity 1s cubic-bezier(.22,.7,.25,1), transform 1s cubic-bezier(.22,.7,.25,1);}
   .js-reveal .step.in{opacity:1; transform:none;}
   .step:first-of-type{min-height:74vh;}
@@ -489,6 +489,22 @@
     steps.forEach(function(s){ s.classList.add('in'); });
   }
   steps[0].classList.add('in');
+
+  function markVisible(){
+    var mid = window.innerHeight / 2;
+    steps.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      el.classList.toggle('in', r.top < mid && r.bottom > mid);
+    });
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){ markVisible(); ticking = false; });
+  }, {passive: true});
+  window.addEventListener('resize', markVisible, {passive: true});
+  markVisible();
 })();
 
 // --- provider marquee --------------------------------------------------
