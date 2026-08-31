@@ -262,6 +262,17 @@
   .lg .lgtext{display:flex; flex-direction:column; gap:6px; min-width:0;}
   .lg .lgt{font-weight:500; font-size:16.5px; line-height:1.25;}
   .lg .lgs{font-size:13.5px; color:var(--ink-soft); line-height:1.5;}
+
+  /* An empty plot is not a chart, it is a question. Ask it. */
+  .chart-invite{display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:12px; min-height:300px; padding:30px 24px;
+    border:1px dashed var(--line-strong); border-radius:14px; background:var(--paper-raised);}
+  .chart-invite .ci-mark{width:42px; height:27px; opacity:.85;}
+  .chart-invite .ci-t{font-family:'Fraunces',serif; font-size:clamp(19px,2.2vw,25px); line-height:1.2;}
+  .chart-invite .ci-s{font-size:14px; color:var(--ink-soft); line-height:1.6; max-width:46ch;}
+  .chart-invite .ci-hint{font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--ember-deep); margin-top:2px;}
+  .rb.idle{opacity:.42; cursor:not-allowed;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -357,7 +368,7 @@ let FUNDS = {}, RATIOS = {}, ROWS = [], session = null;
 // A working copy. Editing it never writes to portfolio_holdings, so a member
 // can try a change before committing to it for real.
 let SCRATCH = null, PICK2 = null;
-let shift = -20, assume = 'hold', CHOSEN = null, RANGE = 'max';
+let shift = -20, assume = 'hold', CHOSEN = null, RANGE = null;
 let SERIES = null;
 
 const FAM = {'BMO ETFs':'#0075BE','Hamilton ETFs':'#123D66','Harvest ETFs':'#C9821F',
@@ -595,11 +606,28 @@ function renderChart(){
   if (!SERIES){
     window.__plot = null;
     svg.innerHTML = ''; legend.innerHTML = ''; stats.innerHTML = '';
-    note.textContent = 'Pick a fund above to chart it.';
+    note.textContent = '';
     const hb = document.getElementById('hoverbox');
     if (hb) hb.style.opacity = 0;
+    const wrap = svg.parentNode;
+    if (wrap && !document.getElementById('chartInvite')){
+      const box = document.createElement('div');
+      box.className = 'chart-invite';
+      box.id = 'chartInvite';
+      box.innerHTML = '<img class="ci-mark" src="assets/bird.svg" alt="">'
+        + '<div class="ci-t">Chart any fund we track</div>'
+        + '<div class="ci-s">Pick a fund above to see what it has returned since it launched, '
+        + 'with distributions reinvested and without. The gap between the two lines is the income '
+        + 'it paid you.</div>'
+        + '<div class="ci-hint">206 funds &middot; daily prices &middot; back to inception</div>';
+      wrap.appendChild(box);
+    }
+    svg.style.display = 'none';
     return;
   }
+  const invite = document.getElementById('chartInvite');
+  if (invite) invite.remove();
+  svg.style.display = '';
 
   const pts = windowed(SERIES.pts);
   const base = pts[0];
@@ -847,6 +875,8 @@ function buildPicker(){
     try {
       SERIES = await loadSeries(t);
       if (!SERIES) throw new Error('no price history stored for ' + t);
+      if (!RANGE) RANGE = 'max';
+      renderRanges();
       renderChart();
     } catch (err){
       SERIES = null;
@@ -870,9 +900,9 @@ function renderRanges(){
   bar.innerHTML='';
   [['1y','1 year'],['3y','3 years'],['5y','5 years'],['max','Since inception']].forEach(function(r){
     const b=document.createElement('button');
-    b.className='rb'+(RANGE===r[0]?' on':'');
+    b.className='rb'+(RANGE===r[0]?' on':'') + (SERIES ? '' : ' idle');
     b.textContent=r[1];
-    b.onclick=function(){ RANGE=r[0]; renderRanges(); renderChart(); };
+    b.onclick=function(){ if(!SERIES) return; RANGE=r[0]; renderRanges(); renderChart(); };
     bar.appendChild(b);
   });
 }
