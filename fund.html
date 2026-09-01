@@ -4,22 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fund detail — Licentia</title>
+  <meta name="description" content="Yield, distributions, holdings and performance for this covered call ETF, taken from the issuer and refreshed daily.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1C2230">
+  <link rel="icon" type="image/svg+xml" href="assets/bird.svg">
+  <link rel="canonical" id="fundCanonical" href="https://licentia.ca/fund.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licentia">
+  <meta property="og:title" id="ogTitle" content="Fund detail — Licentia">
+  <meta property="og:description" id="ogDesc" content="Yield, distributions and holdings for this income ETF.">
+  <meta property="og:image" content="https://licentia.ca/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#EDEEE7;
-    --paper-raised:#F5F5F0;
-    --ink:#152019;
-    --ink-soft:#3F4A42;
-    --ink-faint:#6E766E;
-    --gold:#C89B3C;
-    --gold-deep:#8F6B22;
-    --teal:#1F5C4E;
-    --teal-deep:#123D33;
-    --rust:#A6452C;
-    --line:rgba(21,32,25,0.14);
-    --line-strong:rgba(21,32,25,0.28);
+    /* Ember — matches the mark. Names unchanged so existing rules keep working. */
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --rust-deep:#B3323A;
+    --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -31,18 +40,29 @@
   .serif{font-family:'Fraunces',serif;}
   .mono{font-family:'IBM Plex Mono',monospace;}
 
-  nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:20px 48px; border-bottom:1px solid var(--line);
-    position:sticky; top:0; background:rgba(237,238,231,0.92); backdrop-filter:blur(8px); z-index:20;
-  }
-  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:20px; letter-spacing:-0.01em; color:inherit; text-decoration:none; cursor:pointer;}
-  .brand:hover{opacity:.75;}
-  .brand .dot{color:var(--gold-deep);}
-  .navlinks{display:flex; gap:32px; font-size:14px; color:var(--ink-soft);}
-  .navlinks a{cursor:pointer; transition:color .2s; text-decoration:none;}
-  .navlinks a:hover, .navlinks a.active{color:var(--ink);}
-  .navlinks a.active{color:var(--gold-deep); font-weight:500;}
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; position:sticky; top:0; z-index:40; flex-wrap:wrap;
+    background:linear-gradient(180deg, rgba(242,239,233,0.97) 0%, rgba(242,239,233,0.86) 100%);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  .brand-bird{display:inline-block; width:25px; height:16px; margin-left:8px; vertical-align:-1px;}
+  .navlinks{display:flex; gap:26px; flex-wrap:wrap; align-items:center;}
+  .navlinks a{font-family:'Inter',ui-sans-serif,sans-serif; font-size:14px;
+    padding:5px 0; text-decoration:none; border:none; border-radius:0;
+    color:var(--ink-soft); white-space:nowrap; position:relative; transition:color .16s;}
+  /* the underline marks the page you are on and previews the one you are opening */
+  .navlinks a::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    border-radius:2px; background:var(--ember); transform:scaleX(0);
+    transform-origin:left center; transition:transform .2s ease;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:hover::after{transform:scaleX(0.45);}
+  .navlinks a.active{color:var(--ink); font-weight:500;}
+  .navlinks a.active::after{transform:scaleX(1);}
+  @media(max-width:820px){ nav{padding:12px 16px; gap:16px;} .navlinks{gap:15px;} .navlinks a{font-size:12.5px;} }  .navlinks a.active{color:var(--gold-deep); font-weight:500;}
 
   .wrap{max-width:1100px; margin:0 auto; padding:28px 48px 90px;}
 
@@ -214,16 +234,21 @@
     .sect{display:none;}
   }
 </style>
+  <link rel="stylesheet" href="assets/pro.css">
 </head>
 <body>
 
 <nav>
-  <a class="brand" href="index.html">Licentia<span class="dot">.</span></a>
+  <a class="brand" href="index.html">Licentia<img class="brand-bird" src="assets/bird.svg" alt="" width="25" height="16"></a>
   <div class="navlinks">
     <a href="index.html">Home</a>
-    <a class="active" href="funds.html">Covered Call Funds</a>
-    <a href="compare.html">Compare</a>
-    <a href="account.html">Account</a>
+    <a href="learn.html">Learn</a>
+    <a class="active" href="funds.html">Funds</a>
+    <a href="compare.html">Comparison Tool</a>
+    <a href="portfolio-builder.html">Portfolio Builder</a>
+    <a href="portfolio.html">My Portfolio</a>
+    <a href="backtest.html">Backtesting</a>
+    <a href="account.html">My Account</a>
   </div>
 </nav>
 
@@ -912,6 +937,29 @@ function renderTable(rows, total){
     </table>
   `;
 }
+</script>
+<script src="assets/pro.js"></script>
+
+<script>
+// The ticker only exists in the query string, so the canonical and sharing tags
+// are completed here rather than being wrong in the source.
+(function(){
+  var t = (new URLSearchParams(location.search).get('t') || '').toUpperCase();
+  if (!t) return;
+  var c = document.getElementById('fundCanonical');
+  if (c) c.href = 'https://licentia.ca/fund.html?t=' + encodeURIComponent(t);
+  function fill(){
+    var name = (document.title || '').split(' — Licentia')[0];
+    var og = document.getElementById('ogTitle');
+    var od = document.getElementById('ogDesc');
+    if (og) og.content = name;
+    if (od) od.content = 'Yield, distributions, holdings and performance for ' + t + ', refreshed daily.';
+    var d = document.querySelector('meta[name="description"]');
+    if (d) d.content = 'View ' + name + ' data including distributions, yield, performance and holdings.';
+  }
+  fill();
+  setTimeout(fill, 1500);
+})();
 </script>
 </body>
 </html>
