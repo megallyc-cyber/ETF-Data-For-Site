@@ -545,7 +545,7 @@ function buildLanding(){
   if (!wrap) return;
   wrap.innerHTML = '';
   [['CAD','Canada','#C8102E','linear-gradient(90deg,#C8102E 0 22%,#FFFFFF 22% 78%,#C8102E 78% 100%)'],
-   ['US','United States','#1B3A6B','linear-gradient(90deg,#B31942 0 33%,#FFFFFF 33% 66%,#1B3A6B 66% 100%)']
+   ['US','United States','#1B3A6B','linear-gradient(90deg,#1B3A6B 0 36%,transparent 36%), repeating-linear-gradient(180deg,#B31942 0 1.7px,#FFFFFF 1.7px 3.4px)']
   ].forEach(function(m){
     const st = marketStats(function(f){ return f.region === m[0]; });
     const el = document.createElement('button');
