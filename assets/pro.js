@@ -232,3 +232,51 @@
   s.textContent = ".mq-logo{display:flex; align-items:center; justify-content:center; overflow:hidden;}\n.mq-logo svg{width:100%; height:100%; max-width:100%; max-height:100%;}\n.mq-logo img{width:auto; height:100%; max-width:100%; object-fit:contain;}\n.fam-logo svg{width:100%; height:100%; max-width:100%; max-height:100%;}\n.fam-logo img{width:auto; height:100%; max-width:100%; object-fit:contain;}\n.issuer-logo svg{width:100%; height:100%; max-width:100%; max-height:100%;}\n.mq-track{will-change:transform; -webkit-backface-visibility:hidden; backface-visibility:hidden;}\n@media (prefers-reduced-motion: reduce){\n  .marquee{overflow-x:auto; -webkit-overflow-scrolling:touch;\n    scroll-snap-type:x proximity; -webkit-mask-image:none; mask-image:none;}\n  .mq-track{animation:none !important; width:max-content;}\n  .mq-item{scroll-snap-align:center;}\n}\n@media (max-width:900px){\n  .marquee{-webkit-mask-image:none !important; mask-image:none !important;}\n  .stop-num, .stop h3, .stop .lead, .stop .foot, .stop-art, .stop-text{\n    opacity:1 !important; transform:none !important;}\n  .draw, .fade, .grow{opacity:1 !important; transform:none !important;}\n  .stop-inner{grid-template-columns:1fr !important; grid-template-rows:auto auto !important; gap:18px;}\n  .stop .stop-text{grid-row:1 !important; grid-column:1 !important;}\n  .stop .stop-art{grid-row:2 !important; grid-column:1 !important;\n    position:relative; width:100%; height:auto !important; min-height:0; display:block;}\n  .stop .stop-art svg{width:100% !important; height:auto !important;\n    max-width:100%; max-height:none !important; display:block; margin:0 auto;}\n  .stop.right .stop-art, .stop.left .stop-art{order:0;}\n  .stop{padding:30px 16px;}\n  .ex-track{padding:0 8px;}\n  .ex-stage{width:100% !important; max-width:100% !important; padding:0 0 8px;}\n  .ex-head{padding:18px 12px 0;}\n  .ex-arrow{width:42px !important; height:42px !important;\n    top:auto !important; bottom:4px !important; z-index:3;}\n  .ex-arrow.prev{left:6px !important;} .ex-arrow.next{right:6px !important;}\n  .ex-body{height:272px !important; padding-bottom:6px; overflow:hidden;}\n  .scene{padding:0 6px;}\n  .calc-row{flex-wrap:nowrap; gap:6px; align-items:stretch; width:100%;}\n  .calc-cell{padding:10px 8px; min-width:0;}\n  .calc-num{font-size:23px !important; line-height:1.1;}\n  .mono-label{font-size:8.5px !important; letter-spacing:0.08em; line-height:1.3;}\n  .calc-total{padding:12px 10px !important; margin-top:8px;}\n  .calc-total .calc-num{font-size:27px !important;}\n  .basket-wrap{width:min(200px,66vw) !important;}\n}\n@media (max-width:640px){\n  .marquee{border-radius:0;}\n  .mq-item{width:186px; height:96px; padding:0 14px; gap:10px; overflow:hidden;}\n  .mq-logo{width:112px; max-width:112px; height:38px; flex:0 0 auto;}\n  .mq-name{font-size:15px; max-width:112px;}\n}\n@media (max-width:430px){\n  .mq-item{width:170px; height:90px;}\n  .mq-logo{width:100px; max-width:100px; height:34px;}\n  .mq-name{font-size:14px; max-width:100px;}\n  .ex-body{height:264px !important;}\n  .calc-num{font-size:21px !important;}\n  .calc-total .calc-num{font-size:25px !important;}\n  .basket-wrap{width:min(180px,62vw) !important;}\n}";
   (document.head || document.documentElement).appendChild(s);
 })();
+
+
+/* ---------------------------------------------------------------------------
+   Two last things.
+
+   1. The strip is animated on a track sized with width:max-content. iOS Safari
+      resolves that inside a flex row inconsistently, and when it comes back
+      short the translateX(-50%) barely moves, so the strip looks frozen even
+      though the chips are drawn. Measuring the children and setting an explicit
+      pixel width removes the guesswork.
+
+   2. "one ETF" sits in a mono face with 2.2px of letter spacing. Letter spacing
+      is added after the final character too, so a centred string is drawn about
+      half a space left of true centre. Nudging by the same amount fixes it.
+--------------------------------------------------------------------------- */
+(function(){
+  function sizeTrack(){
+    var track = document.getElementById('mqTrack') || document.querySelector('.mq-track');
+    if (!track || !track.children.length) return;
+    var kids = track.children, total = 0;
+    for (var i = 0; i < kids.length; i++){
+      total += kids[i].getBoundingClientRect().width;
+    }
+    var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 0;
+    total += gap * (kids.length - 1);
+    if (total > 0) track.style.width = Math.round(total) + 'px';
+  }
+  function start(){
+    sizeTrack();
+    // the marks arrive with the fund data, so measure again once they land
+    setTimeout(sizeTrack, 1200);
+    setTimeout(sizeTrack, 3000);
+    var t;
+    window.addEventListener('resize', function(){
+      clearTimeout(t);
+      t = setTimeout(sizeTrack, 200);
+    }, {passive: true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+
+  if (!document.getElementById('licentia-fixups')){
+    var s = document.createElement('style');
+    s.id = 'licentia-fixups';
+    s.textContent = '.basket span{text-indent:2.2px;}';
+    (document.head || document.documentElement).appendChild(s);
+  }
+})();
