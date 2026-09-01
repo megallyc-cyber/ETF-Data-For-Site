@@ -283,6 +283,34 @@
   .gate-banner .gb-cta:hover{background:var(--ember-deep);}
   body.pro .gate-banner{display:none;}
   @media(max-width:640px){ .gate-banner{flex-direction:column; align-items:flex-start;} }
+
+  /* A locked fund keeps its place in the grid. The figures are absent rather
+     than hidden, so the card is dimmed and marked instead of blurred over. */
+  .fund-locked{position:relative; cursor:pointer;}
+  .fund-locked > *{filter:blur(3px); opacity:0.45; pointer-events:none; user-select:none;}
+  .fund-locked::after{content:'🔒'; position:absolute; inset:0; display:flex;
+    align-items:center; justify-content:center; font-size:17px; opacity:0.5;}
+  .fund-locked:hover{border-color:var(--ember); box-shadow:0 6px 22px -14px rgba(255,107,53,0.7);}
+  .fund-locked:hover::after{opacity:0.85;}
+
+  .lock-modal{position:fixed; inset:0; z-index:200; display:flex; align-items:center;
+    justify-content:center; padding:22px; background:rgba(28,34,48,0.42);
+    backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
+  .lock-modal .lm-card{background:var(--white); border:1px solid var(--line-strong);
+    border-radius:16px; padding:26px 26px 22px; max-width:400px; width:100%;
+    box-shadow:0 30px 70px -30px rgba(28,34,48,0.6);}
+  .lm-tick{font-family:'Fraunces',serif; font-size:28px; letter-spacing:-0.02em;}
+  .lm-name{font-size:13.5px; color:var(--ink-soft); margin:2px 0 14px;}
+  .lm-copy{font-size:14.5px; line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
+  .lm-row{display:flex; align-items:center; gap:14px;}
+  .lm-go{flex:none; padding:11px 20px; border-radius:100px; text-decoration:none;
+    background:var(--ink); color:var(--paper); font-size:13.5px;}
+  .lm-go:hover{background:var(--ember-deep);}
+  .lm-no{background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:13.5px; color:var(--ink-faint);}
+  .lm-no:hover{color:var(--ink);}
+  body.pro .fund-locked > *{filter:none; opacity:1;}
+  body.pro .fund-locked::after{display:none;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -379,12 +407,15 @@ licentiaFundsFetch()
       }
     });
     FUNDS = Object.keys(live).length ? live : FALLBACK_FUNDS;
+      Object.values(window.LICENTIA_LOCKED || {}).forEach(function(f){
+        FUNDS[f.ticker] = { name: f.name, issuer: f.issuer, region: f.region,
+          holdings: [], stats: {}, distributions: [], locked: true };
+      });
       try {
         if (typeof setTrackedCount === 'function') setTrackedCount();
         if (typeof buildLanding === 'function') buildLanding();
         if (typeof buildRail === 'function') buildRail();
         if (typeof renderResults === 'function') renderResults();
-        licentiaGateBanner();
       } catch (e) { console.error('redraw after load failed', e); }
     init();
   })
@@ -426,7 +457,12 @@ function licentiaFundsFetch(){
     method: 'POST', headers: headers,
     body: JSON.stringify({ seed: licentiaSeed() })
   }).then(function(r){ return r.json(); }).then(function(j){
-    window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0, shown: j.shown || 0 };
+    window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0, shown: j.shown || 0,
+      nextTier: j.nextTier || null, nextTierFunds: j.nextTierFunds || null };
+    // Locked funds arrive as name, house and market only. They are drawn as the
+    // same card so the page keeps one shape, then veiled.
+    window.LICENTIA_LOCKED = {};
+    (j.locked || []).forEach(function(f){ window.LICENTIA_LOCKED[f.ticker] = f; });
     var out = {};
     (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
     return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
@@ -455,6 +491,55 @@ function licentiaGateBanner(){
       (anon ? 'Create a free account' : 'See Licentia Pro') + '</a>';
   host.insertBefore(box, host.firstChild);
 }
+
+
+// One prompt, named for the fund that was clicked, so it reads as an answer to
+// what the person just did rather than a generic wall.
+function licentiaLockPrompt(ticker){
+  var d = window.LICENTIA_DATA || {};
+  var f = (window.LICENTIA_LOCKED || {})[ticker] || {};
+  var toFree = d.nextTier === 'free';
+  var old = document.getElementById('lockModal');
+  if (old) old.remove();
+
+  var wrap = document.createElement('div');
+  wrap.id = 'lockModal';
+  wrap.className = 'lock-modal';
+  wrap.innerHTML =
+    '<div class="lm-card" role="dialog" aria-modal="true">' +
+      '<div class="lm-tick">' + ticker + '</div>' +
+      '<div class="lm-name">' + (f.name || '') + '</div>' +
+      '<div class="lm-copy">' +
+        (toFree
+          ? 'This fund is one of the ' + (d.nextTierFunds || 50) + ' a free account opens. ' +
+            'It takes a moment and keeps what you are watching.'
+          : 'This fund is part of the full directory. Licentia Pro opens all ' +
+            (d.total || 207) + ' funds, their holdings, and the complete distribution history.') +
+      '</div>' +
+      '<div class="lm-row">' +
+        '<a class="lm-go" href="account.html">' +
+          (toFree ? 'Create a free account' : 'See Licentia Pro') + '</a>' +
+        '<button class="lm-no" type="button">Not now</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(wrap);
+
+  function close(){ wrap.remove(); document.removeEventListener('keydown', esc); }
+  function esc(e){ if (e.key === 'Escape') close(); }
+  wrap.querySelector('.lm-no').addEventListener('click', close);
+  wrap.addEventListener('click', function(e){ if (e.target === wrap) close(); });
+  document.addEventListener('keydown', esc);
+}
+
+// One listener on the page rather than one per card, so cards can be redrawn
+// freely without rewiring anything.
+document.addEventListener('click', function(e){
+  var card = e.target.closest ? e.target.closest('.fund-locked') : null;
+  if (!card) return;
+  e.preventDefault();
+  e.stopPropagation();
+  licentiaLockPrompt(card.getAttribute('data-ticker'));
+}, true);
 
 function init(){
   const cad = Object.values(FUNDS).filter(f => f.region === 'CAD').length;
@@ -515,7 +600,6 @@ document.querySelectorAll('.region-btn').forEach(function(b){
 
   // honour ?issuer= from the homepage strip once the directory exists
   issuerFromQuery();
-  licentiaGateBanner();
 }
 
 function selectRegion(region){
@@ -768,6 +852,9 @@ function setTrackedCount(n){
 }
 
 function buildCard(ticker, f){
+  // A locked fund keeps its place and its shape; the figures are simply not
+  // there to show, so the card is veiled rather than filled with blurred data.
+  var isLocked = !!f.locked;
   const card = document.createElement('a');
   card.className = 'fund-card';
   paintFam(card, f.issuer);
@@ -790,6 +877,10 @@ function buildCard(ticker, f){
       '<span>' + (aum ? aum : '<span class="missing">size n/a</span>') + '</span>' +
       '<span class="fund-open">Open &#8594;</span>' +
     '</div>';
+  if (isLocked) {
+    card.classList.add('fund-locked');
+    card.setAttribute('data-ticker', ticker);
+  }
   return card;
 }
 
