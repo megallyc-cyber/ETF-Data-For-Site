@@ -170,6 +170,21 @@
   .acct-card .note{padding:6px 18px 14px; margin:0; font-size:13px; line-height:1.6;
     color:var(--ink-soft);}
   .acct-card .row:last-of-type{border-bottom:none;}
+
+  .planrow{display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 18px 18px;}
+  .planbtn{position:relative; display:flex; flex-direction:column; align-items:flex-start;
+    gap:2px; padding:14px 16px; border-radius:12px; cursor:pointer; text-align:left;
+    border:1px solid var(--line-strong); background:var(--white); color:var(--ink);
+    font-family:inherit; transition:transform .16s, border-color .16s, box-shadow .16s;}
+  .planbtn:hover{transform:translateY(-2px); border-color:var(--ink);}
+  .planbtn.lead{border-color:var(--ember); box-shadow:0 0 0 3px rgba(255,107,53,0.12);}
+  .planbtn[disabled]{opacity:.55; cursor:default; transform:none;}
+  .planbtn .pp{font-family:'Fraunces',serif; font-size:24px; line-height:1;}
+  .planbtn .pu{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:5px;}
+  .planbtn .psave{position:absolute; top:10px; right:10px; font-family:'IBM Plex Mono',monospace;
+    font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ember-deep);}
+  @media(max-width:520px){ .planrow{grid-template-columns:1fr;} }
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -361,6 +376,26 @@ function accountView(arg){
       + '<div class="row"><span>Plan</span><span class="mono">'
         + (isPro ? 'Licentia Pro' : 'Free') + '</span></div>'
     + '</div>'
+
+    + '<div class="acct-card" id="planCard">'
+      + '<h2>' + (isPro ? 'Your subscription' : 'Licentia Pro') + '</h2>'
+      + (isPro
+        ? '<div class="note">Thank you. Everything is unlocked on this account. '
+          + 'You can change or cancel your plan at any time, and access continues '
+          + 'to the end of the period you have paid for.</div>'
+          + '<div class="doorrow"><button class="ghost" id="manageBtn">Manage subscription</button></div>'
+        : '<div class="note">Unlimited holdings in My Portfolio, the sector overlap '
+          + 'analysis, and backtesting against your own positions. Everything else on '
+          + 'Licentia stays free.</div>'
+          + '<div class="planrow">'
+            + '<button class="planbtn" data-plan="monthly">'
+              + '<span class="pp">$5.99</span><span class="pu">per month</span></button>'
+            + '<button class="planbtn lead" data-plan="annual">'
+              + '<span class="pp">$45</span><span class="pu">per year</span>'
+              + '<span class="psave">save 37%</span></button>'
+          + '</div>'
+          + '<div class="note" id="planMsg"></div>')
+    + '</div>'
     + '<div class="acct-card"><h2>Your work</h2>'
       + '<div class="note">Everything you build is kept against this account.</div>'
       + '<div class="doorrow">'
@@ -410,6 +445,49 @@ function accountView(arg){
     };
     inp.click();
   });
+
+
+  // Checkout is created server side so the price and the account are decided
+  // there, not here. The browser only says which plan was clicked.
+  const planBtns = stage.querySelectorAll('.planbtn');
+  planBtns.forEach(function(btn){
+    btn.addEventListener('click', async function(){
+      const msg = document.getElementById('planMsg');
+      planBtns.forEach(function(b){ b.disabled = true; });
+      if (msg) msg.textContent = 'Opening secure checkout…';
+      try {
+        const { data: { session } } = await sb.auth.getSession();
+        const res = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/create-checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + session.access_token
+          },
+          body: JSON.stringify({ plan: btn.dataset.plan })
+        });
+        const out = await res.json();
+        if (out.url) { window.location.href = out.url; return; }
+        throw new Error(out.error || 'no checkout url');
+      } catch (err) {
+        console.error(err);
+        if (msg) msg.textContent = 'Could not open checkout. Please try again, or email megallyc@gmail.com.';
+        planBtns.forEach(function(b){ b.disabled = false; });
+      }
+    });
+  });
+
+  const manage = document.getElementById('manageBtn');
+  if (manage) manage.onclick = function(){
+    window.location.href = 'mailto:megallyc@gmail.com?subject=Licentia%20Pro%20subscription';
+  };
+
+  // A fresh token carries the tier the webhook just wrote, so the page does not
+  // sit showing the old plan after paying.
+  if (/[?&]upgraded=1/.test(location.search)){
+    sb.auth.refreshSession().then(function(){
+      return sb.auth.getUser();
+    }).then(function(r){ if (r.data && r.data.user) accountView(r.data.user); });
+  }
 
   const out = document.getElementById('signout');
   if (out) out.onclick = async function(){ await sb.auth.signOut(); render(); };
