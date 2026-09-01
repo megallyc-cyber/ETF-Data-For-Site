@@ -234,49 +234,56 @@
 })();
 
 
+
+
 /* ---------------------------------------------------------------------------
-   Two last things.
-
-   1. The strip is animated on a track sized with width:max-content. iOS Safari
-      resolves that inside a flex row inconsistently, and when it comes back
-      short the translateX(-50%) barely moves, so the strip looks frozen even
-      though the chips are drawn. Measuring the children and setting an explicit
-      pixel width removes the guesswork.
-
-   2. "one ETF" sits in a mono face with 2.2px of letter spacing. Letter spacing
-      is added after the final character too, so a centred string is drawn about
-      half a space left of true centre. Nudging by the same amount fixes it.
+   Round of fixes from testing on a handset.
 --------------------------------------------------------------------------- */
 (function(){
+  /* The strip is animated on a track sized with width:max-content. iOS Safari
+     resolves that inconsistently inside a flex row, and a short track makes the
+     translate barely move. Measure the chips and set real pixels instead, then
+     set the duration from that width so the speed is the same on every screen
+     rather than crawling on a long track. */
   function sizeTrack(){
     var track = document.getElementById('mqTrack') || document.querySelector('.mq-track');
     if (!track || !track.children.length) return;
     var kids = track.children, total = 0;
-    for (var i = 0; i < kids.length; i++){
-      total += kids[i].getBoundingClientRect().width;
-    }
+    for (var i = 0; i < kids.length; i++) total += kids[i].getBoundingClientRect().width;
     var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 0;
     total += gap * (kids.length - 1);
-    if (total > 0) track.style.width = Math.round(total) + 'px';
+    if (!(total > 0)) return;
+    track.style.width = Math.round(total) + 'px';
+    // roughly 95 pixels a second: moving plainly within a second of landing
+    var seconds = Math.max(14, Math.round((total / 2) / 95));
+    track.style.animationDuration = seconds + 's';
   }
   function start(){
     sizeTrack();
-    // the marks arrive with the fund data, so measure again once they land
     setTimeout(sizeTrack, 1200);
     setTimeout(sizeTrack, 3000);
     var t;
-    window.addEventListener('resize', function(){
-      clearTimeout(t);
-      t = setTimeout(sizeTrack, 200);
-    }, {passive: true});
+    window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(sizeTrack, 200); }, {passive:true});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
 
-  if (!document.getElementById('licentia-fixups')){
-    var s = document.createElement('style');
-    s.id = 'licentia-fixups';
-    s.textContent = '.basket span{text-indent:2.2px;}';
-    (document.head || document.documentElement).appendChild(s);
-  }
+  if (document.getElementById('licentia-fixups')) return;
+  var s = document.createElement('style');
+  s.id = 'licentia-fixups';
+  s.textContent = [
+    /* letter spacing is added after the last character too, so a centred mono
+       string sits half a space left of true centre */
+    '.basket span{text-indent:1.1px;}',
+    /* nothing on the site should scroll sideways */
+    'html, body{max-width:100%; overflow-x:hidden;}',
+    '@media (max-width:900px){',
+    /* the bird already sits in the bar; a second one under it is a repeat */
+    '  .home-bird{display:none;}',
+    /* the coloured edge on each chip was a tell, not a signal */
+    '  .mq-item{border-left:1px solid var(--line) !important;}',
+    '}',
+    '.mq-item{border-left:1px solid var(--line) !important;}'
+  ].join('\n');
+  (document.head || document.documentElement).appendChild(s);
 })();
