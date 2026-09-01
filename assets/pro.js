@@ -274,7 +274,7 @@
   s.textContent = [
     /* letter spacing is added after the last character too, so a centred mono
        string sits half a space left of true centre */
-    '.basket span{text-indent:1.1px;}',
+    '.basket span{text-indent:2.2px;}',
     /* nothing on the site should scroll sideways */
     'html, body{max-width:100%; overflow-x:hidden;}',
     '@media (max-width:900px){',
