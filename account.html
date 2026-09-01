@@ -137,7 +137,7 @@
     margin:0 0 20px; box-shadow:0 10px 30px -24px rgba(28,34,48,0.7);}
   /* the account column is a stack, not a pile of overlapping cards */
   #stage{display:flex; flex-direction:column; gap:18px;}
-  #stage .panel{margin:0;}
+  #stage .acct-card{margin:0;}
   .avatar{position:relative; width:74px; height:74px; border-radius:50%; flex:none;
     display:grid; place-items:center; overflow:hidden; cursor:pointer;
     background:linear-gradient(150deg, var(--ink) 0%, #33405C 100%); color:var(--paper);
@@ -164,7 +164,12 @@
   .saved{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
     text-transform:uppercase; color:#2C7A55; opacity:0; transition:opacity .2s;}
   .saved.on{opacity:1;}
-  .doorrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+  .doorrow{display:flex; gap:10px; flex-wrap:wrap; margin:0; padding:4px 18px 18px;}
+  .acct-card h2{font-family:'Fraunces',serif; font-weight:500; font-size:19px;
+    padding:17px 18px 0; margin:0;}
+  .acct-card .note{padding:6px 18px 14px; margin:0; font-size:13px; line-height:1.6;
+    color:var(--ink-soft);}
+  .acct-card .row:last-of-type{border-bottom:none;}
   .row{display:flex; justify-content:space-between; gap:16px; padding:11px 0;
     border-bottom:1px solid var(--line); font-size:14px;}
   .row:last-child{border-bottom:none;}
@@ -350,7 +355,7 @@ function accountView(arg){
       + ' <span class="saved" id="savedFlag">saved</span>'
     + '</div>'
     + '</div>'
-    + '<div class="panel">'
+    + '<div class="acct-card">'
       + '<h2>Your account</h2>'
       + '<div class="note">Your name and picture are stored on your account and stay with you '
         + 'between devices. Nothing here is shown to anyone else.</div>'
@@ -360,7 +365,7 @@ function accountView(arg){
       + '<div class="row"><span>Plan</span><span class="mono">'
         + (isPro ? 'Licentia Pro' : 'Free') + '</span></div>'
     + '</div>'
-    + '<div class="panel"><h2>Your work</h2>'
+    + '<div class="acct-card"><h2>Your work</h2>'
       + '<div class="note">Everything you build is kept against this account.</div>'
       + '<div class="doorrow">'
         + '<a class="ghost" href="portfolio.html">My Portfolio</a> '
