@@ -287,3 +287,111 @@
   ].join('\n');
   (document.head || document.documentElement).appendChild(s);
 })();
+
+/* ---------------------------------------------------------------------------
+   Tiers.
+
+     anon  no account   15 funds
+     free  signed in     50 funds
+     pro   paying        everything
+
+   The sample of funds is random per person but STABLE for that person. A fresh
+   draw on every load would mean the fund you were reading about vanishes when
+   you refresh, so the shuffle is seeded by the account id, or by a per-device
+   id when there is no account.
+
+   This shapes the interface. It is not security: data/funds.json is served
+   publicly, so anyone who looks can still fetch the lot.
+--------------------------------------------------------------------------- */
+(function(){
+  var LIMITS = {
+    anon: { funds: 15, holdings: 0, compare: 2, overlap: false, backtest: false, save: false },
+    free: { funds: 50, holdings: 3, compare: 2, overlap: false, backtest: "chart", save: true },
+    pro:  { funds: Infinity, holdings: Infinity, compare: 3, overlap: true, backtest: true, save: true }
+  };
+  function storedSession(){
+    try {
+      for (var i = 0; i < localStorage.length; i++){
+        var k = localStorage.key(i);
+        if (!/auth-token/.test(k)) continue;
+        var v = JSON.parse(localStorage.getItem(k));
+        return v.user ? v : (v.currentSession || null);
+      }
+    } catch(e){}
+    return null;
+  }
+  function readTier(){
+    var s = storedSession();
+    if (!s || !s.user) return "anon";
+    var u = s.user;
+    var t = (u.app_metadata && u.app_metadata.tier) ||
+            (u.user_metadata && u.user_metadata.tier) || null;
+    return t === "pro" ? "pro" : "free";
+  }
+  function seed(){
+    var s = storedSession();
+    if (s && s.user && s.user.id) return s.user.id;
+    try {
+      var d = localStorage.getItem("licentia_device");
+      if (!d){ d = String(Date.now()) + Math.random().toString(36).slice(2);
+        localStorage.setItem("licentia_device", d); }
+      return d;
+    } catch(e){ return "device"; }
+  }
+  function hash(str){
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++){ h ^= str.charCodeAt(i); h = (h * 16777619) >>> 0; }
+    return h;
+  }
+  // Without this the seed hardly changes the order, and two people end up
+  // looking at almost the same funds.
+  function mix(h){
+    h ^= h >>> 16; h = Math.imul(h, 2246822507);
+    h ^= h >>> 13; h = Math.imul(h, 3266489909);
+    h ^= h >>> 16; return h >>> 0;
+  }
+  var tier = readTier();
+  var limits = LIMITS[tier];
+  var seedHash = hash(seed());
+  window.LICENTIA = {
+    tier: tier,
+    limits: limits,
+    isPro: tier === "pro",
+    signedIn: tier !== "anon",
+    sample: function(keys){
+      if (limits.funds === Infinity) return keys.slice();
+      var scored = keys.map(function(k){ return [mix(hash(k) ^ seedHash), k]; });
+      scored.sort(function(a, b){ return a[0] - b[0]; });
+      return scored.slice(0, limits.funds).map(function(p){ return p[1]; });
+    },
+    can: function(feature){ return !!limits[feature]; },
+    pitch: function(what){
+      if (tier === "anon"){
+        return { text: "Create a free account to see " + what + ".",
+                 cta: "Create a free account", href: "account.html" };
+      }
+      return { text: "Licentia Pro opens " + what + ".",
+               cta: "See Licentia Pro", href: "account.html" };
+    }
+  };
+  var s = document.createElement("style");
+  s.id = "licentia-gate";
+  s.textContent = [
+    ".gate-lock{position:relative; overflow:hidden;}",
+    ".gate-lock > .gate-veil{position:absolute; inset:0; z-index:5;",
+    "  display:flex; flex-direction:column; align-items:center; justify-content:center;",
+    "  gap:10px; text-align:center; padding:22px;",
+    "  background:linear-gradient(180deg, rgba(242,239,233,0.55) 0%, rgba(242,239,233,0.94) 55%);",
+    "  backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}",
+    ".gate-veil .gv-t{font-family:\"Fraunces\",serif; font-size:17px; line-height:1.3; max-width:34ch;}",
+    ".gate-veil .gv-s{font-size:13px; color:var(--ink-soft); max-width:40ch; line-height:1.5;}",
+    ".gate-veil a{display:inline-flex; align-items:center; gap:8px; margin-top:4px;",
+    "  padding:10px 18px; border-radius:100px; text-decoration:none;",
+    "  background:var(--ink); color:var(--paper); font-size:13.5px;}",
+    ".gate-veil a:hover{background:var(--ember-deep);}",
+    "body.pro .gate-lock > .gate-veil{display:none;}",
+    ".gate-note{font-family:\"IBM Plex Mono\",monospace; font-size:11px; letter-spacing:0.1em;",
+    "  text-transform:uppercase; color:var(--ink-faint);}"
+  ].join("\n");
+  (document.head || document.documentElement).appendChild(s);
+})();
