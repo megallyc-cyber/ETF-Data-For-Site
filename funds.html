@@ -311,6 +311,23 @@
   .lm-no:hover{color:var(--ink);}
   body.pro .fund-locked > *{filter:none; opacity:1;}
   body.pro .fund-locked::after{display:none;}
+
+  /* The label carries the meaning; the blur alone left people guessing which
+     locked funds an account would actually open. */
+  .fund-locked .lock-tag{position:absolute; inset:auto 0 0 0; z-index:6;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    padding:9px 10px; filter:none !important; opacity:1 !important;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.07em;
+    text-transform:uppercase; text-align:center;}
+  .fund-locked.lock-free .lock-tag{color:var(--ember-deep);
+    background:linear-gradient(180deg, rgba(255,107,53,0) 0%, rgba(255,107,53,0.14) 55%);}
+  .fund-locked.lock-pro .lock-tag{color:var(--gold-deep);
+    background:linear-gradient(180deg, rgba(201,155,60,0) 0%, rgba(201,155,60,0.16) 55%);}
+  .lock-tag .lt-pro{display:inline-block; padding:2px 6px; border-radius:4px;
+    background:linear-gradient(135deg, var(--gold), var(--gold-deep));
+    color:#fff; font-size:8.5px; letter-spacing:0.1em;}
+  .fund-locked::after{display:none;}
+  .fund-locked > *:not(.lock-tag){filter:blur(3px); opacity:0.4;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -409,7 +426,8 @@ licentiaFundsFetch()
     FUNDS = Object.keys(live).length ? live : FALLBACK_FUNDS;
       Object.values(window.LICENTIA_LOCKED || {}).forEach(function(f){
         FUNDS[f.ticker] = { name: f.name, issuer: f.issuer, region: f.region,
-          holdings: [], stats: {}, distributions: [], locked: true };
+          holdings: [], stats: {}, distributions: [], locked: true,
+          unlock: f.unlock || 'pro' };
       });
       try {
         if (typeof setTrackedCount === 'function') setTrackedCount();
@@ -458,7 +476,8 @@ function licentiaFundsFetch(){
     body: JSON.stringify({ seed: licentiaSeed() })
   }).then(function(r){ return r.json(); }).then(function(j){
     window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0, shown: j.shown || 0,
-      nextTier: j.nextTier || null, nextTierFunds: j.nextTierFunds || null };
+      freeOpens: j.freeOpens || 50 };
+    window.LICENTIA_TOTALS = j.totals || null;
     // Locked funds arrive as name, house and market only. They are drawn as the
     // same card so the page keeps one shape, then veiled.
     window.LICENTIA_LOCKED = {};
@@ -498,7 +517,7 @@ function licentiaGateBanner(){
 function licentiaLockPrompt(ticker){
   var d = window.LICENTIA_DATA || {};
   var f = (window.LICENTIA_LOCKED || {})[ticker] || {};
-  var toFree = d.nextTier === 'free';
+  var toFree = (f.unlock || 'pro') === 'free';
   var old = document.getElementById('lockModal');
   if (old) old.remove();
 
@@ -511,7 +530,7 @@ function licentiaLockPrompt(ticker){
       '<div class="lm-name">' + (f.name || '') + '</div>' +
       '<div class="lm-copy">' +
         (toFree
-          ? 'This fund is one of the ' + (d.nextTierFunds || 50) + ' a free account opens. ' +
+          ? 'This fund is one of the ' + (d.freeOpens || 50) + ' a free account opens. ' +
             'It takes a moment and keeps what you are watching.'
           : 'This fund is part of the full directory. Licentia Pro opens all ' +
             (d.total || 207) + ' funds, their holdings, and the complete distribution history.') +
@@ -683,13 +702,34 @@ function buildRail(list){
 // ---- landing ---------------------------------------------------------
 // Everything here is computed from the same data the list uses, so the
 // headline numbers can never drift from what is shown below.
-function marketStats(pred){
+function marketStats(pred, regionKey){
   const list = Object.entries(FUNDS).filter(function(e){ return pred(e[1]); });
   const ys = list.map(function(e){ return (e[1].stats||{}).yield_ttm; })
                  .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
   const aum = list.reduce(function(t,e){ return t + (((e[1].stats||{}).aum_musd)||0); }, 0);
   const counts = {};
   list.forEach(function(e){ counts[e[1].issuer] = (counts[e[1].issuer]||0) + 1; });
+  
+  // Substitute the market-wide figures. Counting the visible funds would tell
+  // a signed out visitor there are 25 funds from 8 houses, which is not true.
+  var T = window.LICENTIA_TOTALS;
+  if (T) {
+    var key = (regionKey === 'CAD' || regionKey === 'US') ? regionKey : 'all';
+    var t = T[key];
+    if (t) {
+      return {
+        funds: t.funds,
+        issuers: t.managers,
+        medYield: t.median_yield,
+        aum: t.aum_musd,
+        topIssuers: (function(){
+          var counts = {};
+          list.forEach(function(x){ if (x.issuer) counts[x.issuer] = (counts[x.issuer]||0)+1; });
+          return Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }).slice(0,4);
+        })()
+      };
+    }
+  }
   return {
     funds: list.length,
     issuers: Object.keys(counts).length,
@@ -701,7 +741,7 @@ function marketStats(pred){
 }
 
 function buildLanding(){
-  const all = marketStats(function(){ return true; });
+  const all = marketStats(function(){ return true; }, 'all');
   const strip = document.getElementById('statStrip');
   if (strip){
     strip.innerHTML =
@@ -716,7 +756,7 @@ function buildLanding(){
   [['CAD','Canada','#C8102E','linear-gradient(90deg,#C8102E 0 22%,#FFFFFF 22% 78%,#C8102E 78% 100%)'],
    ['US','United States','#1B3A6B','linear-gradient(90deg,#1B3A6B 0 36%,transparent 36%), repeating-linear-gradient(180deg,#B31942 0 1.7px,#FFFFFF 1.7px 3.4px)']
   ].forEach(function(m){
-    const st = marketStats(function(f){ return f.region === m[0]; });
+    const st = marketStats(function(f){ return f.region === m[0]; }, (m && (m.code || m.key || m.region)) || null);
     const el = document.createElement('button');
     el.className = 'market';
     el.style.setProperty('--mk', m[2]);
@@ -855,6 +895,7 @@ function buildCard(ticker, f){
   // A locked fund keeps its place and its shape; the figures are simply not
   // there to show, so the card is veiled rather than filled with blurred data.
   var isLocked = !!f.locked;
+  var unlockTier = f.unlock || 'pro';
   const card = document.createElement('a');
   card.className = 'fund-card';
   paintFam(card, f.issuer);
@@ -879,7 +920,14 @@ function buildCard(ticker, f){
     '</div>';
   if (isLocked) {
     card.classList.add('fund-locked');
+    card.classList.add(unlockTier === 'free' ? 'lock-free' : 'lock-pro');
     card.setAttribute('data-ticker', ticker);
+    var tag = document.createElement('div');
+    tag.className = 'lock-tag';
+    tag.innerHTML = unlockTier === 'free'
+      ? '<span class="lt-txt">Unlock with a free account</span>'
+      : '<span class="lt-pro">PRO</span><span class="lt-txt">Unlock with Licentia Pro</span>';
+    card.appendChild(tag);
   }
   return card;
 }
