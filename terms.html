@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — Licentia</title>
+  <meta name="description" content="Licentia is research and education, not financial advice. How the data is gathered and its limits.">
+  <link rel="canonical" href="https://licentia.ca/terms.html">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1C2230">
+  <link rel="icon" type="image/svg+xml" href="assets/bird.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licentia">
+  <meta property="og:locale" content="en_CA">
+  <meta property="og:title" content="Terms of Use — Licentia">
+  <meta property="og:description" content="Licentia is research and education, not financial advice. How the data is gathered and its limits.">
+  <meta property="og:url" content="https://licentia.ca/terms.html">
+  <meta property="og:image" content="https://licentia.ca/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Use — Licentia">
+  <meta name="twitter:description" content="Licentia is research and education, not financial advice. How the data is gathered and its limits.">
+  <meta name="twitter:image" content="https://licentia.ca/assets/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Ember — matches the mark. Names unchanged so existing rules keep working. */
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --rust-deep:#B3323A;
+    --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
+       line-height:1.6; -webkit-font-smoothing:antialiased;}
+  /* the wordmark is set in the face the mark was drawn in */
+  .brand-old{font-family:'Fraunces',serif; font-weight:600; font-size:21px; color:inherit; text-decoration:none;}
+  .brand .dot{color:var(--gold-deep);}
+  .note{background:var(--ink); color:var(--paper); font-family:'IBM Plex Mono',monospace;
+        font-size:12px; padding:9px 48px; text-align:center;}
+
+  .tag{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.15em;
+       text-transform:uppercase; color:var(--teal-deep); margin-bottom:16px;}
+  .intro{padding:64px 24px 0; text-align:center; max-width:820px; margin:0 auto;}
+  .intro h2{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(34px,4.8vw,54px); line-height:1.12;}
+  .intro p{font-size:19px; color:var(--ink-soft); margin:18px auto 0; max-width:52ch;}
+
+  /* ---------- S curve gets its own lane down the middle ---------- */
+  .trail{position:relative;}
+  .trail-svg{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0;}
+  .trail-bg{fill:none; stroke:rgba(21,32,25,0.22); stroke-width:7; stroke-linecap:round;}
+  .trail-fg{fill:none; stroke:url(#trailGrad); stroke-width:7; stroke-linecap:round;}
+
+  .stop{height:70vh; min-height:520px; display:flex; align-items:center;
+        padding:0 40px; position:relative; z-index:1;}
+  /* the middle column is empty on purpose — the curve lives there */
+  .stop-inner{max-width:1240px; margin:0 auto; width:100%; display:grid;
+              grid-template-columns:1fr var(--lane) 1fr; align-items:center;}
+  .stop.left  .stop-text{grid-column:1;}
+  .stop.left  .stop-art {grid-column:3;}
+  .stop.right .stop-text{grid-column:3;}
+  .stop.right .stop-art {grid-column:1;}
+
+  .stop-num{font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.2em;
+            color:var(--gold-deep); margin-bottom:12px;}
+  .stop h3{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(30px,3.8vw,44px);
+           line-height:1.14; letter-spacing:-0.015em; margin-bottom:16px;}
+  .lead{font-size:19.5px; color:var(--ink); max-width:40ch;}
+  .foot{margin-top:20px; max-width:40ch; background:var(--paper-raised);
+        border:1px solid var(--line); border-radius:4px; padding:14px 16px;}
+  .foot .flabel{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em;
+                text-transform:uppercase; color:var(--gold-deep); display:block; margin-bottom:6px;}
+  .foot .ftext{font-size:15.5px; color:var(--ink-faint); line-height:1.55;}
+  /* Both columns hug the lane by the same amount, so text and art sit at
+     equal distances from the curve on every stop rather than drifting with
+     each SVG's own proportions. */
+  /* Percentage caps resolve against the grid column, so the block can never
+     be wider than its column. A fixed px cap wider than the column silently
+     disables justify-self, which is what threw the right-hand stops out. */
+  .stop-text{width:100%; max-width:min(470px, 96%); grid-row:1; align-self:center;}
+  .stop-art{width:100%; max-width:min(430px, 96%); height:390px;
+            grid-row:1; align-self:center;
+            display:flex; align-items:center; justify-content:center;}
+  .stop-art svg{max-width:100%; max-height:390px; width:auto; height:auto; overflow:visible;}
+  .stop.left  .stop-text{justify-self:end;}
+  .stop.left  .stop-art {justify-self:start;}
+  .stop.right .stop-text{justify-self:start;}
+  .stop.right .stop-art {justify-self:end;}
+
+  /* staggered entrance — every element arrives, nothing just appears */
+  .stop-num,.stop h3,.lead,.foot,.stop-art{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .65s cubic-bezier(.2,.7,.3,1), transform .65s cubic-bezier(.2,.7,.3,1);}
+  .stop.left .stop-num,.stop.left h3,.stop.left .lead,.stop.left .foot{transform:translate(-26px,0);}
+  .stop.right .stop-num,.stop.right h3,.stop.right .lead,.stop.right .foot{transform:translate(26px,0);}
+  .stop.seen .stop-num{opacity:1; transform:none;}
+  .stop.seen h3{opacity:1; transform:none; transition-delay:.08s;}
+  .stop.seen .lead{opacity:1; transform:none; transition-delay:.16s;}
+  .stop.seen .foot{opacity:1; transform:none; transition-delay:.24s;}
+  .stop.seen .stop-art{opacity:1; transform:none; transition-delay:.12s;}
+
+  .draw{stroke-dasharray:560; stroke-dashoffset:560; transition:stroke-dashoffset 1.25s ease .25s;}
+  .stop.seen .draw{stroke-dashoffset:0;}
+  .fade{opacity:0; transition:opacity .6s ease .6s;}
+  .stop.seen .fade{opacity:1;}
+  .grow{transform:scaleY(0); transform-origin:bottom; transition:transform .8s cubic-bezier(.2,.8,.3,1) .35s;}
+  .stop.seen .grow{transform:scaleY(1);}
+  .wedge{stroke-dasharray:290; stroke-dashoffset:290; transition:stroke-dashoffset 1.15s cubic-bezier(.3,.8,.3,1) .3s;}
+  .stop.seen .wedge{stroke-dashoffset:0;}
+  @keyframes bob{0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);}}
+  .stop.seen .bob1{animation:bob 2.4s ease-in-out .7s infinite;}
+  .stop.seen .bob2{animation:bob 2.4s ease-in-out 1.0s infinite;}
+  .stop.seen .bob3{animation:bob 2.4s ease-in-out 1.3s infinite;}
+  /* the give-up area has to be unmissable, so it swings all the way to solid */
+  @keyframes pulse{0%,100%{opacity:.18;} 50%{opacity:1;}}
+  .stop.seen .pulse{animation:pulse 2.6s ease-in-out 1s infinite;}
+  .pulsing{animation:pulse 2.6s ease-in-out infinite;}
+
+  /* ---------- explainer: moves vertically, arrows to click ---------- */
+  .ex-track{position:relative; padding:0 24px 8px;}
+  /* an ordinary block — the reader scrolls the page freely and moves the
+     slides with the arrows, so nothing ever hijacks the scroll */
+  .ex-stage{position:relative; display:flex; flex-direction:column;
+            align-items:center; justify-content:flex-start;
+            background:var(--paper-raised); border:1px solid var(--line);
+            border-radius:18px; max-width:1180px; margin:0 auto;
+            padding:34px 24px 30px;}
+  .ex-head{text-align:center; margin-bottom:18px; max-width:720px;}
+  .ex-head .t{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(26px,3.4vw,40px); line-height:1.16;}
+  .ex-head .s{font-size:18px; color:var(--ink-soft); margin-top:22px; min-height:56px;}
+  .ex-body{position:relative; width:100%; max-width:760px; height:450px;}
+  /* scenes slide vertically so the direction of travel is obvious */
+  .scene{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+         opacity:0; transform:translateY(60px);
+         transition:opacity .5s ease, transform .55s cubic-bezier(.2,.7,.3,1);}
+  .scene.on{opacity:1; transform:translateY(0);}
+  .scene.up{opacity:0; transform:translateY(-60px);}
+
+  /* arrows sit at the edges of the stage, where a reader looks for them */
+  .ex-arrow{position:absolute; top:50%; margin-top:-29px; width:58px; height:58px;
+    border-radius:50%; border:none; background:var(--teal); color:#FFFFFF;
+    font-size:22px; line-height:1; cursor:pointer; display:flex; align-items:center;
+    justify-content:center; transition:all .2s; z-index:5;
+    box-shadow:0 2px 10px rgba(18,61,51,0.22);}
+  .ex-arrow:hover{background:var(--teal-deep); transform:scale(1.08);}
+  .ex-arrow:active{transform:scale(.97);}
+  .ex-arrow:disabled{background:var(--line-strong); box-shadow:none; opacity:.55; cursor:default; transform:none;}
+  .ex-arrow.prev{left:clamp(12px, 5vw, 90px);}
+  .ex-arrow.next{right:clamp(12px, 5vw, 90px);}
+  .ex-dots-wrap{margin-top:22px; position:relative; z-index:6; width:100%;
+    max-width:560px; display:flex; align-items:center; justify-content:center; gap:26px;
+    border-top:1px solid var(--line); padding-top:16px;}
+  .ex-dots{display:flex; gap:13px; align-items:center;}
+  .ex-dots i{width:8px; height:8px; border-radius:50%; background:var(--line-strong);
+    transition:background .3s, transform .3s;}
+  .ex-dots i.on{background:var(--gold-deep); transform:scale(1.55);
+    box-shadow:0 0 0 4px rgba(200,155,60,0.20);}
+
+  .basket-wrap{position:relative; width:380px; height:230px;}
+  .basket{position:absolute; bottom:0; left:32px; right:32px; height:110px;
+          border:2px solid var(--ink); border-top:none; border-radius:0 0 24px 24px; background:var(--paper);}
+  .basket::before{content:''; position:absolute; top:-2px; left:-20px; right:-20px; height:2px; background:var(--ink);}
+  /* centred in the basket rather than hugging its base, and heavy enough to
+     read as the label for the whole object */
+  .basket span{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:700; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink);}
+  .pop{position:absolute; left:50%; bottom:76px; width:58px; height:58px; margin-left:-29px;
+       border-radius:50%; display:flex; align-items:center; justify-content:center;
+       font-size:12px; font-weight:500; opacity:0; transform:translate(0,10px) scale(.5);}
+  .pop.fly{animation:hop .8s cubic-bezier(.22,1.1,.36,1) forwards;}
+  @keyframes hop{
+    0%{opacity:0; transform:translate(0,10px) scale(.5) rotate(0);}
+    30%{opacity:1;}
+    62%{transform:translate(calc(var(--dx)*.85), calc(var(--dy) - 16px)) scale(1.05) rotate(var(--rot));}
+    100%{opacity:1; transform:translate(var(--dx),var(--dy)) scale(1) rotate(var(--rot));}
+  }
+  .price{font-family:'Fraunces',serif; font-size:56px; line-height:1.05;}
+  .mono-label{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-faint);}
+  .premium{background:rgba(31,92,78,0.10); border:1px solid var(--teal); color:var(--teal-deep);
+    font-size:16px; padding:10px 18px; border-radius:4px; display:inline-block;
+    opacity:0; transform:translateX(18px); transition:opacity .55s ease, transform .55s ease;}
+  .premium.in{opacity:1; transform:none;}
+  .buyer{width:116px; height:66px; border:1px dashed var(--line-strong); border-radius:4px;
+    display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--ink-soft);}
+
+  .calc-row{display:flex; align-items:center; justify-content:center; gap:clamp(14px,3vw,34px); flex-wrap:wrap;}
+  .calc-cell{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .55s ease;
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:6px;
+    padding:18px 22px; min-width:132px;}
+  .calc-cell.in{opacity:1; transform:none;}
+  .calc-cell.calc-total{background:#1F5C4E; border-color:#123D33;}
+  .calc-num{font-family:'Fraunces',serif; font-size:clamp(28px,3.6vw,42px); line-height:1.05; color:var(--ink);}
+  .calc-total .calc-num{color:#FFFFFF;}
+  .calc-lab{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:8px;}
+  .calc-total .calc-lab{color:rgba(255,255,255,0.82);}
+  .calc-op{font-family:'Fraunces',serif; font-size:clamp(22px,2.6vw,30px); color:var(--ink-faint);
+    opacity:0; transition:opacity .4s ease;}
+  .calc-op.in{opacity:1;}
+  .calc-year{margin-top:30px; font-size:17px; color:var(--ink-soft);
+    opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease;}
+  .calc-year.in{opacity:1; transform:none;}
+  .calc-year strong{color:var(--teal-deep); font-weight:500;}
+
+  .part-flag{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--ink-faint); text-align:center; padding:0 24px 6px;}
+  .part-flag b{color:var(--gold-deep); font-weight:500;}
+  .ex-progress{font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:0.1em;
+    color:var(--ink-soft); margin:0; white-space:nowrap;}
+  .ex-progress b{color:var(--gold-deep); font-weight:500; font-size:19px;}
+
+  .bridge{padding:34px 24px 40px; text-align:center;}
+  .bridge-rule{width:1px; height:38px; background:var(--line-strong); margin:0 auto 22px;}
+  .bridge h2{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(26px,3.6vw,42px);
+             line-height:1.16; max-width:20ch; margin:0 auto;}
+  .bridge p{font-size:17px; color:var(--ink-soft); margin-top:14px;}
+  .bridge-cue{font-size:22px; color:var(--gold-deep); margin-top:18px; animation:cue 2s ease-in-out infinite;}
+  @keyframes cue{0%,100%{transform:translateY(0); opacity:.55;} 50%{transform:translateY(7px); opacity:1;}}
+
+  .outro{padding:80px 24px 100px; text-align:center; border-top:1px solid var(--line);}
+  .outro h2{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(27px,3.4vw,40px); max-width:22ch; margin:0 auto;}
+  .btn{font-size:16px; padding:15px 30px; border-radius:2px; display:inline-block;
+       margin-top:26px; background:var(--ink); color:var(--paper); text-decoration:none;}
+
+  @media (max-width:900px){
+    .stop{height:auto; min-height:0; padding:46px 22px;}
+    .stop-inner{grid-template-columns:1fr; gap:26px;}
+    .stop.left .stop-text,.stop.left .stop-art,
+    .stop.right .stop-text,.stop.right .stop-art{
+      grid-column:1; justify-self:center; padding-left:0; padding-right:0;}
+    .stop-art{height:320px;}
+    .stop-art svg{max-height:320px;}
+    .stop.right .stop-art{order:-1;}
+    .trail-svg{display:none;}
+    .stop-num,.stop h3,.lead,.foot{transform:translateY(20px) !important;}
+    .stop.seen .stop-num,.stop.seen h3,.stop.seen .lead,.stop.seen .foot{transform:none !important;}
+    nav,.note{padding-left:20px; padding-right:20px;}
+    .ex-body{height:330px;}
+    .basket-wrap{width:300px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stop-num,.stop h3,.lead,.foot,.stop-art{opacity:1 !important; transform:none !important;}
+    .draw,.wedge{stroke-dashoffset:0;} .fade{opacity:1;} .grow{transform:none;}
+    .bob1,.bob2,.bob3,.pulse{animation:none !important;}
+    .ex-track{height:auto;} .ex-stage{position:static; height:auto; padding:50px 24px;}
+    .ex-body{height:auto;} .scene{position:static; opacity:1; transform:none; margin-bottom:48px;}
+    .pop{opacity:1; transform:translate(var(--dx),var(--dy));}
+  }
+
+  /* ---- site navigation ------------------------------------------------
+     Identical on every page so the bar never appears to move or rename
+     itself as you browse. */
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; position:sticky; top:0; z-index:40; flex-wrap:wrap;
+    background:linear-gradient(180deg, rgba(242,239,233,0.97) 0%, rgba(242,239,233,0.86) 100%);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  .brand-bird{display:inline-block; width:25px; height:16px; margin-left:8px; vertical-align:-1px;}
+  .navlinks{display:flex; gap:26px; flex-wrap:wrap; align-items:center;}
+  .navlinks a{font-family:'Inter',ui-sans-serif,sans-serif; font-size:14px;
+    padding:5px 0; text-decoration:none; border:none; border-radius:0;
+    color:var(--ink-soft); white-space:nowrap; position:relative; transition:color .16s;}
+  /* the underline marks the page you are on and previews the one you are opening */
+  .navlinks a::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    border-radius:2px; background:var(--ember); transform:scaleX(0);
+    transform-origin:left center; transition:transform .2s ease;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:hover::after{transform:scaleX(0.45);}
+  .navlinks a.active{color:var(--ink); font-weight:500;}
+  .navlinks a.active::after{transform:scaleX(1);}
+  @media(max-width:820px){ nav{padding:12px 16px; gap:16px;} .navlinks{gap:15px;} .navlinks a{font-size:12.5px;} }
+
+
+  /* The kept-gains area is the point of these two drawings, so it is solid
+     rather than a wash. The script sets 0.55 inline as it fades in, hence the
+     override. */
+  #kept{opacity:1 !important;}
+  #keptT{fill:#FFFFFF; font-weight:500;}
+  #premBar{opacity:1 !important;}
+  /* the slide title was sitting on the card's top edge */
+  .ex-head{padding-top:18px;}
+</style>
+<style>
+  .doc{max-width:min(760px,92vw); margin:0 auto; padding:clamp(30px,5vh,60px) 24px 70px;}
+  .doc .kicker{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--ember-deep); margin-bottom:14px;}
+  .doc h1{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(30px,4.4vmin,46px);
+    line-height:1.1; letter-spacing:-0.025em; margin-bottom:12px;}
+  .doc .stand{font-size:16px; line-height:1.65; color:var(--ink-soft); margin-bottom:8px;}
+  .doc .updated{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:34px;}
+  .doc h2{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(19px,2.4vmin,24px);
+    line-height:1.2; margin:34px 0 10px; padding-top:22px; border-top:1px solid var(--line);}
+  .doc h2:first-of-type{border-top:none; padding-top:0;}
+  .doc p{font-size:15.5px; line-height:1.72; color:var(--ink-soft); margin-bottom:13px;}
+  .doc ul{margin:0 0 14px 20px;}
+  .doc li{font-size:15.5px; line-height:1.72; color:var(--ink-soft); margin-bottom:8px;}
+  .doc b{color:var(--ink); font-weight:500;}
+  .doc a{color:var(--ember-deep);}
+  .doc .box{background:var(--white); border:1px solid var(--line-strong); border-radius:12px;
+    padding:18px 20px; margin:18px 0;}
+  .doc .box p:last-child{margin-bottom:0;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Licentia<img class="brand-bird" src="assets/bird.svg" alt="" width="25" height="16"></a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="learn.html">Learn</a>
+    <a href="funds.html">Funds</a>
+    <a href="compare.html">Comparison Tool</a>
+    <a href="portfolio-builder.html">Portfolio Builder</a>
+    <a href="portfolio.html">My Portfolio</a>
+    <a href="backtest.html">Backtesting</a>
+    <a href="account.html">My Account</a>
+  </div>
+</nav>
+<main>
+<div class="doc">
+
+<div class="kicker">Terms of use</div>
+<h1>The terms, in plain language</h1>
+<p class="stand">Licentia is research and education. It is not advice, it is not a recommendation to buy or sell anything, and the numbers can be wrong.</p>
+<div class="updated">Last updated September 1, 2026</div>
+
+<h2>What Licentia is</h2>
+<p>Licentia collects publicly available information about covered call and income ETFs listed in Canada and the United States, and presents it so it can be compared. It offers tools to model a portfolio and to see how one might behave under a market move.</p>
+
+<div class="box">
+<p><b>Nothing here is financial advice.</b> We are not a registered investment adviser, dealer, or portfolio manager in any jurisdiction. Nothing on this site is a recommendation to buy, sell or hold any security, and nothing is tailored to your circumstances, because we know nothing about them. Speak to someone licensed before acting.</p>
+</div>
+
+<h2>Where the numbers come from, and how wrong they can be</h2>
+<p>Fund data is gathered automatically from the fund issuers' own pages and refreshed on a schedule. Prices come from public market data. This means:</p>
+<ul>
+<li>Figures may be stale, delayed, or missing entirely for a given fund.</li>
+<li>An issuer may change its page and our reading of it may silently break.</li>
+<li>Yields shown are trailing twelve months — what a fund <b>has</b> paid, not what it will pay.</li>
+<li>Distributions can be cut, suspended, or partly a return of your own capital.</li>
+</ul>
+<p>Always confirm anything that matters against the issuer's own documents before you act on it.</p>
+
+<h2>The portfolio and backtesting tools</h2>
+<p>The builder and the stress test are arithmetic on the figures we hold. They are not forecasts and they are not simulations of the future. A scenario labelled "severe bear" is a calculation of what today's positions would be worth after a given price move, nothing more. Past distributions and past returns tell you what happened; they do not tell you what will happen.</p>
+
+<h2>Your account</h2>
+<p>You are responsible for keeping your sign-in details to yourself. Holdings you enter are for your own record keeping. Do not use the site to break the law, to attack or overload it, or to scrape it wholesale.</p>
+
+<h2>Availability</h2>
+<p>The site is offered as it is. It may be unavailable, may lose data, and may change or disappear without notice. There is no uptime guarantee and no warranty of accuracy, merchantability or fitness for any purpose.</p>
+
+<h2>Liability</h2>
+<p>To the extent the law allows, Licentia and its operator are not liable for investment losses or any other loss arising from your use of this site or reliance on anything shown here. You alone are responsible for your investment decisions.</p>
+
+<h2>Fund names and marks</h2>
+<p>Fund and manager names and logos belong to their owners and are used to identify the funds described. Licentia is not affiliated with, endorsed by, or sponsored by any fund issuer.</p>
+
+<h2>Governing law</h2>
+<p>These terms are governed by the laws of the Province of Ontario and the federal laws of Canada that apply there.</p>
+
+<h2>Contact</h2>
+<p>Questions about these terms: <a href="mailto:megallyc@gmail.com">megallyc@gmail.com</a>.</p>
+
+</div>
+</main>
+<script src="assets/pro.js"></script>
+</body>
+</html>
