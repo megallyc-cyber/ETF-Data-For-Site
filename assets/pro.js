@@ -86,3 +86,91 @@
       .catch(function(){});
   });
 })();
+
+/* ---------------------------------------------------------------------------
+   Mobile navigation.
+
+   Eight links wrap into three rows on a phone, so the bar was eating 191px of
+   a 844px screen before anything else appeared. Below 820px the links collapse
+   behind a button and open as a sheet.
+
+   This lives here because every page already loads this file; the alternative
+   was editing eight pages and keeping eight copies in step.
+--------------------------------------------------------------------------- */
+(function(){
+  var BREAK = 820;
+
+  function css(){
+    if (document.getElementById('licentia-mobile-nav')) return;
+    var s = document.createElement('style');
+    s.id = 'licentia-mobile-nav';
+    s.textContent = [
+      '.navtoggle{display:none;}',
+      '@media (max-width:' + BREAK + 'px){',
+      '  nav{flex-wrap:nowrap; gap:12px; padding:11px 16px; position:sticky; top:0;}',
+      '  .navtoggle{display:inline-flex; flex-direction:column; justify-content:center;',
+      '    gap:5px; width:42px; height:38px; padding:0 9px; cursor:pointer;',
+      '    background:none; border:1px solid var(--line-strong); border-radius:10px;}',
+      '  .navtoggle span{display:block; height:2px; border-radius:2px; background:var(--ink);',
+      '    transition:transform .22s ease, opacity .18s ease;}',
+      '  .navtoggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}',
+      '  .navtoggle[aria-expanded="true"] span:nth-child(2){opacity:0;}',
+      '  .navtoggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}',
+      '  .navlinks{position:absolute; left:0; right:0; top:100%;',
+      '    flex-direction:column; align-items:stretch; gap:0; padding:6px 10px 12px;',
+      '    background:var(--paper); border-bottom:1px solid var(--line);',
+      '    box-shadow:0 18px 40px -26px rgba(28,34,48,0.8);',
+      '    max-height:0; overflow:hidden; opacity:0; pointer-events:none;',
+      '    transition:max-height .26s ease, opacity .2s ease;}',
+      '  nav.open .navlinks{max-height:78vh; overflow-y:auto; opacity:1; pointer-events:auto;}',
+      '  .navlinks a{padding:13px 12px; font-size:15.5px; border-radius:9px;}',
+      '  .navlinks a::after{display:none;}',
+      '  .navlinks a.active{background:rgba(255,107,53,0.10); color:var(--ember-deep);}',
+      '  body.pro .navlinks a.active{background:rgba(201,162,39,0.16); color:var(--gold-deep);}',
+      '}',
+      '@media (min-width:' + (BREAK + 1) + 'px){ nav .navlinks{max-height:none; opacity:1;} }'
+    ].join('\n');
+    document.head.appendChild(s);
+  }
+
+  function build(){
+    var nav = document.querySelector('nav');
+    var links = nav && nav.querySelector('.navlinks');
+    if (!nav || !links || nav.querySelector('.navtoggle')) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'navtoggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span></span><span></span><span></span>';
+    // sits after the wordmark so the tap target is where a thumb expects it
+    nav.insertBefore(btn, links);
+
+    function setOpen(on){
+      nav.classList.toggle('open', on);
+      btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      setOpen(!nav.classList.contains('open'));
+    });
+    // choosing a destination closes the sheet
+    links.addEventListener('click', function(e){
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('click', function(e){
+      if (nav.classList.contains('open') && !nav.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') setOpen(false);
+    });
+    window.addEventListener('resize', function(){
+      if (window.innerWidth > BREAK) setOpen(false);
+    });
+  }
+
+  function start(){ css(); build(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
