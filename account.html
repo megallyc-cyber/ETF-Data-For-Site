@@ -476,9 +476,33 @@ function accountView(arg){
     });
   });
 
+  // Stripe's own billing portal handles changing the card, switching plan and
+  // cancelling, so none of that has to be rebuilt here or done by email.
   const manage = document.getElementById('manageBtn');
-  if (manage) manage.onclick = function(){
-    window.location.href = 'mailto:megallyc@gmail.com?subject=Licentia%20Pro%20subscription';
+  if (manage) manage.onclick = async function(){
+    manage.disabled = true;
+    const was = manage.textContent;
+    manage.textContent = 'Opening…';
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      const res = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + session.access_token
+        },
+        body: JSON.stringify({ mode: 'portal' })
+      });
+      const out = await res.json();
+      if (out.url) { window.location.href = out.url; return; }
+      throw new Error(out.error || 'no portal url');
+    } catch (err) {
+      console.error(err);
+      manage.disabled = false;
+      manage.textContent = was;
+      const note = manage.closest('.acct-card').querySelector('.note');
+      if (note) note.textContent = 'Could not open the billing portal. Please try again, or email megallyc@gmail.com.';
+    }
   };
 
   // A fresh token carries the tier the webhook just wrote, so the page does not
