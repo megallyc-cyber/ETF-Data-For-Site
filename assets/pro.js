@@ -212,15 +212,16 @@
 })();
 
 
-/* Learn was invisible and overlapping on phones: its text is hidden until a
-   scroll choreography adds a class, and that choreography is switched off
-   below 900px, so the class never came. The two halves were also pinned to
-   the same grid row for the desktop left/right layout, so on one column they
-   sat on top of each other. */
+
+
+/* Manager marks and the Learn diagrams. Most marks are inline SVG without
+   width or height attributes, so sizing them with auto leaves nothing to
+   render; Safari drops them entirely. Learn art is normalised to one
+   height so the sections match. */
 (function(){
   if (document.getElementById("licentia-phone-4")) return;
   var s = document.createElement("style");
   s.id = "licentia-phone-4";
-  s.textContent = "@media (max-width:900px){\n  .stop-num, .stop h3, .stop .lead, .stop .foot, .stop-art, .stop-text{\n    opacity:1 !important; transform:none !important;}\n  .draw, .fade, .grow{opacity:1 !important; transform:none !important;}\n  .stop-inner{grid-template-columns:1fr !important; grid-template-rows:auto auto !important;}\n  .stop .stop-text{grid-row:1 !important; grid-column:1 !important;}\n  .stop .stop-art{grid-row:2 !important; grid-column:1 !important;\n    position:relative; overflow:hidden; width:100%; height:auto;}\n  .stop .stop-art svg{width:100%; height:auto; max-height:220px; display:block; margin:0 auto;}\n  .stop.right .stop-art, .stop.left .stop-art{order:0;}\n  .stop{padding:30px 16px;}\n  .stop-inner{gap:18px;}\n}\n@media (max-width:640px){\n  .marquee{border-radius:0;}\n  .mq-item{width:186px; height:96px; padding:0 14px; gap:10px; overflow:hidden;}\n  .mq-logo{width:112px; max-width:112px; height:36px; flex:0 0 auto;}\n  .mq-logo svg, .mq-logo img{max-width:112px; max-height:36px;}\n  .mq-name{font-size:15px; max-width:112px;}\n}\n@media (max-width:430px){\n  .mq-item{width:170px; height:90px;}\n  .mq-logo{width:100px; max-width:100px; height:33px;}\n  .mq-logo svg, .mq-logo img{max-width:100px; max-height:33px;}\n  .mq-name{font-size:14px; max-width:100px;}\n  .stop .stop-art svg{max-height:190px;}\n}";
+  s.textContent = ".mq-logo{display:flex; align-items:center; justify-content:center; overflow:hidden;}\n.mq-logo svg{width:100%; height:100%; max-width:100%; max-height:100%;}\n.mq-logo img{width:auto; height:100%; max-width:100%; object-fit:contain;}\n.fam-logo svg{width:100%; height:100%; max-width:100%; max-height:100%;}\n.fam-logo img{width:auto; height:100%; max-width:100%; object-fit:contain;}\n.issuer-logo svg{width:100%; height:100%; max-width:100%; max-height:100%;}\n@media (max-width:900px){\n  .stop-num, .stop h3, .stop .lead, .stop .foot, .stop-art, .stop-text{\n    opacity:1 !important; transform:none !important;}\n  .draw, .fade, .grow{opacity:1 !important; transform:none !important;}\n  .stop-inner{grid-template-columns:1fr !important; grid-template-rows:auto auto !important; gap:18px;}\n  .stop .stop-text{grid-row:1 !important; grid-column:1 !important;}\n  .stop .stop-art{grid-row:2 !important; grid-column:1 !important;\n    position:relative; overflow:visible; width:100%; height:200px;\n    display:flex; align-items:center; justify-content:center;}\n  .stop .stop-art svg{width:auto; height:100%; max-width:100%; max-height:200px; display:block;}\n  .stop.right .stop-art, .stop.left .stop-art{order:0;}\n  .stop{padding:30px 16px;}\n}\n@media (max-width:640px){\n  .marquee{border-radius:0;}\n  .mq-item{width:186px; height:96px; padding:0 14px; gap:10px; overflow:hidden;}\n  .mq-logo{width:112px; max-width:112px; height:38px; flex:0 0 auto;}\n  .mq-name{font-size:15px; max-width:112px;}\n}\n@media (max-width:430px){\n  .mq-item{width:170px; height:90px;}\n  .mq-logo{width:100px; max-width:100px; height:34px;}\n  .mq-name{font-size:14px; max-width:100px;}\n  .stop .stop-art{height:180px;}\n  .stop .stop-art svg{max-height:180px;}\n}";
   (document.head || document.documentElement).appendChild(s);
 })();
