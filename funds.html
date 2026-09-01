@@ -390,7 +390,6 @@ let currentSort = 'issuer';
 // Fund data now comes from an Edge Function that decides what to send based on
 // the caller's token. The page can no longer widen its own access by asking
 // for more, because the extra data is never in the response.
-const LICENTIA_FUNDS_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds';
 
 function licentiaToken(){
   try {
@@ -416,7 +415,7 @@ function licentiaFundsFetch(){
   var headers = { 'Content-Type': 'application/json' };
   var token = licentiaToken();
   if (token) headers['Authorization'] = 'Bearer ' + token;
-  return fetch(LICENTIA_FUNDS_URL, {
+  return fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds', {
     method: 'POST', headers: headers,
     body: JSON.stringify({ seed: licentiaSeed() })
   }).then(function(r){ return r.json(); }).then(function(j){
