@@ -210,3 +210,17 @@
   s.textContent = "@media (max-width:640px){\n  .mq-item{width:176px; height:94px; padding:0 14px; gap:10px; overflow:hidden;}\n  .mq-logo{width:auto; max-width:104px; height:34px; flex:0 1 auto;}\n  .mq-logo svg, .mq-logo img{max-width:104px; max-height:34px;}\n  .mq-name{font-size:15px; max-width:104px;}\n  .mq-n{font-size:12px;}\n  .mq-track{gap:10px;}\n}\n@media (max-width:430px){\n  .mq-item{width:162px; height:88px; padding:0 12px;}\n  .mq-logo{max-width:94px; height:31px;}\n  .mq-logo svg, .mq-logo img{max-width:94px; max-height:31px;}\n  .mq-name{font-size:14px; max-width:94px;}\n}";
   (document.head || document.documentElement).appendChild(s);
 })();
+
+
+/* Learn was invisible and overlapping on phones: its text is hidden until a
+   scroll choreography adds a class, and that choreography is switched off
+   below 900px, so the class never came. The two halves were also pinned to
+   the same grid row for the desktop left/right layout, so on one column they
+   sat on top of each other. */
+(function(){
+  if (document.getElementById("licentia-phone-4")) return;
+  var s = document.createElement("style");
+  s.id = "licentia-phone-4";
+  s.textContent = "@media (max-width:900px){\n  .stop-num, .stop h3, .stop .lead, .stop .foot, .stop-art, .stop-text{\n    opacity:1 !important; transform:none !important;}\n  .draw, .fade, .grow{opacity:1 !important; transform:none !important;}\n  .stop-inner{grid-template-columns:1fr !important; grid-template-rows:auto auto !important;}\n  .stop .stop-text{grid-row:1 !important; grid-column:1 !important;}\n  .stop .stop-art{grid-row:2 !important; grid-column:1 !important;\n    position:relative; overflow:hidden; width:100%; height:auto;}\n  .stop .stop-art svg{width:100%; height:auto; max-height:220px; display:block; margin:0 auto;}\n  .stop.right .stop-art, .stop.left .stop-art{order:0;}\n  .stop{padding:30px 16px;}\n  .stop-inner{gap:18px;}\n}\n@media (max-width:640px){\n  .marquee{border-radius:0;}\n  .mq-item{width:186px; height:96px; padding:0 14px; gap:10px; overflow:hidden;}\n  .mq-logo{width:112px; max-width:112px; height:36px; flex:0 0 auto;}\n  .mq-logo svg, .mq-logo img{max-width:112px; max-height:36px;}\n  .mq-name{font-size:15px; max-width:112px;}\n}\n@media (max-width:430px){\n  .mq-item{width:170px; height:90px;}\n  .mq-logo{width:100px; max-width:100px; height:33px;}\n  .mq-logo svg, .mq-logo img{max-width:100px; max-height:33px;}\n  .mq-name{font-size:14px; max-width:100px;}\n  .stop .stop-art svg{max-height:190px;}\n}";
+  (document.head || document.documentElement).appendChild(s);
+})();
