@@ -312,22 +312,36 @@
   body.pro .fund-locked > *{filter:none; opacity:1;}
   body.pro .fund-locked::after{display:none;}
 
-  /* The label carries the meaning; the blur alone left people guessing which
-     locked funds an account would actually open. */
-  .fund-locked .lock-tag{position:absolute; inset:auto 0 0 0; z-index:6;
-    display:flex; align-items:center; justify-content:center; gap:7px;
-    padding:9px 10px; filter:none !important; opacity:1 !important;
-    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.07em;
-    text-transform:uppercase; text-align:center;}
-  .fund-locked.lock-free .lock-tag{color:var(--ember-deep);
-    background:linear-gradient(180deg, rgba(255,107,53,0) 0%, rgba(255,107,53,0.14) 55%);}
-  .fund-locked.lock-pro .lock-tag{color:var(--gold-deep);
-    background:linear-gradient(180deg, rgba(201,155,60,0) 0%, rgba(201,155,60,0.16) 55%);}
-  .lock-tag .lt-pro{display:inline-block; padding:2px 6px; border-radius:4px;
+  /* The label sits in the middle of the card, where the eye lands, rather than
+     along the bottom edge where it read as a caption. Ember on paper was too
+     light to read at this size, so the text is ink and the Pro cards carry a
+     gold wash that marks the tier before a word is read. */
+  .fund-locked .lock-tag{position:absolute; inset:0; z-index:6;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; padding:14px; text-align:center;
+    filter:none !important; opacity:1 !important;
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.09em;
+    line-height:1.45; text-transform:uppercase;}
+  .fund-locked .lt-txt{max-width:15ch; font-weight:500;}
+
+  .fund-locked.lock-free .lock-tag{color:var(--ink);
+    background:linear-gradient(150deg, rgba(242,239,233,0.86) 0%, rgba(242,239,233,0.94) 100%);}
+  .fund-locked.lock-free{border-color:var(--line-strong);}
+
+  .fund-locked.lock-pro .lock-tag{color:#4A3A12;
+    background:linear-gradient(150deg, rgba(201,155,60,0.30) 0%, rgba(201,155,60,0.16) 45%, rgba(143,107,34,0.34) 100%);}
+  .fund-locked.lock-pro{border-color:rgba(201,155,60,0.55);}
+  .fund-locked.lock-pro:hover{border-color:var(--gold-deep);
+    box-shadow:0 6px 22px -14px rgba(143,107,34,0.85);}
+
+  .lock-tag .lt-pro{display:inline-block; padding:3px 9px; border-radius:5px;
     background:linear-gradient(135deg, var(--gold), var(--gold-deep));
-    color:#fff; font-size:8.5px; letter-spacing:0.1em;}
+    color:#fff; font-size:9px; letter-spacing:0.13em; font-weight:500;
+    box-shadow:0 2px 6px -2px rgba(143,107,34,0.6);}
+
   .fund-locked::after{display:none;}
-  .fund-locked > *:not(.lock-tag){filter:blur(3px); opacity:0.4;}
+  /* a heavier blur, since the label now sits over the middle of the card */
+  .fund-locked > *:not(.lock-tag){filter:blur(4px); opacity:0.3;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
