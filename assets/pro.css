@@ -146,14 +146,32 @@ body.pro .cc .then.pos, body.pro .cc .then.neg,
 body.pro .tot .v.up, body.pro .tot .v.down{
   -webkit-text-fill-color:initial; background:none;}
 body.pro .whose.mine{border-color:var(--gold); background:rgba(201,162,39,0.09);}
-body.pro .sbtn.on{background:linear-gradient(120deg,var(--champagne),var(--gold));
+/* The direction of a market move is information, not decoration. Gold is the
+   membership colour; red and green mean down and up, and must survive it. */
+body.pro .sbtn.on:not(.up):not(.down){
+  background:linear-gradient(120deg,var(--champagne),var(--gold));
   border-color:var(--gold); color:#1C2230;}
+body.pro .sbtn.down.on{background:var(--down); border-color:var(--down); color:#fff;}
+body.pro .sbtn.up.on{background:var(--up); border-color:var(--up); color:#10251B;}
+/* the same applies to the figures the move produces */
+body.pro .shift.neg, body.pro .cc .then.neg{color:var(--down); -webkit-text-fill-color:initial;
+  background:none;}
+body.pro .shift.pos, body.pro .cc .then.pos{color:var(--up); -webkit-text-fill-color:initial;
+  background:none;}
+body.pro .regime.cut{border-color:rgba(229,72,77,0.42); background:rgba(229,72,77,0.10);
+  color:#A32C31;}
+body.pro .regime.strong{border-color:rgba(76,183,130,0.45); background:rgba(76,183,130,0.12);
+  color:#2C7A55;}
+body.pro .delta.neg{background:rgba(229,72,77,0.12); color:#A32C31;}
+body.pro .delta.pos{background:rgba(76,183,130,0.14); color:#2C7A55;}
 body.pro .rb.on{background:linear-gradient(120deg,var(--champagne),var(--gold));
   border-color:var(--gold); color:#1C2230;}
 body.pro .regime.strong{border-color:var(--gold); background:rgba(201,162,39,0.14); color:var(--gold-deep);}
 body.pro .lg{border-color:var(--gold-line);}
 body.pro .srow, body.pro .pickchosen{border-color:var(--gold-line);}
 body.pro .slider{accent-color:var(--gold);}
+body.pro .slider.neg{accent-color:var(--down);}
+body.pro .slider.pos{accent-color:var(--up);}
 
 /* --- shared controls ----------------------------------------------------- */
 body.pro .btn-next{color:#1C2230; box-shadow:0 8px 22px -8px rgba(201,162,39,0.75);
