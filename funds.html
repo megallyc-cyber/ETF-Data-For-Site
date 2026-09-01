@@ -379,6 +379,13 @@ licentiaFundsFetch()
       }
     });
     FUNDS = Object.keys(live).length ? live : FALLBACK_FUNDS;
+      try {
+        if (typeof setTrackedCount === 'function') setTrackedCount();
+        if (typeof buildLanding === 'function') buildLanding();
+        if (typeof buildRail === 'function') buildRail();
+        if (typeof renderResults === 'function') renderResults();
+        licentiaGateBanner();
+      } catch (e) { console.error('redraw after load failed', e); }
     init();
   })
   .catch(() => { FUNDS = FALLBACK_FUNDS; init(); });
