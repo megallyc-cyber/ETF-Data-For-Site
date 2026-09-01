@@ -428,6 +428,9 @@ document.querySelectorAll('.region-btn').forEach(function(b){
       renderResults();
     });
   });
+
+  // honour ?issuer= from the homepage strip once the directory exists
+  issuerFromQuery();
 }
 
 function selectRegion(region){
