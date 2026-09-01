@@ -481,6 +481,9 @@ function renderStress(){
   const lab = document.getElementById('shiftLabel');
   lab.textContent = (shift > 0 ? '+' : '') + shift + '%';
   lab.className = 'shift ' + (shift < 0 ? 'neg' : 'pos');
+  const sl = document.getElementById('slider');
+  // the track carries the direction too, so Pro gold never stands in for red
+  if (sl) sl.className = 'slider ' + (shift < 0 ? 'neg' : shift > 0 ? 'pos' : '');
 
   const src = document.getElementById('holdSource');
   const scen = document.getElementById('scen');
