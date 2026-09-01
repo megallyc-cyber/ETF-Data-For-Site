@@ -147,6 +147,8 @@ FUND_REGISTRY: list[Fund] = [
          "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/", "bmo", needs_browser=True),
     Fund("ZWU", "BMO Covered Call Utilities ETF", "BMO ETFs", "CAD",
          "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/", "bmo", needs_browser=True),
+    Fund("ZWP", "BMO Europe High Dividend Covered Call ETF", "BMO ETFs", "CAD",
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-europe-high-dividend-covered-call-etf-zwp/", "bmo", needs_browser=True),
 
     Fund("HHL", "Harvest Healthcare Leaders Income ETF", "Harvest ETFs", "CAD",
          "https://harvestportfolios.com/etfs/hhl/", "harvest"),
