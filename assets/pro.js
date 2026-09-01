@@ -174,3 +174,15 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
 })();
+
+
+/* Phone polish. Layouts that hold up on a laptop go thin at 390px: figures
+   split across uneven rows, four column grids squeezing three words per
+   line, chips sized for a wide strip. */
+(function(){
+  if (document.getElementById("licentia-phone")) return;
+  var s = document.createElement("style");
+  s.id = "licentia-phone";
+  s.textContent = "@media (max-width:640px){\n  .home-stats{display:grid; grid-template-columns:1fr 1fr; row-gap:18px; max-width:340px;}\n  .home-stat{padding:0 10px;}\n  .home-stat + .home-stat::before{display:none;}\n  .home-doors{grid-template-columns:1fr; gap:10px;}\n  .door{padding:15px 17px;}\n  .mq-item{width:150px; height:78px; padding:0 12px;}\n  .cmp{grid-template-columns:1fr 1fr; gap:10px;}\n  .cc .then{font-size:26px;}\n  .totals{grid-template-columns:1fr 1fr;}\n  .recs{grid-template-columns:1fr;}\n  .opts{grid-template-columns:1fr;}\n  .miniadd, .addform{grid-template-columns:1fr; gap:10px;}\n  .miniadd .primary, .addform .primary{width:100%;}\n  .sbtn{padding:8px 12px; font-size:12px;}\n  .legend{flex-direction:column; gap:10px;}\n  .chartwrap{overflow-x:auto;}\n  #chart{min-width:520px;}\n  table{display:block; overflow-x:auto;}\n  .split{grid-template-columns:1fr;}\n  .pitch{padding:26px 20px;}\n  .card{max-width:100%;}\n  .idcard{gap:14px; padding:18px;}\n  .avatar{width:60px; height:60px; font-size:24px;}\n  .foot-in{flex-direction:column; align-items:flex-start; gap:22px;}\n}\n@media (max-width:430px){\n  .cmp{grid-template-columns:1fr;}\n  .totals{grid-template-columns:1fr;}\n}";
+  (document.head || document.documentElement).appendChild(s);
+})();
