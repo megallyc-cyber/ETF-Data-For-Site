@@ -198,3 +198,15 @@
   s.textContent = "@media (max-width:640px){\n  .marquee{width:100vw; max-width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);\n    border-radius:0;\n    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);\n    mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);}\n  .mq-item{width:142px; height:74px; padding:0 12px;}\n  .mq-track{gap:10px;}\n  .site-foot{padding:28px 20px 24px;}\n  .foot-in{flex-direction:column; align-items:center; text-align:center; gap:24px;}\n  .foot-word{align-items:center; max-width:32ch;}\n  .foot-stats{justify-content:center; gap:20px 26px;}\n  .fs{min-width:88px;}\n  .foot-small{text-align:center;}\n}\n@media (max-width:640px){\n  .stop{padding:34px 16px;}\n  .stop-inner{gap:20px;}\n  .stop h3{font-size:clamp(22px,6.4vw,30px); line-height:1.15;}\n  .lead{font-size:15px; line-height:1.6;}\n  .stop-art{height:250px;}\n  .stop-art svg{max-height:250px; max-width:100%;}\n  .ex-body{height:290px;}\n  .ex-head{font-size:15px;}\n  .basket-wrap{width:min(258px,84vw);}\n  .scene{padding:0 10px;}\n  .calc-row{flex-wrap:wrap; gap:8px;}\n  .calc-cell{flex:1 1 40%;}\n  .ex-dots-wrap{transform:scale(0.82); transform-origin:center;}\n  .price, .premium, .buyer{font-size:13px;}\n  .intro{padding:26px 18px;}\n}\n@media (max-width:430px){\n  .stop-art{height:214px;}\n  .stop-art svg{max-height:214px;}\n  .ex-body{height:262px;}\n  .basket-wrap{width:min(228px,82vw);}\n  .mq-item{width:128px; height:66px;}\n}";
   (document.head || document.documentElement).appendChild(s);
 })();
+
+
+/* The strip on a handset. The logo box inside each chip was pinned to 132px
+   while the chip shrank below that, so marks hung outside their cards. The
+   box now flexes and the chips are big enough to read. */
+(function(){
+  if (document.getElementById("licentia-phone-3")) return;
+  var s = document.createElement("style");
+  s.id = "licentia-phone-3";
+  s.textContent = "@media (max-width:640px){\n  .mq-item{width:176px; height:94px; padding:0 14px; gap:10px; overflow:hidden;}\n  .mq-logo{width:auto; max-width:104px; height:34px; flex:0 1 auto;}\n  .mq-logo svg, .mq-logo img{max-width:104px; max-height:34px;}\n  .mq-name{font-size:15px; max-width:104px;}\n  .mq-n{font-size:12px;}\n  .mq-track{gap:10px;}\n}\n@media (max-width:430px){\n  .mq-item{width:162px; height:88px; padding:0 12px;}\n  .mq-logo{max-width:94px; height:31px;}\n  .mq-logo svg, .mq-logo img{max-width:94px; max-height:31px;}\n  .mq-name{font-size:14px; max-width:94px;}\n}";
+  (document.head || document.documentElement).appendChild(s);
+})();
