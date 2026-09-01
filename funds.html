@@ -429,7 +429,7 @@ function licentiaFundsFetch(){
     window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0, shown: j.shown || 0 };
     var out = {};
     (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
-    return { json: function(){ return Promise.resolve(out); } };
+    return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
   });
 }
 
