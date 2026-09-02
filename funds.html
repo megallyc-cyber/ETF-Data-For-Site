@@ -359,24 +359,32 @@
 
   .bird-flight{position:absolute; left:0; top:38%; z-index:40; pointer-events:none;
     width:46px; height:30px; will-change:transform, opacity;
-    animation:birdCross 2.9s cubic-bezier(.4,.05,.25,1) forwards;}
+    animation:birdCross 3.1s linear forwards;}
   .bird-flight img{width:100%; height:100%; display:block;
-    animation:birdBank 2.9s cubic-bezier(.4,.05,.25,1) forwards; will-change:transform;}
+    animation:birdBank 3.1s linear forwards; will-change:transform;}
+  /* A long S across the section: up, down, up and away. The horizontal speed
+     is held even so the curve reads as one continuous line rather than a
+     series of separate moves. */
   @keyframes birdCross{
-    0%{transform:translate(-14vw,10px); opacity:0;}
-    8%{opacity:1;}
-    30%{transform:translate(34%,-26px);}
-    44%{transform:translate(50%,6px);}
-    58%{transform:translate(64%,-22px);}
-    82%{transform:translate(94%,2px); opacity:1;}
-    100%{transform:translate(118%,-16px); opacity:0;}}
+    0%{transform:translate(-16vw, 4px); opacity:0;
+       animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    10%{opacity:1;}
+    28%{transform:translate(18%, -30px);
+       animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    52%{transform:translate(48%, 26px);
+       animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    76%{transform:translate(78%, -22px);
+       animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    92%{opacity:1;}
+    100%{transform:translate(122%, 8px); opacity:0;}}
+
+  /* the bank follows each climb and dive, so the turns look flown */
   @keyframes birdBank{
-    0%{transform:rotate(-6deg);}
-    30%{transform:rotate(-14deg);}
-    44%{transform:rotate(180deg);}
-    58%{transform:rotate(346deg);}
-    72%{transform:rotate(366deg);}
-    100%{transform:rotate(360deg);}}
+    0%{transform:rotate(-4deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    28%{transform:rotate(-13deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    52%{transform:rotate(12deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    76%{transform:rotate(-11deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
+    100%{transform:rotate(5deg);}}
 
   @media (prefers-reduced-motion: reduce){
     .issuer-arrive::before{animation:issuerGlow 1.4s ease-out forwards;}
@@ -659,7 +667,7 @@ function init(){
       bird.className = 'bird-flight';
       bird.innerHTML = '<img src="assets/bird.svg" alt="">';
       el.appendChild(bird);
-      setTimeout(function(){ bird.remove(); }, 3000);
+      setTimeout(function(){ bird.remove(); }, 3200);
       setTimeout(function(){ el.classList.remove('issuer-arrive'); }, 3000);
     }, 250);
   }
