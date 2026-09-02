@@ -348,6 +348,20 @@
     font-size:13.5px; color:var(--ink-faint);}
   @media(max-width:520px){ .lm-row{flex-direction:column; align-items:stretch; gap:10px;}
     .lm-go{text-align:center;} }
+  
+  /* Names the pool the portfolios were drawn from, so a smaller set is not
+     mistaken for the whole market. */
+  .pool-note{display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;
+    padding:13px 18px; margin:0 0 18px; border-radius:12px;
+    background:linear-gradient(140deg, rgba(255,107,53,0.09), rgba(255,107,53,0.03));
+    border:1px solid rgba(255,107,53,0.26);}
+  .pool-note .pn-t{font-size:14px; color:var(--ink);}
+  .pool-note .pn-s{font-size:13px; color:var(--ink-soft); flex:1 1 220px;}
+  .pool-note .pn-a{flex:none; padding:8px 15px; border-radius:100px; text-decoration:none;
+    background:var(--ink); color:var(--paper); font-size:12.5px;}
+  .pool-note .pn-a:hover{background:var(--ember-deep);}
+  body.pro .pool-note{display:none;}
+  @media(max-width:640px){ .pool-note{flex-direction:column; align-items:flex-start;} }
   </style>
 <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -393,6 +407,29 @@
   <div id="stage"></div>
 </div>
 <script type="module">
+
+// Say which funds these portfolios were assembled from. Without it a signed
+// out visitor is shown three portfolios drawn from 25 funds and has no way to
+// know the other 182 exist.
+function licentiaPoolNote(){
+  var d = window.LICENTIA_DATA || {};
+  if (!d.total || d.tier === 'pro') return;
+  var host = document.querySelector('.recs');
+  if (!host || document.getElementById('poolNote')) return;
+  var n = document.createElement('div');
+  n.id = 'poolNote';
+  n.className = 'pool-note';
+  n.innerHTML = '<span class="pn-t">Built from the ' + d.shown + ' funds this account opens.</span>' +
+    '<span class="pn-s">' + (d.tier === 'anon'
+      ? 'A free account draws on ' + (d.freeOpens || 50) + '. Licentia Pro uses all ' + d.total + '.'
+      : 'Licentia Pro draws on all ' + d.total + '.') + '</span>' +
+    '<a class="pn-a" href="membership.html">See the plans</a>';
+  host.parentNode.insertBefore(n, host);
+}
+new MutationObserver(function(){ licentiaPoolNote(); })
+  .observe(document.documentElement, { childList: true, subtree: true });
+
+
 
 // Locked funds are listed alongside the rest so a manager's shelf looks the
 // size it really is, then marked with the tier that opens them. Selecting one
