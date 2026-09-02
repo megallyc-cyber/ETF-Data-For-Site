@@ -513,7 +513,7 @@ licentiaFundsFetch()
   .then(r => r.json())
   .then(data => {
     Object.entries(data).forEach(([t, v]) => {
-      if (v.holdings && Object.keys(v.holdings).length) FUNDS[t] = v;
+      if (v.locked || (v.holdings && Object.keys(v.holdings).length)) FUNDS[t] = v;
     });
     buildFamilies();
     renderSlots();
