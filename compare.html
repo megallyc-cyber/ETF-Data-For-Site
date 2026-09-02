@@ -380,7 +380,7 @@
 <script>
 let FUNDS = {}, LOGOS = {}, PICKED = [], FILTER = 'all', QUERY = '';
 
-fetch('data/funds.json?cb=' + Math.random())
+licentiaFundsFetch()
   .then(r => r.json())
   .then(data => {
     Object.entries(data).forEach(([t, v]) => {
