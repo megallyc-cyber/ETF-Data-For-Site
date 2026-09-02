@@ -185,6 +185,98 @@
   .planbtn .psave{position:absolute; top:10px; right:10px; font-family:'IBM Plex Mono',monospace;
     font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ember-deep);}
   @media(max-width:520px){ .planrow{grid-template-columns:1fr;} }
+
+  /* ---- the signed-in account ---------------------------------------------
+     A dashboard rather than a settings form: who you are, what you hold, what
+     your plan opens, and a way through to the rest of the site. */
+  .dash{max-width:min(1080px,94vw); margin:0 auto; padding:clamp(20px,4vh,40px) 20px 70px;}
+
+  .dash-top{display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    padding-bottom:20px; border-bottom:1px solid var(--line); margin-bottom:22px;}
+  .dash-face{position:relative; flex:none; width:66px; height:66px; border-radius:50%;
+    background:var(--paper-2); border:1px solid var(--line-strong); overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:25px; color:var(--ink-soft);}
+  .dash-face img{width:100%; height:100%; object-fit:cover; display:block;}
+  body.pro .dash-face{border-color:#C89B3C; box-shadow:0 0 0 3px rgba(200,155,60,0.18);}
+  .dash-who{flex:1 1 260px; min-width:0;}
+  .dash-hi{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(23px,3.4vmin,31px);
+    letter-spacing:-0.02em; line-height:1.15;}
+  .dash-sub{font-size:13px; color:var(--ink-faint); margin-top:3px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .dash-badge{flex:none; padding:7px 15px; border-radius:100px;
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; border:1px solid var(--line-strong); color:var(--ink-soft);}
+  .dash-badge.is-pro{background:linear-gradient(135deg,#C89B3C,#8F6B22);
+    border-color:transparent; color:#fff;}
+
+  .dash-figs{display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; margin-bottom:22px;}
+  .dfig{background:var(--white); padding:16px 16px 14px;}
+  .dfig .v{font-family:'Fraunces',serif; font-size:clamp(19px,2.8vmin,26px);
+    letter-spacing:-0.02em; line-height:1.1;}
+  .dfig .k{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:5px;}
+  .dfig .v.muted{color:var(--ink-faint);}
+
+  .dash-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:16px; align-items:start;}
+  .card{background:var(--white); border:1px solid var(--line-strong);
+    border-radius:15px; padding:20px 20px 18px;}
+  .card h2{font-family:'Fraunces',serif; font-weight:500; font-size:19px; margin-bottom:4px;}
+  .card .lede{font-size:13px; color:var(--ink-soft); line-height:1.55; margin-bottom:14px;}
+  .card.plan.is-pro{border-color:rgba(200,155,60,0.55);
+    background:linear-gradient(165deg, rgba(200,155,60,0.08) 0%, var(--white) 46%);}
+
+  .plan-row{display:flex; align-items:baseline; gap:9px; margin-bottom:12px;}
+  .plan-row .amt{font-family:'Fraunces',serif; font-size:29px; letter-spacing:-0.02em;}
+  .plan-row .per{font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-faint);}
+  .plan-open{font-size:13px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;}
+  .plan-open b{color:var(--ink); font-weight:500;}
+  .btn-line{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+  .btn-solid{padding:10px 18px; border-radius:100px; border:none; cursor:pointer;
+    background:var(--ink); color:var(--paper); font-family:inherit; font-size:13.5px;
+    text-decoration:none; display:inline-block;}
+  .btn-solid:hover{background:var(--ember-deep);}
+  .btn-gold{background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff;}
+  .btn-gold:hover{filter:brightness(1.07); background:linear-gradient(135deg,#C89B3C,#8F6B22);}
+  .btn-quiet{padding:10px 18px; border-radius:100px; cursor:pointer;
+    background:none; border:1px solid var(--line-strong); color:var(--ink);
+    font-family:inherit; font-size:13.5px; text-decoration:none; display:inline-block;}
+  .btn-quiet:hover{border-color:var(--ink);}
+
+  .jump{display:grid; grid-template-columns:1fr 1fr; gap:9px;}
+  .jump a{display:block; padding:13px 14px; border-radius:11px; text-decoration:none;
+    border:1px solid var(--line); background:var(--paper-2); transition:border-color .16s, transform .16s;}
+  .jump a:hover{border-color:var(--ink); transform:translateY(-1px);}
+  .jump .t{font-size:14px; color:var(--ink);}
+  .jump .d{font-size:11.5px; color:var(--ink-faint); margin-top:2px; line-height:1.4;}
+
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:5px;}
+  .field input{width:100%; padding:10px 12px; border-radius:9px; font-family:inherit;
+    font-size:14px; border:1px solid var(--line-strong); background:var(--paper-2); color:var(--ink);}
+  .field input:focus{outline:none; border-color:var(--ink);}
+  .field .fixed{font-size:14px; color:var(--ink-soft); padding:10px 0;}
+  .photo-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .saved{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ember-deep); opacity:0; transition:opacity .25s;}
+  .saved.on{opacity:1;}
+  .card .foot{margin-top:16px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
+  .card .foot .tiny{font-size:11.5px; color:var(--ink-faint);}
+
+  @media(max-width:820px){
+    .dash-grid{grid-template-columns:1fr;}
+    .dash-figs{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:430px){
+    .dash-top{gap:14px;}
+    .dash-face{width:54px; height:54px; font-size:21px;}
+    .jump{grid-template-columns:1fr;}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -339,183 +431,259 @@ function authView(){
   });
 }
 
-function accountView(arg){
-  // one caller passes a session, another passes a user: take whichever came
-  const u = (arg && arg.user) ? arg.user : arg;
-  if (!u) return;
+function licentiaToken(){
+  try {
+    for (var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if (!/auth-token/.test(k)) continue;
+      var v = JSON.parse(localStorage.getItem(k));
+      return v.access_token || (v.currentSession || {}).access_token || null;
+    }
+  } catch(e){}
+  return null;
+}
+function licentiaSeed(){
+  try {
+    var dv = localStorage.getItem("licentia_device");
+    if (!dv){ dv = String(Date.now()) + Math.random().toString(36).slice(2);
+      localStorage.setItem("licentia_device", dv); }
+    return dv;
+  } catch(e){ return "device"; }
+}
+function licentiaFundsFetch(){
+  var headers = { "Content-Type": "application/json" };
+  var t = licentiaToken();
+  if (t) headers["Authorization"] = "Bearer " + t;
+  return fetch("https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds", {
+    method: "POST", headers: headers,
+    body: JSON.stringify({ seed: licentiaSeed() })
+  }).then(function(r){ return r.json(); }).then(function(j){
+    window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0, shown: j.shown || 0 };
+    window.LICENTIA_TOTALS = j.totals || null;
+    var out = {};
+    (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
+    return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
+  });
+}
+function accountView(session){
+  const u = session.user;
   const meta = u.user_metadata || {};
-  const tier = (u.app_metadata && u.app_metadata.tier) || meta.tier || null;
+  const tier = ((u.app_metadata && u.app_metadata.tier) || meta.tier || null);
   const isPro = tier === 'pro';
-  const name = meta.display_name || meta.full_name || meta.name || (u.email || '').split('@')[0];
-  const created = new Date(u.created_at).toLocaleDateString('en-CA',
-    {year:'numeric', month:'long', day:'numeric'});
-  const avatar = meta.avatar_data || meta.avatar_url || null;
-  const initial = (name || '?').trim().charAt(0).toUpperCase();
+  const email = u.email || '';
+  const name = (meta.display_name || meta.full_name || meta.name || '').trim();
+  const first = (name || email.split('@')[0] || 'there').split(' ')[0];
 
-  stage.innerHTML =
-    '<div class="idcard">'
-    + '<div class="avatar" id="avatar" title="Change your picture">'
-      + (avatar ? '<img src="' + avatar + '" alt="">' : initial)
-      + '<span class="cam">edit</span>'
-    + '</div>'
-    + '<div class="idmeta">'
-      + '<input class="idname" id="idname" value="' + name.replace(/"/g, '&quot;') + '" '
-        + 'aria-label="Your name" spellcheck="false">'
-      + '<div class="idmail">' + u.email + '</div>'
-      + '<span class="idplan' + (isPro ? ' pro' : '') + '">'
-        + (isPro ? 'Licentia Pro' : 'Free account') + '</span>'
-      + ' <span class="saved" id="savedFlag">saved</span>'
-    + '</div>'
-    + '</div>'
-    + '<div class="acct-card">'
-      + '<h2>Your account</h2>'
-      + '<div class="note">Your name and picture are stored on your account and stay with you '
-        + 'between devices. Nothing here is shown to anyone else.</div>'
-      + '<div class="row"><span>Signed in with</span><span class="mono">'
-        + ((u.app_metadata && u.app_metadata.provider) || 'email') + '</span></div>'
-      + '<div class="row"><span>Member since</span><span class="mono">' + created + '</span></div>'
-      + '<div class="row"><span>Plan</span><span class="mono">'
-        + (isPro ? 'Licentia Pro' : 'Free') + '</span></div>'
+  // A photo used to be written into user_metadata as base64. That rides inside
+  // every access token, and an 18KB token was enough to make Stripe checkout
+  // fail outright. It lives on the device now, shrunk to a thumbnail, and any
+  // legacy copy is cleared out of the token on sight.
+  const AVKEY = 'licentia_avatar_' + u.id;
+  function readAvatar(){ try { return localStorage.getItem(AVKEY) || null; } catch(e){ return null; } }
+  if (meta.avatar_data) {
+    try { localStorage.setItem(AVKEY, meta.avatar_data); } catch(e){}
+    sb.auth.updateUser({ data: { avatar_data: null } });
+  }
+  const photo = readAvatar() || meta.avatar_url || null;
+
+  const hour = new Date().getHours();
+  const greet = hour < 5 ? 'Still up' : hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  const since = u.created_at ? new Date(u.created_at).toLocaleDateString(undefined,
+    {month:'long', year:'numeric'}) : null;
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  const face = photo
+    ? '<img id="faceImg" src="' + esc(photo) + '" alt="">'
+    : esc((first[0] || '?').toUpperCase());
+
+  document.getElementById('stage').innerHTML =
+    '<div class="dash">'
+    + '<div class="dash-top">'
+      + '<div class="dash-face" id="face">' + face + '</div>'
+      + '<div class="dash-who">'
+        + '<div class="dash-hi">' + greet + (name ? ', ' + esc(first) : '') + '</div>'
+        + '<div class="dash-sub">' + esc(email) + (since ? ' &middot; member since ' + since : '') + '</div>'
+      + '</div>'
+      + '<div class="dash-badge' + (isPro ? ' is-pro' : '') + '">'
+        + (isPro ? 'Licentia Pro' : 'Free account') + '</div>'
     + '</div>'
 
-    + '<div class="acct-card" id="planCard">'
-      + '<h2>' + (isPro ? 'Your subscription' : 'Licentia Pro') + '</h2>'
-      + (isPro
-        ? '<div class="note">Thank you. Everything is unlocked on this account. '
-          + 'You can change or cancel your plan at any time, and access continues '
-          + 'to the end of the period you have paid for.</div>'
-          + '<div class="doorrow"><button class="ghost" id="manageBtn">Manage subscription</button></div>'
-        : '<div class="note">Unlimited holdings in My Portfolio, the sector overlap '
-          + 'analysis, and backtesting against your own positions. Everything else on '
-          + 'Licentia stays free.</div>'
-          + '<div class="planrow">'
-            + '<button class="planbtn" data-plan="monthly">'
-              + '<span class="pp">$5.99</span><span class="pu">per month</span></button>'
-            + '<button class="planbtn lead" data-plan="annual">'
-              + '<span class="pp">$45</span><span class="pu">per year</span>'
-              + '<span class="psave">save 37%</span></button>'
-          + '</div>'
-          + '<div class="note" id="planMsg"></div>')
+    + '<div class="dash-figs" id="figs">'
+      + '<div class="dfig"><div class="v muted" id="fVal">&mdash;</div><div class="k">Portfolio value</div></div>'
+      + '<div class="dfig"><div class="v muted" id="fInc">&mdash;</div><div class="k">Income a year</div></div>'
+      + '<div class="dfig"><div class="v muted" id="fMon">&mdash;</div><div class="k">Income a month</div></div>'
+      + '<div class="dfig"><div class="v muted" id="fHold">&mdash;</div><div class="k">Holdings</div></div>'
     + '</div>'
-    + '<div class="acct-card"><h2>Your work</h2>'
-      + '<div class="note">Everything you build is kept against this account.</div>'
-      + '<div class="doorrow">'
-        + '<a class="ghost" href="portfolio.html">My Portfolio</a> '
-        + '<a class="ghost" href="portfolio-builder.html">Portfolio Builder</a> '
-        + '<a class="ghost" href="backtest.html">Backtesting</a>'
-      + '</div></div>'
-    + '<div style="margin-top:20px"><button class="ghost" id="signout">Sign out</button></div>';
+
+    + '<div class="dash-grid">'
+      + '<div class="card plan' + (isPro ? ' is-pro' : '') + '">'
+        + '<h2>' + (isPro ? 'Licentia Pro' : 'Your plan') + '</h2>'
+        + '<div class="plan-row"><span class="amt">' + (isPro ? '$5.99' : 'Free') + '</span>'
+          + (isPro ? '<span class="per">per month</span>' : '') + '</div>'
+        + '<div class="plan-open" id="planOpen">'
+          + (isPro
+            ? 'All <b>207 funds</b>, full holdings and the complete distribution history. Unlimited holdings in My Portfolio, sector overlap and the market stress test.'
+            : '<b>50 of 207 funds</b>, top five holdings each and a year of distributions. Three saved holdings in My Portfolio.')
+        + '</div>'
+        + '<div class="btn-line">'
+          + (isPro
+            ? '<button class="btn-quiet" id="manageBtn">Manage subscription</button>'
+            : '<a class="btn-solid btn-gold" href="membership.html">See Licentia Pro</a>')
+          + '<a class="btn-quiet" href="membership.html">Compare plans</a>'
+          + '<span class="saved" id="planMsg"></span>'
+        + '</div>'
+      + '</div>'
+
+      + '<div class="card">'
+        + '<h2>Pick up where you left off</h2>'
+        + '<div class="lede">Everything you were looking at, one tap away.</div>'
+        + '<div class="jump">'
+          + '<a href="portfolio.html"><div class="t">My Portfolio</div><div class="d">What you hold and what it pays</div></a>'
+          + '<a href="funds.html"><div class="t">Fund directory</div><div class="d">Every fund we track</div></a>'
+          + '<a href="compare.html"><div class="t">Comparison tool</div><div class="d">Overlap between funds</div></a>'
+          + '<a href="portfolio-builder.html"><div class="t">Portfolio builder</div><div class="d">Build one from scratch</div></a>'
+          + '<a href="backtest.html"><div class="t">Backtesting</div><div class="d">Stress test your income</div></a>'
+          + '<a href="learn.html"><div class="t">Learn</div><div class="d">How these funds work</div></a>'
+        + '</div>'
+      + '</div>'
+
+      + '<div class="card">'
+        + '<h2>Your details</h2>'
+        + '<div class="field"><label for="idname">Display name</label>'
+          + '<input id="idname" type="text" value="' + esc(name) + '" placeholder="What should we call you?"></div>'
+        + '<div class="field"><label>Email</label><div class="fixed">' + esc(email) + '</div></div>'
+        + '<div class="field"><label>Photo</label><div class="photo-row">'
+          + '<button class="btn-quiet" id="pickPhoto">' + (photo ? 'Change photo' : 'Upload a photo') + '</button>'
+          + (photo ? '<button class="btn-quiet" id="dropPhoto">Remove photo</button>' : '')
+          + '<input type="file" id="photoInput" accept="image/*" style="display:none">'
+          + '<span class="saved" id="savedFlag">Saved</span>'
+        + '</div></div>'
+        + '<div class="foot">'
+          + '<span class="tiny">Signed in with ' + esc((u.app_metadata && u.app_metadata.provider) || 'email') + '</span>'
+          + '<button class="btn-quiet" id="signout">Sign out</button>'
+        + '</div>'
+      + '</div>'
+    + '</div></div>';
 
   const flag = document.getElementById('savedFlag');
-  function flash(){ flag.classList.add('on'); setTimeout(function(){ flag.classList.remove('on'); }, 1400); }
+  function flash(el){ el = el || flag; el.classList.add('on');
+    setTimeout(function(){ el.classList.remove('on'); }, 1500); }
 
   // the name saves when you leave the field, so there is no button to hunt for
   const nameEl = document.getElementById('idname');
-  nameEl.addEventListener('blur', async function(){
+  nameEl.addEventListener('change', async function(){
     const v = nameEl.value.trim();
-    if (!v || v === name) return;
-    const r = await sb.auth.updateUser({ data: { display_name: v } });
-    if (!r.error) flash();
+    await sb.auth.updateUser({ data: { display_name: v } });
+    flash();
   });
-  nameEl.addEventListener('keydown', function(ev){ if (ev.key === 'Enter') nameEl.blur(); });
 
-  // the picture is resized here and stored on the account, so no bucket is needed
-  document.getElementById('avatar').addEventListener('click', function(){
-    const inp = document.createElement('input');
-    inp.type = 'file'; inp.accept = 'image/*';
-    inp.onchange = function(){
-      const file = inp.files && inp.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(){
-        const img = new Image();
-        img.onload = async function(){
-          const size = 160;
-          const c = document.createElement('canvas');
-          c.width = size; c.height = size;
-          const ctx = c.getContext('2d');
-          const side = Math.min(img.width, img.height);
-          ctx.drawImage(img, (img.width - side)/2, (img.height - side)/2, side, side, 0, 0, size, size);
-          const data = c.toDataURL('image/jpeg', 0.82);
-          const r = await sb.auth.updateUser({ data: { avatar_data: data } });
-          if (!r.error){ flash(); accountView((await sb.auth.getUser()).data.user); }
-        };
-        img.src = reader.result;
+  // A photo is shrunk to a 160px square before it is kept. The original off a
+  // phone is several megabytes; the square is a few kilobytes and is all the
+  // page ever displays.
+  const input = document.getElementById('photoInput');
+  document.getElementById('pickPhoto').addEventListener('click', function(){ input.click(); });
+  input.addEventListener('change', function(){
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(){
+      const img = new Image();
+      img.onload = function(){
+        const S = 160;
+        const c = document.createElement('canvas'); c.width = S; c.height = S;
+        const side = Math.min(img.width, img.height);
+        c.getContext('2d').drawImage(img, (img.width - side) / 2, (img.height - side) / 2,
+          side, side, 0, 0, S, S);
+        const small = c.toDataURL('image/jpeg', 0.82);
+        try { localStorage.setItem(AVKEY, small); } catch(e){}
+        document.getElementById('face').innerHTML = '<img id="faceImg" src="' + small + '" alt="">';
+        if (!document.getElementById('dropPhoto')) {
+          const b = document.createElement('button');
+          b.className = 'btn-quiet'; b.id = 'dropPhoto'; b.textContent = 'Remove photo';
+          document.getElementById('pickPhoto').after(b);
+          b.addEventListener('click', dropPhoto);
+        }
+        document.getElementById('pickPhoto').textContent = 'Change photo';
+        flash();
       };
-      reader.readAsDataURL(file);
+      img.src = reader.result;
     };
-    inp.click();
+    reader.readAsDataURL(file);
   });
 
-
-  // Checkout is created server side so the price and the account are decided
-  // there, not here. The browser only says which plan was clicked.
-  const planBtns = stage.querySelectorAll('.planbtn');
-  planBtns.forEach(function(btn){
-    btn.addEventListener('click', async function(){
-      const msg = document.getElementById('planMsg');
-      planBtns.forEach(function(b){ b.disabled = true; });
-      if (msg) msg.textContent = 'Opening secure checkout…';
-      try {
-        const { data: { session } } = await sb.auth.getSession();
-        const res = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/create-checkout', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + session.access_token
-          },
-          body: JSON.stringify({ plan: btn.dataset.plan })
-        });
-        const out = await res.json();
-        if (out.url) { window.location.href = out.url; return; }
-        throw new Error(out.error || 'no checkout url');
-      } catch (err) {
-        console.error(err);
-        if (msg) msg.textContent = 'Could not open checkout. Please try again, or email megallyc@gmail.com.';
-        planBtns.forEach(function(b){ b.disabled = false; });
-      }
-    });
-  });
-
-  // Stripe's own billing portal handles changing the card, switching plan and
-  // cancelling, so none of that has to be rebuilt here or done by email.
-  const manage = document.getElementById('manageBtn');
-  if (manage) manage.onclick = async function(){
-    manage.disabled = true;
-    const was = manage.textContent;
-    manage.textContent = 'Opening…';
-    try {
-      const { data: { session } } = await sb.auth.getSession();
-      const res = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/create-checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + session.access_token
-        },
-        body: JSON.stringify({ mode: 'portal' })
-      });
-      const out = await res.json();
-      if (out.url) { window.location.href = out.url; return; }
-      throw new Error(out.error || 'no portal url');
-    } catch (err) {
-      console.error(err);
-      manage.disabled = false;
-      manage.textContent = was;
-      const note = manage.closest('.acct-card').querySelector('.note');
-      if (note) note.textContent = 'Could not open the billing portal. Please try again, or email megallyc@gmail.com.';
-    }
-  };
-
-  // A fresh token carries the tier the webhook just wrote, so the page does not
-  // sit showing the old plan after paying.
-  if (/[?&]upgraded=1/.test(location.search)){
-    sb.auth.refreshSession().then(function(){
-      return sb.auth.getUser();
-    }).then(function(r){ if (r.data && r.data.user) accountView(r.data.user); });
+  function dropPhoto(){
+    try { localStorage.removeItem(AVKEY); } catch(e){}
+    if (meta.avatar_url) sb.auth.updateUser({ data: { avatar_url: null } });
+    document.getElementById('face').innerHTML = esc((first[0] || '?').toUpperCase());
+    const d = document.getElementById('dropPhoto'); if (d) d.remove();
+    document.getElementById('pickPhoto').textContent = 'Upload a photo';
+    flash();
   }
+  const dropBtn = document.getElementById('dropPhoto');
+  if (dropBtn) dropBtn.addEventListener('click', dropPhoto);
 
-  const out = document.getElementById('signout');
-  if (out) out.onclick = async function(){ await sb.auth.signOut(); render(); };
+  document.getElementById('signout').addEventListener('click', async function(){
+    await sb.auth.signOut();
+    location.reload();
+  });
+
+  const manage = document.getElementById('manageBtn');
+  if (manage) manage.addEventListener('click', async function(){
+    const msg = document.getElementById('planMsg');
+    manage.disabled = true; manage.textContent = 'Opening\u2026';
+    try {
+      const r = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/create-checkout', {
+        method:'POST', headers:{'Content-Type':'application/json',
+          'Authorization':'Bearer ' + session.access_token},
+        body: JSON.stringify({ mode:'portal' })});
+      const j = await r.json();
+      if (j.url) { location.href = j.url; return; }
+      msg.textContent = 'Could not open the billing page'; flash(msg);
+    } catch(e){ msg.textContent = 'Could not open the billing page'; flash(msg); }
+    manage.disabled = false; manage.textContent = 'Manage subscription';
+  });
+
+  loadFigures(session, isPro);
+}
+
+// The figures come from the same places the rest of the site reads: holdings
+// from the account, prices and yields from the funds endpoint.
+async function loadFigures(session, isPro){
+  function money(n){ return '$' + Math.round(n).toLocaleString(); }
+  try {
+    const rows = await sb.from('portfolio_holdings')
+      .select('ticker,shares,cost_basis').eq('user_id', session.user.id);
+    const held = (rows.data || []);
+    document.getElementById('fHold').textContent = held.length;
+    document.getElementById('fHold').classList.remove('muted');
+    if (!held.length) {
+      document.getElementById('fVal').textContent = 'Nothing yet';
+      return;
+    }
+    const res = await licentiaFundsFetch();
+    const data = await res.json();
+    let value = 0, income = 0, priced = 0;
+    held.forEach(function(h){
+      const f = data[h.ticker]; if (!f || !f.stats) return;
+      const price = Number(f.stats.price);
+      if (!isFinite(price)) return;
+      const v = Number(h.shares) * price;
+      value += v; priced++;
+      const y = Number(f.stats.yield_ttm);
+      if (isFinite(y)) income += v * y / 100;
+    });
+    if (!priced) { document.getElementById('fVal').textContent = 'Not priced'; return; }
+    const set = function(id, txt){ const el = document.getElementById(id);
+      el.textContent = txt; el.classList.remove('muted'); };
+    set('fVal', money(value));
+    set('fInc', money(income));
+    set('fMon', money(income / 12));
+  } catch(e){
+    // a figure that cannot be trusted is better left blank than guessed at
+    console.error('account figures', e);
+  }
 }
 
 async function render(){
@@ -524,7 +692,7 @@ async function render(){
 }
 
 // the pitch numbers come from the same file the rest of the site reads
-fetch('data/funds.json?cb=' + Math.random())
+licentiaFundsFetch()
   .then(function(r){ return r.ok ? r.json() : null; })
   .then(function(d){
     if (!d) return;
