@@ -359,31 +359,49 @@
 
   .bird-flight{position:absolute; left:0; top:38%; --fly:900px; z-index:40; pointer-events:none;
     width:46px; height:30px; will-change:transform, opacity;
-    animation:birdCross 3.1s linear forwards;}
+    animation:birdX 3.4s linear forwards;}
+  .bird-flight .bob{display:block; width:100%; height:100%;
+    animation:birdWave 3.4s cubic-bezier(.45,.02,.55,.98) forwards; will-change:transform;}
   .bird-flight img{width:100%; height:100%; display:block;
-    animation:birdBank 3.1s linear forwards; will-change:transform;}
+    animation:birdBank 3.4s cubic-bezier(.45,.02,.55,.98) forwards; will-change:transform;}
   /* A long S across the section: up, down, up and away. The horizontal speed
      is held even so the curve reads as one continuous line rather than a
      series of separate moves. */
-  @keyframes birdCross{
-    0%{transform:translate(-70px, 4px); opacity:0;
-       animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    10%{opacity:1;}
-    28%{transform:translate(calc(var(--fly) * 0.24), -32px);
-       animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    52%{transform:translate(calc(var(--fly) * 0.5), 28px);
-       animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    76%{transform:translate(calc(var(--fly) * 0.76), -24px);
-       animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    92%{opacity:1;}
-    100%{transform:translate(calc(var(--fly) + 70px), 8px); opacity:0;}}
+  /* Each axis moves on its own layer. Easing the horizontal travel is what
+     made this feel harsh: the bird slowed at every waypoint, so one glide
+     read as a series of small stops. The crossing is now perfectly even
+     and only the rise and fall is eased, which is how a glide actually
+     looks: constant ground speed, smooth vertical curve. */
+  @keyframes birdX{
+    0%{transform:translateX(-70px); opacity:0;}
+    9%{opacity:1;}
+    90%{opacity:1;}
+    100%{transform:translateX(calc(var(--fly) + 70px)); opacity:0;}}
 
+  /* a sine, sampled often enough that no single step shows */
+  @keyframes birdWave{
+    0%{transform:translateY(2px);}
+    9%{transform:translateY(-16px);}
+    18%{transform:translateY(-30px);}
+    27%{transform:translateY(-16px);}
+    36%{transform:translateY(6px);}
+    45%{transform:translateY(24px);}
+    54%{transform:translateY(28px);}
+    63%{transform:translateY(14px);}
+    72%{transform:translateY(-8px);}
+    81%{transform:translateY(-22px);}
+    90%{transform:translateY(-18px);}
+    100%{transform:translateY(-2px);}}
+
+  /* the bank leads the turn, the way a bird tips before it climbs */
   @keyframes birdBank{
-    0%{transform:rotate(-4deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    28%{transform:rotate(-13deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    52%{transform:rotate(12deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    76%{transform:rotate(-11deg); animation-timing-function:cubic-bezier(.36,0,.64,1);}
-    100%{transform:rotate(5deg);}}
+    0%{transform:rotate(-11deg);}
+    18%{transform:rotate(-2deg);}
+    36%{transform:rotate(11deg);}
+    54%{transform:rotate(1deg);}
+    72%{transform:rotate(-11deg);}
+    90%{transform:rotate(-3deg);}
+    100%{transform:rotate(3deg);}}
 
   @media (prefers-reduced-motion: reduce){
     .issuer-arrive::before{animation:issuerGlow 1.4s ease-out forwards;}
@@ -664,10 +682,10 @@ function init(){
       el.classList.add('issuer-arrive');
       var bird = document.createElement('div');
       bird.className = 'bird-flight';
-      bird.innerHTML = '<img src="assets/bird.svg" alt="">';
+      bird.innerHTML = '<span class="bob"><img src="assets/bird.svg" alt=""></span>';
       bird.style.setProperty('--fly', Math.max(600, Math.round(el.getBoundingClientRect().width)) + 'px');
       el.appendChild(bird);
-      setTimeout(function(){ bird.remove(); }, 3200);
+      setTimeout(function(){ bird.remove(); }, 3500);
       setTimeout(function(){ el.classList.remove('issuer-arrive'); }, 3000);
     }, 250);
   }
