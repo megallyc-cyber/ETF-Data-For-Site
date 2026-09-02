@@ -221,11 +221,11 @@
   .dfig .v.muted{color:var(--ink-faint);}
 
   .dash-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:16px; align-items:start;}
-  .card{background:var(--white); border:1px solid var(--line-strong);
+  .dcard{background:var(--white); border:1px solid var(--line-strong);
     border-radius:15px; padding:20px 20px 18px;}
-  .card h2{font-family:'Fraunces',serif; font-weight:500; font-size:19px; margin-bottom:4px;}
-  .card .lede{font-size:13px; color:var(--ink-soft); line-height:1.55; margin-bottom:14px;}
-  .card.plan.is-pro{border-color:rgba(200,155,60,0.55);
+  .dcard h2{font-family:'Fraunces',serif; font-weight:500; font-size:19px; margin-bottom:4px;}
+  .dcard .lede{font-size:13px; color:var(--ink-soft); line-height:1.55; margin-bottom:14px;}
+  .dcard.plan.is-pro{border-color:rgba(200,155,60,0.55);
     background:linear-gradient(165deg, rgba(200,155,60,0.08) 0%, var(--white) 46%);}
 
   .plan-row{display:flex; align-items:baseline; gap:9px; margin-bottom:12px;}
@@ -264,9 +264,9 @@
   .saved{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
     text-transform:uppercase; color:var(--ember-deep); opacity:0; transition:opacity .25s;}
   .saved.on{opacity:1;}
-  .card .foot{margin-top:16px; padding-top:14px; border-top:1px solid var(--line);
+  .dcard .foot{margin-top:16px; padding-top:14px; border-top:1px solid var(--line);
     display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
-  .card .foot .tiny{font-size:11.5px; color:var(--ink-faint);}
+  .dcard .foot .tiny{font-size:11.5px; color:var(--ink-faint);}
 
   @media(max-width:820px){
     .dash-grid{grid-template-columns:1fr;}
@@ -286,21 +286,21 @@
      details card alone beside half a page of nothing. The two short cards
      share the top row and the details card runs the full width beneath. */
   .dash-grid{grid-template-columns:1fr 1fr; gap:16px; align-items:stretch;}
-  .dash-grid > .card{height:100%;}
-  .dash-grid > .card.details{grid-column:1 / -1; height:auto;}
+  .dash-grid > .dcard{height:100%;}
+  .dash-grid > .dcard.details{grid-column:1 / -1; height:auto;}
 
   /* inside the wide card the fields sit side by side rather than in a column */
-  .card.details .fields{display:grid; grid-template-columns:repeat(3,1fr); gap:0 22px;}
-  .card.details .field{margin-bottom:0;}
-  .card.details .foot{margin-top:18px;}
+  .dcard.details .fields{display:grid; grid-template-columns:repeat(3,1fr); gap:0 22px;}
+  .dcard.details .field{margin-bottom:0;}
+  .dcard.details .foot{margin-top:18px;}
 
   /* the plan card carries less text than the links card, so let it breathe */
-  .card.plan{display:flex; flex-direction:column;}
-  .card.plan .btn-line{margin-top:auto;}
+  .dcard.plan{display:flex; flex-direction:column;}
+  .dcard.plan .btn-line{margin-top:auto;}
 
   @media(max-width:820px){
-    .card.details .fields{grid-template-columns:1fr; gap:0;}
-    .card.details .field{margin-bottom:14px;}
+    .dcard.details .fields{grid-template-columns:1fr; gap:0;}
+    .dcard.details .field{margin-bottom:14px;}
   }
 </style>
   <link rel="stylesheet" href="assets/pro.css">
@@ -557,7 +557,7 @@ function accountView(session){
     + '</div>'
 
     + '<div class="dash-grid">'
-      + '<div class="card plan' + (isPro ? ' is-pro' : '') + '">'
+      + '<div class="dcard plan' + (isPro ? ' is-pro' : '') + '">'
         + '<h2>' + (isPro ? 'Licentia Pro' : 'Your plan') + '</h2>'
         + '<div class="plan-row"><span class="amt">' + (isPro ? '$5.99' : 'Free') + '</span>'
           + (isPro ? '<span class="per">per month</span>' : '') + '</div>'
@@ -575,7 +575,7 @@ function accountView(session){
         + '</div>'
       + '</div>'
 
-      + '<div class="card">'
+      + '<div class="dcard">'
         + '<h2>Pick up where you left off</h2>'
         + '<div class="lede">Everything you were looking at, one tap away.</div>'
         + '<div class="jump">'
@@ -588,7 +588,7 @@ function accountView(session){
         + '</div>'
       + '</div>'
 
-      + '<div class="card details">'
+      + '<div class="dcard details">'
         + '<h2>Your details</h2>'
         + '<div class="fields">'
         + '<div class="field"><label for="idname">Display name</label>'
