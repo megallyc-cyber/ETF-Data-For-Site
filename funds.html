@@ -375,8 +375,7 @@
   @keyframes birdX{
     0%{transform:translateX(-70px); opacity:0;}
     9%{opacity:1;}
-    90%{opacity:1;}
-    100%{transform:translateX(calc(var(--fly) + 70px)); opacity:0;}}
+    100%{transform:translateX(var(--fly)); opacity:1;}}
 
   /* a sine, sampled often enough that no single step shows */
   @keyframes birdWave{
@@ -683,7 +682,9 @@ function init(){
       var bird = document.createElement('div');
       bird.className = 'bird-flight';
       bird.innerHTML = '<span class="bob"><img src="assets/bird.svg" alt=""></span>';
-      bird.style.setProperty('--fly', Math.max(600, Math.round(el.getBoundingClientRect().width)) + 'px');
+      var box = el.getBoundingClientRect();
+      var exit = Math.max(600, Math.round(window.innerWidth - box.left) + 160);
+      bird.style.setProperty('--fly', exit + 'px');
       el.appendChild(bird);
       setTimeout(function(){ bird.remove(); }, 3500);
       setTimeout(function(){ el.classList.remove('issuer-arrive'); }, 3000);
