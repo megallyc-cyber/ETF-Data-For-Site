@@ -300,6 +300,19 @@
   @media (prefers-reduced-motion: reduce){
     .slider.untouched::-webkit-slider-thumb{animation:none;}
     .slider.untouched::-moz-range-thumb{animation:none;}}
+
+  /* the closest preset, shown as a hint rather than a selection */
+  .sbtn.near{border-color:var(--line-strong); background:rgba(28,34,48,0.045);
+    color:var(--ink); opacity:0.95;}
+  .sbtn.near::after{content:' \00b7 nearest'; font-size:8.5px; opacity:0.6;
+    letter-spacing:0.06em;}
+
+  /* the invitation was too quiet to notice against the paper */
+  .slider-hint{color:var(--ink) !important; font-size:12px !important;
+    letter-spacing:0.06em !important; gap:9px !important;
+    padding:7px 12px; border-radius:100px; align-self:flex-start;
+    background:rgba(255,107,53,0.10); border:1px solid rgba(255,107,53,0.30);}
+  .slider-hint .sh-arrows{font-size:15px !important; color:var(--ember-deep);}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -552,7 +565,15 @@ function renderScenarios(){
   box.innerHTML = '';
   SCENARIOS.forEach(function(s){
     const b = document.createElement('button');
-    b.className = 'sbtn ' + s.cls + (shift === s.v ? ' on' : '');
+    var gap = Math.abs(shift - s.v);
+    var nearest = SCENARIOS.reduce(function(best, x){
+      return Math.abs(shift - x.v) < Math.abs(shift - best.v) ? x : best;
+    }, SCENARIOS[0]);
+    // exact sits lit; closest is merely indicated, since the reader has not
+    // chosen it and the figures do not match it
+    var state = (shift === s.v) ? ' on'
+              : (shift !== 0 && nearest.v === s.v && gap <= 8) ? ' near' : '';
+    b.className = 'sbtn ' + s.cls + state;
     b.textContent = s.l;
     b.onclick = function(){ shift = s.v; document.getElementById('slider').value = s.v; renderStress(); };
     box.appendChild(b);
