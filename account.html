@@ -285,8 +285,8 @@
   /* The three cards were left to fall where they may, which stranded the
      details card alone beside half a page of nothing. The two short cards
      share the top row and the details card runs the full width beneath. */
-  .dash-grid{grid-template-columns:1fr 1fr; gap:16px; align-items:stretch;}
-  .dash-grid > .dcard{height:100%;}
+  .dash-grid{grid-template-columns:1fr 1fr; gap:16px; align-items:start;}
+  
   .dash-grid > .dcard.details{grid-column:1 / -1; height:auto;}
 
   /* inside the wide card the fields sit side by side rather than in a column */
@@ -294,9 +294,12 @@
   .dcard.details .field{margin-bottom:0;}
   .dcard.details .foot{margin-top:18px;}
 
-  /* the plan card carries less text than the links card, so let it breathe */
-  .dcard.plan{display:flex; flex-direction:column;}
-  .dcard.plan .btn-line{margin-top:auto;}
+  /* The plan card was stretched to match its neighbour and its buttons pushed
+     to the bottom, which left a hole through the middle. It now takes only the
+     height it needs: price, then what it opens, then the buttons. */
+  .dcard.plan{align-self:start;}
+  .dcard.plan .plan-row{margin-bottom:6px;}
+  .dcard.plan .plan-open{margin-bottom:18px;}
 
   @media(max-width:820px){
     .dcard.details .fields{grid-template-columns:1fr; gap:0;}
