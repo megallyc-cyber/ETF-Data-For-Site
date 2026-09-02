@@ -292,9 +292,9 @@
     72%{transform:translateX(-7px);}
     84%{transform:translateX(7px);}}
 
-  .slider-hint{display:flex; align-items:center; gap:8px; margin:2px 0 10px;
+  .slider-hint{display:flex; align-items:center; gap:8px; margin:2px 0 6px;
     font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--ink-faint);}
+    text-transform:uppercase; color:var(--ink);}
   .slider-hint .sh-arrows{font-size:13px; color:var(--ember-deep); letter-spacing:0;}
   .slider-hint.gone{opacity:0; transition:opacity .4s ease; pointer-events:none;}
   @media (prefers-reduced-motion: reduce){
@@ -307,11 +307,10 @@
   .sbtn.near::after{content:' \00b7 nearest'; font-size:8.5px; opacity:0.6;
     letter-spacing:0.06em;}
 
-  /* the invitation was too quiet to notice against the paper */
   .slider-hint{color:var(--ink) !important; font-size:12px !important;
-    letter-spacing:0.06em !important; gap:9px !important;
-    padding:7px 12px; border-radius:100px; align-self:flex-start;
-    background:rgba(255,107,53,0.10); border:1px solid rgba(255,107,53,0.30);}
+    letter-spacing:0.07em !important; gap:9px !important;
+    justify-content:center; width:100%; text-align:center;
+    background:none; border:none; padding:0; margin:0 0 6px;}
   .slider-hint .sh-arrows{font-size:15px !important; color:var(--ember-deep);}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
