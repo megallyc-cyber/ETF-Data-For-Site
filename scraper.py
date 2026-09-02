@@ -32,6 +32,7 @@ Install:
 """
 
 import json
+import os
 from datetime import datetime, timedelta, timezone
 import time
 import logging
@@ -1895,6 +1896,34 @@ def attach_price_and_yield(registry: list) -> None:
     log.info("Computed a trailing-12-month yield for %d funds", done)
 
 
+def push_to_supabase(payload: dict) -> None:
+    """Send the scraped funds to Supabase.
+
+    The site reads fund data through an Edge Function that checks the caller's
+    token, so what a visitor can see is decided on the server. That only holds
+    if Supabase has the data, hence this push. The local JSON stays as a
+    working artefact for the run; it is no longer what the site serves.
+
+    Authenticated with a shared phrase, not a database key: a leaked push key
+    can only add fund data, while a service role key could read or delete
+    anything. A missing secret warns loudly rather than crashing the run.
+    """
+    key = os.environ.get("LICENTIA_PUSH_KEY")
+    if not key:
+        log.warning("LICENTIA_PUSH_KEY not set - scraped data was not pushed to Supabase")
+        return
+
+    url = "https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/import-funds"
+    try:
+        resp = requests.post(url, json={"key": key, "funds": payload}, timeout=180)
+        if resp.status_code == 200:
+            log.info("Pushed %s funds to Supabase", resp.json().get("imported"))
+        else:
+            log.error("Supabase push failed: HTTP %s %s", resp.status_code, resp.text[:200])
+    except Exception as exc:  # noqa: BLE001
+        log.error("Supabase push failed: %s", exc)
+
+
 def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
                  merge: bool = False) -> None:
     """When only part of the registry was scraped (--only), merge into the
@@ -1925,6 +1954,7 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
             "error": fund.error,
         }
     path.write_text(json.dumps(payload, indent=2))
+    push_to_supabase(payload)
     ok = sum(1 for f in registry if f.fetched_ok)
     with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
     with_dist = sum(1 for f in registry if f.distributions)
