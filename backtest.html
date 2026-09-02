@@ -351,7 +351,7 @@
       <div id="holdSource"></div>
       <div class="scen" id="scen"></div>
       <input class="slider" id="slider" type="range" min="-50" max="50" step="1" value="0">
-      <div class="shift neg" id="shiftLabel">-20%</div>
+      <div class="shift" id="shiftLabel">0%</div>
       <div class="note" style="margin-top:18px">What this does to the distributions</div>
       <div class="assume" id="assume"></div>
       <div class="note" id="assumeNote" style="margin-top:8px"></div>
@@ -439,7 +439,7 @@ let FUNDS = {}, RATIOS = {}, ROWS = [], session = null;
 // A working copy. Editing it never writes to portfolio_holdings, so a member
 // can try a change before committing to it for real.
 let SCRATCH = null, PICK2 = null;
-let shift = -20, assume = 'hold', CHOSEN = null, RANGE = null;
+let shift = 0, assume = 'hold', CHOSEN = null, RANGE = null;
 let SERIES = null;
 
 const FAM = {'BMO ETFs':'#0075BE','Hamilton ETFs':'#123D66','Harvest ETFs':'#C9821F',
@@ -570,7 +570,7 @@ function renderStress(){
   lab.className = 'shift ' + (shift < 0 ? 'neg' : 'pos');
   const sl = document.getElementById('slider');
   // the track carries the direction too, so Pro gold never stands in for red
-  if (sl) sl.className = 'slider ' + (shift < 0 ? 'neg' : shift > 0 ? 'pos' : '');
+  if (sl) sl.className = 'slider ' + (shift < 0 ? 'neg' : shift > 0 ? 'pos' : '') + (sl.dataset.touched ? '' : ' untouched');
 
   const src = document.getElementById('holdSource');
   const scen = document.getElementById('scen');
@@ -1042,6 +1042,7 @@ Promise.all([
     hint.innerHTML = '<span class="sh-arrows">&#8596;</span><span>Drag to test a market move</span>';
     sl.parentNode.insertBefore(hint, sl);
     function touched(){
+      sl.dataset.touched = '1';
       sl.classList.remove('untouched');
       hint.classList.add('gone');
       sl.removeEventListener('input', touched);
