@@ -915,7 +915,7 @@ document.getElementById('slider').addEventListener('input', function(e){
 });
 
 Promise.all([
-  fetch('data/funds.json?cb='+Math.random()).then(function(r){ return r.json(); }),
+  licentiaFundsFetch().then(function(r){ return r.json(); }),
   fetch('data/close_ratio.json?cb='+Math.random()).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }),
   sb.auth.getSession()
 ]).then(async function(res){
