@@ -395,3 +395,57 @@
   ].join("\n");
   (document.head || document.documentElement).appendChild(s);
 })();
+/* ---------------------------------------------------------------------------
+   Fund data loader.
+
+   Every page used to download data/funds.json, which handed the whole market
+   to anyone who asked. Data now comes from a function that reads the caller's
+   token and returns only what their tier opens, so a page cannot widen its
+   own access by asking differently.
+
+   The return value imitates a fetch Response, so existing code that does
+   .then(r => r.json()) keeps working untouched.
+--------------------------------------------------------------------------- */
+(function(){
+  var URL_FUNDS = "https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds";
+
+  function token(){
+    try {
+      for (var i = 0; i < localStorage.length; i++){
+        var k = localStorage.key(i);
+        if (!/auth-token/.test(k)) continue;
+        var v = JSON.parse(localStorage.getItem(k));
+        return v.access_token || (v.currentSession || {}).access_token || null;
+      }
+    } catch(e){}
+    return null;
+  }
+  function seed(){
+    try {
+      var d = localStorage.getItem("licentia_device");
+      if (!d){ d = String(Date.now()) + Math.random().toString(36).slice(2);
+        localStorage.setItem("licentia_device", d); }
+      return d;
+    } catch(e){ return "device"; }
+  }
+
+  window.licentiaFundsFetch = function(){
+    var headers = { "Content-Type": "application/json" };
+    var t = token();
+    if (t) headers["Authorization"] = "Bearer " + t;
+    return fetch(URL_FUNDS, { method: "POST", headers: headers,
+      body: JSON.stringify({ seed: seed() }) })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0,
+          shown: j.shown || 0, freeOpens: j.freeOpens || 50 };
+        window.LICENTIA_TOTALS = j.totals || null;
+        window.LICENTIA_LOCKED = {};
+        (j.locked || []).forEach(function(f){ window.LICENTIA_LOCKED[f.ticker] = f; });
+        var out = {};
+        (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
+        // shaped like a Response: pages check r.ok before reading the body
+        return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
+      });
+  };
+})();
