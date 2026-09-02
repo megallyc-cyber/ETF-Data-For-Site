@@ -943,7 +943,7 @@ async function useRec(ix){
 }
 
 Promise.all([
-  fetch('data/funds.json?cb=' + Math.random()).then(function(r){ return r.json(); }),
+  licentiaFundsFetch().then(function(r){ return r.json(); }),
   fetch('data/sectors.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
   fetch('data/aum_patch.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
   sb.auth.getSession()
