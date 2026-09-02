@@ -346,6 +346,12 @@
   /* A manager whose funds fill the last row exactly still needs its summary.
      It sits on its own row, styled exactly as every other one. */
   .issuer-aside.aside-fullrow{max-width:340px;}
+
+  /* a brief mark so it is obvious which manager the link led to */
+  .issuer-flash{animation:issuerFlash 2.2s ease-out;}
+  @keyframes issuerFlash{
+    0%{box-shadow:0 0 0 0 rgba(255,107,53,0.5);}
+    100%{box-shadow:0 0 0 20px rgba(255,107,53,0);}}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -593,34 +599,31 @@ function init(){
   // Arriving from the provider carousel: open the right region, then jump to
   // that issuer's group and mark it so the reason for the jump is obvious.
   function issuerFromQuery(){
-    var m = (window.location.search || '').match(/[?&]issuer=([^&]+)/);
-    if (!m) return;
-    var want = decodeURIComponent(m[1].replace(/\+/g, ' '));
-    var entry = Object.entries(FUNDS).find(function(e){ return (e[1].issuer || '') === want; });
-    if (!entry) return;
-    var region = entry[1].region === 'US' ? 'US' : 'CAD';
+  var want = new URLSearchParams(location.search).get('issuer');
+  if (!want) return;
+  var id = 'issuer-' + want.replace(/[^a-z0-9]+/gi, '-').toLowerCase().replace(/^-|-$/g, '');
+
+  function go(attempt){
+    var el = document.getElementById(id);
+    if (!el) {
+      // the directory draws after the data lands, so wait for it
+      if (attempt < 30) return setTimeout(function(){ go(attempt + 1); }, 200);
+      return;
+    }
+    // open themarket  the manager sits in, if the page is showing one market
+    var market = el.closest('[data-market]');
+    if (market && market.dataset.market && typeof selectRegion === 'function') {
+      try { selectRegion(market.dataset.market); } catch (e) {}
+    }
     setTimeout(function(){
-      selectRegion(region);
-      setTimeout(function(){
-        var groups = document.querySelectorAll('.issuer-group');
-        for (var i = 0; i < groups.length; i++){
-          var head = groups[i].querySelector('h2, h3, .issuer-name');
-          if (head && head.textContent.trim().indexOf(want) === 0){
-            // Land above the issuer heading, clear of the sticky nav, so the
-            // first row of funds is never tucked under it.
-            var nav = document.querySelector('nav');
-            var navH = nav ? nav.getBoundingClientRect().height : 0;
-            var top = groups[i].getBoundingClientRect().top + window.pageYOffset - navH - 28;
-            window.scrollTo({top: Math.max(0, top), behavior:'smooth'});
-            groups[i].style.transition = 'background .4s';
-            groups[i].style.background = 'rgba(200,155,60,0.13)';
-            setTimeout(function(g){ return function(){ g.style.background = 'transparent'; }; }(groups[i]), 2200);
-            break;
-          }
-        }
-      }, 420);
-    }, 60);
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 82;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      el.classList.add('issuer-flash');
+      setTimeout(function(){ el.classList.remove('issuer-flash'); }, 2200);
+    }, 150);
   }
+  go(0);
+}
 
   const ba = document.getElementById('browseAll');
 if (ba) ba.addEventListener('click', function(){ selectRegion('ALL'); jumpToList(); });
