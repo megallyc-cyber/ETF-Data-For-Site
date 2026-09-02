@@ -26,6 +26,8 @@ jobs:
       - name: Scrape holdings
         env:
           ONLY: ${{ github.event.inputs.only }}
+          # hands the scraper the phrase it uses to publish to Supabase
+          LICENTIA_PUSH_KEY: ${{ secrets.LICENTIA_PUSH_KEY }}
         run: |
           if [ -n "$ONLY" ]; then
             python scraper.py --only="$ONLY"
@@ -36,8 +38,11 @@ jobs:
         run: |
           git config user.name "ledger-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/funds.json
-          git diff --quiet --cached || git commit -m "Update fund holdings data"
+          # data/funds.json is deliberately not committed: the site reads fund
+          # data through a function that checks the caller's token, so a public
+          # copy in the repo would undo the tiering.
+          git add data/prices data/close_ratio.json 2>/dev/null || true
+          git diff --quiet --cached || git commit -m "Update price history"
           # a long scrape can finish after other commits have landed, so
           # rebase before pushing instead of failing on non-fast-forward
           git pull --rebase --autostash origin main
