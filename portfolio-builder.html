@@ -317,7 +317,38 @@
     -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
   body.pro .pay.sec .pv{-webkit-text-fill-color:initial; background:none; color:var(--ink-soft);}
   @media(max-width:420px){ .payline{grid-template-columns:1fr;} }
-</style>
+
+  /* Locked funds sit in the list they belong to, marked rather than removed.
+     Hiding them would make a manager look smaller than it is. */
+  .fund.is-locked{position:relative; cursor:pointer; opacity:0.72;}
+  .fund.is-locked .flock{display:inline-flex; align-items:center; gap:5px;
+    margin-left:auto; padding:3px 8px; border-radius:100px; flex:none;
+    font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:0.09em;
+    text-transform:uppercase; white-space:nowrap;}
+  .fund.is-locked.lk-free .flock{background:rgba(28,34,48,0.08); color:var(--ink-soft);}
+  .fund.is-locked.lk-pro .flock{background:linear-gradient(135deg,var(--gold),var(--gold-deep)); color:#fff;}
+  .fund.is-locked:hover{opacity:0.9;}
+  body.pro .fund.is-locked{opacity:1;}
+  body.pro .fund.is-locked .flock{display:none;}
+  
+  .lock-modal{position:fixed; inset:0; z-index:200; display:flex; align-items:center;
+    justify-content:center; padding:22px; background:rgba(28,34,48,0.42);
+    backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
+  .lock-modal .lm-card{background:var(--white); border:1px solid var(--line-strong);
+    border-radius:16px; padding:26px 26px 22px; max-width:400px; width:100%;
+    box-shadow:0 30px 70px -30px rgba(28,34,48,0.6);}
+  .lm-tick{font-family:'Fraunces',serif; font-size:28px; letter-spacing:-0.02em;}
+  .lm-name{font-size:13.5px; color:var(--ink-soft); margin:2px 0 14px;}
+  .lm-copy{font-size:14.5px; line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
+  .lm-row{display:flex; align-items:center; gap:14px;}
+  .lm-go{flex:none; padding:11px 20px; border-radius:100px; text-decoration:none;
+    background:var(--ink); color:var(--paper); font-size:13.5px;}
+  .lm-go:hover{background:var(--ember-deep);}
+  .lm-no{background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:13.5px; color:var(--ink-faint);}
+  @media(max-width:520px){ .lm-row{flex-direction:column; align-items:stretch; gap:10px;}
+    .lm-go{text-align:center;} }
+  </style>
 <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
 {
@@ -363,6 +394,55 @@
 </div>
 <script type="module">
 
+// Locked funds are listed alongside the rest so a manager's shelf looks the
+// size it really is, then marked with the tier that opens them. Selecting one
+// asks for the upgrade instead of silently doing nothing.
+function licentiaMarkLocked(){
+  var L = window.LICENTIA_LOCKED || {};
+  document.querySelectorAll('.results .fund').forEach(function(btn){
+    var t = (btn.getAttribute('data-ticker') || btn.textContent.trim().slice(0,6)).toUpperCase();
+    var hit = null;
+    Object.keys(L).forEach(function(k){ if (t.indexOf(k) === 0) hit = L[k]; });
+    if (!hit || btn.classList.contains('is-locked')) return;
+    btn.classList.add('is-locked');
+    btn.classList.add(hit.unlock === 'free' ? 'lk-free' : 'lk-pro');
+    var tag = document.createElement('span');
+    tag.className = 'flock';
+    tag.textContent = hit.unlock === 'free' ? 'Free account' : 'Pro';
+    btn.appendChild(tag);
+    btn.setAttribute('data-locked-ticker', hit.ticker);
+  });
+}
+document.addEventListener('click', function(e){
+  var btn = e.target.closest ? e.target.closest('.fund.is-locked') : null;
+  if (!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  var tk = btn.getAttribute('data-locked-ticker');
+  var f = (window.LICENTIA_LOCKED || {})[tk] || {};
+  var toFree = (f.unlock || 'pro') === 'free';
+  var d = window.LICENTIA_DATA || {};
+  var old = document.getElementById('lockModal'); if (old) old.remove();
+  var wrap = document.createElement('div');
+  wrap.id = 'lockModal'; wrap.className = 'lock-modal';
+  wrap.innerHTML = '<div class="lm-card"><div class="lm-tick">' + tk + '</div>' +
+    '<div class="lm-name">' + (f.name || '') + '</div>' +
+    '<div class="lm-copy">' + (toFree
+      ? 'This fund is one of the ' + (d.freeOpens || 50) + ' a free account opens.'
+      : 'Licentia Pro opens all ' + (d.total || 207) + ' funds, with full holdings and history.') +
+    '</div><div class="lm-row"><a class="lm-go" href="membership.html">' +
+    (toFree ? 'Create a free account' : 'See Licentia Pro') +
+    '</a><button class="lm-no" type="button">Not now</button></div></div>';
+  document.body.appendChild(wrap);
+  function close(){ wrap.remove(); }
+  wrap.querySelector('.lm-no').addEventListener('click', close);
+  wrap.addEventListener('click', function(ev){ if (ev.target === wrap) close(); });
+}, true);
+// the lists are drawn on demand, so watch for new ones rather than wiring each
+new MutationObserver(function(){ licentiaMarkLocked(); })
+  .observe(document.documentElement, { childList: true, subtree: true });
+
+
+
 function licentiaToken(){
   try {
     for (var i = 0; i < localStorage.length; i++){
@@ -397,6 +477,10 @@ function licentiaFundsFetch(opts){
     window.LICENTIA_SECTORS = j.sectors || null;
     window.LICENTIA_LOCKED = {};
     (j.locked || []).forEach(function(f){ window.LICENTIA_LOCKED[f.ticker] = f; });
+        (j.locked || []).forEach(function(f){
+          out[f.ticker] = { name: f.name, issuer: f.issuer, region: f.region,
+            holdings: {}, stats: {}, distributions: [], locked: true, unlock: f.unlock };
+        });
     var out = {};
     (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
     // shaped like a Response: pages check r.ok before reading the body
