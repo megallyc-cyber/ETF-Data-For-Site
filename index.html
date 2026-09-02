@@ -514,7 +514,7 @@
 (function(){
   var elF = document.getElementById('statFunds');
   if (!elF) return;
-  fetch('data/funds.json?cb=' + Math.random())
+  licentiaFundsFetch()
     .then(function(r){ return r.json(); })
     .then(function(data){
       var tickers = Object.keys(data);
@@ -559,7 +559,7 @@
     'Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'
   };
   Promise.all([
-    fetch('data/funds.json?cb=' + Math.random()).then(function(r){ return r.json(); }),
+    licentiaFundsFetch().then(function(r){ return r.json(); }),
     fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
     fetch('data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
   ])
