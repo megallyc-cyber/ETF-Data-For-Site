@@ -342,6 +342,12 @@
   .fund-locked::after{display:none;}
   /* a heavier blur, since the label now sits over the middle of the card */
   .fund-locked > *:not(.lock-tag){filter:blur(4px); opacity:0.3;}
+
+  /* A manager whose funds fill the last row exactly still needs its summary,
+     so it takes a row of its own rather than being dropped. */
+  .issuer-aside.aside-fullrow{flex-direction:row; flex-wrap:wrap; align-items:center;
+    gap:10px 30px; padding:14px 18px;}
+  @media(max-width:640px){ .issuer-aside.aside-fullrow{flex-direction:column; align-items:flex-start;} }
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -853,15 +859,21 @@ function buildAside(issuer, funds){
 // The grid is fixed-width columns, so work out how many are unused and let the
 // panel span them. Re-run on resize because the column count changes.
 function fitAsides(){
-  document.querySelectorAll('.issuer-group').forEach(function(g){
-    const grid = g.querySelector('.fund-grid');
-    const aside = g.querySelector('.issuer-aside');
+  document.querySelectorAll('.issuer-group').forEach(function(group){
+    var grid = group.querySelector('.fund-grid');
+    var aside = group.querySelector('.issuer-aside');
     if (!grid || !aside) return;
-    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-    const cards = grid.querySelectorAll('.fund-card').length;
-    const spare = cols - (cards % cols || cols);
-    if (spare <= 0){ aside.style.display = 'none'; }
-    else { aside.style.display = 'flex'; aside.style.gridColumn = 'span ' + spare; }
+    var cards = grid.querySelectorAll('.fund-card').length;
+    var cols = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length || 1;
+    var spare = (cols - (cards % cols)) % cols;
+    aside.style.display = 'flex';
+    if (spare <= 0) {
+      aside.classList.add('aside-fullrow');
+      aside.style.gridColumn = '1 / -1';
+    } else {
+      aside.classList.remove('aside-fullrow');
+      aside.style.gridColumn = 'span ' + spare;
+    }
   });
 }
 window.addEventListener('resize', fitAsides);
