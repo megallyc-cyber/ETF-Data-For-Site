@@ -331,11 +331,11 @@
   .fund-locked.lock-pro .lock-tag{color:#4A3A12;
     background:linear-gradient(150deg, rgba(201,155,60,0.30) 0%, rgba(201,155,60,0.16) 45%, rgba(143,107,34,0.34) 100%);}
   .fund-locked.lock-pro{border-color:rgba(201,155,60,0.55);}
-  .fund-locked.lock-pro:hover{border-color:var(--gold-deep);
+  .fund-locked.lock-pro:hover{border-color:#8F6B22;
     box-shadow:0 6px 22px -14px rgba(143,107,34,0.85);}
 
   .lock-tag .lt-pro{display:inline-block; padding:3px 9px; border-radius:5px;
-    background:linear-gradient(135deg, var(--gold), var(--gold-deep));
+    background:linear-gradient(135deg, #C89B3C, #8F6B22);
     color:#fff; font-size:9px; letter-spacing:0.13em; font-weight:500;
     box-shadow:0 2px 6px -2px rgba(143,107,34,0.6);}
 
@@ -453,6 +453,7 @@ licentiaFundsFetch()
         if (typeof buildLanding === 'function') buildLanding();
         if (typeof buildRail === 'function') buildRail();
         if (typeof renderResults === 'function') renderResults();
+        issuerFromQuery();
       } catch (e) { console.error('redraw after load failed', e); }
     init();
   })
