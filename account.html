@@ -277,6 +277,10 @@
     .dash-face{width:54px; height:54px; font-size:21px;}
     .jump{grid-template-columns:1fr;}
   }
+
+  body.signed-in .split{grid-template-columns:1fr; min-height:0;}
+  body.signed-in .pitch{display:none !important;}
+  body.signed-in .formside{display:block; padding:0; align-items:stretch;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -375,6 +379,7 @@ async function signInWithGoogle(btn){
 }
 
 function authView(){
+  document.body.classList.remove('signed-in');
   stage.innerHTML =
     '<h1>' + (mode === 'signup' ? 'Create your account' : 'Welcome back') + '</h1>'
   + '<div class="sub">' + (mode === 'signup'
@@ -498,6 +503,7 @@ function accountView(session){
     ? '<img id="faceImg" src="' + esc(photo) + '" alt="">'
     : esc((first[0] || '?').toUpperCase());
 
+  document.body.classList.add('signed-in');
   document.getElementById('stage').innerHTML =
     '<div class="dash">'
     + '<div class="dash-top">'
