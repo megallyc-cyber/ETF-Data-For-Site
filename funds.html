@@ -615,16 +615,18 @@ function init(){
     if (market && market.dataset.market && typeof selectRegion === 'function') {
       try { selectRegion(market.dataset.market); } catch (e) {}
     }
+    var lastTop = -1, stable = 0;
     function land(){
-      var top = el.getBoundingClientRect().top + window.pageYOffset - 82;
+      var top = Math.round(el.getBoundingClientRect().top + window.pageYOffset - 82);
+      if (top === lastTop) { stable++; } else { stable = 0; lastTop = top; }
       window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+      // three quiet passes means the page has finished growing
+      if (stable < 3) setTimeout(land, 250);
     }
     setTimeout(function(){
       land();
       el.classList.add('issuer-flash');
-      setTimeout(land, 400);
-      setTimeout(land, 900);
-      setTimeout(function(){ el.classList.remove('issuer-flash'); }, 2600);
+      setTimeout(function(){ el.classList.remove('issuer-flash'); }, 3000);
     }, 250);
   }
   go(0);
