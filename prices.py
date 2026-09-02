@@ -16,6 +16,7 @@ backtest on unadjusted price would understate performance badly.
 """
 import csv
 import json
+from urllib.request import Request, urlopen
 import time
 import urllib.error
 import urllib.request
@@ -111,14 +112,44 @@ def write_csv(path: Path, rows: dict) -> None:
             w.writerow([day, r["close"], r["adj_close"], r["volume"]])
 
 
+def load_registry() -> dict:
+    """Which funds exist, and which market each trades in.
+
+    The fund data itself now lives in Supabase behind a token check, so
+    data/funds.json is no longer in the repo. The funds endpoint returns every
+    ticker to any caller — the ones a visitor cannot open come back as name and
+    market only — and that is exactly what this job needs. No key required, and
+    nothing worth gating is published to make it work.
+    """
+    url = "https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds"
+    try:
+        req = Request(url, method="POST",
+                      data=json.dumps({"seed": "price-job"}).encode(),
+                      headers={"Content-Type": "application/json"})
+        with urlopen(req, timeout=60) as r:
+            payload = json.loads(r.read().decode())
+        out = {}
+        for f in payload.get("funds", []) + payload.get("locked", []):
+            out[f["ticker"]] = {"region": f.get("region", "CAD"), "name": f.get("name")}
+        if out:
+            log.info("Registry: %d tickers from the funds endpoint", len(out))
+            return out
+        log.warning("Funds endpoint returned no tickers")
+    except Exception as exc:  # noqa: BLE001
+        log.warning("Could not reach the funds endpoint (%s)", exc)
+
+    # Falling back keeps a scheduled run alive if the endpoint is briefly down.
+    for path in (TICKERS, FUNDS):
+        if path.exists():
+            log.info("Registry: falling back to %s", path)
+            return json.loads(path.read_text())
+
+    log.error("No ticker list available from the endpoint or on disk")
+    raise SystemExit(1)
+
+
 def main() -> None:
-    if TICKERS.exists():
-        funds = json.loads(TICKERS.read_text())
-    elif FUNDS.exists():
-        funds = json.loads(FUNDS.read_text())
-    else:
-        log.error("No ticker list found: expected %s (written by the scraper)", TICKERS)
-        raise SystemExit(1)
+    funds = load_registry()
     PRICE_DIR.mkdir(parents=True, exist_ok=True)
     symbols = json.loads(SYMBOL_MAP.read_text()) if SYMBOL_MAP.exists() else {}
 
