@@ -546,3 +546,22 @@
   // the session can land after the page does
   setTimeout(build, 900);
 })();
+
+/* ---------------------------------------------------------------------------
+   Legibility.
+
+   The faint ink was #8A9099, which measures 2.80:1 against the paper. The
+   readable floor for body text is 4.5:1, so every caption, label and note on
+   the site was under it — worst on the Learn cards, where whole paragraphs
+   used it. #636974 measures 4.81 on paper and 5.52 on white while still
+   reading as lighter than the body, so the hierarchy survives and the words
+   can actually be read.
+
+   Set on :root so every page picks it up without touching each file.
+--------------------------------------------------------------------------- */
+(function(){
+  var s = document.createElement('style');
+  s.id = 'licentia-legibility';
+  s.textContent = ':root{--ink-faint:#636974 !important;}';
+  (document.head || document.documentElement).appendChild(s);
+})();
