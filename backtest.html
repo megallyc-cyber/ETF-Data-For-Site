@@ -273,6 +273,33 @@
   .chart-invite .ci-hint{font-family:'IBM Plex Mono',monospace; font-size:11px;
     letter-spacing:0.12em; text-transform:uppercase; color:var(--ember-deep); margin-top:2px;}
   .rb.idle{opacity:.42; cursor:not-allowed;}
+
+  /* The slider carried no sign that it was draggable, so people read it as a
+     readout. A larger grip, a hand cursor and a nudge that runs until the
+     first touch make the invitation obvious. */
+  .slider{cursor:grab; height:34px;}
+  .slider:active{cursor:grabbing;}
+  .slider::-webkit-slider-thumb{width:26px; height:26px; cursor:grab;
+    box-shadow:0 2px 10px -3px rgba(28,34,48,0.5);}
+  .slider::-moz-range-thumb{width:26px; height:26px; cursor:grab;
+    box-shadow:0 2px 10px -3px rgba(28,34,48,0.5);}
+
+  /* the nudge stops for good once the reader has taken hold of it */
+  .slider.untouched::-webkit-slider-thumb{animation:gripNudge 2.6s ease-in-out infinite;}
+  .slider.untouched::-moz-range-thumb{animation:gripNudge 2.6s ease-in-out infinite;}
+  @keyframes gripNudge{
+    0%, 62%, 100%{transform:translateX(0);}
+    72%{transform:translateX(-7px);}
+    84%{transform:translateX(7px);}}
+
+  .slider-hint{display:flex; align-items:center; gap:8px; margin:2px 0 10px;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink-faint);}
+  .slider-hint .sh-arrows{font-size:13px; color:var(--ember-deep); letter-spacing:0;}
+  .slider-hint.gone{opacity:0; transition:opacity .4s ease; pointer-events:none;}
+  @media (prefers-reduced-motion: reduce){
+    .slider.untouched::-webkit-slider-thumb{animation:none;}
+    .slider.untouched::-moz-range-thumb{animation:none;}}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -323,7 +350,7 @@
     <div class="panel">
       <div id="holdSource"></div>
       <div class="scen" id="scen"></div>
-      <input class="slider" id="slider" type="range" min="-50" max="50" step="1" value="-20">
+      <input class="slider" id="slider" type="range" min="-50" max="50" step="1" value="0">
       <div class="shift neg" id="shiftLabel">-20%</div>
       <div class="note" style="margin-top:18px">What this does to the distributions</div>
       <div class="assume" id="assume"></div>
@@ -438,30 +465,46 @@ function pct(v, dp){ return (v===null||v===undefined||!isFinite(v)) ? '\u2014' :
 // separate opinion. A covered call fund's payout tracks option premium and
 // NAV, so a deep drawdown drags it down whether anyone likes it or not.
 function regimeFor(shiftPct){
-  if (shiftPct <= -30) return {
-    id:'cut', factor: 1 + shiftPct/100,
+  // The response used to be a staircase: any drop shallower than 15% returned
+  // "distributions hold", so the income figures did not move and stayed
+  // uncoloured. A reader dragging the slider saw nothing change and reasonably
+  // concluded the numbers were broken. The effect now grows continuously with
+  // the size of the move, so every step of the slider changes something.
+  //
+  // The shape still matches the reasoning behind the old bands: a shallow
+  // pullback barely touches the payout, and the effect builds to falling in
+  // line with the price by the time a drop reaches 30%.
+  var sev = Math.min(1, Math.abs(shiftPct) / 30);
+  var factor;
+  if (shiftPct < 0) {
+    factor = 1 + (shiftPct / 100) * sev;
+  } else if (shiftPct > 0) {
+    // calls written against the portfolio give away most of a rally
+    factor = 1 + (Math.min(shiftPct, 45) / 100) * sev * 0.30;
+  } else {
+    factor = 1;
+  }
+
+  // the wording still moves in bands, since that is how the situation is
+  // actually described, but the arithmetic underneath is smooth
+  if (shiftPct <= -30) return { id:'cut', factor: factor,
     label:'Distributions likely fall hard',
     note:'A drop this size takes the fund price with it, and distributions are paid out of a smaller base. Several covered call funds cut their monthly payment during 2022 for exactly this reason. Modelled falling in line with the price.'};
-  if (shiftPct <= -15) return {
-    id:'strain', factor: 1 + shiftPct/200,
+  if (shiftPct <= -15) return { id:'strain', factor: factor,
     label:'Distributions come under pressure',
-    note:'Option premium usually rises when markets fall, which cushions the payout, but a smaller NAV eventually pulls it down. Modelled falling at about half the rate of the price.'};
-  if (shiftPct < 0) return {
-    id:'hold', factor: 1,
-    label:'Distributions likely hold',
-    note:'A shallow pullback rarely changes the monthly cheque. Higher volatility often means richer option premium, which is what funds are selling.'};
-  if (shiftPct === 0) return {
-    id:'flat', factor: 1,
-    label:'Distributions unchanged',
-    note:'No move, no change to what the funds pay.'};
-  if (shiftPct <= 15) return {
-    id:'steady', factor: 1,
+    note:'Option premium usually rises when markets fall, which cushions the payout, but a smaller NAV eventually pulls it down. Modelled falling at roughly half the rate of the price.'};
+  if (shiftPct < 0) return { id:'hold', factor: factor,
+    label:'Distributions largely hold',
+    note:'A shallow pullback rarely changes the monthly cheque by much. Higher volatility often means richer option premium, which is what these funds are selling. The effect shown grows as the drop deepens.'};
+  if (shiftPct === 0) return { id:'flat', factor: 1,
+    label:'No move to test yet',
+    note:'Drag the slider to put the portfolio through a market move.'};
+  if (shiftPct <= 15) return { id:'steady', factor: factor,
     label:'Distributions hold',
     note:'A modest rally leaves the payout roughly where it is. Covered call funds cap their upside, so a rising market lifts the price far less than it lifts the index.'};
-  return {
-    id:'strong', factor: 1 + Math.min(shiftPct, 45)/100 * 0.30,
+  return { id:'strong', factor: factor,
     label:'Distributions hold, and may edge higher',
-    note:'A strong rally lifts NAV, and a bigger base can support a bigger payment. Do not expect it to rise in step with the market though: calls written against the portfolio give away most of a rally, and calm markets pay thinner premium. Modelled rising at about a third of the price move.'};
+    note:'A strong rally lifts NAV, and a bigger base can support a bigger payment. Do not expect it to rise in step with the market though: calls written against the portfolio give away most of a rally, and calm markets pay thinner premium.'};
 }
 
 function activeRows(){ return SCRATCH ? SCRATCH : ROWS; }
@@ -594,7 +637,7 @@ function renderStress(){
   function dOf(a, b, asPoints){
     if (a === null || b === null || a === undefined || b === undefined || !isFinite(a) || !isFinite(b)) return ['',''];
     const diff = b - a;
-    const cls = diff < -0.005 ? 'neg' : (diff > 0.005 ? 'pos' : 'flat');
+    const cls = diff < 0 ? 'neg' : (diff > 0 ? 'pos' : 'flat');
     if (asPoints) return [(diff>=0?'+':'') + diff.toFixed(1) + ' pts', cls];
     const rel = a ? diff/a*100 : 0;
     return [(diff>=0?'+':'') + money(diff) + ' (' + (rel>=0?'+':'') + rel.toFixed(1) + '%)', cls];
@@ -605,8 +648,8 @@ function renderStress(){
   const dYV = dOf(yv0, yv1, true), dYC = dOf(yc0, yc1, true), dPL = dOf(pl0, pl1);
   document.getElementById('cmp').innerHTML =
     cell(money(s.v0), money(s.v1), 'portfolio value', dv < 0 ? 'neg' : 'pos', dV[0], dV[1])
-  + cell(money(s.i0), money(s.i1), 'income a year', di < 0 ? 'neg' : (di > 0 ? 'pos' : ''), dY[0], dY[1])
-  + cell(money(s.i0/12), money(s.i1/12), 'income a month', di < 0 ? 'neg' : (di > 0 ? 'pos' : ''), dM[0], dM[1])
+  + cell(money(s.i0), money(s.i1), 'income a year', di < 0 ? 'neg' : (di > 0 ? 'pos' : 'flat'), dY[0], dY[1])
+  + cell(money(s.i0/12), money(s.i1/12), 'income a month', di < 0 ? 'neg' : (di > 0 ? 'pos' : 'flat'), dM[0], dM[1])
   + cell(pct(yv0), pct(yv1), 'yield on value', '', dYV[0], dYV[1])
   + cell(yc0 === null ? '\u2014' : pct(yc0), yc1 === null ? 'add cost basis' : pct(yc1), 'yield on cost', '', dYC[0], dYC[1])
   + cell(pl0 === null ? '\u2014' : money(pl0), pl1 === null ? 'add cost basis' : money(pl1), 'profit',
@@ -986,4 +1029,29 @@ Promise.all([
   renderStress();
 });
 </script><script src="assets/pro.js"></script>
+<script>
+// Tell the reader the slider is theirs to move, and stop saying so the moment
+// they do. A hint that outstays its welcome is worse than none.
+(function(){
+  function ready(){
+    var sl = document.getElementById('slider');
+    if (!sl) return;
+    sl.classList.add('untouched');
+    var hint = document.createElement('div');
+    hint.className = 'slider-hint';
+    hint.innerHTML = '<span class="sh-arrows">&#8596;</span><span>Drag to test a market move</span>';
+    sl.parentNode.insertBefore(hint, sl);
+    function touched(){
+      sl.classList.remove('untouched');
+      hint.classList.add('gone');
+      sl.removeEventListener('input', touched);
+      sl.removeEventListener('pointerdown', touched);
+    }
+    sl.addEventListener('input', touched);
+    sl.addEventListener('pointerdown', touched);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
+  else ready();
+})();
+</script>
 </body></html>
