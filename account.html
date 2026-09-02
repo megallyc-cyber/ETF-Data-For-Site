@@ -302,6 +302,21 @@
     .dcard.details .fields{grid-template-columns:1fr; gap:0;}
     .dcard.details .field{margin-bottom:14px;}
   }
+
+  /* Somewhere to say what is missing. It sits in the account rather than a
+     contact page because this is where someone already is when the thought
+     occurs to them. */
+  .fb{margin-top:20px; padding-top:18px; border-top:1px solid var(--line);}
+  .fb label{display:block; font-family:'Fraunces',serif; font-size:16px;
+    letter-spacing:-0.01em; color:var(--ink); margin-bottom:3px; text-transform:none;}
+  .fb .fb-lede{font-size:13px; color:var(--ink-soft); margin-bottom:11px;}
+  .fb textarea{width:100%; padding:11px 13px; border-radius:10px; font-family:inherit;
+    font-size:14px; line-height:1.55; border:1px solid var(--line-strong);
+    background:var(--paper-2); color:var(--ink); resize:vertical; min-height:76px;}
+  .fb textarea:focus{outline:none; border-color:var(--ink);}
+  .fb-row{display:flex; align-items:center; gap:12px; margin-top:11px; flex-wrap:wrap;}
+  .fb-msg{font-size:12.5px; color:var(--ink-faint);}
+  .fb-msg.good{color:var(--ember-deep);}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -495,6 +510,10 @@ function licentiaFundsFetch(){
     return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
   });
 }
+// Where feedback is delivered. Swap this for the hashed FormSubmit token
+// once the address is confirmed, so the address is not sitting in the page.
+const LICENTIA_FEEDBACK_TO = 'megallyc@gmail.com';
+
 function accountView(session){
   const u = session.user;
   const meta = u.user_metadata || {};
@@ -601,6 +620,15 @@ function accountView(session){
           + '<span class="saved" id="savedFlag">Saved</span>'
         + '</div></div>'
         + '</div>'
+        + '<div class="fb" id="feedbackBox">'
+          + '<label for="fbText">Any ideas you want to share?</label>'
+          + '<div class="fb-lede">Write them here and our team will consider building them.</div>'
+          + '<textarea id="fbText" rows="3" placeholder="A fund we are missing, something confusing, anything you wish this did\u2026"></textarea>'
+          + '<div class="fb-row">'
+            + '<button class="btn-solid" id="fbSend">Send it over</button>'
+            + '<span class="fb-msg" id="fbMsg"></span>'
+          + '</div>'
+        + '</div>'
         + '<div class="foot">'
           + '<span class="tiny">Signed in with ' + esc((u.app_metadata && u.app_metadata.provider) || 'email') + '</span>'
           + '<button class="btn-quiet" id="signout">Sign out</button>'
@@ -664,6 +692,45 @@ function accountView(session){
   }
   const dropBtn = document.getElementById('dropPhoto');
   if (dropBtn) dropBtn.addEventListener('click', dropPhoto);
+
+
+  // Feedback goes straight to the inbox. It carries who sent it and which plan
+  // they are on, since "the comparison tool is confusing" means something
+  // different from a paying subscriber than from a passer-by.
+  const fbBtn = document.getElementById('fbSend');
+  if (fbBtn) fbBtn.addEventListener('click', async function(){
+    const box = document.getElementById('fbText');
+    const msg = document.getElementById('fbMsg');
+    const text = (box.value || '').trim();
+    if (text.length < 4) { msg.className = 'fb-msg'; msg.textContent = 'Write a little more first'; return; }
+    fbBtn.disabled = true; fbBtn.textContent = 'Sending\u2026';
+    try {
+      const r = await fetch('https://formsubmit.co/ajax/' + LICENTIA_FEEDBACK_TO, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Licentia feedback from ' + (email || 'a reader'),
+          from: email || 'unknown',
+          plan: isPro ? 'Licentia Pro' : 'Free account',
+          name: name || '(no name set)',
+          message: text
+        })
+      });
+      const j = await r.json().catch(function(){ return {}; });
+      if (r.ok && (j.success === 'true' || j.success === true || r.status === 200)) {
+        box.value = '';
+        msg.className = 'fb-msg good';
+        msg.textContent = 'Sent \u2014 thank you, we read every one';
+      } else {
+        msg.className = 'fb-msg';
+        msg.textContent = 'That did not send. Try again in a moment.';
+      }
+    } catch(e){
+      msg.className = 'fb-msg';
+      msg.textContent = 'That did not send. Try again in a moment.';
+    }
+    fbBtn.disabled = false; fbBtn.textContent = 'Send it over';
+  });
 
   document.getElementById('signout').addEventListener('click', async function(){
     await sb.auth.signOut();
