@@ -380,6 +380,10 @@ async function signInWithGoogle(btn){
 
 function authView(){
   document.body.classList.remove('signed-in');
+  const sp = document.querySelector('.split');
+  if (sp) sp.style.display = '';
+  const oldRoot = document.getElementById('dashRoot');
+  if (oldRoot) oldRoot.remove();
   stage.innerHTML =
     '<h1>' + (mode === 'signup' ? 'Create your account' : 'Welcome back') + '</h1>'
   + '<div class="sub">' + (mode === 'signup'
@@ -504,7 +508,15 @@ function accountView(session){
     : esc((first[0] || '?').toUpperCase());
 
   document.body.classList.add('signed-in');
-  document.getElementById('stage').innerHTML =
+  const splitEl = document.querySelector('.split');
+  if (splitEl) splitEl.style.display = 'none';
+  let root = document.getElementById('dashRoot');
+  if (!root) {
+    root = document.createElement('div');
+    root.id = 'dashRoot';
+    document.querySelector('main').appendChild(root);
+  }
+  root.innerHTML =
     '<div class="dash">'
     + '<div class="dash-top">'
       + '<div class="dash-face" id="face">' + face + '</div>'
