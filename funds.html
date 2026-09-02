@@ -343,11 +343,9 @@
   /* a heavier blur, since the label now sits over the middle of the card */
   .fund-locked > *:not(.lock-tag){filter:blur(4px); opacity:0.3;}
 
-  /* A manager whose funds fill the last row exactly still needs its summary,
-     so it takes a row of its own rather than being dropped. */
-  .issuer-aside.aside-fullrow{flex-direction:row; flex-wrap:wrap; align-items:center;
-    gap:10px 30px; padding:14px 18px;}
-  @media(max-width:640px){ .issuer-aside.aside-fullrow{flex-direction:column; align-items:flex-start;} }
+  /* A manager whose funds fill the last row exactly still needs its summary.
+     It sits on its own row, styled exactly as every other one. */
+  .issuer-aside.aside-fullrow{max-width:340px;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
