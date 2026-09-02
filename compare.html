@@ -494,13 +494,14 @@ function licentiaFundsFetch(opts){
     window.LICENTIA_SECTORS = j.sectors || null;
     window.LICENTIA_LOCKED = {};
     (j.locked || []).forEach(function(f){ window.LICENTIA_LOCKED[f.ticker] = f; });
-        (j.locked || []).forEach(function(f){
-          out[f.ticker] = { name: f.name, issuer: f.issuer, region: f.region,
-            holdings: {}, stats: {}, distributions: [], locked: true, unlock: f.unlock };
-        });
     var out = {};
     (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
     // shaped like a Response: pages check r.ok before reading the body
+    // list locked funds too, so a manager's shelf looks its real size
+    (j.locked || []).forEach(function(f){
+      out[f.ticker] = { name: f.name, issuer: f.issuer, region: f.region,
+        holdings: {}, stats: {}, distributions: [], locked: true, unlock: f.unlock };
+    });
     return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
   });
 }
