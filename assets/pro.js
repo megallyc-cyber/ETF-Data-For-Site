@@ -276,7 +276,7 @@
        string sits half a space left of true centre */
     '.basket span{text-indent:2.2px;}',
     /* nothing on the site should scroll sideways */
-    'html, body{max-width:100%; overflow-x:hidden;}',
+    'html, body{max-width:100%; overflow-x:clip;}',
     '@media (max-width:900px){',
     /* the bird already sits in the bar; a second one under it is a repeat */
     '  .home-bird{display:none;}',
@@ -448,4 +448,27 @@
         return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
       });
   };
+})();
+
+/* The nav follows the reader. It was already sticky; what stopped it was the
+   overflow rule above turning the page into a scroll container. */
+(function(){
+  var s = document.createElement('style');
+  s.id = 'licentia-sticky-nav';
+  s.textContent = [
+    'nav{position:sticky !important; top:0; z-index:60;}',
+    'nav.is-stuck{border-bottom:1px solid var(--line);',
+    '  box-shadow:0 6px 18px -14px rgba(28,34,48,0.5);}',
+    '@supports not (overflow:clip){ html, body{overflow-x:hidden;} }'
+  ].join('\n');
+  (document.head || document.documentElement).appendChild(s);
+
+  function onScroll(){
+    var nav = document.querySelector('nav');
+    if (!nav) return;
+    if (window.pageYOffset > 4) nav.classList.add('is-stuck');
+    else nav.classList.remove('is-stuck');
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
