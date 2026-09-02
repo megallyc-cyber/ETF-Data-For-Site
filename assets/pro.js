@@ -472,3 +472,76 @@
   document.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 })();
+
+/* ---------------------------------------------------------------------------
+   The signed-in face in the nav.
+
+   Every page already knows whether someone is signed in, since the session
+   sits in localStorage. Showing their photo beside the navigation is the
+   cheapest way to make the site feel like it belongs to them, and it doubles
+   as the answer to "am I actually logged in?" without a trip to My Account.
+--------------------------------------------------------------------------- */
+(function(){
+  function session(){
+    try {
+      for (var i = 0; i < localStorage.length; i++){
+        var k = localStorage.key(i);
+        if (!/auth-token/.test(k)) continue;
+        var v = JSON.parse(localStorage.getItem(k));
+        var s = v && v.user ? v : (v && v.currentSession ? v.currentSession : null);
+        if (s && s.user) return s;
+      }
+    } catch(e){}
+    return null;
+  }
+
+  function build(){
+    var s = session();
+    var links = document.querySelector('.navlinks');
+    if (!links) return;
+    var old = document.getElementById('licentia-nav-face');
+    if (old) old.remove();
+    if (!s) return;
+
+    var u = s.user;
+    var meta = u.user_metadata || {};
+    var tier = (u.app_metadata && u.app_metadata.tier) || meta.tier || null;
+    var name = (meta.display_name || meta.full_name || meta.name || u.email || '?').trim();
+    var photo = null;
+    try { photo = localStorage.getItem('licentia_avatar_' + u.id); } catch(e){}
+    if (!photo) photo = meta.avatar_url || null;
+
+    var a = document.createElement('a');
+    a.id = 'licentia-nav-face';
+    a.href = 'account.html';
+    a.className = 'nav-face' + (tier === 'pro' ? ' is-pro' : '');
+    a.title = name;
+    a.setAttribute('aria-label', 'Your account');
+    a.innerHTML = photo
+      ? '<img src="' + photo + '" alt="">'
+      : '<span>' + String(name).trim().charAt(0).toUpperCase() + '</span>';
+
+    // sits at the end of the row, where an account control is expected
+    links.appendChild(a);
+  }
+
+  var s = document.createElement('style');
+  s.textContent = [
+    '.nav-face{display:inline-flex; align-items:center; justify-content:center;',
+    '  width:29px; height:29px; border-radius:50%; overflow:hidden; flex:none;',
+    '  margin-left:4px; background:var(--paper-2); border:1px solid var(--line-strong);',
+    '  font-family:\'Fraunces\',serif; font-size:13px; color:var(--ink-soft);',
+    '  text-decoration:none; transition:border-color .16s, transform .16s;}',
+    '.nav-face img{width:100%; height:100%; object-fit:cover; display:block;}',
+    '.nav-face:hover{border-color:var(--ink); transform:translateY(-1px);}',
+    '.nav-face.is-pro{border-color:#C89B3C; box-shadow:0 0 0 2px rgba(200,155,60,0.20);}',
+    '.nav-face::after{display:none !important;}',
+    '@media(max-width:860px){ .nav-face{width:34px; height:34px; margin:8px 0 0;} }'
+  ].join('\n');
+  (document.head || document.documentElement).appendChild(s);
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+  // the session can land after the page does
+  setTimeout(build, 900);
+})();
