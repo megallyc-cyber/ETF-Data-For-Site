@@ -23,6 +23,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 FUNDS = Path("data/funds.json")
+# The fund data itself now lives in Supabase behind a token check, so
+# data/funds.json is no longer in the repo. All this job needs is the list of
+# tickers and which market each trades in — neither is worth gating — so the
+# scraper leaves that behind in data/tickers.json.
+TICKERS = Path("data/tickers.json")
 PRICE_DIR = Path("data/prices")
 SYMBOL_MAP = PRICE_DIR / "_symbols.json"
 CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval=1d"
@@ -107,7 +112,13 @@ def write_csv(path: Path, rows: dict) -> None:
 
 
 def main() -> None:
-    funds = json.loads(FUNDS.read_text())
+    if TICKERS.exists():
+        funds = json.loads(TICKERS.read_text())
+    elif FUNDS.exists():
+        funds = json.loads(FUNDS.read_text())
+    else:
+        log.error("No ticker list found: expected %s (written by the scraper)", TICKERS)
+        raise SystemExit(1)
     PRICE_DIR.mkdir(parents=True, exist_ok=True)
     symbols = json.loads(SYMBOL_MAP.read_text()) if SYMBOL_MAP.exists() else {}
 
