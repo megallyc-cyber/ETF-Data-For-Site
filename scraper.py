@@ -1954,6 +1954,13 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
             "error": fund.error,
         }
     path.write_text(json.dumps(payload, indent=2))
+    # The price job needs to know which tickers exist and which market each
+    # trades in. That is not worth gating, and the fund data itself no longer
+    # lives in the repo, so leave just the list behind.
+    tickers = {t: {"region": v.get("region"), "name": v.get("name")}
+                for t, v in payload.items()}
+    Path("data/tickers.json").write_text(json.dumps(tickers, indent=2, sort_keys=True))
+    log.info("Wrote data/tickers.json — %d tickers", len(tickers))
     push_to_supabase(payload)
     ok = sum(1 for f in registry if f.fetched_ok)
     with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
