@@ -327,43 +327,10 @@
   /* ---- overlap as a Venn ------------------------------------------------
      A list of tickers says which names appear twice but not how much of each
      fund they are. Two overlapping circles say it without being read. */
-  .venn{padding:4px 0 2px;}
-  .vn-head{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:10px;}
-  .vn-h{text-align:center;}
-  .vn-h b{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.04em;}
-  .vn-h span{display:block; font-size:11px; color:var(--ink-faint); margin-top:2px;}
-  .vn-h-a b{color:var(--teal);}
-  .vn-h-b b{color:var(--rust);}
 
-  .vn-rings{position:relative; display:grid; grid-template-columns:1fr 1.05fr 1fr;
-    gap:0; align-items:start; min-height:170px;}
-  .vn-ring{position:absolute; top:0; bottom:0; width:64%; border-radius:50%;
-    pointer-events:none;}
-  .vn-ring-a{left:0; background:rgba(31,122,92,0.10); border:1px solid rgba(31,122,92,0.35);}
-  .vn-ring-b{right:0; background:rgba(190,70,45,0.09); border:1px solid rgba(190,70,45,0.32);}
-  .vn-zone{position:relative; z-index:2; display:flex; flex-wrap:wrap; gap:5px;
-    align-content:flex-start; justify-content:center; padding:22px 8px;}
-  .vn-zone-s{padding-top:26px;}
 
-  .vn-t{display:inline-flex; align-items:baseline; gap:4px; padding:3px 8px;
-    border-radius:100px; font-family:'IBM Plex Mono',monospace; font-size:11px;
-    background:var(--white); border:1px solid var(--line);}
-  .vn-t i{font-style:normal; font-size:9.5px; color:var(--ink-faint);}
-  .vn-t.s{border-color:rgba(28,34,48,0.34); font-weight:500;}
-  .vn-t.a{border-color:rgba(31,122,92,0.4);}
-  .vn-t.b{border-color:rgba(190,70,45,0.4);}
-  .vn-more{align-self:center; font-size:10.5px; color:var(--ink-faint);}
-  .vn-none{font-size:11.5px; color:var(--ink-faint); padding:8px;}
-  .vn-foot{margin-top:12px; padding-top:11px; border-top:1px solid var(--line);
-    font-size:13px; color:var(--ink-soft);}
-  .vn-foot b{color:var(--ink); font-weight:500;}
 
-  .venn-many .vm-band{display:flex; gap:14px; align-items:flex-start; padding:11px 0;
-    border-top:1px solid var(--line);}
   .venn-many .vm-band:first-child{border-top:none;}
-  .vm-lab{flex:none; width:106px; font-family:'IBM Plex Mono',monospace; font-size:10px;
-    letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); padding-top:5px;}
-  .vm-set{display:flex; flex-wrap:wrap; gap:5px;}
 
   @media(max-width:640px){
     .vn-rings{grid-template-columns:1fr; min-height:0;}
@@ -424,39 +391,97 @@
     .pf-bars, .pf-v{grid-column:1 / -1;}
   }
 
-  /* vn-label-fix: the circles need height to hold their names, and the chips
-     need a ceiling so one long label cannot stretch a column. */
-  .vn-rings{min-height:300px; align-items:stretch;}
-  .vn-ring{top:8px; bottom:8px; width:58%;}
-  .vn-ring-a{left:2%;}
-  .vn-ring-b{right:2%;}
-  .vn-zone{flex-direction:column; align-items:center; gap:6px;
-    padding:30px 10px; justify-content:center;}
-  .vn-zone-s{padding:30px 4px;}
-  .vn-t{max-width:118px; overflow:hidden;}
-  .vn-t b{font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-  .vn-more{margin-top:2px;}
-  @media(max-width:860px){
-    .vn-rings{min-height:340px;}
-    .vn-t{max-width:100px; font-size:10.5px;}}
+
 
   /* the legend lines start at the same place, whatever the ticker length */
   .pf-leg{align-items:flex-start;}
   .pf-leg .pf-tag{width:62px; text-align:center; padding:3px 0; line-height:1.5;}
   .pf-leg > span:last-child, .pf-leg{line-height:1.55;}
-  /* venn-width-fix: #chips was still a flex row from the old chip list, so the
-     diagram shrank to its content width and the names spilled out of the
-     circles. It needs the whole panel. */
-  #chips{display:block !important;}
-  .venn{width:100%;}
-  .vn-rings{width:100%;}
-  /* keep each column inside its circle */
-  .vn-zone{min-width:0;}
-  .vn-zone-a, .vn-zone-b{padding-left:18px; padding-right:18px;}
+
 
   /* A refresh part-way down the page could land on unpainted area. Returning
      to the top on reload avoids it, and matches what a reader expects: the
      picks are still there, the page just starts at the beginning. */
+  #chips{display:block !important;}
+
+  /* ---- overlap, drawn so the zones actually sit inside the circles --------
+     The columns and the ellipses were sized independently: thirds for the
+     text, 58%-wide circles for the shapes. Nothing lined up. The three
+     columns now match the three regions exactly —
+       left circle   0% -> 62%      (its own names live in 0% -> 38%)
+       right circle 38% -> 100%     (its own names live in 62% -> 100%)
+       the overlap  38% -> 62%      (the shared names)
+     so the geometry and the content are described by the same numbers. */
+  .venn{width:100%; padding:6px 0 2px;}
+
+  .vn-head{display:grid; grid-template-columns:38% 24% 38%; gap:0; margin-bottom:12px;}
+  .vn-h{text-align:center;}
+  .vn-h b{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px;
+    letter-spacing:0.04em;}
+  .vn-h span{display:block; font-size:11px; color:var(--ink-faint); margin-top:2px;}
+  .vn-h-a b{color:#2C6E63;}
+  .vn-h-s b{color:#8F6B22;}
+  .vn-h-b b{color:var(--ember-deep);}
+
+  .vn-rings{position:relative; display:grid; grid-template-columns:38% 24% 38%;
+    gap:0; min-height:320px; align-items:center;}
+
+  /* the two shapes, drawn behind the names */
+  .vn-ring{position:absolute; top:0; bottom:0; width:62%; border-radius:50%;
+    pointer-events:none;}
+  .vn-ring-a{left:0;
+    background:radial-gradient(ellipse at 30% 50%, rgba(44,110,99,0.13), rgba(44,110,99,0.05));
+    border:1px solid rgba(44,110,99,0.30);}
+  .vn-ring-b{right:0;
+    background:radial-gradient(ellipse at 70% 50%, rgba(255,107,53,0.12), rgba(255,107,53,0.04));
+    border:1px solid rgba(255,107,53,0.28);}
+  /* the lens where they meet, so the middle reads as genuinely shared */
+  .vn-lens{position:absolute; left:38%; width:24%; top:14%; bottom:14%;
+    border-radius:50%; pointer-events:none;
+    background:linear-gradient(160deg, rgba(201,155,60,0.16), rgba(201,155,60,0.07));}
+
+  .vn-zone{position:relative; z-index:2; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:5px; padding:26px 12px; min-width:0;}
+
+  .vn-t{display:inline-flex; align-items:baseline; gap:5px; max-width:112px;
+    padding:3px 9px; border-radius:100px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; line-height:1.5;
+    background:var(--white); border:1px solid var(--line); color:var(--ink);}
+  .vn-t b{font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .vn-t i{font-style:normal; font-size:9.5px; color:var(--ink-faint);}
+  .vn-t.a{border-color:rgba(44,110,99,0.42);}
+  .vn-t.b{border-color:rgba(255,107,53,0.42);}
+  .vn-t.s{border-color:rgba(201,155,60,0.6); background:#FFFDF7; font-weight:500;
+    box-shadow:0 1px 4px -2px rgba(143,107,34,0.5);}
+  .vn-more{font-size:10.5px; color:var(--ink-faint); margin-top:3px;}
+  .vn-none{font-size:11px; color:var(--ink-faint);}
+
+  .vn-foot{margin-top:14px; padding-top:12px; border-top:1px solid var(--line);
+    font-size:13px; color:var(--ink-soft);}
+  .vn-foot b{color:var(--ink); font-weight:500;}
+
+  .venn-many .vm-band{display:flex; gap:14px; align-items:flex-start; padding:11px 0;
+    border-top:1px solid var(--line);}
+  .venn-many .vm-band:first-child{border-top:none;}
+  .vm-lab{flex:none; width:108px; font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); padding-top:5px;}
+  .vm-set{display:flex; flex-wrap:wrap; gap:5px;}
+
+  /* On a phone the circles stop helping: three labelled bands say the same
+     thing without asking anyone to read overlapping shapes 340px wide. */
+  @media(max-width:760px){
+    .vn-head{display:none;}
+    .vn-rings{grid-template-columns:1fr; min-height:0;}
+    .vn-ring, .vn-lens{display:none;}
+    .vn-zone{align-items:flex-start; padding:12px 0; border-top:1px solid var(--line);
+      flex-direction:row; flex-wrap:wrap; justify-content:flex-start;}
+    .vn-zone::before{width:100%; font-family:'IBM Plex Mono',monospace; font-size:10px;
+      letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px;}
+    .vn-zone-a::before{content:'Only the first'; color:#2C6E63;}
+    .vn-zone-s::before{content:'Held by both'; color:#8F6B22;}
+    .vn-zone-b::before{content:'Only the second'; color:var(--ember-deep);}
+  }
+
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -1231,6 +1256,7 @@ function vennTwo(host, a, b){
       "<div class='vn-rings'>" +
         "<div class='vn-ring vn-ring-a'></div>" +
         "<div class='vn-ring vn-ring-b'></div>" +
+        "<div class='vn-lens'></div>" +
         "<div class='vn-zone vn-zone-a'>" + col(la, "a") + (moreA > 0 ? "<span class='vn-more'>+" + moreA + " more</span>" : "") + "</div>" +
         "<div class='vn-zone vn-zone-s'>" + col(ls, "s") + (moreS > 0 ? "<span class='vn-more'>+" + moreS + " more</span>" : "") + "</div>" +
         "<div class='vn-zone vn-zone-b'>" + col(lb, "b") + (moreB > 0 ? "<span class='vn-more'>+" + moreB + " more</span>" : "") + "</div>" +
