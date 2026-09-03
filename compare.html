@@ -1304,9 +1304,9 @@ function countTo(el, target){
 // Cash lines, FX and "other assets" are not companies. They were being drawn
 // as holdings, which overstates what a fund actually owns.
 function vennIsReal(t){
-  var s = String(t).toLowerCase();
-  if (s.length > 24) return true;  // a long name is a fund, keep it
-  return !/(^|\s)(cash|other assets|net other|liabilities|receivable|payable|margin|collateral|currency|forward|treasury bill|money market)/.test(s);
+  var s = String(t).toLowerCase().trim();
+  if (/(cash|other assets|net other|liabilit|receivable|payable|margin|collateral|forward contract|treasury bill|money market|net assets|accrued)/.test(s)) return false;
+  return true;
 }
 
 // A holding is only openable when it is a fund we actually track. Most are
