@@ -578,6 +578,27 @@
     .vn-b.is-fund:hover{transform:none;}
   }
 
+
+  /* venn-height-fix
+     An ellipse is only full width across its middle; near the top and bottom
+     it pinches to nothing. The bubbles were filling nearly the whole height,
+     so the ones at the ends sat outside the curve. Taller shapes with the
+     names held to the middle band keeps everything inside the outline. */
+  .vn-rings{min-height:440px;}
+  .vn-ring{top:0; bottom:0;}
+  .vn-lens{top:9%; bottom:9%;}
+  /* the names occupy the wide middle, not the pinched ends */
+  .vn-zone{padding:64px 30px; gap:10px;}
+  .vn-zone-s{padding:64px 12px;}
+  /* a little more room between rows so the discs are not touching */
+  .vn-zone .vn-b{margin:1px;}
+  .vn-more{margin-top:6px;}
+
+  @media(max-width:980px){
+    .vn-rings{min-height:400px;}
+    .vn-zone{padding:52px 18px;}
+  }
+
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -1436,7 +1457,7 @@ function vennTwo(host, a, b){
     if (!list.length) return "<div class='vn-none'>none</div>";
     return list.map(function(o){ return vennBubble(o, cls, maxW); }).join("");
   }
-  var la = topN(onlyA, 7), lb = topN(onlyB, 7), ls = shared.filter(function(o){ return vennIsReal(o.t); }).slice(0, 7);
+  var la = topN(onlyA, 6), lb = topN(onlyB, 6), ls = shared.filter(function(o){ return vennIsReal(o.t); }).slice(0, 7);
   var moreA = Object.keys(onlyA).length - la.length;
   var moreB = Object.keys(onlyB).length - lb.length;
   var moreS = shared.length - ls.length;
