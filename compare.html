@@ -441,6 +441,19 @@
   .pf-leg{align-items:flex-start;}
   .pf-leg .pf-tag{width:62px; text-align:center; padding:3px 0; line-height:1.5;}
   .pf-leg > span:last-child, .pf-leg{line-height:1.55;}
+  /* venn-width-fix: #chips was still a flex row from the old chip list, so the
+     diagram shrank to its content width and the names spilled out of the
+     circles. It needs the whole panel. */
+  #chips{display:block !important;}
+  .venn{width:100%;}
+  .vn-rings{width:100%;}
+  /* keep each column inside its circle */
+  .vn-zone{min-width:0;}
+  .vn-zone-a, .vn-zone-b{padding-left:18px; padding-right:18px;}
+
+  /* A refresh part-way down the page could land on unpainted area. Returning
+     to the top on reload avoids it, and matches what a reader expects: the
+     picks are still there, the page just starts at the beginning. */
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -1329,6 +1342,14 @@ document.getElementById('ctaBtn').addEventListener('click', function(){
   window.addEventListener("scroll", sync, { passive: true });
   sync();
 })();
+
+// The browser restores the old scroll position on refresh, which on a long
+// page can leave the viewport over content that has not painted yet. Start
+// at the top instead.
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+window.addEventListener("pageshow", function(e){
+  if (e.persisted) window.scrollTo(0, 0);
+});
 window.addEventListener('scroll', syncCta, {passive:true});
 window.addEventListener('resize', syncCta);
 </script>
