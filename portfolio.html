@@ -176,6 +176,15 @@
     background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff; font-size:13.5px;}
   .lm-no{background:none; border:none; cursor:pointer; font-family:inherit;
     font-size:13.5px; color:var(--ink-faint);}
+
+  /* a number you can click, without shouting about it until you hover */
+  .cellEdit{cursor:text; border-bottom:1px dashed transparent; padding-bottom:1px;}
+  .cellEdit:hover{border-bottom-color:var(--line-strong);}
+  .cellEdit.isblank{color:var(--ink-faint); font-style:italic;}
+  .cellInput{width:88px; padding:3px 6px; font-family:inherit; font-size:13.5px;
+    text-align:right; border:1px solid var(--ink); border-radius:6px;
+    background:var(--white); color:var(--ink);}
+  .cellInput:focus{outline:none;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -445,17 +454,21 @@ function renderRows(){
   }
   let html = '<table><thead><tr>'
     + '<th>Fund</th><th class="r">Shares</th><th class="r">Price</th><th class="r">Value</th>'
-    + '<th class="r">Yield</th><th class="r">Income / yr</th><th class="r">Profit</th><th></th>'
+    + '<th class="r">Yield</th><th class="r">Income / yr</th><th class="r">Cost / share</th><th class="r">Profit</th><th></th>'
     + '</tr></thead><tbody>';
   ROWS.forEach(function(r){
     const d = derive(r);
     html += '<tr>'
       + '<td><div class="tic">' + r.ticker + '</div><div class="nm">' + (d.fund ? d.fund.name : 'not in our data') + '</div></td>'
-      + '<td class="r num">' + d.shares.toLocaleString('en-US') + '</td>'
+      + '<td class="r num"><span class="cellEdit" data-id="' + r.id + '" data-field="shares">'
+        + d.shares.toLocaleString('en-US') + '</span></td>'
       + '<td class="r num">' + (d.price !== undefined && d.price !== null ? money(d.price, 2) : '—') + '</td>'
       + '<td class="r num">' + money(d.value) + '</td>'
       + '<td class="r num">' + pct(d.yieldNow) + '</td>'
       + '<td class="r num">' + money(d.income) + '</td>'
+      + '<td class="r num"><span class="cellEdit' + (d.cost === null || d.cost === undefined ? ' isblank' : '')
+        + '" data-id="' + r.id + '" data-field="cost">'
+        + (d.cost === null || d.cost === undefined ? 'add' : money(d.cost, 2)) + '</span></td>'
       + '<td class="r num ' + (d.pl === null ? '' : (d.pl < 0 ? 'neg' : 'pos')) + '">'
         + (d.pl === null ? '—' : money(d.pl) + ' (' + pct(d.plPct) + ')') + '</td>'
       + '<td class="r"><button class="rowbtn" data-id="' + r.id + '" title="Remove">&times;</button></td>'
@@ -463,6 +476,9 @@ function renderRows(){
   });
   html += '</tbody></table>';
   box.innerHTML = html;
+  box.querySelectorAll('.cellEdit').forEach(function(el){
+    el.addEventListener('click', function(){ startEdit(el); });
+  });
   box.querySelectorAll('.rowbtn').forEach(function(b){
     b.addEventListener('click', function(){ removeHolding(b.dataset.id); });
   });
@@ -550,6 +566,68 @@ async function addHolding(){
   buildPicker();
   await loadRows();
   renderRows(); renderTotals();
+}
+
+
+// Editing happens in the cell itself: click the number, type, press Enter.
+// A dialog for two numbers would be heavier than the task deserves.
+function startEdit(el){
+  if (el.querySelector('input')) return;
+  const id = el.dataset.id, field = el.dataset.field;
+  const row = ROWS.filter(function(r){ return String(r.id) === String(id); })[0];
+  if (!row) return;
+  const current = field === 'shares' ? row.shares
+    : (row.cost_basis === null || row.cost_basis === undefined ? '' : row.cost_basis);
+  const before = el.innerHTML;
+
+  const input = document.createElement('input');
+  input.type = 'number'; input.step = field === 'shares' ? '0.001' : '0.01'; input.min = '0';
+  input.className = 'cellInput';
+  input.value = current;
+  input.placeholder = field === 'shares' ? 'shares' : 'cost';
+  el.innerHTML = '';
+  el.appendChild(input);
+  input.focus(); input.select();
+
+  let done = false;
+  function revert(){ if (done) return; done = true; el.innerHTML = before;
+    el.querySelectorAll('.cellEdit').forEach(function(){}); }
+
+  async function commit(){
+    if (done) return;
+    const raw = input.value.trim();
+    // shares must be a real positive number; a blank cost simply clears it
+    if (field === 'shares'){
+      const n = Number(raw);
+      if (!raw || !isFinite(n) || n <= 0){ say('Enter a share count above zero.', 'bad'); revert(); return; }
+      done = true;
+      await saveHolding(id, { shares: n });
+    } else {
+      const n = raw === '' ? null : Number(raw);
+      if (raw !== '' && (!isFinite(n) || n < 0)){ say('Enter a cost of zero or more, or leave it blank.', 'bad'); revert(); return; }
+      done = true;
+      await saveHolding(id, { cost_basis: n });
+    }
+  }
+
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){ e.preventDefault(); commit(); }
+    if (e.key === 'Escape'){ e.preventDefault(); revert(); }
+  });
+  input.addEventListener('blur', commit);
+}
+
+// The row is written first, then the table redrawn from what came back, so
+// what is on screen is what is actually stored rather than what was typed.
+async function saveHolding(id, patch){
+  const res = await sb.from('portfolio_holdings').update(patch).eq('id', id).select();
+  if (res.error){ say(res.error.message, 'bad'); renderRows(); return; }
+  const updated = (res.data || [])[0];
+  if (updated){
+    ROWS = ROWS.map(function(r){ return String(r.id) === String(id) ? updated : r; });
+  }
+  renderRows(); renderTotals();
+  say('Saved.', 'good');
 }
 
 async function removeHolding(id){
