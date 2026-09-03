@@ -164,6 +164,18 @@
   .pickgroup i{display:inline-block; width:7px; height:7px; border-radius:2px;
     margin-right:7px; background:var(--fam); vertical-align:0;}
 
+  .lock-modal{position:fixed; inset:0; z-index:200; display:flex; align-items:center;
+    justify-content:center; padding:22px; background:rgba(28,34,48,0.42);
+    backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
+  .lock-modal .lm-card{background:var(--white); border:1px solid var(--line-strong);
+    border-radius:16px; padding:26px; max-width:400px; width:100%;}
+  .lm-tick{font-family:'Fraunces',serif; font-size:24px; margin-bottom:8px;}
+  .lm-copy{font-size:14.5px; line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
+  .lm-row{display:flex; align-items:center; gap:14px;}
+  .lm-go{flex:none; padding:11px 20px; border-radius:100px; text-decoration:none;
+    background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff; font-size:13.5px;}
+  .lm-no{background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:13.5px; color:var(--ink-faint);}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -496,6 +508,26 @@ async function loadRows(){
   ROWS = res.data || [];
 }
 
+// Three saved holdings on a free account, unlimited on Pro. Checked before
+// the row is written rather than hidden afterwards.
+function licentiaHoldingCap(){
+  var d = window.LICENTIA_DATA || {};
+  if (d.tier === "pro") return true;
+  var rows = document.querySelectorAll("[data-holding-row]").length || (window.HOLDINGS||[]).length;
+  if (rows < 3) return true;
+  var old = document.getElementById("lockModal"); if (old) old.remove();
+  var w = document.createElement("div");
+  w.id = "lockModal"; w.className = "lock-modal";
+  w.innerHTML = '<div class="lm-card"><div class="lm-tick">Three saved</div>'
+    + '<div class="lm-copy">A free account keeps three holdings. Licentia Pro keeps as many '
+    + 'as you like, with yield on cost and profit across the whole portfolio.</div>'
+    + '<div class="lm-row"><a class="lm-go" href="membership.html">See Licentia Pro</a>'
+    + '<button class="lm-no" type="button">Not now</button></div></div>';
+  document.body.appendChild(w);
+  w.querySelector(".lm-no").addEventListener("click", function(){ w.remove(); });
+  w.addEventListener("click", function(e){ if (e.target === w) w.remove(); });
+  return false;
+}
 async function addHolding(){
   const btn = document.getElementById('add');
   const ticker = CHOSEN;
@@ -504,6 +536,7 @@ async function addHolding(){
   const cost = cbRaw === '' ? null : Number(cbRaw);
   if (!ticker){ say('Pick a fund first — start typing a ticker or name.', 'bad'); return; }
   if (!shares || shares <= 0){ say('Enter a share count above zero.', 'bad'); return; }
+  if (!licentiaHoldingCap()) return;
   btn.disabled = true; btn.textContent = 'Adding…';
   const res = await sb.from('portfolio_holdings').insert({
     user_id: session.user.id, ticker: ticker, shares: shares, cost_basis: cost
