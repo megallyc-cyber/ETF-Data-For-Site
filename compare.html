@@ -289,7 +289,20 @@
     font-size:13.5px; color:var(--ink-faint);}
   @media(max-width:520px){ .lm-row{flex-direction:column; align-items:stretch; gap:10px;}
     .lm-go{text-align:center;} }
-  </style>
+    .out .panel.is-locked{position:relative; overflow:hidden;}
+  .out .panel.is-locked > *:not(.ov-lock){filter:blur(6px); opacity:0.35; pointer-events:none;}
+  .ov-lock{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    padding:18px; background:linear-gradient(160deg, rgba(242,239,233,0.86), rgba(242,239,233,0.94));}
+  .ovl-in{text-align:center; max-width:330px;}
+  .ovl-tag{display:inline-block; padding:3px 9px; border-radius:5px; margin-bottom:9px;
+    background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff;
+    font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.13em;}
+  .ovl-t{font-family:'Fraunces',serif; font-size:17px; letter-spacing:-0.01em; margin-bottom:5px;}
+  .ovl-s{font-size:13px; color:var(--ink-soft); line-height:1.5; margin-bottom:14px;}
+  .ovl-go{display:inline-block; padding:9px 18px; border-radius:100px; text-decoration:none;
+    background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff; font-size:13px;}
+  .ovl-go:hover{filter:brightness(1.07);}
+</style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
 {
@@ -541,6 +554,44 @@ function lookThrough(t, depth, seen){
   if (depth === 0) _cache[t] = out;
   return out;
 }
+// Two funds at a time unless you are on Pro, which is what the plans say.
+function licentiaPickCap(){
+  var d = window.LICENTIA_DATA || {};
+  return d.tier === "pro" ? 3 : 2;
+}
+function licentiaPickPrompt(){
+  var old = document.getElementById("lockModal"); if (old) old.remove();
+  var w = document.createElement("div");
+  w.id = "lockModal"; w.className = "lock-modal";
+  w.innerHTML = '<div class="lm-card"><div class="lm-tick">Three at once</div>'
+    + '<div class="lm-copy">Comparing three funds side by side is part of Licentia Pro. '
+    + 'Two at a time is available on every plan.</div>'
+    + '<div class="lm-row"><a class="lm-go" href="membership.html">See Licentia Pro</a>'
+    + '<button class="lm-no" type="button">Not now</button></div></div>';
+  document.body.appendChild(w);
+  w.querySelector(".lm-no").addEventListener("click", function(){ w.remove(); });
+  w.addEventListener("click", function(e){ if (e.target === w) w.remove(); });
+}
+// The overlap maths is the thing people pay for, so it is covered rather
+// than computed and hidden: the numbers never reach a non-Pro page.
+function licentiaGateOverlap(){
+  var d = window.LICENTIA_DATA || {};
+  if (d.tier === "pro") return false;
+  var panels = document.querySelectorAll(".out .panel");
+  panels.forEach(function(p, i){
+    if (i > 1) return;
+    if (p.querySelector(".ov-lock")) return;
+    var v = document.createElement("div");
+    v.className = "ov-lock";
+    v.innerHTML = '<div class="ovl-in"><span class="ovl-tag">PRO</span>'
+      + '<div class="ovl-t">Sector overlap is part of Licentia Pro</div>'
+      + '<div class="ovl-s">See where two funds quietly own the same companies.</div>'
+      + '<a class="ovl-go" href="membership.html">See Licentia Pro</a></div>';
+    p.appendChild(v);
+    p.classList.add("is-locked");
+  });
+  return true;
+}
 function overlapPct(a, b){
   const A = lookThrough(a), B = lookThrough(b);
   let s = 0;
@@ -644,7 +695,8 @@ function refreshPicked(){
 function toggle(t){
   const i = PICKED.indexOf(t);
   if (i > -1) PICKED.splice(i, 1);
-  else if (PICKED.length < 3) PICKED.push(t);
+  else if (PICKED.length < licentiaPickCap()) PICKED.push(t);
+  else if (PICKED.length >= licentiaPickCap() && licentiaPickCap() < 3) licentiaPickPrompt();
   else { PICKED.shift(); PICKED.push(t); }
   renderSlots(); refreshPicked(); renderOut(); syncCta();
 }
@@ -888,6 +940,7 @@ function renderScatter(){
 }
 
 function renderOut(){
+  setTimeout(licentiaGateOverlap, 60);
   const out = document.getElementById('out');
   if (PICKED.length < 2){ out.classList.remove('on'); return; }
   out.classList.add('on');
