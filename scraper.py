@@ -101,6 +101,8 @@ class Fund:
     # just sleeps for a fixed time and hopes, which is how BMO kept
     # returning pages whose holdings table had not been built yet.
     wait_selector: str = None
+    # some issuers only render the table after a tab is clicked
+    click_selector: str = None
     error: str = ""
 
 
@@ -147,13 +149,13 @@ FUND_REGISTRY: list[Fund] = [
          "https://hamiltonetfs.com/etf/bday/", "hamilton"),
 
     Fund("ZWB", "BMO Covered Call Canadian Banks ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings", click_selector="span.holdings-sub-section"),
     Fund("ZWC", "BMO Canadian High Dividend Covered Call ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings", click_selector="span.holdings-sub-section"),
     Fund("ZWU", "BMO Covered Call Utilities ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings", click_selector="span.holdings-sub-section"),
     Fund("ZWP", "BMO Europe High Dividend Covered Call ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-europe-high-dividend-covered-call-etf-zwp/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-europe-high-dividend-covered-call-etf-zwp/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings", click_selector="span.holdings-sub-section"),
 
     Fund("HHL", "Harvest Healthcare Leaders Income ETF", "Harvest ETFs", "CAD",
          "https://harvestportfolios.com/etfs/hhl/", "harvest"),
@@ -1455,7 +1457,8 @@ def fetch_binary(url: str) -> str:
     resp.raise_for_status()
     return resp.content.decode("latin-1")
 
-def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 25000) -> str:
+def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 25000,
+                   click_selector: str = None) -> str:
     """For pages that only populate their holdings table via client-side JS
     (Amplify's Firestore-backed holdings pages, Global X Canada's Holdings
     tab). Uses a headless Chromium via Playwright, waits for either a given
@@ -1473,6 +1476,15 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 25000) ->
             # BMO in particular is slow to first byte; a rendered page is worth
             # waiting longer for than a plain fetch.
             page.goto(url, timeout=90000, wait_until="domcontentloaded")
+            if click_selector:
+                # BMO builds the holdings table only once its tab is chosen.
+                # ?tab=holdings looks like it should do this but does not:
+                # the page loads on Overview and no table is ever rendered.
+                try:
+                    page.click(click_selector, timeout=15000)
+                    page.wait_for_timeout(2500)
+                except Exception:
+                    log.warning("  -> could not click %s", click_selector)
             if wait_selector:
                 try:
                     page.wait_for_selector(wait_selector, timeout=wait_ms)
@@ -1797,7 +1809,8 @@ def run(registry: list[Fund]) -> list[Fund]:
             if fund.parser == "jpmorgan_xls":
                 html = fetch_binary(fund.holdings_url)
             elif fund.needs_browser:
-                html = fetch_rendered(fund.holdings_url, fund.wait_selector)
+                html = fetch_rendered(fund.holdings_url, fund.wait_selector,
+                                      click_selector=fund.click_selector)
             else:
                 html = fetch(fund.holdings_url)
             parser = PARSERS[fund.parser]
