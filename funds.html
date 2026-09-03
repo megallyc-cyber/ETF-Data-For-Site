@@ -527,6 +527,15 @@ let currentSort = 'issuer';
 // the caller's token. The page can no longer widen its own access by asking
 // for more, because the extra data is never in the response.
 
+function licentiaAuthHeader(){
+  // A stored token is only good for an hour. pro.js publishes the refresh;
+  // if this page ran before pro.js loaded, fall back to whatever is stored
+  // rather than dropping a paying reader to the anonymous tier.
+  if (typeof window.licentiaRefreshSession === 'function') {
+    return window.licentiaRefreshSession(false);
+  }
+  return Promise.resolve(licentiaToken());
+}
 function licentiaToken(){
   try {
     for (var i = 0; i < localStorage.length; i++){
@@ -547,9 +556,9 @@ function licentiaSeed(){
   } catch(e){ return 'device'; }
 }
 // Shaped like a fetch response so the existing .then(r => r.json()) still works.
-function licentiaFundsFetch(){
+async function licentiaFundsFetch(){
   var headers = { 'Content-Type': 'application/json' };
-  var token = licentiaToken();
+  var token = await licentiaAuthHeader();
   if (token) headers['Authorization'] = 'Bearer ' + token;
   return fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds', {
     method: 'POST', headers: headers,
