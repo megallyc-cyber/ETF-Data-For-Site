@@ -312,6 +312,19 @@
     justify-content:center; width:100%; text-align:center;
     background:none; border:none; padding:0; margin:0 0 6px;}
   .slider-hint .sh-arrows{font-size:15px !important; color:var(--ember-deep);}
+  .sec .panel.is-locked{position:relative; overflow:hidden;}
+  .sec .panel.is-locked > *:not(.st-lock){filter:blur(6px); opacity:0.32; pointer-events:none;}
+  .st-lock{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    padding:20px; background:linear-gradient(160deg, rgba(242,239,233,0.87), rgba(242,239,233,0.95));}
+  .stl-in{text-align:center; max-width:340px;}
+  .stl-tag{display:inline-block; padding:3px 9px; border-radius:5px; margin-bottom:9px;
+    background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff;
+    font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.13em;}
+  .stl-t{font-family:'Fraunces',serif; font-size:18px; letter-spacing:-0.01em; margin-bottom:5px;}
+  .stl-s{font-size:13px; color:var(--ink-soft); line-height:1.5; margin-bottom:14px;}
+  .stl-go{display:inline-block; padding:9px 18px; border-radius:100px; text-decoration:none;
+    background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff; font-size:13px;}
+  .stl-go:hover{filter:brightness(1.07);}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -476,6 +489,25 @@ function pct(v, dp){ return (v===null||v===undefined||!isFinite(v)) ? '\u2014' :
 // What happens to income is a consequence of the market you picked, not a
 // separate opinion. A covered call fund's payout tracks option premium and
 // NAV, so a deep drawdown drags it down whether anyone likes it or not.
+// The market stress test is a Pro tool. The panel is covered rather than the
+// figures merely hidden, and the slider underneath is switched off so nothing
+// recalculates behind the cover.
+function licentiaGateStress(){
+  var d = window.LICENTIA_DATA || {};
+  if (d.tier === "pro") return;
+  var panel = document.querySelector(".sec .panel");
+  if (!panel || panel.querySelector(".st-lock")) return;
+  panel.classList.add("is-locked");
+  var v = document.createElement("div");
+  v.className = "st-lock";
+  v.innerHTML = '<div class="stl-in"><span class="stl-tag">PRO</span>'
+    + '<div class="stl-t">The market stress test is part of Licentia Pro</div>'
+    + '<div class="stl-s">See what a fall does to your income, not just to the price.</div>'
+    + '<a class="stl-go" href="membership.html">See Licentia Pro</a></div>';
+  panel.appendChild(v);
+  var sl = document.getElementById("slider");
+  if (sl) sl.disabled = true;
+}
 function regimeFor(shiftPct){
   // The response used to be a staircase: any drop shallower than 15% returned
   // "distributions hold", so the income figures did not move and stayed
@@ -584,6 +616,7 @@ function renderScenarios(){
 }
 
 function renderStress(){
+  setTimeout(licentiaGateStress, 40);
   renderScenarios();
   const lab = document.getElementById('shiftLabel');
   lab.textContent = (shift > 0 ? '+' : '') + shift + '%';
