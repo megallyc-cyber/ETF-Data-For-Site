@@ -97,6 +97,10 @@ class Fund:
     stale: bool = False  # True when we're serving the previous run's data
     fetched_ok: bool = False
     needs_browser: bool = False  # True if the issuer's page requires JS rendering
+    # What to wait for once the page is up. Without this a browser fetch
+    # just sleeps for a fixed time and hopes, which is how BMO kept
+    # returning pages whose holdings table had not been built yet.
+    wait_selector: str = None
     error: str = ""
 
 
@@ -143,13 +147,13 @@ FUND_REGISTRY: list[Fund] = [
          "https://hamiltonetfs.com/etf/bday/", "hamilton"),
 
     Fund("ZWB", "BMO Covered Call Canadian Banks ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/", "bmo", needs_browser=True),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-canadian-banks-etf-zwb/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
     Fund("ZWC", "BMO Canadian High Dividend Covered Call ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/", "bmo", needs_browser=True),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-canadian-high-dividend-covered-call-etf-zwc/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
     Fund("ZWU", "BMO Covered Call Utilities ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/", "bmo", needs_browser=True),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-covered-call-utilities-etf-zwu/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
     Fund("ZWP", "BMO Europe High Dividend Covered Call ETF", "BMO ETFs", "CAD",
-         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-europe-high-dividend-covered-call-etf-zwp/", "bmo", needs_browser=True),
+         "https://bmogam.com/ca-en/products/exchange-traded-fund/bmo-europe-high-dividend-covered-call-etf-zwp/?tab=holdings", "bmo", needs_browser=True, wait_selector="table.holdings"),
 
     Fund("HHL", "Harvest Healthcare Leaders Income ETF", "Harvest ETFs", "CAD",
          "https://harvestportfolios.com/etfs/hhl/", "harvest"),
@@ -1787,7 +1791,7 @@ def run(registry: list[Fund]) -> list[Fund]:
             if fund.parser == "jpmorgan_xls":
                 html = fetch_binary(fund.holdings_url)
             elif fund.needs_browser:
-                html = fetch_rendered(fund.holdings_url)
+                html = fetch_rendered(fund.holdings_url, fund.wait_selector)
             else:
                 html = fetch(fund.holdings_url)
             parser = PARSERS[fund.parser]
