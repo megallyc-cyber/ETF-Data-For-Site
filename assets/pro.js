@@ -565,3 +565,64 @@
   s.textContent = ':root{--ink-faint:#636974 !important;}';
   (document.head || document.documentElement).appendChild(s);
 })();
+
+/* ---------------------------------------------------------------------------
+   Keeping a signed-in reader signed in.
+
+   A Supabase access token lasts an hour. Every page read whatever token was in
+   storage and sent it as-is, so once it aged out the funds endpoint saw an
+   invalid token, treated the caller as a stranger, and locked the Pro funds.
+   Nothing on the site refreshed the session, so it stayed that way until the
+   reader happened to reload after visiting a page that runs the Supabase SDK.
+
+   This exposes one refresh that every page can use, and runs it on a timer so
+   a tab left open does not quietly fall back to the free tier.
+--------------------------------------------------------------------------- */
+(function(){
+  window.LICENTIA_ANON = KEY;
+
+  function stored(){
+    try {
+      for (var i = 0; i < localStorage.length; i++){
+        var k = localStorage.key(i);
+        if (/auth-token/.test(k)) return { key: k, raw: JSON.parse(localStorage.getItem(k)) };
+      }
+    } catch(e){}
+    return null;
+  }
+
+  window.licentiaRefreshSession = async function(force){
+    var s = stored();
+    if (!s || !s.raw) return null;
+    var sess = s.raw.user ? s.raw : (s.raw.currentSession || null);
+    if (!sess || !sess.access_token) return null;
+
+    var now = Math.floor(Date.now() / 1000);
+    var exp = sess.expires_at || 0;
+    // refresh early, so a token cannot expire part-way through a request
+    if (!force && exp && exp - now > 120) return sess.access_token;
+    if (!sess.refresh_token) return sess.access_token;
+
+    try {
+      var r = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/auth/v1/token?grant_type=refresh_token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: KEY },
+        body: JSON.stringify({ refresh_token: sess.refresh_token })
+      });
+      if (!r.ok) return sess.access_token;
+      var next = await r.json();
+      if (!next || !next.access_token) return sess.access_token;
+      next.expires_at = Math.floor(Date.now()/1000) + (next.expires_in || 3600);
+      if (next.user === undefined && sess.user) next.user = sess.user;
+      try {
+        var out = s.raw.currentSession ? Object.assign({}, s.raw, {currentSession: next}) : next;
+        localStorage.setItem(s.key, JSON.stringify(out));
+      } catch(e){}
+      return next.access_token;
+    } catch(e){ return sess.access_token; }
+  };
+
+  // a tab open for hours should still be Pro when the reader comes back to it
+  setInterval(function(){ window.licentiaRefreshSession(false); }, 10 * 60 * 1000);
+  window.licentiaRefreshSession(false);
+})();
