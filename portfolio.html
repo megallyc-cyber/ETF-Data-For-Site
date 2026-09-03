@@ -181,6 +181,7 @@
   .cellEdit{cursor:text; border-bottom:1px dashed transparent; padding-bottom:1px;}
   .cellEdit:hover{border-bottom-color:var(--line-strong);}
   .cellEdit.isblank{color:var(--ink-faint); font-style:italic;}
+  #rows.editing .cellEdit:has(input)::after{display:none;}
   .cellInput{width:88px; padding:3px 6px; font-family:inherit; font-size:13.5px;
     text-align:right; border:1px solid var(--ink); border-radius:6px;
     background:var(--white); color:var(--ink);}
@@ -193,14 +194,39 @@
     background:none; border:1px solid var(--line-strong); transition:all .16s;}
   .editToggle:hover{border-color:var(--ink);}
   .editToggle.is-on{background:var(--ink); color:var(--paper); border-color:var(--ink);}
-  /* in reading mode the numbers look like numbers */
-  #rows .cellEdit{cursor:default; border-bottom:none;}
-  #rows.editing .cellEdit{cursor:text; border-bottom:1px dashed var(--line-strong);
-    padding:1px 4px; border-radius:4px; background:rgba(28,34,48,0.03);}
-  #rows.editing .cellEdit:hover{border-bottom-color:var(--ink); background:rgba(255,107,53,0.07);}
+  /* Reading mode leaves the numbers as numbers. */
+  #rows .cellEdit{cursor:default; border:1px solid transparent; padding:2px 4px;}
+
+  /* In edit mode they become plainly fields: a box, a light surface and a
+     caret. Anything less and people do not know they can type in them. */
+  #rows.editing .cellEdit{cursor:text; display:inline-block; min-width:74px;
+    padding:4px 8px; border:1px solid var(--line-strong); border-radius:7px;
+    background:var(--white); text-align:right;
+    box-shadow:inset 0 1px 2px rgba(28,34,48,0.06);}
+  #rows.editing .cellEdit:hover{border-color:var(--ink);}
+  #rows.editing .cellEdit::after{content:"✎"; margin-left:6px; font-size:10px;
+    color:var(--ink-faint); vertical-align:1px;}
+  #rows.editing .cellEdit:hover::after{color:var(--ember-deep);}
   #rows.editing .cellEdit.isblank{color:var(--ember-deep); font-style:normal;}
+  /* the whole row lifts a little so it is obvious which one is live */
+  #rows.editing tbody tr:hover{background:rgba(255,107,53,0.04);}
   #rows .rowbtn{visibility:hidden;}
   #rows.editing .rowbtn{visibility:visible;}
+  .lic-toast{position:fixed; left:50%; bottom:34px; z-index:300;
+    display:flex; align-items:center; gap:9px;
+    padding:12px 20px; border-radius:100px;
+    background:var(--ink); color:var(--paper); font-size:14px;
+    box-shadow:0 14px 34px -14px rgba(28,34,48,0.7);
+    transform:translate(-50%, 18px) scale(0.96); opacity:0; pointer-events:none;
+    transition:transform .34s cubic-bezier(.16,1,.3,1), opacity .28s ease;}
+  .lic-toast.show{transform:translate(-50%, 0) scale(1); opacity:1;}
+  .lic-toast .lt-tick{display:inline-flex; align-items:center; justify-content:center;
+    width:19px; height:19px; border-radius:50%; background:var(--ember-deep);
+    color:#fff; font-size:11px;}
+  body.pro .lic-toast .lt-tick{background:linear-gradient(135deg,#C89B3C,#8F6B22);}
+  @media (prefers-reduced-motion: reduce){
+    .lic-toast{transition:opacity .2s ease;}
+    .lic-toast.show{transform:translate(-50%, 0) scale(1);}}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -665,6 +691,24 @@ function startEdit(el){
 
 // The row is written first, then the table redrawn from what came back, so
 // what is on screen is what is actually stored rather than what was typed.
+
+// Confirmation belongs near the thing that changed, not in the form further
+// down the page. It announces itself, then leaves without being asked.
+function licentiaToast(text){
+  var t = document.getElementById("licToast");
+  if (!t){
+    t = document.createElement("div");
+    t.id = "licToast";
+    t.className = "lic-toast";
+    document.body.appendChild(t);
+  }
+  t.innerHTML = '<span class="lt-tick">✓</span><span>' + text + '</span>';
+  t.classList.remove("show");
+  void t.offsetWidth;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
 async function saveHolding(id, patch){
   const res = await sb.from('portfolio_holdings').update(patch).eq('id', id).select();
   if (res.error){ say(res.error.message, 'bad'); renderRows(); return; }
@@ -673,7 +717,7 @@ async function saveHolding(id, patch){
     ROWS = ROWS.map(function(r){ return String(r.id) === String(id) ? updated : r; });
   }
   renderRows(); renderTotals();
-  say('Saved.', 'good');
+  licentiaToast("Changes saved");
 }
 
 async function removeHolding(id){
