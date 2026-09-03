@@ -185,6 +185,22 @@
     text-align:right; border:1px solid var(--ink); border-radius:6px;
     background:var(--white); color:var(--ink);}
   .cellInput:focus{outline:none;}
+  .panel-top{display:flex; align-items:center; justify-content:space-between;
+    gap:14px; margin-bottom:2px;}
+  .panel-top h2{margin-bottom:0;}
+  .editToggle{flex:none; padding:7px 15px; border-radius:100px; cursor:pointer;
+    font-family:inherit; font-size:12.5px; color:var(--ink);
+    background:none; border:1px solid var(--line-strong); transition:all .16s;}
+  .editToggle:hover{border-color:var(--ink);}
+  .editToggle.is-on{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  /* in reading mode the numbers look like numbers */
+  #rows .cellEdit{cursor:default; border-bottom:none;}
+  #rows.editing .cellEdit{cursor:text; border-bottom:1px dashed var(--line-strong);
+    padding:1px 4px; border-radius:4px; background:rgba(28,34,48,0.03);}
+  #rows.editing .cellEdit:hover{border-bottom-color:var(--ink); background:rgba(255,107,53,0.07);}
+  #rows.editing .cellEdit.isblank{color:var(--ember-deep); font-style:normal;}
+  #rows .rowbtn{visibility:hidden;}
+  #rows.editing .rowbtn{visibility:visible;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
 </head>
@@ -314,7 +330,8 @@ function portfolioView(){
   + '<div class="tier" id="tierBadge">Account</div>'
   + '</div>'
   + '<div class="totals" id="totals"></div>'
-  + '<div class="panel"><h2>Holdings</h2>'
+  + '<div class="panel"><div class="panel-top"><h2>Holdings</h2>'
+  + '<button class="editToggle" id="editToggle" type="button">Edit holdings</button></div>'
   + '<div class="note">Cost basis is what you paid per share. Leave it blank if you would rather not track it — '
   + 'everything except profit and yield on cost still works.</div>'
   + '<div id="rows"></div></div>'
@@ -476,6 +493,8 @@ function renderRows(){
   });
   html += '</tbody></table>';
   box.innerHTML = html;
+  wireEditToggle();
+  if (EDITING) box.classList.add('editing');
   box.querySelectorAll('.cellEdit').forEach(function(el){
     el.addEventListener('click', function(){ startEdit(el); });
   });
@@ -571,7 +590,34 @@ async function addHolding(){
 
 // Editing happens in the cell itself: click the number, type, press Enter.
 // A dialog for two numbers would be heavier than the task deserves.
+
+// The table sits in one of two states. Reading is the default, because that
+// is what people do most; editing is entered deliberately and left the same
+// way, so a stray click can never change a position.
+var EDITING = false;
+function setEditing(on){
+  EDITING = on;
+  var box = document.getElementById("rows");
+  var btn = document.getElementById("editToggle");
+  if (box) box.classList.toggle("editing", on);
+  if (btn){
+    btn.textContent = on ? "Done" : "Edit holdings";
+    btn.classList.toggle("is-on", on);
+  }
+  if (!on){
+    // close any field left open
+    var open = document.querySelector("#rows input.cellInput");
+    if (open) open.blur();
+  }
+}
+function wireEditToggle(){
+  var btn = document.getElementById("editToggle");
+  if (!btn || btn.dataset.wired) return;
+  btn.dataset.wired = "1";
+  btn.addEventListener("click", function(){ setEditing(!EDITING); });
+}
 function startEdit(el){
+  if (!EDITING) return;
   if (el.querySelector('input')) return;
   const id = el.dataset.id, field = el.dataset.field;
   const row = ROWS.filter(function(r){ return String(r.id) === String(id); })[0];
