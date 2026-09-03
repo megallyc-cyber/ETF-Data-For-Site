@@ -1455,7 +1455,7 @@ def fetch_binary(url: str) -> str:
     resp.raise_for_status()
     return resp.content.decode("latin-1")
 
-def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> str:
+def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 25000) -> str:
     """For pages that only populate their holdings table via client-side JS
     (Amplify's Firestore-backed holdings pages, Global X Canada's Holdings
     tab). Uses a headless Chromium via Playwright, waits for either a given
@@ -1474,9 +1474,15 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 6000) -> 
             # waiting longer for than a plain fetch.
             page.goto(url, timeout=90000, wait_until="domcontentloaded")
             if wait_selector:
-                page.wait_for_selector(wait_selector, timeout=wait_ms)
+                try:
+                    page.wait_for_selector(wait_selector, timeout=wait_ms)
+                except Exception:
+                    # the table may be named differently on this page; take
+                    # what rendered rather than returning nothing at all
+                    log.warning("  -> %s did not appear, reading page as-is", wait_selector)
+                    page.wait_for_timeout(6000)
             else:
-                page.wait_for_timeout(wait_ms)
+                page.wait_for_timeout(min(wait_ms, 8000))
             return page.content()
         finally:
             browser.close()
