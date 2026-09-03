@@ -347,47 +347,47 @@
     font-size:clamp(30px,5.2vmin,50px); line-height:1.08; letter-spacing:-0.025em; margin-bottom:14px;}
   .mem-head p{font-size:16px; line-height:1.62; color:var(--ink-soft);}
 
-  .tiers{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start;}
-  .tier{position:relative; display:flex; flex-direction:column;
+  .pcards{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start;}
+  .pcard{position:relative; display:flex; flex-direction:column;
     background:var(--white); border:1px solid var(--line-strong); border-radius:16px;
     padding:26px 22px 24px; min-height:100%;}
-  .tier.pro{border-color:rgba(201,155,60,0.6);
+  .pcard.is-pro{border-color:rgba(201,155,60,0.6);
     background:linear-gradient(165deg, rgba(201,155,60,0.09) 0%, var(--white) 46%);
     box-shadow:0 20px 50px -34px rgba(143,107,34,0.85);}
-  .tier-tag{position:absolute; top:-11px; left:22px; padding:4px 11px; border-radius:100px;
+  .pcard-tag{position:absolute; top:-11px; left:22px; padding:4px 11px; border-radius:100px;
     font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.12em;
     text-transform:uppercase; background:linear-gradient(135deg,#C89B3C, #8F6B22);
     color:#fff;}
-  .tier h2{font-family:'Fraunces',serif; font-weight:500; font-size:23px; margin-bottom:4px;}
-  .tier .who{font-size:13px; color:var(--ink-faint); line-height:1.5; margin-bottom:16px; min-height:40px;}
+  .pcard h2{font-family:'Fraunces',serif; font-weight:500; font-size:23px; margin-bottom:4px;}
+  .pcard .who{font-size:13px; color:var(--ink-faint); line-height:1.5; margin-bottom:16px; min-height:40px;}
   .price{display:flex; align-items:baseline; gap:7px; margin-bottom:3px;}
   .price .amt{font-family:'Fraunces',serif; font-size:38px; line-height:1; letter-spacing:-0.02em;}
   .price .per{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.09em;
     text-transform:uppercase; color:var(--ink-faint);}
   .price-note{font-size:12px; color:var(--ink-faint); margin-bottom:18px; min-height:18px;}
 
-  .tier ul{list-style:none; margin:0 0 22px; padding:0; flex:1;}
-  .tier li{display:flex; gap:9px; align-items:flex-start; padding:7px 0;
+  .pcard ul{list-style:none; margin:0 0 22px; padding:0; flex:1;}
+  .pcard li{display:flex; gap:9px; align-items:flex-start; padding:7px 0;
     font-size:14px; line-height:1.5; border-top:1px solid var(--line);}
-  .tier li:first-child{border-top:none;}
-  .tier li .mk{flex:none; width:15px; text-align:center; font-size:12px; line-height:1.6;}
-  .tier li.yes .mk{color:var(--ember-deep);}
-  .tier.pro li.yes .mk{color:#8F6B22;}
-  .tier li.no{color:var(--ink-faint);}
-  .tier li.no .mk{color:var(--line-strong);}
-  .tier li b{font-weight:500; color:var(--ink);}
+  .pcard li:first-child{border-top:none;}
+  .pcard li .mk{flex:none; width:15px; text-align:center; font-size:12px; line-height:1.6;}
+  .pcard li.yes .mk{color:var(--ember-deep);}
+  .pcard.is-pro li.yes .mk{color:#8F6B22;}
+  .pcard li.no{color:var(--ink-faint);}
+  .pcard li.no .mk{color:var(--line-strong);}
+  .pcard li b{font-weight:500; color:var(--ink);}
 
-  .tier-cta{display:block; text-align:center; padding:12px 18px; border-radius:100px;
+  .pcard-cta{display:block; text-align:center; padding:12px 18px; border-radius:100px;
     text-decoration:none; font-size:14px; border:1px solid var(--ink); color:var(--ink);
     transition:background .18s, color .18s, transform .18s;}
-  .tier-cta:hover{background:var(--ink); color:var(--paper); transform:translateY(-1px);}
-  .tier-cta.solid{background:var(--ink); color:var(--paper);}
-  .tier-cta.solid:hover{background:var(--ember-deep); border-color:var(--ember-deep);}
-  .tier-cta.gold{background:linear-gradient(135deg,#C89B3C, #8F6B22);
+  .pcard-cta:hover{background:var(--ink); color:var(--paper); transform:translateY(-1px);}
+  .pcard-cta.solid{background:var(--ink); color:var(--paper);}
+  .pcard-cta.solid:hover{background:var(--ember-deep); border-color:var(--ember-deep);}
+  .pcard-cta.gold{background:linear-gradient(135deg,#C89B3C, #8F6B22);
     border-color:transparent; color:#fff;}
-  .tier-cta.gold:hover{filter:brightness(1.06);}
-  .tier-cta.current{background:none; border-style:dashed; color:var(--ink-faint); cursor:default;}
-  .tier-cta.current:hover{background:none; color:var(--ink-faint); transform:none;}
+  .pcard-cta.gold:hover{filter:brightness(1.06);}
+  .pcard-cta.current{background:none; border-style:dashed; color:var(--ink-faint); cursor:default;}
+  .pcard-cta.current:hover{background:none; color:var(--ink-faint); transform:none;}
   .cta-sub{text-align:center; font-size:11.5px; color:var(--ink-faint); margin-top:9px; min-height:16px;}
 
   .mem-note{max-width:64ch; margin:clamp(30px,5vh,48px) auto 0; text-align:center;
@@ -407,16 +407,16 @@
   .faq p{margin-top:10px; font-size:14px; line-height:1.65; color:var(--ink-soft);}
 
   @media(max-width:900px){
-    .tiers{grid-template-columns:1fr; gap:14px;}
-    .tier{padding:24px 20px 22px;}
-    .tier .who{min-height:0;}
+    .pcards{grid-template-columns:1fr; gap:14px;}
+    .pcard{padding:24px 20px 22px;}
+    .pcard .who{min-height:0;}
     .price-note{min-height:0;}
     /* Pro first on a phone: on a narrow screen the order is the argument */
-    .tier.pro{order:-1;}
+    .pcard.is-pro{order:-1;}
   }
   @media(max-width:430px){
     .price .amt{font-size:33px;}
-    .tier li{font-size:13.5px;}
+    .pcard li{font-size:13.5px;}
   }
 </style>
 <link rel="stylesheet" href="assets/pro.css">
@@ -448,34 +448,34 @@
   </div>
 
   <div class="tiers">
-    <div class="tier" id="tierAnon">
+    <div class="pcard" id="planAnon">
       <h2>No account</h2>
       <div class="who">Have a look around. Nothing to sign up for, nothing saved.</div>
       <div class="price"><span class="amt">Free</span></div>
       <div class="price-note">No email needed</div>
       <ul><li class="yes"><span class="mk">✓</span><span><b>25 funds</b> in full, drawn across managers and both markets</span></li><li class="yes"><span class="mk">✓</span><span>Every one of the 207 listed, so you can see what exists</span></li><li class="yes"><span class="mk">✓</span><span>The whole of Learn</span></li><li class="no"><span class="mk">·</span><span>Nothing saved between visits</span></li></ul>
-      <a class="tier-cta" href="funds.html">Browse the funds</a>
+      <a class="pcard-cta" href="funds.html">Browse the funds</a>
       <div class="cta-sub"></div>
     </div>
 
-    <div class="tier" id="tierFree">
+    <div class="pcard" id="planFree">
       <h2>Free account</h2>
       <div class="who">For following a handful of funds and keeping your work between visits.</div>
       <div class="price"><span class="amt">$0</span><span class="per">forever</span></div>
       <div class="price-note">Email or Google, about a minute</div>
       <ul><li class="yes"><span class="mk">✓</span><span><b>50 funds</b> in full — twice what you get signed out</span></li><li class="yes"><span class="mk">✓</span><span>A year of distribution history on each</span></li><li class="yes"><span class="mk">✓</span><span><b>3 saved holdings</b>, kept across your devices</span></li><li class="yes"><span class="mk">✓</span><span>Total return charts and the portfolio builder</span></li></ul>
-      <a class="tier-cta solid" id="freeCta" href="account.html">Create a free account</a>
+      <a class="pcard-cta solid" id="freeCta" href="account.html">Create a free account</a>
       <div class="cta-sub" id="freeSub"></div>
     </div>
 
-    <div class="tier pro" id="tierPro">
-      <div class="tier-tag">Licentia Pro</div>
+    <div class="pcard is-pro" id="planPro">
+      <div class="pcard-tag">Licentia Pro</div>
       <h2>Pro</h2>
       <div class="who">For building an income portfolio properly and knowing what sits underneath it.</div>
       <div class="price"><span class="amt">$5.99</span><span class="per">per month</span></div>
       <div class="price-note">or $45 a year — two months free</div>
       <ul><li class="yes"><span class="mk">✓</span><span><b>All 207 funds</b>, every manager, both markets</span></li><li class="yes"><span class="mk">✓</span><span><b>Every holding</b> and the <b>complete</b> distribution history</span></li><li class="yes"><span class="mk">✓</span><span><b>Unlimited</b> saved holdings, with yield on cost</span></li><li class="yes"><span class="mk">✓</span><span><b>Sector overlap</b> and the <b>market stress test</b></span></li><li class="yes"><span class="mk">✓</span><span>Everything added later, at today’s price</span></li></ul>
-      <a class="tier-cta gold" id="proCta" href="account.html">Go Pro</a>
+      <a class="pcard-cta gold" id="proCta" href="account.html">Go Pro</a>
       <div class="cta-sub" id="proSub">Cancel any time, from your account</div>
     </div>
   </div>
@@ -527,15 +527,15 @@
     var s = session();
     if (!s || !s.user) return 'anon';
     var u = s.user;
-    var t = (u.app_metadata && u.app_metadata.tier) ||
-            (u.user_metadata && u.user_metadata.tier) || null;
+    var t = (u.app_metadata && u.app_metadata.pcard) ||
+            (u.user_metadata && u.user_metadata.pcard) || null;
     return t === 'pro' ? 'pro' : 'free';
   }
 
   function mark(id, text){
     var el = document.getElementById(id);
     if (!el) return;
-    el.className = 'tier-cta current';
+    el.className = 'pcard-cta current';
     el.textContent = text;
     el.removeAttribute('href');
   }
@@ -551,7 +551,7 @@
     mark('proCta', 'Your current plan');
     var ps = document.getElementById('proSub');
     if (ps) ps.textContent = 'Manage it from your account';
-    var anon = document.getElementById('tierAnon');
+    var anon = document.getElementById('planAnon');
     if (anon) anon.style.opacity = '0.72';
   }
 
