@@ -320,6 +320,107 @@
   @media (prefers-reduced-motion: reduce){
     .to-top{transition:opacity .2s ease;}
     .to-top.on{transform:none;}}
+
+  /* ---- overlap as a Venn ------------------------------------------------
+     A list of tickers says which names appear twice but not how much of each
+     fund they are. Two overlapping circles say it without being read. */
+  .venn{padding:4px 0 2px;}
+  .vn-head{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:10px;}
+  .vn-h{text-align:center;}
+  .vn-h b{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.04em;}
+  .vn-h span{display:block; font-size:11px; color:var(--ink-faint); margin-top:2px;}
+  .vn-h-a b{color:var(--teal);}
+  .vn-h-b b{color:var(--rust);}
+
+  .vn-rings{position:relative; display:grid; grid-template-columns:1fr 1.05fr 1fr;
+    gap:0; align-items:start; min-height:170px;}
+  .vn-ring{position:absolute; top:0; bottom:0; width:64%; border-radius:50%;
+    pointer-events:none;}
+  .vn-ring-a{left:0; background:rgba(31,122,92,0.10); border:1px solid rgba(31,122,92,0.35);}
+  .vn-ring-b{right:0; background:rgba(190,70,45,0.09); border:1px solid rgba(190,70,45,0.32);}
+  .vn-zone{position:relative; z-index:2; display:flex; flex-wrap:wrap; gap:5px;
+    align-content:flex-start; justify-content:center; padding:22px 8px;}
+  .vn-zone-s{padding-top:26px;}
+
+  .vn-t{display:inline-flex; align-items:baseline; gap:4px; padding:3px 8px;
+    border-radius:100px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    background:var(--white); border:1px solid var(--line);}
+  .vn-t i{font-style:normal; font-size:9.5px; color:var(--ink-faint);}
+  .vn-t.s{border-color:rgba(28,34,48,0.34); font-weight:500;}
+  .vn-t.a{border-color:rgba(31,122,92,0.4);}
+  .vn-t.b{border-color:rgba(190,70,45,0.4);}
+  .vn-more{align-self:center; font-size:10.5px; color:var(--ink-faint);}
+  .vn-none{font-size:11.5px; color:var(--ink-faint); padding:8px;}
+  .vn-foot{margin-top:12px; padding-top:11px; border-top:1px solid var(--line);
+    font-size:13px; color:var(--ink-soft);}
+  .vn-foot b{color:var(--ink); font-weight:500;}
+
+  .venn-many .vm-band{display:flex; gap:14px; align-items:flex-start; padding:11px 0;
+    border-top:1px solid var(--line);}
+  .venn-many .vm-band:first-child{border-top:none;}
+  .vm-lab{flex:none; width:106px; font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); padding-top:5px;}
+  .vm-set{display:flex; flex-wrap:wrap; gap:5px;}
+
+  @media(max-width:640px){
+    .vn-rings{grid-template-columns:1fr; min-height:0;}
+    .vn-ring{display:none;}
+    .vn-zone{justify-content:flex-start; padding:8px 0;
+      border-top:1px solid var(--line);}
+    .vn-head{display:none;}
+    .vn-zone::before{width:100%; font-family:'IBM Plex Mono',monospace; font-size:10px;
+      letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:4px;}
+    .vn-zone-a::before{content:'Only the first';}
+    .vn-zone-s::before{content:'In both';}
+    .vn-zone-b::before{content:'Only the second';}
+  }
+
+  /* ---- performance, aligned so the funds can actually be compared -------- */
+  .pf{border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .pf-row{display:grid; grid-template-columns:1.5fr .7fr .8fr 2fr 1.15fr;
+    gap:14px; align-items:center; padding:13px 16px; border-top:1px solid var(--line);
+    box-shadow:inset 3px 0 0 var(--fam, transparent);}
+  .pf-row:first-child{border-top:none;}
+  .pf-head{background:var(--paper-2); box-shadow:none;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.11em;
+    text-transform:uppercase; color:var(--ink-faint);}
+  .pf-head .pf-n{text-align:right;}
+  .pf-tic{display:block; font-family:'IBM Plex Mono',monospace; font-size:14px;}
+  .pf-name{display:block; font-size:11.5px; color:var(--ink-faint); line-height:1.35;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .pf-n{text-align:right;}
+  .pf-num{font-family:'Fraunces',serif; font-size:22px; letter-spacing:-0.02em;}
+  .pf-num.neg{color:var(--rust);}
+  .pf-bars{position:relative; height:26px;}
+  .pf-zero{position:absolute; top:0; bottom:0; width:1px; background:var(--line-strong);}
+  .pf-b{position:absolute; height:8px; width:0; border-radius:100px;
+    transition:width .8s cubic-bezier(.2,.8,.3,1);}
+  .pf-b-y{top:2px; background:rgba(31,92,78,0.4);}
+  .pf-b-r{top:15px; background:var(--teal);}
+  .pf-b-r.neg{background:var(--rust);}
+  .pf-tag{display:inline-block; padding:4px 10px; border-radius:100px; font-size:11.5px;
+    border:1px solid var(--line-strong); white-space:nowrap;}
+  .pf-good{border-color:rgba(31,122,92,0.45); color:#1F7A5C;}
+  .pf-warn{border-color:rgba(201,130,31,0.5); color:#9A6212;}
+  .pf-bad{border-color:rgba(190,70,45,0.45); color:var(--rust);}
+  .pf-na{color:var(--ink-faint);}
+  .pf-legend{margin-top:12px; display:flex; flex-direction:column; gap:7px;}
+  .pf-leg{display:flex; gap:9px; align-items:flex-start; font-size:12.5px;
+    color:var(--ink-soft); line-height:1.5;}
+  .pf-leg .pf-tag{flex:none; font-family:'IBM Plex Mono',monospace; font-size:10.5px;}
+
+  @media(max-width:760px){
+    .pf-row{grid-template-columns:1fr 1fr; gap:8px 12px; padding:14px 14px;}
+    .pf-head{display:none;}
+    .pf-fund{grid-column:1 / -1;}
+    .pf-n{text-align:left;}
+    .pf-n::before{display:block; font-family:'IBM Plex Mono',monospace; font-size:9px;
+      letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint);}
+    .pf-n:nth-of-type(2)::before{content:'Yield';}
+    .pf-n:nth-of-type(3)::before{content:'Total return';}
+    .pf-bars, .pf-v{grid-column:1 / -1;}
+  }
+
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -399,13 +500,13 @@
 
     <div class="panel">
       <h3>Where they hold the same companies</h3>
-      <div class="sub">Positions that appear in more than one of your picks.</div>
+      <div class="sub">What each fund holds on its own, and what they hold in common.</div>
       <div class="chips" id="chips"></div>
     </div>
 
     <div class="panel">
       <h3>How they perform against each other</h3>
-      <div class="sub">Trailing twelve months. Yield is what it paid; total return is what you actually kept.</div>
+      <div class="sub">Trailing twelve months, on one scale so the bars are comparable. Yield is what it paid; total return is what you kept.</div>
       <div id="perf"></div>
     </div>
 
@@ -992,19 +1093,7 @@ function renderOut(){
     '<div class="warn"><strong>' + n.holder + ' already holds ' + n.held + '</strong> at ' +
     n.w.toFixed(1) + '% of its portfolio — you would pay two management fees for one position.</div>').join('') : '';
 
-  // shared companies
-  const seen = {};
-  pairs.forEach(([a,b]) => sharedOf(a,b).forEach(o => { seen[o.t] = Math.max(seen[o.t]||0, o.w); }));
-  const chips = document.getElementById('chips');
-  const entries = Object.entries(seen).sort((a,b) => b[1]-a[1]);
-  chips.innerHTML = entries.length ? '' :
-    '<div class="empty">No shared holdings, even after looking through to the underlying companies.</div>';
-  entries.slice(0, 24).forEach(([t,w]) => {
-    const c = document.createElement('div');
-    c.className = 'chip' + (w >= 4 ? ' hot' : '');
-    c.innerHTML = t + ' <span style="opacity:.6">' + w.toFixed(1) + '%</span>';
-    chips.appendChild(c);
-  });
+  renderVenn();
 
   renderPerf();
   renderSectors();
@@ -1028,63 +1117,162 @@ function countTo(el, target){
   setTimeout(function(){ if (!done){ done = true; el.textContent = target; } }, 800);
 }
 
-function renderPerf(){
-  const rows = PICKED.map(t => {
-    const st = FUNDS[t].stats || {};
-    return {t, name: FUNDS[t].name, issuer: FUNDS[t].issuer, y: st.yield_ttm, r: st.total_return_1y};
-  });
-  // one shared scale so the bars are comparable between funds
-  const vals = rows.flatMap(r => [r.y || 0, r.r || 0]);
-  const lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
-  const span = (hi - lo) || 1;
-  const zeroPct = (0 - lo) / span * 100;
+// A list of shared tickers said "these overlap" but not how much of each fund
+// that overlap represents. Two circles carry that instantly: what only the
+// first holds, what only the second holds, and what sits in both.
+function renderVenn(){
+  var host = document.getElementById("chips");
+  if (!host) return;
+  if (PICKED.length < 2){ host.innerHTML = ""; return; }
 
-  const box = document.getElementById('perf');
-  box.innerHTML = rows.map(r => {
-    const has = r.y !== undefined && r.r !== undefined && r.r !== null;
-    let cls = 'vp-good', verdict = 'Data unavailable', note = '';
-    if (has){
-      if (r.r < 0){
-        cls = 'vp-bad';
-        verdict = 'Paid out while losing value';
-        note = 'Every dollar distributed came out of the fund itself. The payout looks generous, but a unit is worth less than it was a year ago.';
-      } else if (r.r < r.y){
-        cls = 'vp-warn';
-        verdict = 'Part of the payout came from your capital';
-        note = 'It distributed ' + r.y.toFixed(1) + '% but only grew ' + r.r.toFixed(1) + '% in total, so roughly ' +
-               (r.y - r.r).toFixed(1) + ' points of that yield was your own money handed back.';
-      } else {
-        cls = 'vp-good';
-        verdict = 'The income was genuinely earned';
-        note = 'Total return kept pace with the distribution, so the payout did not eat into the unit price.';
-      }
-    }
-    const yPct = Math.abs(r.y || 0) / span * 100;
-    const rPct = Math.abs(r.r || 0) / span * 100;
-    const rLeft = (r.r || 0) >= 0 ? zeroPct : zeroPct - rPct;
-    return '<div class="perf-card" style="--fam:' + famColour(r.issuer) + '">' +
-      '<div class="perf-top"><div><div class="perf-tic">' + r.t + '</div>' +
-        '<div class="perf-name">' + (r.name || '') + '</div></div></div>' +
-      '<div class="perf-nums">' +
-        '<div class="perf-num"><div class="k">Yield &mdash; what it paid</div>' +
-          '<div class="v">' + (r.y !== undefined ? r.y.toFixed(1) + '%' : '&mdash;') + '</div></div>' +
-        '<div class="perf-num"><div class="k">Total return &mdash; what you kept</div>' +
-          '<div class="v ' + ((r.r||0) < 0 ? 'neg' : 'pos') + '">' +
-          (has ? ((r.r > 0 ? '+' : '') + r.r.toFixed(1) + '%') : '&mdash;') + '</div></div>' +
-      '</div>' +
-      '<div class="axis">' +
-        '<div class="zero" style="left:' + zeroPct + '%"></div>' +
-        '<div class="zlab" style="left:' + zeroPct + '%">0%</div>' +
-        '<div class="track" data-w="' + yPct + '" style="left:' + zeroPct + '%; background:rgba(31,92,78,0.35)"></div>' +
-        '<div class="track" data-w="' + rPct + '" style="top:20px; left:' + rLeft + '%; background:' +
-          ((r.r||0) < 0 ? 'var(--rust)' : 'var(--teal)') + '"></div>' +
-      '</div>' +
-      '<div class="verdict-pill ' + cls + '"><span class="vp-dot"></span>' + verdict + '</div>' +
-      (note ? '<div class="perf-note">' + note + '</div>' : '') +
-    '</main>';
-  }).join('');
-  requestAnimationFrame(() => {
-    box.querySelectorAll('.track').forEach(t => { t.style.width = t.dataset.w + '%'; });
+  // two funds get a true Venn; three is drawn as a shared core with each
+  // fund's own holdings around it, since a three-circle Venn with tickers
+  // in it is unreadable at this size.
+  if (PICKED.length === 2) return vennTwo(host, PICKED[0], PICKED[1]);
+  return vennMany(host, PICKED);
+}
+
+function topN(obj, n){
+  return Object.keys(obj).map(function(t){ return {t:t, w:obj[t]}; })
+    .sort(function(a,b){ return b.w - a.w; }).slice(0, n);
+}
+
+function vennTwo(host, a, b){
+  var A = lookThrough(a), B = lookThrough(b);
+  var shared = sharedOf(a, b);
+  var onlyA = {}, onlyB = {};
+  Object.keys(A).forEach(function(t){ if (B[t] === undefined) onlyA[t] = A[t]; });
+  Object.keys(B).forEach(function(t){ if (A[t] === undefined) onlyB[t] = B[t]; });
+
+  // how much of each fund the shared names account for
+  var sumShareA = shared.reduce(function(s,o){ return s + (A[o.t]||0); }, 0);
+  var sumShareB = shared.reduce(function(s,o){ return s + (B[o.t]||0); }, 0);
+
+  function col(list, cls){
+    if (!list.length) return "<div class='vn-none'>none</div>";
+    return list.map(function(o){
+      return "<span class='vn-t " + cls + "'>" + o.t + "<i>" + o.w.toFixed(1) + "%</i></span>";
+    }).join("");
+  }
+  var la = topN(onlyA, 6), lb = topN(onlyB, 6), ls = shared.slice(0, 8);
+  var moreA = Object.keys(onlyA).length - la.length;
+  var moreB = Object.keys(onlyB).length - lb.length;
+  var moreS = shared.length - ls.length;
+
+  host.innerHTML =
+    "<div class='venn'>" +
+      "<div class='vn-head'>" +
+        "<div class='vn-h vn-h-a'><b>" + a + "</b><span>" + Object.keys(onlyA).length + " of its own</span></div>" +
+        "<div class='vn-h vn-h-s'><b>Both</b><span>" + shared.length + " shared</span></div>" +
+        "<div class='vn-h vn-h-b'><b>" + b + "</b><span>" + Object.keys(onlyB).length + " of its own</span></div>" +
+      "</div>" +
+      "<div class='vn-rings'>" +
+        "<div class='vn-ring vn-ring-a'></div>" +
+        "<div class='vn-ring vn-ring-b'></div>" +
+        "<div class='vn-zone vn-zone-a'>" + col(la, "a") + (moreA > 0 ? "<span class='vn-more'>+" + moreA + " more</span>" : "") + "</div>" +
+        "<div class='vn-zone vn-zone-s'>" + col(ls, "s") + (moreS > 0 ? "<span class='vn-more'>+" + moreS + " more</span>" : "") + "</div>" +
+        "<div class='vn-zone vn-zone-b'>" + col(lb, "b") + (moreB > 0 ? "<span class='vn-more'>+" + moreB + " more</span>" : "") + "</div>" +
+      "</div>" +
+      "<div class='vn-foot'>The shared names make up <b>" + sumShareA.toFixed(1) + "%</b> of " + a +
+        " and <b>" + sumShareB.toFixed(1) + "%</b> of " + b + ".</div>" +
+    "</div>";
+}
+
+function vennMany(host, picks){
+  // held by every pick, then held by some but not all
+  var maps = picks.map(function(t){ return lookThrough(t); });
+  var all = {}, some = {};
+  Object.keys(maps[0]).forEach(function(t){
+    var inAll = maps.every(function(m){ return m[t] !== undefined; });
+    var cnt = maps.filter(function(m){ return m[t] !== undefined; }).length;
+    if (inAll) all[t] = Math.min.apply(null, maps.map(function(m){ return m[t]; }));
+    else if (cnt > 1) some[t] = Math.max.apply(null, maps.map(function(m){ return m[t] || 0; }));
+  });
+  maps.forEach(function(m){ Object.keys(m).forEach(function(t){
+    if (all[t] !== undefined || some[t] !== undefined) return;
+    var cnt = maps.filter(function(x){ return x[t] !== undefined; }).length;
+    if (cnt > 1) some[t] = Math.max.apply(null, maps.map(function(x){ return x[t] || 0; }));
+  }); });
+
+  function chips(obj, cls, cap){
+    var l = topN(obj, cap);
+    if (!l.length) return "<div class='vn-none'>none</div>";
+    var extra = Object.keys(obj).length - l.length;
+    return l.map(function(o){ return "<span class='vn-t " + cls + "'>" + o.t + "<i>" + o.w.toFixed(1) + "%</i></span>"; }).join("")
+      + (extra > 0 ? "<span class='vn-more'>+" + extra + " more</span>" : "");
+  }
+  host.innerHTML =
+    "<div class='venn venn-many'>" +
+      "<div class='vm-band'><div class='vm-lab'>In all " + picks.length + "</div>" +
+        "<div class='vm-set'>" + chips(all, "s", 10) + "</div></div>" +
+      "<div class='vm-band'><div class='vm-lab'>In two of them</div>" +
+        "<div class='vm-set'>" + chips(some, "a", 12) + "</div></div>" +
+    "</div>";
+}
+
+function renderPerf(){
+  var rows = PICKED.map(function(t){
+    var st = FUNDS[t].stats || {};
+    return {t:t, name: FUNDS[t].name, issuer: FUNDS[t].issuer,
+            y: st.yield_ttm, r: st.total_return_1y};
+  });
+  // one scale across every fund, so bar lengths mean the same thing in each row
+  var vals = [];
+  rows.forEach(function(r){ vals.push(r.y || 0); vals.push(r.r || 0); });
+  var lo = Math.min.apply(null, [0].concat(vals));
+  var hi = Math.max.apply(null, [0].concat(vals));
+  var span = (hi - lo) || 1;
+  var zero = (0 - lo) / span * 100;
+
+  function verdictOf(r){
+    if (r.y === undefined || r.r === undefined || r.r === null) return {cls:"na", short:"No data", note:""};
+    if (r.r < 0) return {cls:"bad", short:"Paid out of capital",
+      note:"Every dollar distributed came out of the fund. A unit is worth less than a year ago."};
+    if (r.r < r.y) return {cls:"warn", short:"Part came from capital",
+      note:"Paid " + r.y.toFixed(1) + "% but grew " + r.r.toFixed(1) + "%, so about " +
+        (r.y - r.r).toFixed(1) + " points was your own money handed back."};
+    return {cls:"good", short:"Income was earned",
+      note:"Total return kept pace with the distribution, so the payout did not eat the unit price."};
+  }
+
+  var head = "<div class='pf-row pf-head'>" +
+    "<div class='pf-fund'></div>" +
+    "<div class='pf-n'>Yield</div>" +
+    "<div class='pf-n'>Total return</div>" +
+    "<div class='pf-bar-h'>Paid against kept</div>" +
+    "<div class='pf-v'></div></div>";
+
+  var body = rows.map(function(r){
+    var v = verdictOf(r);
+    var has = v.cls !== "na";
+    var yW = Math.abs(r.y || 0) / span * 100;
+    var rW = Math.abs(r.r || 0) / span * 100;
+    var rL = (r.r || 0) >= 0 ? zero : zero - rW;
+    return "<div class='pf-row' style='--fam:" + famColour(r.issuer) + "'>" +
+      "<div class='pf-fund'><span class='pf-tic'>" + r.t + "</span>" +
+        "<span class='pf-name'>" + (r.name || "") + "</span></div>" +
+      "<div class='pf-n'><span class='pf-num'>" + (r.y !== undefined ? r.y.toFixed(1) + "%" : "&mdash;") + "</span></div>" +
+      "<div class='pf-n'><span class='pf-num " + ((r.r||0) < 0 ? "neg" : "pos") + "'>" +
+        (has ? ((r.r > 0 ? "+" : "") + r.r.toFixed(1) + "%") : "&mdash;") + "</span></div>" +
+      "<div class='pf-bars'>" +
+        "<div class='pf-zero' style='left:" + zero + "%'></div>" +
+        "<div class='pf-b pf-b-y' data-w='" + yW + "' style='left:" + zero + "%'></div>" +
+        "<div class='pf-b pf-b-r " + ((r.r||0) < 0 ? "neg" : "pos") + "' data-w='" + rW + "' style='left:" + rL + "%'></div>" +
+      "</div>" +
+      "<div class='pf-v'><span class='pf-tag pf-" + v.cls + "' title='" + v.note + "'>" + v.short + "</span></div>" +
+    "</div>";
+  }).join("");
+
+  // the explanation sits once beneath, rather than repeated under every fund
+  var worst = rows.map(verdictOf).filter(function(v){ return v.note; });
+  var legend = worst.length ? "<div class='pf-legend'>" + worst.map(function(v, i){
+    return "<div class='pf-leg'><span class='pf-tag pf-" + v.cls + "'>" + rows[i].t + "</span>" + v.note + "</div>";
+  }).join("") + "</div>" : "";
+
+  var box = document.getElementById("perf");
+  box.innerHTML = "<div class='pf'>" + head + body + "</div>" + legend;
+  requestAnimationFrame(function(){
+    box.querySelectorAll(".pf-b").forEach(function(b){ b.style.width = b.dataset.w + "%"; });
   });
 }
 
