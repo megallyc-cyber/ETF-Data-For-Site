@@ -1313,16 +1313,16 @@ function vennIsReal(t){
 // ordinary companies, and we have nothing to show for those, so they stay
 // inert rather than pretending to be links.
 function vennFundKey(t){
-  if (window.FUNDS && FUNDS[t]) return t;
+  if (typeof FUNDS === 'undefined' || !FUNDS) return null;
+  if (FUNDS[t]) return t;
   var up = String(t).toUpperCase();
-  if (window.FUNDS && FUNDS[up]) return up;
-  // a fund held inside a fund arrives as its full name; match it back
-  if (window.FUNDS){
-    var hit = Object.keys(FUNDS).filter(function(k){
-      var n = (FUNDS[k].name || "").toLowerCase();
-      return n && n === String(t).toLowerCase();
-    })[0];
-    if (hit) return hit;
+  if (FUNDS[up]) return up;
+  // a fund held inside another arrives as its full name; match it back
+  var want = String(t).toLowerCase().replace(/\s+/g, ' ').trim();
+  var keys = Object.keys(FUNDS);
+  for (var i = 0; i < keys.length; i++){
+    var n = (FUNDS[keys[i]].name || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    if (n && n === want) return keys[i];
   }
   return null;
 }
