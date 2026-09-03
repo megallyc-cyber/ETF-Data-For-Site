@@ -526,6 +526,58 @@
     .vn-zone-b::before{color:#31507D;}
   }
 
+
+  /* ---- the fund page, over the comparison -------------------------------- */
+  .fund-modal{position:fixed; inset:0; z-index:300; display:flex; align-items:center;
+    justify-content:center; padding:clamp(12px,3vh,42px);
+    background:rgba(28,34,48,0.46); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+    opacity:0; transition:opacity .22s ease;}
+  .fund-modal.in{opacity:1;}
+  .fm-card{width:min(1020px,96vw); height:min(88vh,940px); display:flex; flex-direction:column;
+    background:var(--paper); border-radius:16px; overflow:hidden;
+    border:1px solid var(--line-strong); box-shadow:0 30px 70px -28px rgba(28,34,48,0.75);
+    transform:translateY(14px) scale(.985); transition:transform .28s cubic-bezier(.16,1,.3,1);}
+  .fund-modal.in .fm-card{transform:none;}
+  .fm-bar{flex:none; display:flex; align-items:center; justify-content:space-between;
+    gap:14px; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--white);}
+  .fm-tic{font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:0.05em;}
+  .fm-acts{display:flex; align-items:center; gap:10px;}
+  .fm-open{font-size:12.5px; color:var(--ink-soft); text-decoration:none;
+    padding:6px 12px; border-radius:100px; border:1px solid var(--line-strong);}
+  .fm-open:hover{border-color:var(--ink); color:var(--ink);}
+  .fm-x{width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:19px;
+    line-height:1; background:none; border:1px solid var(--line-strong); color:var(--ink);}
+  .fm-x:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .fm-body{position:relative; flex:1; min-height:0;}
+  .fm-frame{width:100%; height:100%; border:0; opacity:0; transition:opacity .3s ease;}
+  .fm-frame.ready{opacity:1;}
+  .fm-load{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint);}
+
+  /* ---- bubbles: only the ones that lead somewhere behave like it --------- */
+  .vn-b.is-fund{cursor:pointer;}
+  .vn-b.is-fund::after{content:''; position:absolute; inset:-4px; border-radius:50%;
+    border:1.5px solid transparent; transition:border-color .18s ease;}
+  .vn-b.is-fund:hover::after{border-color:rgba(255,255,255,0.75);}
+  .vn-b.is-fund:hover{transform:translateY(-3px) scale(1.07);}
+  .vn-b{position:relative;}
+
+  /* ---- tightening ------------------------------------------------------- */
+  .vn-head{margin-bottom:8px;}
+  .vn-h b{font-size:14px;}
+  .vn-rings{min-height:290px;}
+  .vn-zone{padding:18px 14px; gap:8px;}
+  .vn-b b{font-size:11.5px;}
+  .vn-b i{font-size:9px; opacity:0.82;}
+  .vn-more{margin-top:4px; font-size:11px;}
+  .vn-foot{margin-top:10px;}
+
+  @media(max-width:760px){
+    .fm-card{width:100%; height:92vh;}
+    .vn-b.is-fund:hover{transform:none;}
+  }
+
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -1249,12 +1301,89 @@ function countTo(el, target){
 // a ticker-ish length is clipped; the full name stays on hover.
 // Weight decides the size of the bubble, so the biggest positions read as the
 // biggest circles rather than every name looking equally important.
+// Cash lines, FX and "other assets" are not companies. They were being drawn
+// as holdings, which overstates what a fund actually owns.
+function vennIsReal(t){
+  var s = String(t).toLowerCase();
+  if (s.length > 24) return true;  // a long name is a fund, keep it
+  return !/(^|\s)(cash|other assets|net other|liabilities|receivable|payable|margin|collateral|currency|forward|treasury bill|money market)/.test(s);
+}
+
+// A holding is only openable when it is a fund we actually track. Most are
+// ordinary companies, and we have nothing to show for those, so they stay
+// inert rather than pretending to be links.
+function vennFundKey(t){
+  if (window.FUNDS && FUNDS[t]) return t;
+  var up = String(t).toUpperCase();
+  if (window.FUNDS && FUNDS[up]) return up;
+  // a fund held inside a fund arrives as its full name; match it back
+  if (window.FUNDS){
+    var hit = Object.keys(FUNDS).filter(function(k){
+      var n = (FUNDS[k].name || "").toLowerCase();
+      return n && n === String(t).toLowerCase();
+    })[0];
+    if (hit) return hit;
+  }
+  return null;
+}
+
+// The fund page, shown over the comparison rather than instead of it, so the
+// reader does not lose the picks they set up to get here.
+function openFundModal(ticker){
+  var old = document.getElementById("fundModal");
+  if (old) old.remove();
+  var w = document.createElement("div");
+  w.id = "fundModal";
+  w.className = "fund-modal";
+  w.innerHTML = '<div class="fm-card">'
+    + '<div class="fm-bar"><span class="fm-tic">' + ticker + '</span>'
+    + '<div class="fm-acts">'
+    + '<a class="fm-open" href="fund.html?t=' + encodeURIComponent(ticker) + '" target="_blank" rel="noopener">Open full page</a>'
+    + '<button class="fm-x" type="button" aria-label="Close">&times;</button></div></div>'
+    + '<div class="fm-body"><div class="fm-load">Loading ' + ticker + '\u2026</div>'
+    + '<iframe class="fm-frame" src="fund.html?t=' + encodeURIComponent(ticker) + '" title="' + ticker + '"></iframe>'
+    + '</div></div>';
+  document.body.appendChild(w);
+  document.body.style.overflow = "hidden";
+
+  function shut(){
+    w.classList.remove("in");
+    document.body.style.overflow = "";
+    setTimeout(function(){ w.remove(); }, 220);
+    document.removeEventListener("keydown", onKey);
+  }
+  function onKey(e){ if (e.key === "Escape") shut(); }
+  w.querySelector(".fm-x").addEventListener("click", shut);
+  w.addEventListener("click", function(e){ if (e.target === w) shut(); });
+  document.addEventListener("keydown", onKey);
+
+  var frame = w.querySelector(".fm-frame");
+  frame.addEventListener("load", function(){
+    var load = w.querySelector(".fm-load");
+    if (load) load.remove();
+    frame.classList.add("ready");
+    // the page carries its own navigation, which is redundant inside a panel
+    try {
+      var d = frame.contentDocument;
+      var s = d.createElement("style");
+      s.textContent = "nav,footer,.to-top{display:none !important;}"
+        + "main{padding-top:8px !important;}"
+        + "body{background:transparent !important;}";
+      d.head.appendChild(s);
+    } catch(e){}
+  });
+  requestAnimationFrame(function(){ w.classList.add("in"); });
+}
 function vennBubble(o, cls, maxW){
   var ratio = maxW > 0 ? Math.min(1, o.w / maxW) : 0;
   var size = Math.round(44 + ratio * 32);
   var label = String(o.t);
   var short = label.length > 6 ? label.slice(0, 5) + "\u2026" : label;
-  return "<span class='vn-b " + cls + "' title='" + label + " \u2014 " + o.w.toFixed(1) + "%'"
+  var key = vennFundKey(o.t);
+  var tip = label + " \u2014 " + o.w.toFixed(1) + "%" + (key ? " \u2014 click to open" : "");
+  return "<span class='vn-b " + cls + (key ? " is-fund" : "") + "'"
+    + (key ? " data-fund='" + key + "' role='button' tabindex='0'" : "")
+    + " title='" + tip + "'"
     + " style='width:" + size + "px;height:" + size + "px'>"
     + "<b>" + short + "</b><i>" + o.w.toFixed(1) + "%</i></span>";
 }
@@ -1270,12 +1399,23 @@ function renderVenn(){
   // two funds get a true Venn; three is drawn as a shared core with each
   // fund's own holdings around it, since a three-circle Venn with tickers
   // in it is unreadable at this size.
+
+  // delegated, so redraws do not need re-wiring
+  host.addEventListener('click', function(e){
+    var b = e.target.closest('.vn-b.is-fund');
+    if (b) openFundModal(b.dataset.fund);
+  });
+  host.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var b = e.target.closest && e.target.closest('.vn-b.is-fund');
+    if (b){ e.preventDefault(); openFundModal(b.dataset.fund); }
+  });
   if (PICKED.length === 2) return vennTwo(host, PICKED[0], PICKED[1]);
   return vennMany(host, PICKED);
 }
 
 function topN(obj, n){
-  return Object.keys(obj).map(function(t){ return {t:t, w:obj[t]}; })
+  return Object.keys(obj).filter(vennIsReal).map(function(t){ return {t:t, w:obj[t]}; })
     .sort(function(a,b){ return b.w - a.w; }).slice(0, n);
 }
 
@@ -1296,7 +1436,7 @@ function vennTwo(host, a, b){
     if (!list.length) return "<div class='vn-none'>none</div>";
     return list.map(function(o){ return vennBubble(o, cls, maxW); }).join("");
   }
-  var la = topN(onlyA, 7), lb = topN(onlyB, 7), ls = shared.slice(0, 7);
+  var la = topN(onlyA, 7), lb = topN(onlyB, 7), ls = shared.filter(function(o){ return vennIsReal(o.t); }).slice(0, 7);
   var moreA = Object.keys(onlyA).length - la.length;
   var moreB = Object.keys(onlyB).length - lb.length;
   var moreS = shared.length - ls.length;
