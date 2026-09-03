@@ -482,6 +482,50 @@
     .vn-zone-b::before{content:'Only the second'; color:var(--ember-deep);}
   }
 
+
+  /* ---- holdings as bubbles ------------------------------------------------
+     Small pills left the circles looking empty and gave every holding the same
+     visual weight. Solid discs, sized by position weight, fill the shapes and
+     say which names actually matter — the same device the Learn page uses for
+     companies inside a basket. */
+  .vn-zone{gap:7px; flex-direction:row; flex-wrap:wrap; align-content:center;
+    justify-content:center; padding:20px 10px;}
+  .vn-b{display:inline-flex; flex-direction:column; align-items:center;
+    justify-content:center; border-radius:50%; flex:none; text-align:center;
+    font-family:'IBM Plex Mono',monospace; line-height:1.15;
+    box-shadow:0 3px 10px -4px rgba(28,34,48,0.45); cursor:default;
+    transition:transform .18s cubic-bezier(.2,.8,.3,1);}
+  .vn-b:hover{transform:translateY(-2px) scale(1.05);}
+  .vn-b b{font-weight:500; font-size:11px; letter-spacing:0.02em;}
+  .vn-b i{font-style:normal; font-size:9px; opacity:0.78; margin-top:1px;}
+
+  /* left fund: deep teal */
+  .vn-b.a{background:linear-gradient(150deg,#2E7D6B,#1E5B4E); color:#F4FBF8;}
+  /* right fund: slate blue, clearly a different family from the teal */
+  .vn-b.b{background:linear-gradient(150deg,#4A6FA5,#31507D); color:#F5F8FD;}
+  /* shared: gold, because that is the answer the reader came for */
+  .vn-b.s{background:linear-gradient(150deg,#D8AE4E,#9C7522); color:#2A2003;
+    box-shadow:0 4px 14px -4px rgba(156,117,34,0.75);}
+
+  .vn-more{width:100%; text-align:center; font-size:10.5px; color:var(--ink-faint);
+    margin-top:2px;}
+
+  /* ---- the circles: stronger, and a pairing that does not fight ---------- */
+  .vn-ring-a{background:rgba(46,125,107,0.18); border:1.5px solid rgba(30,91,78,0.55);}
+  .vn-ring-b{background:rgba(74,111,165,0.16); border:1.5px solid rgba(49,80,125,0.5);}
+  .vn-lens{background:rgba(216,174,78,0.30); border:1.5px solid rgba(156,117,34,0.45);}
+
+  .vn-h-a b{color:#1E5B4E;}
+  .vn-h-s b{color:#9C7522;}
+  .vn-h-b b{color:#31507D;}
+
+  @media(max-width:760px){
+    .vn-zone{justify-content:flex-start; padding:12px 0;}
+    .vn-zone-a::before{color:#1E5B4E;}
+    .vn-zone-s::before{color:#9C7522;}
+    .vn-zone-b::before{color:#31507D;}
+  }
+
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -1203,6 +1247,17 @@ function countTo(el, target){
 // first holds, what only the second holds, and what sits in both.
 // A holding that is itself a fund arrives with its whole name. Anything past
 // a ticker-ish length is clipped; the full name stays on hover.
+// Weight decides the size of the bubble, so the biggest positions read as the
+// biggest circles rather than every name looking equally important.
+function vennBubble(o, cls, maxW){
+  var ratio = maxW > 0 ? Math.min(1, o.w / maxW) : 0;
+  var size = Math.round(44 + ratio * 32);
+  var label = String(o.t);
+  var short = label.length > 6 ? label.slice(0, 5) + "\u2026" : label;
+  return "<span class='vn-b " + cls + "' title='" + label + " \u2014 " + o.w.toFixed(1) + "%'"
+    + " style='width:" + size + "px;height:" + size + "px'>"
+    + "<b>" + short + "</b><i>" + o.w.toFixed(1) + "%</i></span>";
+}
 function vennLabel(t){
   var s = String(t);
   return s.length > 9 ? s.slice(0, 8) + "\u2026" : s;
@@ -1235,11 +1290,11 @@ function vennTwo(host, a, b){
   var sumShareA = shared.reduce(function(s,o){ return s + (A[o.t]||0); }, 0);
   var sumShareB = shared.reduce(function(s,o){ return s + (B[o.t]||0); }, 0);
 
+  var maxW = 0;
+  [].concat(topN(onlyA, 99), topN(onlyB, 99), shared).forEach(function(o){ if (o.w > maxW) maxW = o.w; });
   function col(list, cls){
     if (!list.length) return "<div class='vn-none'>none</div>";
-    return list.map(function(o){
-      return "<span class='vn-t " + cls + "' title='" + o.t + "'><b>" + vennLabel(o.t) + "</b><i>" + o.w.toFixed(1) + "%</i></span>";
-    }).join("");
+    return list.map(function(o){ return vennBubble(o, cls, maxW); }).join("");
   }
   var la = topN(onlyA, 7), lb = topN(onlyB, 7), ls = shared.slice(0, 7);
   var moreA = Object.keys(onlyA).length - la.length;
@@ -1286,7 +1341,8 @@ function vennMany(host, picks){
     var l = topN(obj, cap);
     if (!l.length) return "<div class='vn-none'>none</div>";
     var extra = Object.keys(obj).length - l.length;
-    return l.map(function(o){ return "<span class='vn-t " + cls + "' title='" + o.t + "'><b>" + vennLabel(o.t) + "</b><i>" + o.w.toFixed(1) + "%</i></span>"; }).join("")
+    var mx = l.reduce(function(m,o){ return Math.max(m, o.w); }, 0);
+    return l.map(function(o){ return vennBubble(o, cls, mx); }).join("")
       + (extra > 0 ? "<span class='vn-more'>+" + extra + " more</span>" : "");
   }
   host.innerHTML =
