@@ -421,6 +421,26 @@
     .pf-bars, .pf-v{grid-column:1 / -1;}
   }
 
+  /* vn-label-fix: the circles need height to hold their names, and the chips
+     need a ceiling so one long label cannot stretch a column. */
+  .vn-rings{min-height:300px; align-items:stretch;}
+  .vn-ring{top:8px; bottom:8px; width:58%;}
+  .vn-ring-a{left:2%;}
+  .vn-ring-b{right:2%;}
+  .vn-zone{flex-direction:column; align-items:center; gap:6px;
+    padding:30px 10px; justify-content:center;}
+  .vn-zone-s{padding:30px 4px;}
+  .vn-t{max-width:118px; overflow:hidden;}
+  .vn-t b{font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .vn-more{margin-top:2px;}
+  @media(max-width:860px){
+    .vn-rings{min-height:340px;}
+    .vn-t{max-width:100px; font-size:10.5px;}}
+
+  /* the legend lines start at the same place, whatever the ticker length */
+  .pf-leg{align-items:flex-start;}
+  .pf-leg .pf-tag{width:62px; text-align:center; padding:3px 0; line-height:1.5;}
+  .pf-leg > span:last-child, .pf-leg{line-height:1.55;}
 </style>
   <link rel="stylesheet" href="assets/pro.css">
   <script type="application/ld+json">
@@ -1120,6 +1140,12 @@ function countTo(el, target){
 // A list of shared tickers said "these overlap" but not how much of each fund
 // that overlap represents. Two circles carry that instantly: what only the
 // first holds, what only the second holds, and what sits in both.
+// A holding that is itself a fund arrives with its whole name. Anything past
+// a ticker-ish length is clipped; the full name stays on hover.
+function vennLabel(t){
+  var s = String(t);
+  return s.length > 9 ? s.slice(0, 8) + "\u2026" : s;
+}
 function renderVenn(){
   var host = document.getElementById("chips");
   if (!host) return;
@@ -1151,10 +1177,10 @@ function vennTwo(host, a, b){
   function col(list, cls){
     if (!list.length) return "<div class='vn-none'>none</div>";
     return list.map(function(o){
-      return "<span class='vn-t " + cls + "'>" + o.t + "<i>" + o.w.toFixed(1) + "%</i></span>";
+      return "<span class='vn-t " + cls + "' title='" + o.t + "'><b>" + vennLabel(o.t) + "</b><i>" + o.w.toFixed(1) + "%</i></span>";
     }).join("");
   }
-  var la = topN(onlyA, 6), lb = topN(onlyB, 6), ls = shared.slice(0, 8);
+  var la = topN(onlyA, 7), lb = topN(onlyB, 7), ls = shared.slice(0, 7);
   var moreA = Object.keys(onlyA).length - la.length;
   var moreB = Object.keys(onlyB).length - lb.length;
   var moreS = shared.length - ls.length;
@@ -1198,7 +1224,7 @@ function vennMany(host, picks){
     var l = topN(obj, cap);
     if (!l.length) return "<div class='vn-none'>none</div>";
     var extra = Object.keys(obj).length - l.length;
-    return l.map(function(o){ return "<span class='vn-t " + cls + "'>" + o.t + "<i>" + o.w.toFixed(1) + "%</i></span>"; }).join("")
+    return l.map(function(o){ return "<span class='vn-t " + cls + "' title='" + o.t + "'><b>" + vennLabel(o.t) + "</b><i>" + o.w.toFixed(1) + "%</i></span>"; }).join("")
       + (extra > 0 ? "<span class='vn-more'>+" + extra + " more</span>" : "");
   }
   host.innerHTML =
@@ -1266,7 +1292,7 @@ function renderPerf(){
   // the explanation sits once beneath, rather than repeated under every fund
   var worst = rows.map(verdictOf).filter(function(v){ return v.note; });
   var legend = worst.length ? "<div class='pf-legend'>" + worst.map(function(v, i){
-    return "<div class='pf-leg'><span class='pf-tag pf-" + v.cls + "'>" + rows[i].t + "</span>" + v.note + "</div>";
+    return "<div class='pf-leg'><span class='pf-tag pf-" + v.cls + "'>" + rows[i].t + "</span><span class='pf-leg-t'>" + v.note + "</span></div>";
   }).join("") + "</div>" : "";
 
   var box = document.getElementById("perf");
