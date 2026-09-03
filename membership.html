@@ -290,6 +290,51 @@
   #premBar{opacity:1 !important;}
   /* the slide title was sitting on the card's top edge */
   .ex-head{padding-top:18px;}
+
+  /* A full comparison, because three short lists made Pro look like it adds
+     two things. Laid out as rows so the same feature can be read across all
+     three plans at once. */
+  .compare-wrap{max-width:min(980px,94vw); margin:clamp(36px,6vh,64px) auto 0;}
+  .cmp-h{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(22px,3.4vmin,29px);
+    letter-spacing:-0.02em; text-align:center; margin-bottom:22px;}
+  .cmp{border:1px solid var(--line-strong); border-radius:15px; overflow:hidden;
+    background:var(--white);}
+
+  .crow{display:grid; grid-template-columns:1.6fr .8fr .8fr .9fr;
+    border-top:1px solid var(--line); align-items:center;}
+  .crow:first-child{border-top:none;}
+  .cfeat{padding:13px 18px; font-size:14px; line-height:1.45; color:var(--ink);}
+  .cnote{display:block; font-size:11.5px; color:var(--ink-faint); margin-top:2px; line-height:1.4;}
+  .ccell{padding:13px 10px; text-align:center; font-size:13.5px; color:var(--ink-soft);}
+  .ccell.is-pro{background:rgba(200,155,60,0.07);}
+
+  .chead{background:var(--paper-2); border-top:none;}
+  .chead .ccell{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-soft); padding:14px 10px;}
+  .chead .ccell.is-pro{color:#8F6B22; background:rgba(200,155,60,0.14);}
+
+  .cgroup{grid-column:1 / -1; padding:14px 18px 8px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-faint); background:var(--paper-2);}
+
+  .yes{color:var(--ember-deep); font-size:15px;}
+  .is-pro .yes{color:#8F6B22;}
+  .no{color:var(--line-strong);}
+  .val{color:var(--ink);}
+  .is-pro .val{color:#8F6B22; font-weight:500;}
+
+  /* On a phone the feature takes its own line and the three answers sit
+     beneath it, each labelled, rather than a table squeezed sideways. */
+  @media(max-width:720px){
+    .crow{grid-template-columns:1fr 1fr 1fr; padding:4px 0 10px;}
+    .cfeat{grid-column:1 / -1; padding:12px 14px 6px; font-size:13.5px;}
+    .ccell{padding:6px 6px; font-size:13px;}
+    .ccell::before{content:attr(data-t); display:block; font-family:'IBM Plex Mono',monospace;
+      font-size:8.5px; letter-spacing:0.09em; text-transform:uppercase;
+      color:var(--ink-faint); margin-bottom:3px;}
+    .chead{display:none;}
+    .ccell.is-pro{border-radius:8px;}
+  }
 </style>
 <style>
   /* Membership. Three columns on a wide screen, stacked cards on a phone —
@@ -374,6 +419,7 @@
     .tier li{font-size:13.5px;}
   }
 </style>
+<link rel="stylesheet" href="assets/pro.css">
 </head>
 <body>
 <nav>
@@ -407,7 +453,7 @@
       <div class="who">Have a look around. Nothing to sign up for, nothing saved.</div>
       <div class="price"><span class="amt">Free</span></div>
       <div class="price-note">No email needed</div>
-      <ul><li class="yes"><span class="mk">✓</span><span><b>25 funds</b> in full — yields, size, distributions</span></li><li class="yes"><span class="mk">✓</span><span>Every fund in the directory visible, locked ones marked</span></li><li class="yes"><span class="mk">✓</span><span>The whole of Learn, start to finish</span></li><li class="yes"><span class="mk">✓</span><span>Compare any two of your 25</span></li><li class="no"><span class="mk">·</span><span>Saving a watchlist or a portfolio</span></li><li class="no"><span class="mk">·</span><span>Sector overlap between funds</span></li><li class="no"><span class="mk">·</span><span>Backtesting and the market stress test</span></li></ul>
+      <ul><li class="yes"><span class="mk">✓</span><span><b>25 funds</b> in full, drawn across managers and both markets</span></li><li class="yes"><span class="mk">✓</span><span>Every one of the 207 listed, so you can see what exists</span></li><li class="yes"><span class="mk">✓</span><span>The whole of Learn</span></li><li class="no"><span class="mk">·</span><span>Nothing saved between visits</span></li></ul>
       <a class="tier-cta" href="funds.html">Browse the funds</a>
       <div class="cta-sub"></div>
     </div>
@@ -417,7 +463,7 @@
       <div class="who">For following a handful of funds and keeping your work between visits.</div>
       <div class="price"><span class="amt">$0</span><span class="per">forever</span></div>
       <div class="price-note">Email or Google, about a minute</div>
-      <ul><li class="yes"><span class="mk">✓</span><span><b>50 funds</b> in full, twice what you get signed out</span></li><li class="yes"><span class="mk">✓</span><span>Top holdings and a year of distribution history</span></li><li class="yes"><span class="mk">✓</span><span><b>3 saved holdings</b> in My Portfolio, kept across devices</span></li><li class="yes"><span class="mk">✓</span><span>Build and keep portfolios</span></li><li class="yes"><span class="mk">✓</span><span>Chart total return for any fund you can open</span></li><li class="no"><span class="mk">·</span><span>Sector overlap between funds</span></li><li class="no"><span class="mk">·</span><span>The market stress test</span></li></ul>
+      <ul><li class="yes"><span class="mk">✓</span><span><b>50 funds</b> in full — twice what you get signed out</span></li><li class="yes"><span class="mk">✓</span><span>A year of distribution history on each</span></li><li class="yes"><span class="mk">✓</span><span><b>3 saved holdings</b>, kept across your devices</span></li><li class="yes"><span class="mk">✓</span><span>Total return charts and the portfolio builder</span></li></ul>
       <a class="tier-cta solid" id="freeCta" href="account.html">Create a free account</a>
       <div class="cta-sub" id="freeSub"></div>
     </div>
@@ -428,11 +474,13 @@
       <div class="who">For building an income portfolio properly and knowing what sits underneath it.</div>
       <div class="price"><span class="amt">$5.99</span><span class="per">per month</span></div>
       <div class="price-note">or $45 a year — two months free</div>
-      <ul><li class="yes"><span class="mk">✓</span><span><b>All 207 funds</b>, every manager, both markets</span></li><li class="yes"><span class="mk">✓</span><span>Full holdings and complete distribution history</span></li><li class="yes"><span class="mk">✓</span><span><b>Unlimited holdings</b> in My Portfolio</span></li><li class="yes"><span class="mk">✓</span><span>Compare three funds at once</span></li><li class="yes"><span class="mk">✓</span><span><b>Sector overlap</b> — where two funds quietly own the same companies</span></li><li class="yes"><span class="mk">✓</span><span><b>Backtesting</b> and the market stress test</span></li><li class="yes"><span class="mk">✓</span><span>Everything added later, at the price you signed up at</span></li></ul>
+      <ul><li class="yes"><span class="mk">✓</span><span><b>All 207 funds</b>, every manager, both markets</span></li><li class="yes"><span class="mk">✓</span><span><b>Every holding</b> and the <b>complete</b> distribution history</span></li><li class="yes"><span class="mk">✓</span><span><b>Unlimited</b> saved holdings, with yield on cost</span></li><li class="yes"><span class="mk">✓</span><span><b>Sector overlap</b> and the <b>market stress test</b></span></li><li class="yes"><span class="mk">✓</span><span>Everything added later, at today’s price</span></li></ul>
       <a class="tier-cta gold" id="proCta" href="account.html">Go Pro</a>
       <div class="cta-sub" id="proSub">Cancel any time, from your account</div>
     </div>
   </div>
+
+  <div class="compare-wrap"><h2 class="cmp-h">What each plan opens</h2><div class="cmp"><div class="crow chead"><div class="cfeat"></div><div class="ccell">No account</div><div class="ccell">Free</div><div class="ccell is-pro">Licentia Pro</div></div><div class="cgroup">The fund directory</div><div class="crow"><div class="cfeat">Funds you can open in full</div><div class="ccell" data-t="No account"><span class="val">25</span></div><div class="ccell" data-t="Free"><span class="val">50</span></div><div class="ccell is-pro" data-t="Pro"><span class="val">All 207</span></div></div><div class="crow"><div class="cfeat">Every fund listed and searchable</div><div class="ccell" data-t="No account"><span class="yes">&#10003;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Yield, size, price and fees</div><div class="ccell" data-t="No account"><span class="yes">&#10003;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Top holdings shown per fund<span class="cnote">Funds hold 20 on average, and up to 505</span></div><div class="ccell" data-t="No account"><span class="val">5</span></div><div class="ccell" data-t="Free"><span class="val">5</span></div><div class="ccell is-pro" data-t="Pro"><span class="val">Every one</span></div></div><div class="crow"><div class="cfeat">Distribution history<span class="cnote">Some funds have paid for over five years</span></div><div class="ccell" data-t="No account"><span class="val">Last 3</span></div><div class="ccell" data-t="Free"><span class="val">Last 12</span></div><div class="ccell is-pro" data-t="Pro"><span class="val">Complete</span></div></div><div class="crow"><div class="cfeat">Fund managers covered</div><div class="ccell" data-t="No account"><span class="val">8 of 17</span></div><div class="ccell" data-t="Free"><span class="val">13 of 17</span></div><div class="ccell is-pro" data-t="Pro"><span class="val">All 17</span></div></div><div class="cgroup">Analysis</div><div class="crow"><div class="cfeat">Compare funds side by side</div><div class="ccell" data-t="No account"><span class="val">2 at once</span></div><div class="ccell" data-t="Free"><span class="val">2 at once</span></div><div class="ccell is-pro" data-t="Pro"><span class="val">3 at once</span></div></div><div class="crow"><div class="cfeat">Sector overlap between funds<span class="cnote">Where two funds quietly own the same companies</span></div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="no">&mdash;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Look-through on funds holding funds</div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="no">&mdash;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Portfolio builder</div><div class="ccell" data-t="No account"><span class="val">From 25</span></div><div class="ccell" data-t="Free"><span class="val">From 50</span></div><div class="ccell is-pro" data-t="Pro"><span class="val">From all 207</span></div></div><div class="crow"><div class="cfeat">Total return chart</div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Market stress test<span class="cnote">What a fall does to your income, not just the price</span></div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="no">&mdash;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="cgroup">Your portfolio</div><div class="crow"><div class="cfeat">Saved holdings</div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="val">3</span></div><div class="ccell is-pro" data-t="Pro"><span class="val">Unlimited</span></div></div><div class="crow"><div class="cfeat">Portfolio value and income</div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Yield on cost and profit tracking</div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Kept across your devices</div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="cgroup">Everything else</div><div class="crow"><div class="cfeat">The whole of Learn</div><div class="ccell" data-t="No account"><span class="yes">&#10003;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">Send ideas to the team</div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="yes">&#10003;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div><div class="crow"><div class="cfeat">New tools as they land<span class="cnote">At the price you signed up at</span></div><div class="ccell" data-t="No account"><span class="no">&mdash;</span></div><div class="ccell" data-t="Free"><span class="no">&mdash;</span></div><div class="ccell is-pro" data-t="Pro"><span class="yes">&#10003;</span></div></div></div></div>
 
   <div class="mem-note">
     Licentia is research and education, not advice. Figures come from the fund
