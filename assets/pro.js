@@ -17,6 +17,7 @@
   var PREVIEW = 'LICENTIA_PRO_PREVIEW';
   var URL_ = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
   var KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
+  window.LICENTIA_ANON = KEY;  // published from inside the key scope
 
   // the old persistent flag let gold stick to accounts that never paid
   try { localStorage.removeItem('LICENTIA_PRO'); } catch (e) {}
@@ -64,7 +65,7 @@
   window.addEventListener('load', function(){
     if (previewOn()) return;
     fetch(URL_ + '/auth/v1/user', {
-      headers: { apikey: KEY, Authorization: 'Bearer ' + (function(){
+      headers: { apikey: window.LICENTIA_ANON, Authorization: 'Bearer ' + (function(){
         try {
           for (var i = 0; i < localStorage.length; i++){
             var k = localStorage.key(i);
@@ -579,8 +580,6 @@
    a tab left open does not quietly fall back to the free tier.
 --------------------------------------------------------------------------- */
 (function(){
-  window.LICENTIA_ANON = KEY;
-
   function stored(){
     try {
       for (var i = 0; i < localStorage.length; i++){
@@ -606,7 +605,7 @@
     try {
       var r = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/auth/v1/token?grant_type=refresh_token', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', apikey: KEY },
+        headers: { 'Content-Type': 'application/json', apikey: window.LICENTIA_ANON },
         body: JSON.stringify({ refresh_token: sess.refresh_token })
       });
       if (!r.ok) return sess.access_token;
