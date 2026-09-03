@@ -770,6 +770,15 @@ new MutationObserver(function(){ licentiaMarkLocked(); })
 
 
 
+function licentiaAuthHeader(){
+  // A stored token is only good for an hour. pro.js publishes the refresh;
+  // if this page ran before pro.js loaded, fall back to whatever is stored
+  // rather than dropping a paying reader to the anonymous tier.
+  if (typeof window.licentiaRefreshSession === 'function') {
+    return window.licentiaRefreshSession(false);
+  }
+  return Promise.resolve(licentiaToken());
+}
 function licentiaToken(){
   try {
     for (var i = 0; i < localStorage.length; i++){
@@ -789,9 +798,9 @@ function licentiaSeed(){
     return d;
   } catch(e){ return 'device'; }
 }
-function licentiaFundsFetch(opts){
+async function licentiaFundsFetch(opts){
   var headers = { 'Content-Type': 'application/json' };
-  var t = licentiaToken();
+  var t = await licentiaAuthHeader();
   if (t) headers['Authorization'] = 'Bearer ' + t;
   var body = { seed: licentiaSeed() };
   if (opts && opts.sectors) body.sectors = true;
