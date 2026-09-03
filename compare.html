@@ -150,7 +150,10 @@
   .count{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); margin-top:12px;}
 
   /* ---------- results ---------- */
-  .out{margin-top:34px; opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .out{margin-top:34px; opacity:0; transform:translateY(18px);
+    transition:opacity .6s ease, transform .6s ease;
+    height:0; overflow:hidden;}
+  .out.on{height:auto; overflow:visible;}
   .out.on{opacity:1; transform:none;}
   .panel{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:28px; margin-bottom:20px;}
   .panel h3{font-family:'Fraunces',serif; font-weight:500; font-size:22px; margin-bottom:6px;}
@@ -681,7 +684,8 @@ licentiaFundsFetch()
       if (v.locked || (v.holdings && Object.keys(v.holdings).length)) FUNDS[t] = v;
     });
     buildFamilies();
-    renderSlots();
+    licentiaRestorePicks();
+    renderSlots(); refreshPicked(); renderOut(); syncCta();
   loadLogos();
     // sector and AUM data arrive alongside the funds; redraw once they land
     loadExtras().then(function(){ if (PICKED.length > 1) renderOut(); });
@@ -844,12 +848,31 @@ function refreshPicked(){
   });
 }
 
+
+// Picks are kept for the tab, so a refresh does not throw away the
+// comparison you had set up. Deliberately sessionStorage, not local: a new
+// tab should start clean rather than inherit yesterday's pair.
+function licentiaSavePicks(){
+  try { sessionStorage.setItem("licentia_cmp_picks", JSON.stringify(PICKED)); } catch(e){}
+}
+function licentiaRestorePicks(){
+  try {
+    var raw = sessionStorage.getItem("licentia_cmp_picks");
+    if (!raw) return;
+    var saved = JSON.parse(raw);
+    if (!Array.isArray(saved)) return;
+    // only restore what this reader can actually open, and respect the cap
+    var ok = saved.filter(function(t){ return FUNDS[t] && !FUNDS[t].locked; });
+    PICKED = ok.slice(0, licentiaPickCap());
+  } catch(e){}
+}
 function toggle(t){
   const i = PICKED.indexOf(t);
   if (i > -1) PICKED.splice(i, 1);
   else if (PICKED.length < licentiaPickCap()) PICKED.push(t);
   else if (PICKED.length >= licentiaPickCap() && licentiaPickCap() < 3) licentiaPickPrompt();
   else { PICKED.shift(); PICKED.push(t); }
+  licentiaSavePicks();
   renderSlots(); refreshPicked(); renderOut(); syncCta();
 }
 
