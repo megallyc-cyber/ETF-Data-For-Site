@@ -479,6 +479,14 @@ function authView(){
   });
 }
 
+function licentiaAuthHeader(){
+  // pro.js renews the session; a token older than an hour is rejected by
+  // the endpoint, which is what used to lock the Pro funds mid-session.
+  if (typeof window.licentiaRefreshSession === "function") {
+    return window.licentiaRefreshSession(false);
+  }
+  return Promise.resolve(licentiaToken());
+}
 function licentiaToken(){
   try {
     for (var i = 0; i < localStorage.length; i++){
@@ -498,9 +506,9 @@ function licentiaSeed(){
     return dv;
   } catch(e){ return "device"; }
 }
-function licentiaFundsFetch(){
+async function licentiaFundsFetch(){
   var headers = { "Content-Type": "application/json" };
-  var t = licentiaToken();
+  var t = await licentiaAuthHeader();
   if (t) headers["Authorization"] = "Bearer " + t;
   return fetch("https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds", {
     method: "POST", headers: headers,
