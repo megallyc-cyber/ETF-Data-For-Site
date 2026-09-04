@@ -1238,6 +1238,46 @@ def _evolve_from_page(html: str) -> dict:
             return out
     return {}
 
+def _globalx_ca_pairs(html: str) -> dict:
+    """Read Global X Canada holdings from the rendered fund page.
+
+    The page shows "Top Holdings" (what the fund owns directly, often just
+    another Global X fund) and "Top Underlying Holdings" (the companies that
+    sit inside it). The underlying list is the useful one; fall back to the
+    direct list when a fund holds securities itself.
+    """
+    import re
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html, "lxml")
+    text_nodes = [t.strip() for t in soup.stripped_strings]
+
+    def block(title):
+        try:
+            start = text_nodes.index(title)
+        except ValueError:
+            return {}
+        out = {}
+        i = start + 1
+        while i < len(text_nodes) - 1:
+            name = text_nodes[i]
+            nxt = text_nodes[i + 1]
+            if name in ("Top Holdings", "Top Underlying Holdings", "Documents"):
+                break
+            m = re.fullmatch(r"(-?\d+(?:\.\d+)?)%", nxt)
+            if m and name not in ("Weight", "Security Name"):
+                w = float(m.group(1))
+                if w > 0 and not re.match(r"(?i)cash|as at", name):
+                    out[name] = round(w, 2)
+                i += 2
+                continue
+            i += 1
+        return out
+
+    under = block("Top Underlying Holdings")
+    if under:
+        return under
+    return block("Top Holdings")
+
 def parse_evolve(html: str) -> dict:
     import csv
     import re
@@ -1461,6 +1501,20 @@ def parse_globalx_ca_rendered(html: str) -> dict:
 
 
 
+
+
+_globalx_ca_original = parse_globalx_ca_rendered
+
+
+def parse_globalx_ca_rendered(html: str) -> dict:  # noqa: F811
+    """Table first, then the div layout the site moved to."""
+    try:
+        rows = _globalx_ca_original(html)
+        if rows:
+            return rows
+    except Exception:  # noqa: BLE001
+        pass
+    return _globalx_ca_pairs(html)
 
 # ---------------------------------------------------------------------------
 # 2b. FUND STATS (AUM / NAV / yield / MER)
