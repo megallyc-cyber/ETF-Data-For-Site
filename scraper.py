@@ -579,21 +579,21 @@ FUND_REGISTRY: list[Fund] = [
     Fund("SPYT", "Defiance S&P 500 Enhanced Options Income ETF", "Defiance", "US",
          "https://www.defianceetfs.com/spyt-full-holdings/", "defiance"),
     Fund("CEPI", "REX Crypto Equity Premium Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/cepi/", "pdf_holdings"),
+         "https://www.rexshares.com/cepi/", "rex"),
     Fund("NVII", "REX NVDA Growth & Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/nvii/", "pdf_holdings"),
+         "https://www.rexshares.com/nvii/", "rex"),
     Fund("TSII", "REX TSLA Growth & Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/tsii/", "pdf_holdings"),
+         "https://www.rexshares.com/tsii/", "rex"),
     Fund("WMTI", "REX WMT Growth & Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/wmti/", "pdf_holdings"),
+         "https://www.rexshares.com/wmti/", "rex"),
     Fund("ATCL", "REX Autocallable Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/atcl/", "pdf_holdings"),
+         "https://www.rexshares.com/atcl/", "rex"),
     Fund("DACL", "REX Defensive Autocallable Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/dacl/", "pdf_holdings"),
+         "https://www.rexshares.com/dacl/", "rex"),
     Fund("FEPI", "REX FANG & Innovation Equity Premium Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/fepi/", "pdf_holdings"),
+         "https://www.rexshares.com/fepi/", "rex"),
     Fund("AIPI", "REX AI Equity Premium Income ETF", "REX Shares", "US",
-         "https://www.rexshares.com/aipi/", "pdf_holdings"),
+         "https://www.rexshares.com/aipi/", "rex"),
     Fund("BALI", "iShares Advantage Large Cap Income ETF", "iShares", "US",
          "https://dividendhistory.org/payout/BALI/", "listing_only"),
     Fund("TLTW", "iShares 20+ Year Treasury Bond BuyWrite Strategy ETF", "iShares", "US",
@@ -1278,6 +1278,45 @@ def _globalx_ca_pairs(html: str) -> dict:
         return under
     return block("Top Holdings")
 
+def _rex_pairs(html: str) -> dict:
+    """Read REX holdings from the grid printed on the fund page."""
+    import re
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html, "lxml")
+    cells = [t.strip() for t in soup.stripped_strings]
+    try:
+        start = cells.index("Weighting")
+    except ValueError:
+        return {}
+    out = {}
+    sym_re = re.compile(r"^[A-Z][A-Z.\-]{0,5}$")
+    pct_re = re.compile(r"^(-?\d+(?:\.\d+)?)%$")
+    i = start + 1
+    while i < len(cells) - 1:
+        sym = cells[i]
+        if sym_re.match(sym):
+            for j in range(i + 1, min(i + 5, len(cells))):
+                m = pct_re.match(cells[j])
+                if m:
+                    w = float(m.group(1))
+                    if w > 0 and sym not in ("USD", "CASH"):
+                        out[sym] = round(w, 2)
+                    i = j
+                    break
+        i += 1
+    return out
+
+
+def parse_rex(html: str) -> dict:
+    """The PDF route first, then the grid on the page."""
+    try:
+        rows = parse_pdf_holdings(html)
+        if rows:
+            return rows
+    except Exception:  # noqa: BLE001
+        pass
+    return _rex_pairs(html)
+
 def parse_evolve(html: str) -> dict:
     import csv
     import re
@@ -1689,6 +1728,7 @@ STATS_SOURCES = {
 
 
 PARSERS: dict[str, Callable[[str], dict]] = {
+    "rex": parse_rex,
     "pdf_holdings": parse_pdf_holdings,
     "defiance": parse_defiance,
     "proshares": parse_proshares,
