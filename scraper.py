@@ -2003,11 +2003,15 @@ def run(registry: list[Fund]) -> list[Fund]:
             parser = PARSERS[fund.parser]
             fund.holdings = parser(html)
             fund.fetched_ok = bool(fund.holdings)
-            if fund.fetched_ok:
-                fund.as_of = today
-                fund.stale = False
-                page = profile_html(fund, html)
-                fund.stats = collect_stats(fund, page)
+            if not fund.fetched_ok:
+                log.warning("  -> no holdings parsed; keeping the rest of the page")
+
+            # stats do not depend on holdings: read them either way
+            fund.as_of = today
+            fund.stale = False
+            page = profile_html(fund, html)
+            fund.stats = collect_stats(fund, page)
+            if True:
                 try:
                     fund.distributions = parse_distributions(page)
                     if not fund.distributions and page is not html:
@@ -2023,9 +2027,14 @@ def run(registry: list[Fund]) -> list[Fund]:
                                  len(fund.distributions), fund.distributions[0]["ex_date"])
                 except Exception as exc:  # noqa: BLE001
                     log.warning("  -> distributions FAILED: %s", exc)
-            else:
+            if not fund.holdings:
                 fund.error = "parser ran but returned no holdings"
-                carry_forward(fund, previous)
+                # keep yesterday's holdings rather than losing them, but the
+                # fresh price and distributions above still stand
+                prev = previous.get(fund.ticker) or {}
+                if prev.get("holdings"):
+                    fund.holdings = prev["holdings"]
+                    fund.stale = True
         except Exception as exc:  # noqa: BLE001 — log and continue, don't kill the whole run
             fund.fetched_ok = False
             fund.error = str(exc)
