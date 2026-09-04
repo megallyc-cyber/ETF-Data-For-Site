@@ -2143,7 +2143,17 @@ def run(registry: list[Fund]) -> list[Fund]:
             fund.as_of = today
             fund.stale = False
             page = profile_html(fund, html)
-            fund.stats = collect_stats(fund, page)
+            fresh = collect_stats(fund, page)
+            prior = (previous.get(fund.ticker) or {}).get("stats") or {}
+            merged = dict(prior)
+            for _k, _v in fresh.items():
+                if _v is not None and _v != "":
+                    merged[_k] = _v  # a fresh reading always wins
+            # anything the page did not give up this time keeps the older
+            # figure rather than going blank on the site
+            fund.stats = merged
+            if prior and not fresh:
+                log.warning("  -> no stats parsed; kept the previous figures")
             if True:
                 try:
                     fund.distributions = parse_distributions(page)
