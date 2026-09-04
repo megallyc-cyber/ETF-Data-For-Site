@@ -1208,6 +1208,36 @@ def parse_harvest(html: str) -> dict:
     return holdings
 
 
+def _evolve_from_page(html: str) -> dict:
+    """Read the holdings table printed on the fund page itself.
+
+    Columns are Name, Weight, Ticker, Sector. The ticker is Bloomberg style
+    ("BNS CN EQUITY"), so only the leading symbol is kept.
+    """
+    import re
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html, "lxml")
+    for table in soup.find_all("table"):
+        head = [th.get_text(strip=True).lower() for th in table.find_all("th")]
+        if "weight" not in head or "ticker" not in head:
+            continue
+        wi, ti = head.index("weight"), head.index("ticker")
+        out = {}
+        for tr in table.find_all("tr"):
+            cells = [td.get_text(strip=True) for td in tr.find_all("td")]
+            if len(cells) <= max(wi, ti):
+                continue
+            sym = cells[ti].split()[0] if cells[ti] else ""
+            m = re.search(r"(\d+(?:\.\d+)?)", cells[wi].replace(",", ""))
+            if not sym or not m:
+                continue
+            w = float(m.group(1))
+            if w > 0:
+                out[sym] = round(w, 2)
+        if out:
+            return out
+    return {}
+
 def parse_evolve(html: str) -> dict:
     import csv
     import re
@@ -1217,8 +1247,15 @@ def parse_evolve(html: str) -> dict:
         raise ValueError("could not locate the holdings CSV link on the fund page")
     csv_url = match.group(0)
 
-    csv_resp = requests.get(csv_url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
-    csv_resp.raise_for_status()
+    try:
+        csv_resp = requests.get(csv_url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
+        csv_resp.raise_for_status()
+    except Exception as exc:  # noqa: BLE001
+        page_rows = _evolve_from_page(html)
+        if page_rows:
+            log.info("  -> CSV refused (%s); used the table on the page", exc)
+            return page_rows
+        raise
 
     reader = csv.DictReader(csv_resp.text.splitlines())
     holdings = {}
@@ -1240,6 +1277,8 @@ def parse_evolve(html: str) -> dict:
             continue
         holdings[ticker] = round(w, 2)
 
+    if not holdings:
+        holdings = _evolve_from_page(html)
     if not holdings:
         raise ValueError(f"CSV fetched from {csv_url} but no rows parsed")
     return holdings
