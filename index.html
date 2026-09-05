@@ -564,37 +564,33 @@ async function licentiaFundsFetch(opts){
 // Read from the same file as the rest of the site so the homepage can never
 // quote a fund count we no longer have.
 (function(){
-  var elF = document.getElementById('statFunds');
+  // These figures describe the whole market, not the visitor. Counting the
+  // funds a caller can open told a signed-out reader we track 25 funds and
+  // 8 managers, when the real answer is 288 and 17 — the least helpful
+  // number to understate, since breadth is the whole pitch. The endpoint
+  // already publishes true totals to everyone; the locks stay exactly as
+  // strict because the fund data itself is still filtered server-side.
+  var elF = document.getElementById("statFunds");
   if (!elF) return;
   licentiaFundsFetch()
     .then(function(r){ return r.json(); })
-    .then(function(data){
-      var tickers = Object.keys(data);
-      var issuers = {}, yields = [];
-      tickers.forEach(function(t){
-        var f = data[t];
-        if (f.issuer) issuers[f.issuer] = 1;
-        var y = (f.stats || {}).yield_ttm;
-        if (typeof y === 'number' && isFinite(y)) yields.push(y);
-      });
-      yields.sort(function(a, b){ return a - b; });
-      var mid = yields.length
-        ? (yields.length % 2 ? yields[(yields.length - 1) / 2]
-                            : (yields[yields.length / 2 - 1] + yields[yields.length / 2]) / 2)
-        : null;
-      elF.textContent = tickers.length;
-      const fF = document.getElementById('fFunds');
-      const fI = document.getElementById('fIssuers');
-      const fY = document.getElementById('fYield');
-      if (fF) fF.textContent = tickers.length;
-      if (fI) fI.textContent = Object.keys(issuers).length;
-      document.getElementById('statIssuers').textContent = Object.keys(issuers).length;
-      if (mid !== null){
-        document.getElementById('statYield').textContent = mid.toFixed(1) + '%';
-        if (fY) fY.textContent = mid.toFixed(1) + '%';
+    .then(function(){
+      var totals = (window.LICENTIA_TOTALS || {}).all || null;
+      var count = (window.LICENTIA_DATA || {}).total || 0;
+      if (!totals && !count) return;
+
+      function put(id, value){
+        var el = document.getElementById(id);
+        if (el && value !== null && value !== undefined) el.textContent = value;
+      }
+      put("statFunds", count || totals.funds);
+      if (totals){
+        put("statIssuers", totals.managers);
+        put("statAum", "$" + (totals.aum_musd / 1000).toFixed(1) + "B");
+        put("statYield", totals.median_yield.toFixed(1) + "%");
       }
     })
-    .catch(function(){ /* the hardcoded fallbacks in the markup stand */ });
+    .catch(function(){});
 })();
 
 // --- provider marquee --------------------------------------------------
