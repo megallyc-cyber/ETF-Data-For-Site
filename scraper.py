@@ -2268,6 +2268,16 @@ def attach_price_and_yield(registry: list) -> None:
     log.info("Computed a trailing-12-month yield for %d funds", done)
 
 
+class PushRejected(RuntimeError):
+    """The scrape ran but the data never landed.
+
+    This used to be logged and swallowed. The importer spent days
+    rejecting every push while the workflow reported success, so the site
+    served stale data and nothing said so. A push that does not land is a
+    failed run.
+    """
+
+
 def push_to_supabase(payload: dict) -> None:
     """Send the scraped funds to Supabase.
 
@@ -2288,12 +2298,17 @@ def push_to_supabase(payload: dict) -> None:
     url = "https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/import-funds"
     try:
         resp = requests.post(url, json={"key": key, "funds": payload}, timeout=180)
-        if resp.status_code == 200:
-            log.info("Pushed %s funds to Supabase", resp.json().get("imported"))
-        else:
-            log.error("Supabase push failed: HTTP %s %s", resp.status_code, resp.text[:200])
     except Exception as exc:  # noqa: BLE001
-        log.error("Supabase push failed: %s", exc)
+        raise PushRejected(f"could not reach the importer: {exc}") from exc
+
+    if resp.status_code != 200:
+        raise PushRejected(
+            f"importer returned HTTP {resp.status_code}: {resp.text[:300]}")
+
+    imported = resp.json().get("imported")
+    log.info("Pushed %s funds to Supabase", imported)
+    if not imported:
+        raise PushRejected("importer accepted the request but wrote no rows")
 
 
 def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
@@ -2334,6 +2349,26 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
     Path("data/tickers.json").write_text(json.dumps(tickers, indent=2, sort_keys=True))
     log.info("Wrote data/tickers.json — %d tickers", len(tickers))
     push_to_supabase(payload)
+    # Coverage per issuer, so a parser that quietly stops working shows up in
+    # the next run rather than weeks later when someone notices a total looks
+    # wrong. Every failure this project has had would have been visible here.
+    by_issuer: dict = {}
+    for f in registry:
+        row = by_issuer.setdefault(f.issuer, {"n": 0, "h": 0, "a": 0, "d": 0})
+        row["n"] += 1
+        if f.holdings:
+            row["h"] += 1
+        if f.stats.get("aum_musd"):
+            row["a"] += 1
+        if f.distributions:
+            row["d"] += 1
+    log.info("Coverage by issuer (holdings / size / distributions):")
+    for name in sorted(by_issuer):
+        r = by_issuer[name]
+        flag = "" if r["h"] == r["n"] else "   <-- holdings gap"
+        log.info("  %-32s %3d funds   %3d/%d holdings   %3d/%d size   %3d/%d dist%s",
+                 name, r["n"], r["h"], r["n"], r["a"], r["n"], r["d"], r["n"], flag)
+
     ok = sum(1 for f in registry if f.fetched_ok)
     with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
     with_dist = sum(1 for f in registry if f.distributions)
