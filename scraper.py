@@ -846,6 +846,37 @@ def parse_harvest_his(html: str) -> dict:
     return holdings
 
 
+def _yieldmax_by_name(html: str) -> dict:
+    """Holdings keyed by security name, for funds that hold no equities."""
+    soup = BeautifulSoup(html, "lxml")
+    for table in soup.find_all("table"):
+        head = table.find("tr")
+        if not head:
+            continue
+        cols = [c.get_text(" ", strip=True).lower() for c in head.find_all(["th", "td"])]
+        if "security name" not in cols or not any("weight" in c for c in cols):
+            continue
+        i_n = cols.index("security name")
+        i_w = next(i for i, c in enumerate(cols) if "weight" in c)
+        out = {}
+        for tr in table.find_all("tr")[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all("td")]
+            if len(cells) <= max(i_n, i_w):
+                continue
+            name = cells[i_n].strip()
+            m = re.search(r"(-?[\d.]+)\s*%", cells[i_w])
+            if not name or not m:
+                continue
+            w = float(m.group(1))
+            if w <= 0:
+                continue
+            # tidy the long treasury descriptions into something readable
+            label = name.replace("United States Treasury", "US Treasury")
+            out[label[:44]] = round(w, 2)
+        if out:
+            return out
+    return {}
+
 def parse_yieldmax(html: str) -> dict:
     """YieldMax fund pages carry a holdings table headed
     SECURITY NAME | TICKER | CUSIP | SHARES | MARKET VALUE | NET ASSETS | WEIGHTINGS.
@@ -884,6 +915,8 @@ def parse_yieldmax(html: str) -> dict:
             holdings[ticker] = holdings.get(ticker, 0.0) + w
         if holdings:
             break
+    if not holdings:
+        holdings = _yieldmax_by_name(html)
     return holdings
 
 
