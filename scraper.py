@@ -2231,9 +2231,15 @@ def run(registry: list[Fund]) -> list[Fund]:
                 html = fetch_rendered(fund.holdings_url, fund.wait_selector,
                                       click_selector=fund.click_selector)
 
-            # BMO ships no holdings in its page at all. Ask the endpoint the
-            # page itself uses, which needs no browser and returns the whole
-            # portfolio rather than a top ten.
+            else:
+                html = fetch(fund.holdings_url)
+
+            parser = PARSERS[fund.parser]
+            fund.holdings = parser(html)
+
+            # BMO ships no holdings in its page at all: the table is built in
+            # the browser. The endpoint its own page calls needs no browser and
+            # returns the whole portfolio rather than a top ten, so it wins.
             if fund.parser == "bmo":
                 try:
                     api_rows = bmo_graphql_holdings(fund.ticker)
@@ -2242,10 +2248,6 @@ def run(registry: list[Fund]) -> list[Fund]:
                         log.info("  -> %s holdings from the BMO API", len(api_rows))
                 except Exception as exc:  # noqa: BLE001
                     log.warning("  -> BMO API failed (%s)", exc)
-            else:
-                html = fetch(fund.holdings_url)
-            parser = PARSERS[fund.parser]
-            fund.holdings = parser(html)
             fund.fetched_ok = bool(fund.holdings)
             if not fund.fetched_ok:
                 log.warning("  -> no holdings parsed; keeping the rest of the page")
