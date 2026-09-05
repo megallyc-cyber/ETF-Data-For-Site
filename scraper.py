@@ -1797,14 +1797,24 @@ def fetch_rendered(url: str, wait_selector: str = None, wait_ms: int = 25000,
             # waiting longer for than a plain fetch.
             page.goto(url, timeout=90000, wait_until="domcontentloaded")
             if click_selector:
-                # BMO builds the holdings table only once its tab is chosen.
-                # ?tab=holdings looks like it should do this but does not:
-                # the page loads on Overview and no table is ever rendered.
+                clicked = False
                 try:
-                    page.click(click_selector, timeout=15000)
-                    page.wait_for_timeout(2500)
-                except Exception:
-                    log.warning("  -> could not click %s", click_selector)
+                    el = page.query_selector(click_selector)
+                    if el:
+                        el.scroll_into_view_if_needed(timeout=5000)
+                        page.wait_for_timeout(400)
+                        el.click(timeout=8000)
+                        clicked = True
+                except Exception as exc:  # noqa: BLE001
+                    log.info("  -> normal click failed (%s)", exc)
+                if not clicked:
+                    try:
+                        page.eval_on_selector(click_selector, "el => el.click()")
+                        clicked = True
+                    except Exception as exc:  # noqa: BLE001
+                        log.warning("  -> could not click %s (%s)", click_selector, exc)
+                if clicked:
+                    page.wait_for_timeout(4000)
             if wait_selector:
                 try:
                     page.wait_for_selector(wait_selector, timeout=wait_ms)
