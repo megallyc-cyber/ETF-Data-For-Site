@@ -1123,7 +1123,8 @@ def parse_listing_only(html: str) -> dict:
     return {}
 
 
-def parse_bmo(html: str) -> dict:
+def parse_bmo(html: str) -> dict:  # noqa: D401
+    """Kept for the page, though holdings now come from the API above."""
     """BMO moved to bmogam.com and renders holdings after page load, so this
     needs the browser fetch. The table is headed
     Weight | Name | ISIN | Bloomberg Ticker | ... and the Bloomberg column is
@@ -1349,6 +1350,61 @@ def parse_rex(html: str) -> dict:
     except Exception:  # noqa: BLE001
         pass
     return _rex_pairs(html)
+
+BMO_GRAPHQL = "https://df.bmogam.com/api/graphql/etf-funds-production"
+
+BMO_QUERY = """query T($locale: String, $entityId: String) {
+  webProfiles(locale: $locale, entityId: $entityId, take: 1) {
+    fundName
+    fund { portfolios(sortDirection: "D", take: 1) {
+      effectiveDate
+      kb2Holdings { allocation holding ticker }
+    } }
+  }
+}"""
+
+
+def bmo_graphql_holdings(ticker: str) -> dict:
+    """Read BMO holdings from the API their own page calls.
+
+    The fund page ships no holdings at all: the table is built in the browser
+    after the Holdings tab is clicked, which is why three attempts at driving
+    that click failed. The page asks this endpoint, and it answers to a plain
+    POST with no key, no cookie and no browser. The identifier is simply the
+    ticker with "-a" appended.
+
+    This returns the whole portfolio rather than a top ten: 86 lines for ZWP
+    against the 10 the page shows.
+    """
+    body = {
+        "query": BMO_QUERY,
+        "variables": {"locale": "en-US", "entityId": f"{ticker}-a", "env": "production"},
+    }
+    resp = requests.post(BMO_GRAPHQL, json=body, timeout=REQUEST_TIMEOUT,
+                         headers={"Content-Type": "application/json"})
+    resp.raise_for_status()
+    data = resp.json()
+    profiles = (data.get("data") or {}).get("webProfiles") or []
+    if not profiles:
+        return {}
+    ports = ((profiles[0].get("fund") or {}).get("portfolios")) or []
+    if not ports:
+        return {}
+    out = {}
+    for row in ports[0].get("kb2Holdings") or []:
+        sym = (row.get("ticker") or "").strip()
+        name = (row.get("holding") or "").strip()
+        alloc = row.get("allocation")
+        if not sym or alloc is None:
+            continue
+        # written calls carry a negative weight and cash is not a position
+        if "CALL OPTION" in name.upper() or name.lower().startswith("cash"):
+            continue
+        weight = float(alloc) * 100
+        if weight <= 0:
+            continue
+        out[sym] = round(weight, 2)
+    return out
 
 def parse_evolve(html: str) -> dict:
     import csv
@@ -2174,6 +2230,18 @@ def run(registry: list[Fund]) -> list[Fund]:
             elif fund.needs_browser:
                 html = fetch_rendered(fund.holdings_url, fund.wait_selector,
                                       click_selector=fund.click_selector)
+
+            # BMO ships no holdings in its page at all. Ask the endpoint the
+            # page itself uses, which needs no browser and returns the whole
+            # portfolio rather than a top ten.
+            if fund.parser == "bmo":
+                try:
+                    api_rows = bmo_graphql_holdings(fund.ticker)
+                    if api_rows:
+                        fund.holdings = api_rows
+                        log.info("  -> %s holdings from the BMO API", len(api_rows))
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("  -> BMO API failed (%s)", exc)
             else:
                 html = fetch(fund.holdings_url)
             parser = PARSERS[fund.parser]
