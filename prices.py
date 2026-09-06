@@ -38,6 +38,7 @@ HEADERS = {
                   "Chrome/126.0.0.0 Safari/537.36",
     "Accept": "application/json,text/plain,*/*",
 }
+BACKOFF = 20  # seconds, doubled on each retry
 PAUSE = 1.5          # be a good citizen; this is someone else's endpoint
 FULL_RANGE = "10y"   # first fetch for a fund
 TOP_UP_RANGE = "1mo" # subsequent runs
@@ -63,13 +64,25 @@ def candidates(ticker: str, region: str) -> list:
     return [t, f"{t}.TO", f"{t}.NE"]
 
 
+class RateLimited(RuntimeError):
+    """Yahoo refused us, which is not the same as a ticker not existing.
+
+    This distinction cost weeks. A 429 was being swallowed and returned as an
+    empty list, identical to an unknown symbol, so the job wrote nothing,
+    committed nothing and reported success while the price files quietly went
+    stale.
+    """
+
+
 def fetch_bars(symbol: str, rng: str) -> list:
-    """[(date, close, adjclose, volume)] oldest first, or [] if the symbol is unknown."""
+    """[(date, close, adjclose, volume)] oldest first, or [] if unknown."""
     try:
         data = get_json(CHART.format(sym=symbol, rng=rng))
     except urllib.error.HTTPError as exc:
         if exc.code in (404, 401):
             return []
+        if exc.code == 429:
+            raise RateLimited(f"{symbol}: rate limited") from exc
         raise
     result = (data.get("chart") or {}).get("result")
     if not result:
@@ -154,6 +167,7 @@ def main() -> None:
     symbols = json.loads(SYMBOL_MAP.read_text()) if SYMBOL_MAP.exists() else {}
 
     resolved = added = unchanged = 0
+    throttled = [0]
     unresolved = []
 
     for ticker, meta in sorted(funds.items()):
@@ -168,11 +182,20 @@ def main() -> None:
 
         bars, used = [], None
         for sym in tries:
-            try:
-                bars = fetch_bars(sym, rng)
-            except Exception as exc:  # noqa: BLE001
-                log.warning("  %s via %s failed: %s", ticker, sym, exc)
-                bars = []
+            for attempt in range(4):
+                try:
+                    bars = fetch_bars(sym, rng)
+                    break
+                except RateLimited:
+                    throttled[0] += 1
+                    wait = BACKOFF * (2 ** attempt)
+                    log.warning("  %s: rate limited, waiting %ds", sym, wait)
+                    time.sleep(wait)
+                    bars = []
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("  %s via %s failed: %s", ticker, sym, exc)
+                    bars = []
+                    break
             time.sleep(PAUSE)
             if bars:
                 used = sym
@@ -207,6 +230,13 @@ def main() -> None:
              total_files, added, resolved, unchanged, len(unresolved))
     if unresolved:
         log.warning("No price data for: %s", ", ".join(unresolved))
+
+    # A job that fetched nothing should not report success. Silence here is
+    # what let the price files sit weeks out of date.
+    if throttled[0] and not added:
+        raise SystemExit(
+            f"Yahoo rate limited every request ({throttled[0]} refusals) "
+            f"and no new bars were written")
 
 
 if __name__ == "__main__":
