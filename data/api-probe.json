@@ -1,72 +1,130 @@
 {
   "ZWP": {
-    "status": 200,
-    "bytes": 6239,
-    "profiles": 1,
-    "name": "BMO Europe High Dividend Covered Call ETF",
     "rows": 86,
-    "sample": [
+    "kept": 40,
+    "dropped": {
+      "no_alloc": 0,
+      "no_label": 0,
+      "cash_or_option": 46,
+      "not_positive": 0
+    },
+    "sample_kept": [
+      [
+        "ABBN",
+        1.7
+      ],
+      [
+        "ALV",
+        2.62
+      ],
+      [
+        "ASML",
+        4.69
+      ],
+      [
+        "AZN",
+        1.44
+      ],
+      [
+        "ATCOA",
+        1.42
+      ]
+    ],
+    "sample_raw": [
       [
         null,
+        "Cash",
         0.0117
       ],
       [
         null,
+        "772543444 BMOMOOTC CALL OPTIONS",
         -0.0003
       ],
       [
         null,
+        "772543452 BMOMOOTC CALL OPTIONS",
         -0.0001
+      ],
+      [
+        null,
+        "774905927 BMOMOOTC CALL OPTIONS",
+        0
+      ],
+      [
+        null,
+        "774906119 BMOMOOTC CALL OPTIONS",
+        -0.0001
+      ],
+      [
+        null,
+        "776085101 BMOMOOTC CALL OPTIONS",
+        0
       ]
     ]
   },
   "ZWT": {
-    "status": 200,
-    "bytes": 4448,
-    "profiles": 1,
-    "name": "BMO Covered Call Technology ETF",
     "rows": 60,
-    "sample": [
+    "kept": 30,
+    "dropped": {
+      "no_alloc": 0,
+      "no_label": 0,
+      "cash_or_option": 30,
+      "not_positive": 0
+    },
+    "sample_kept": [
+      [
+        "ACN",
+        0.81
+      ],
+      [
+        "AMD",
+        4.15
+      ],
+      [
+        "GOOGL",
+        7.13
+      ],
+      [
+        "AMZN",
+        8.24
+      ],
+      [
+        "APH",
+        1.28
+      ]
+    ],
+    "sample_raw": [
       [
         null,
+        "Cash",
         0.0039
       ],
       [
         null,
+        "ACCENTURE PLC CALL OPTIONS",
         0
       ],
       [
         null,
+        "ADVANCED MICRO DEVICES INC CALL OPTIONS",
         0
-      ]
-    ]
-  },
-  "ZWB": {
-    "status": 200,
-    "bytes": 1202,
-    "profiles": 1,
-    "name": "BMO Covered Call Canadian Banks ETF",
-    "rows": 14,
-    "sample": [
-      [
-        null,
-        -0.0005
       ],
       [
         null,
+        "ALPHABET INC CALL OPTIONS",
+        0
+      ],
+      [
+        null,
+        "AMAZON.COM INC CALL OPTIONS",
+        -0.0002
+      ],
+      [
+        null,
+        "AMPHENOL CORP CALL OPTIONS",
         -0.0001
-      ],
-      [
-        null,
-        -0.0004
       ]
     ]
-  },
-  "price_files": {
-    "MSTY": true,
-    "QQCC": false,
-    "ZWT": false,
-    "CEPI": false,
-    "HHL": true
   }
 }
