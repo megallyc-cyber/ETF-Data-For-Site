@@ -18,6 +18,18 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+      # data/funds.json is what the scraper carries forward when a page fails.
+      # It was removed from the repo when the fund data moved behind the serving
+      # function, so every run started with nothing to fall back on and a single
+      # failed fetch wiped a fund outright. Keep it between runs here rather
+      # than in the repo, so it stays private.
+      - name: Restore the previous run's fund data
+        uses: actions/cache@v4
+        with:
+          path: data/funds.json
+          key: funds-json-${{ github.run_id }}
+          restore-keys: |
+            funds-json-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
