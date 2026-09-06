@@ -2387,9 +2387,27 @@ def attach_price_and_yield(registry: list) -> None:
     comparable number for everyone: twelve months of actual distributions over
     the latest close. Prices come from data/prices, which covers all 120.
     """
+    # A fund with no market price shows as worthless in My Portfolio, which is
+    # worse than showing a slightly different number. Issuers publish a NAV
+    # even when the price history cannot be resolved, so fall back to it and
+    # record where the figure came from.
+    def _nav_fallback():
+        for fund in registry:
+            if fund.stats.get("price"):
+                fund.stats.setdefault("price_source", "market")
+                continue
+            nav = fund.stats.get("nav")
+            if nav:
+                fund.stats["price"] = round(float(nav), 4)
+                fund.stats["price_source"] = "nav"
+                ttm = fund.stats.get("ttm_total")
+                if ttm:
+                    fund.stats["yield_ttm"] = round(ttm / float(nav) * 100, 2)
+
     price_dir = Path("data/prices")
     if not price_dir.exists():
-        log.warning("no price files — skipping yield computation")
+        log.warning("no price files — falling back to NAV where published")
+        _nav_fallback()
         return
     done = 0
     for fund in registry:
@@ -2404,6 +2422,7 @@ def attach_price_and_yield(registry: list) -> None:
         if close <= 0:
             continue
         fund.stats["price"] = round(close, 4)
+        fund.stats["price_source"] = "market"
         fund.stats["price_date"] = day
         ttm = fund.stats.get("ttm_total")
         if ttm:
@@ -2427,6 +2446,7 @@ def attach_price_and_yield(registry: list) -> None:
                     fund.stats["return_window"] = "1y" if past else "since inception"
         except Exception:  # noqa: BLE001
             pass
+    _nav_fallback()
     log.info("Computed a trailing-12-month yield for %d funds", done)
 
 
