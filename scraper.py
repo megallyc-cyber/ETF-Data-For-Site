@@ -1360,9 +1360,49 @@ BMO_QUERY = """query T($locale: String, $entityId: String) {
       effectiveDate
       kb2Holdings { allocation holding ticker }
     } }
+    webProfileSalesOptions { salesOption {
+      prices(sortDirection: "D", take: 1) { navps totalNetAssets effectiveDate }
+    } }
   }
 }"""
 
+
+def bmo_graphql_stats(ticker: str) -> dict:
+    """Fund size and NAV from the same BMO endpoint as the holdings.
+
+    We stopped fetching BMO pages once the API proved better for holdings,
+    which also meant nothing was left to read the size and NAV from. Both are
+    published here, so take them from the same call.
+    """
+    body = {
+        "query": BMO_QUERY,
+        "variables": {"locale": "en-US", "entityId": f"{ticker}-a", "env": "production"},
+    }
+    resp = requests.post(BMO_GRAPHQL, json=body, timeout=REQUEST_TIMEOUT,
+                         headers={"Content-Type": "application/json"})
+    resp.raise_for_status()
+    profiles = ((resp.json().get("data") or {}).get("webProfiles")) or []
+    if not profiles:
+        return {}
+    options = profiles[0].get("webProfileSalesOptions") or []
+    if not options:
+        return {}
+    prices = ((options[0].get("salesOption") or {}).get("prices")) or []
+    if not prices:
+        return {}
+    row = prices[0]
+    out = {}
+    nav = row.get("navps")
+    if nav is not None:
+        out["nav"] = round(float(nav), 4)
+    total = row.get("totalNetAssets")
+    if total is not None:
+        # the site works in millions
+        out["aum_musd"] = round(float(total) / 1_000_000, 2)
+        out["aum_display"] = f"${out['aum_musd']:,.1f}M"
+    if row.get("effectiveDate"):
+        out["as_of"] = row["effectiveDate"]
+    return out
 
 def bmo_graphql_holdings(ticker: str) -> dict:
     """Read BMO holdings from the API their own page calls.
@@ -2254,6 +2294,15 @@ def run(registry: list[Fund]) -> list[Fund]:
                 except Exception as exc:  # noqa: BLE001
                     log.warning("  -> BMO API failed (%s)", exc)
                     fund.holdings = {}
+                try:
+                    bmo_stats = bmo_graphql_stats(fund.ticker)
+                    if bmo_stats:
+                        log.info("  -> size and NAV from the BMO API")
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("  -> BMO figures failed (%s)", exc)
+                    bmo_stats = {}
+            else:
+                bmo_stats = {}
             else:
                 parser = PARSERS[fund.parser]
                 fund.holdings = parser(html)
@@ -2266,6 +2315,8 @@ def run(registry: list[Fund]) -> list[Fund]:
             fund.stale = False
             page = profile_html(fund, html)
             fresh = collect_stats(fund, page)
+            if bmo_stats:
+                fresh.update(bmo_stats)
             prior = (previous.get(fund.ticker) or {}).get("stats") or {}
             merged = dict(prior)
             for _k, _v in fresh.items():
