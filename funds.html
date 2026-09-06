@@ -498,7 +498,10 @@ licentiaFundsFetch()
       const hasIncome = v.distributions && v.distributions.length;
       // a fund with a full distribution history is worth listing even where the
       // issuer publishes no parseable holdings — it just cannot show a top holding
-      if(hasHoldings || hasIncome){
+      // a fund we track belongs in the directory even when a scrape could not
+      // read its holdings or income: the card shows what is known and marks
+      // the rest, rather than the fund vanishing
+      if(true){
         live[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {} };
       }
     });
