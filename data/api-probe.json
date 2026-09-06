@@ -1,130 +1,100 @@
 {
   "ZWP": {
-    "rows": 86,
-    "kept": 40,
-    "dropped": {
-      "no_alloc": 0,
-      "no_label": 0,
-      "cash_or_option": 46,
-      "not_positive": 0
+    "ZWP.TO": {
+      "status": 200,
+      "bars": 24,
+      "last": 21.11
     },
-    "sample_kept": [
-      [
-        "ABBN",
-        1.7
-      ],
-      [
-        "ALV",
-        2.62
-      ],
-      [
-        "ASML",
-        4.69
-      ],
-      [
-        "AZN",
-        1.44
-      ],
-      [
-        "ATCOA",
-        1.42
-      ]
-    ],
-    "sample_raw": [
-      [
-        null,
-        "Cash",
-        0.0117
-      ],
-      [
-        null,
-        "772543444 BMOMOOTC CALL OPTIONS",
-        -0.0003
-      ],
-      [
-        null,
-        "772543452 BMOMOOTC CALL OPTIONS",
-        -0.0001
-      ],
-      [
-        null,
-        "774905927 BMOMOOTC CALL OPTIONS",
-        0
-      ],
-      [
-        null,
-        "774906119 BMOMOOTC CALL OPTIONS",
-        -0.0001
-      ],
-      [
-        null,
-        "776085101 BMOMOOTC CALL OPTIONS",
-        0
-      ]
-    ]
+    "ZWP.NE": {
+      "status": 200,
+      "bars": 1,
+      "last": 21.18
+    },
+    "ZWP.V": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
   },
   "ZWT": {
-    "rows": 60,
-    "kept": 30,
-    "dropped": {
-      "no_alloc": 0,
-      "no_label": 0,
-      "cash_or_option": 30,
-      "not_positive": 0
+    "ZWT.TO": {
+      "status": 200,
+      "bars": 24,
+      "last": 66.3
     },
-    "sample_kept": [
-      [
-        "ACN",
-        0.81
-      ],
-      [
-        "AMD",
-        4.15
-      ],
-      [
-        "GOOGL",
-        7.13
-      ],
-      [
-        "AMZN",
-        8.24
-      ],
-      [
-        "APH",
-        1.28
-      ]
-    ],
-    "sample_raw": [
-      [
-        null,
-        "Cash",
-        0.0039
-      ],
-      [
-        null,
-        "ACCENTURE PLC CALL OPTIONS",
-        0
-      ],
-      [
-        null,
-        "ADVANCED MICRO DEVICES INC CALL OPTIONS",
-        0
-      ],
-      [
-        null,
-        "ALPHABET INC CALL OPTIONS",
-        0
-      ],
-      [
-        null,
-        "AMAZON.COM INC CALL OPTIONS",
-        -0.0002
-      ],
-      [
-        null,
-        "AMPHENOL CORP CALL OPTIONS",
-        -0.0001
-      ]
-    ]
+    "ZWT.NE": {
+      "status": 200,
+      "bars": 1,
+      "last": 66.41
+    },
+    "ZWT.V": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  },
+  "QQCC": {
+    "QQCC.TO": {
+      "status": 200,
+      "bars": 24,
+      "last": 13.87
+    },
+    "QQCC.NE": {
+      "status": 200,
+      "bars": 1,
+      "last": 13.86
+    },
+    "QQCC.V": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  },
+  "CEPI": {
+    "CEPI": {
+      "status": 200,
+      "bars": 23,
+      "last": 31.81
+    },
+    "CEPI.TO": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    "CEPI.NE": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  },
+  "MSTY": {
+    "MSTY": {
+      "status": 200,
+      "bars": 23,
+      "last": 16.06
+    },
+    "MSTY.TO": {
+      "status": 200,
+      "bars": 24,
+      "last": 2.85
+    },
+    "MSTY.NE": {
+      "status": 200,
+      "bars": 1,
+      "last": 2.86
+    }
+  },
+  "HHL": {
+    "HHL.TO": {
+      "status": 200,
+      "bars": 24,
+      "last": 7.47
+    },
+    "HHL.NE": {
+      "status": 200,
+      "bars": 1,
+      "last": 7.47
+    },
+    "HHL.V": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  },
+  "_files_present": {
+    "ZWP": false,
+    "ZWT": false,
+    "QQCC": false,
+    "CEPI": false,
+    "MSTY": true,
+    "HHL": true
   }
 }
