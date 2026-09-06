@@ -2287,6 +2287,7 @@ def run(registry: list[Fund]) -> list[Fund]:
             # browser and returns the whole portfolio rather than a top ten.
             # This has to come first: the page parser raises on an empty
             # table, and anything after it never runs.
+            bmo_stats = {}
             if fund.parser == "bmo":
                 try:
                     fund.holdings = bmo_graphql_holdings(fund.ticker)
@@ -2301,8 +2302,6 @@ def run(registry: list[Fund]) -> list[Fund]:
                 except Exception as exc:  # noqa: BLE001
                     log.warning("  -> BMO figures failed (%s)", exc)
                     bmo_stats = {}
-            else:
-                bmo_stats = {}
             else:
                 parser = PARSERS[fund.parser]
                 fund.holdings = parser(html)
