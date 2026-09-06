@@ -37,6 +37,40 @@ jobs:
           p.write_bytes(data)
           print("wrote", len(data), "bytes to", target)
           PY
+      - name: Stamp the shared assets with a version
+        run: |
+          python - <<'PY'
+          import hashlib, pathlib, re
+
+          # A browser holds assets/pro.js for as long as it likes once it has a
+          # copy, and nothing in the page tells it a newer one exists. Phones
+          # are the worst for this, and no reader is going to clear a cache.
+          # Give the file a version in its URL that changes when the file does,
+          # so a stale copy simply cannot be served.
+          stamps = {}
+          for asset in ("assets/pro.js", "assets/pro.css"):
+              p = pathlib.Path(asset)
+              if p.exists():
+                  stamps[asset] = hashlib.sha1(p.read_bytes()).hexdigest()[:8]
+
+          changed = []
+          for page in pathlib.Path(".").glob("*.html"):
+              text = page.read_text()
+              before = text
+              for asset, digest in stamps.items():
+                  # rewrite src="assets/pro.js" or src="assets/pro.js?v=old"
+                  text = re.sub(
+                      re.escape(asset) + r'(\?v=[0-9a-f]+)?',
+                      asset + "?v=" + digest,
+                      text,
+                  )
+              if text != before:
+                  page.write_text(text)
+                  changed.append(page.name)
+
+          print("stamped", stamps)
+          print("updated", len(changed), "pages")
+          PY
       - name: Commit
         env:
           MSG: ${{ github.event.inputs.message }}
