@@ -399,7 +399,7 @@
       </div>
       <div style="margin-top:28px">
         <div class="rangebar" id="rangebar"></div>
-        <div class="chartwrap"><svg id="chart" viewBox="0 0 900 380"></svg><div class="hoverbox" id="hoverbox"></div></div>
+        <div class="chartwrap"><svg id="chart" viewBox="0 0 900 380" style="display:none"></svg><div class="hoverbox" id="hoverbox"></div><div id="chartInvite" class="chart-invite"><img class="ci-mark" src="assets/bird.svg" alt=""><div class="ci-t">Chart any fund we track</div><div class="ci-s">Pick a fund above to see what it has returned since it launched, with distributions reinvested and without. The gap between the two lines is the income it paid you.</div><div class="ci-hint">daily prices &middot; back to inception</div></div></div>
         <div class="legend" id="legend"></div>
         <div class="split3" id="retStats"></div>
         <div class="note" id="chartNote" style="margin-top:14px"></div>
@@ -1139,6 +1139,11 @@ Promise.all([
       hint.innerHTML = total + " funds &middot; daily prices &middot; back to inception";
     }
   }, 2500);
+  setTimeout(function(){
+    var h = document.querySelector(".ci-hint");
+    var t = (window.LICENTIA_DATA || {}).total;
+    if (h && t) h.innerHTML = t + " funds &middot; daily prices &middot; back to inception";
+  }, 5000);
 })();
 </script>
 </body></html>
