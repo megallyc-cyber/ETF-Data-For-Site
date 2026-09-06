@@ -2231,7 +2231,9 @@ def run(registry: list[Fund]) -> list[Fund]:
         global ACTIVE_HEADERS
         ACTIVE_HEADERS = HEADERS_BY_PARSER.get(fund.parser, REQUEST_HEADERS)
         try:
-            if fund.parser == "jpmorgan_xls":
+            if fund.parser == "bmo":
+                html = ""  # BMO needs no page at all: the API answers directly
+            elif fund.parser == "jpmorgan_xls":
                 html = fetch_binary(fund.holdings_url)
             elif fund.needs_browser:
                 html = fetch_rendered(fund.holdings_url, fund.wait_selector,
