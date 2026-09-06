@@ -1124,8 +1124,7 @@ Promise.all([
 (function(){
   function showInvite(){
     if (typeof SERIES !== "undefined" && SERIES) return;
-    if (typeof draw === "function") { draw(); return; }
-    if (typeof render === "function") { render(); }
+    if (typeof renderChart === "function") { renderChart(); }
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function(){ setTimeout(showInvite, 400); });
