@@ -584,8 +584,13 @@ async function licentiaFundsFetch(opts){
         if (el && value !== null && value !== undefined) el.textContent = value;
       }
       put("statFunds", count || totals.funds);
+      // the footer reads the same figures as the headline, rather than
+      // carrying its own hand-typed copy that drifts out of date
+      put("fFunds", count || totals.funds);
       if (totals){
         put("statIssuers", totals.managers);
+        put("fIssuers", totals.managers);
+        put("fYield", totals.median_yield.toFixed(1) + "%");
         put("statAum", "$" + (totals.aum_musd / 1000).toFixed(1) + "B");
         put("statYield", totals.median_yield.toFixed(1) + "%");
       }
