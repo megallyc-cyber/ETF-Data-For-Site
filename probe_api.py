@@ -1,52 +1,48 @@
-"""Why does the price job resolve some tickers and not others?"""
-import json
+"""Does the 10y range still work, and can the existing files be read?"""
+import csv, json
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 OUT = Path("data/api-probe.json")
-UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/126.0.0.0 Safari/537.36"}
 
 
-def try_symbol(sym):
+def ask(sym, rng):
     url = ("https://query1.finance.yahoo.com/v8/finance/chart/"
-           + sym + "?range=1mo&interval=1d")
+           + sym + "?range=" + rng + "&interval=1d")
     try:
-        with urlopen(Request(url, headers=UA), timeout=30) as r:
-            body = r.read().decode()
-            code = r.status
+        with urlopen(Request(url, headers=UA), timeout=40) as r:
+            data = json.loads(r.read().decode())
     except Exception as exc:
-        return {"error": type(exc).__name__ + ": " + str(exc)[:120]}
-    try:
-        data = json.loads(body)
-    except Exception:
-        return {"status": code, "unparsable": body[:120]}
-    chart = data.get("chart") or {}
-    if chart.get("error"):
-        return {"status": code, "yahoo_error": str(chart["error"])[:120]}
-    res = (chart.get("result") or [None])[0]
+        return {"error": type(exc).__name__ + ": " + str(exc)[:100]}
+    res = ((data.get("chart") or {}).get("result") or [None])[0]
     if not res:
-        return {"status": code, "no_result": True}
-    quote = ((res.get("indicators") or {}).get("quote") or [{}])[0]
-    closes = [c for c in (quote.get("close") or []) if c is not None]
-    return {"status": code, "bars": len(closes),
-            "last": round(closes[-1], 4) if closes else None}
+        err = (data.get("chart") or {}).get("error")
+        return {"no_result": True, "yahoo_error": str(err)[:100]}
+    q = ((res.get("indicators") or {}).get("quote") or [{}])[0]
+    closes = [c for c in (q.get("close") or []) if c is not None]
+    return {"bars": len(closes)}
 
 
-report = {}
-cases = [("ZWP", "CAD"), ("ZWT", "CAD"), ("QQCC", "CAD"),
-         ("CEPI", "US"), ("MSTY", "US"), ("HHL", "CAD")]
-for ticker, region in cases:
-    t = ticker.replace(".", "-")
-    if region == "CAD":
-        candidates = [t + ".TO", t + ".NE", t + ".V"]
-    else:
-        candidates = [t, t + ".TO", t + ".NE"]
-    report[ticker] = {c: try_symbol(c) for c in candidates}
+report = {"ranges": {}}
+for sym in ("ZWP.TO", "ZWB.TO", "MSTY"):
+    report["ranges"][sym] = {r: ask(sym, r) for r in ("1mo", "10y", "max", "5y")}
 
-report["_files_present"] = {
-    t: Path("data/prices/" + t + ".csv").exists()
-    for t in ("ZWP", "ZWT", "QQCC", "CEPI", "MSTY", "HHL")
-}
+# can the files already in the repo be read by the current parser?
+sample = {}
+for t in ("ZWB", "MSTY"):
+    p = Path("data/prices/" + t + ".csv")
+    if not p.exists():
+        sample[t] = "missing"
+        continue
+    with p.open() as fh:
+        rd = csv.DictReader(fh)
+        rows = list(rd)
+    sample[t] = {"columns": rd.fieldnames, "rows": len(rows),
+                 "last": rows[-1] if rows else None}
+report["existing_files"] = sample
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(report, indent=2))
