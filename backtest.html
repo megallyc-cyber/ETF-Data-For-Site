@@ -770,7 +770,8 @@ function renderChart(){
         + '<div class="ci-s">Pick a fund above to see what it has returned since it launched, '
         + 'with distributions reinvested and without. The gap between the two lines is the income '
         + 'it paid you.</div>'
-        + '<div class="ci-hint">206 funds &middot; daily prices &middot; back to inception</div>';
+        + '<div class="ci-hint">' + ((window.LICENTIA_DATA||{}).total || '')
+        + ' funds &middot; daily prices &middot; back to inception</div>';
       wrap.appendChild(box);
     }
     svg.style.display = 'none';
@@ -1114,6 +1115,31 @@ Promise.all([
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
   else ready();
+})();
+
+// The invite only appeared once a fund had been chosen and then cleared,
+// because it is built inside the redraw and nothing redraws on arrival. It
+// explains what the page is for, so the invite belongs on screen from the
+// start.
+(function(){
+  function showInvite(){
+    if (typeof SERIES !== "undefined" && SERIES) return;
+    if (typeof draw === "function") { draw(); return; }
+    if (typeof render === "function") { render(); }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(showInvite, 400); });
+  } else {
+    setTimeout(showInvite, 400);
+  }
+  // the fund count arrives with the data, so refresh the line once it lands
+  setTimeout(function(){
+    var hint = document.querySelector(".ci-hint");
+    var total = (window.LICENTIA_DATA || {}).total;
+    if (hint && total) {
+      hint.innerHTML = total + " funds &middot; daily prices &middot; back to inception";
+    }
+  }, 2500);
 })();
 </script>
 </body></html>
