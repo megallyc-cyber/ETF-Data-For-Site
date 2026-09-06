@@ -326,7 +326,7 @@
     background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff; font-size:13px;}
   .stl-go:hover{filter:brightness(1.07);}
 </style>
-  <link rel="stylesheet" href="assets/pro.css">
+  <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1072,7 +1072,7 @@ Promise.all([
   session = res[2].data.session;
   const badge = document.getElementById('tierBadge');
   if (badge){
-    // same entitlement source as assets/pro.js, so the badge cannot disagree
+    // same entitlement source as assets/pro.js?v=91d893ce, so the badge cannot disagree
     // with the surface the reader is looking at
     const u = session ? (session.user || {}) : null;
     const tier = u ? ((u.app_metadata && u.app_metadata.tier) ||
@@ -1089,7 +1089,7 @@ Promise.all([
   buildPicker();
   renderStress();
 });
-</script><script src="assets/pro.js"></script>
+</script><script src="assets/pro.js?v=91d893ce"></script>
 <script>
 // Tell the reader the slider is theirs to move, and stop saying so the moment
 // they do. A hint that outstays its welcome is worse than none.

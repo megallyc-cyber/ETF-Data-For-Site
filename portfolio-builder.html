@@ -363,7 +363,7 @@
   body.pro .pool-note{display:none;}
   @media(max-width:640px){ .pool-note{flex-direction:column; align-items:flex-start;} }
   </style>
-<link rel="stylesheet" href="assets/pro.css">
+<link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -540,7 +540,7 @@ const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Entitlement comes from the account, exactly as assets/pro.js reads it, so a
+// Entitlement comes from the account, exactly as assets/pro.js?v=91d893ce reads it, so a
 // free account can never end up wearing the paid surface. ?pro=1 stays a
 // preview for the current tab only.
 function previewPro(){
@@ -1138,6 +1138,6 @@ sb.auth.onAuthStateChange(function(_e, session){
   if (Object.keys(FUNDS).length) render();
 });
 </script>
-<script src="assets/pro.js"></script>
+<script src="assets/pro.js?v=91d893ce"></script>
 </body>
 </html>
