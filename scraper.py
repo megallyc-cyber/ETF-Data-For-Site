@@ -1395,7 +1395,13 @@ def bmo_graphql_holdings(ticker: str) -> dict:
         sym = (row.get("ticker") or "").strip()
         name = (row.get("holding") or "").strip()
         alloc = row.get("allocation")
-        if not sym or alloc is None:
+        if alloc is None:
+            continue
+        # BMO leaves the ticker empty on plenty of lines, including whole
+        # equity positions. The name is always there, so use it as the label
+        # rather than discarding the position.
+        label = sym or name
+        if not label:
             continue
         # written calls carry a negative weight and cash is not a position
         if "CALL OPTION" in name.upper() or name.lower().startswith("cash"):
@@ -1403,7 +1409,7 @@ def bmo_graphql_holdings(ticker: str) -> dict:
         weight = float(alloc) * 100
         if weight <= 0:
             continue
-        out[sym] = round(weight, 2)
+        out[label[:44]] = round(weight, 2)
     return out
 
 def parse_evolve(html: str) -> dict:
