@@ -277,6 +277,16 @@
     accent-color:var(--ink); cursor:pointer; appearance:auto; min-width:0;}
   .sm-toggle span{flex:1;}
 
+
+  .share-open{background:var(--ink) !important; color:var(--paper) !important;
+    border-color:var(--ink) !important; font-weight:500;}
+  .share-open:hover{filter:brightness(1.2);}
+  .share-open::before{content:"\2191"; margin-right:7px; display:inline-block;}
+  .sm-copied{margin-top:10px; font-size:12.5px; color:var(--ink-soft); opacity:0;
+    transition:opacity .2s ease;}
+  .sm-copied.on{opacity:1;}
+  .sp-link{background:none; font-family:inherit; cursor:pointer;}
+
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -639,12 +649,44 @@ function shareCardData(){
           yield: value ? income / value * 100 : null};
 }
 
+// A portfolio worth showing deserves a name. The thresholds are on what the
+// holdings are worth today, and the badge shows even when the dollar figures
+// are hidden — the whole point is to say something without saying the number.
+const TIERS = [
+  {floor: 1000000, name: "Diamond",       ink: "#8FA8C8", glow: "#E8F0FA"},
+  {floor:  500000, name: "Generational",  ink: "#C89B3C", glow: "#FBF3DE"},
+  {floor:  250000, name: "Platinum Plus", ink: "#7D8794", glow: "#EEF1F5"},
+  {floor:  100000, name: "Platinum",      ink: "#8A9099", glow: "#F1F2F4"}
+];
+
+function tierFor(value){
+  if (!value) return null;
+  for (const t of TIERS){ if (value >= t.floor) return t; }
+  return null;
+}
+
+// The bird, loaded once and drawn onto the card. An orange dot was standing in
+// for a logo we already have.
+let SHARE_BIRD = null;
+(function loadBird(){
+  fetch("assets/bird.svg").then(function(r){ return r.ok ? r.text() : null; })
+    .then(function(svg){
+      if (!svg) return;
+      // recolour to the paper tone so it reads on the dark band
+      const light = svg.replace(/<svg/, '<svg fill="#FBF9F5"');
+      const img = new Image();
+      img.onload = function(){ SHARE_BIRD = img; };
+      img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(light)));
+    }).catch(function(){});
+})();
+
 function drawShareCard(showMoney){
   const d = shareCardData();
+  const tier = tierFor(d.value);
   const c = document.createElement("canvas");
   c.width = SHARE_W; c.height = SHARE_H;
   const x = c.getContext("2d");
-  const FOOT = 96;   // the branded band along the bottom
+  const FOOT = 96;
 
   x.fillStyle = "#FBF9F5"; x.fillRect(0, 0, SHARE_W, SHARE_H);
 
@@ -656,6 +698,23 @@ function drawShareCard(showMoney){
   x.font = "15px Inter, sans-serif";
   x.fillText(d.funds + (d.funds === 1 ? " fund" : " funds")
     + (d.underlying ? "   \u00b7   " + d.underlying + " companies underneath" : ""), 64, 122);
+
+  // the badge, top right
+  if (tier){
+    x.font = "600 15px Inter, sans-serif";
+    const label = tier.name.toUpperCase();
+    const tw = x.measureText(label).width;
+    const padX = 20, bh = 40, bw = tw + padX * 2;
+    const bx = SHARE_W - 64 - bw, by = 56;
+    x.fillStyle = tier.glow;
+    x.beginPath();
+    x.roundRect(bx, by, bw, bh, 100);
+    x.fill();
+    x.strokeStyle = tier.ink; x.lineWidth = 1.2;
+    x.beginPath(); x.roundRect(bx, by, bw, bh, 100); x.stroke();
+    x.fillStyle = tier.ink;
+    x.fillText(label, bx + padX, by + 26);
+  }
 
   function fig(label, val, cx, cy){
     x.fillStyle = "#8A9099";
@@ -680,7 +739,6 @@ function drawShareCard(showMoney){
     fig("Companies underneath", String(d.underlying || "\u2014"), 784, 196);
   }
 
-  // the mix
   const barY = 348, barH = 24, barW = SHARE_W - 128;
   let cursor = 64;
   const shades = ["#1C2230","#2E7D6B","#4A6FA5","#D8AE4E","#BE462D","#6C5B8C","#8A9099"];
@@ -704,26 +762,23 @@ function drawShareCard(showMoney){
     if (lx > SHARE_W - 200){ lx = 64; ly += 28; }
   });
 
-  // ---- the band that does the advertising ----------------------------------
-  // Anyone who sees this picture on a feed should know in one glance what made
-  // it and where to get it. A dark band reads at thumbnail size in a way that
-  // a line of small grey text never does.
+  // ---- the band that does the advertising ----
   x.fillStyle = "#1C2230";
   x.fillRect(0, SHARE_H - FOOT, SHARE_W, FOOT);
 
-  // the wordmark, with the ember accent the site uses
+  let textX = 64;
+  if (SHARE_BIRD){
+    const bw2 = 46, bh2 = 30;
+    x.drawImage(SHARE_BIRD, 64, SHARE_H - FOOT + 22, bw2, bh2);
+    textX = 64 + bw2 + 16;
+  }
   x.font = "600 30px Inter, sans-serif";
   x.fillStyle = "#FBF9F5";
-  x.fillText("Licentia", 64, SHARE_H - FOOT + 46);
-  const wmW = x.measureText("Licentia").width;
-  x.fillStyle = "#FF6B35";
-  x.beginPath();
-  x.arc(64 + wmW + 14, SHARE_H - FOOT + 37, 5, 0, Math.PI * 2);
-  x.fill();
+  x.fillText("Licentia", textX, SHARE_H - FOOT + 46);
 
   x.fillStyle = "rgba(251,249,245,0.62)";
   x.font = "15px Inter, sans-serif";
-  x.fillText("Every covered call and income ETF in Canada and the US", 64, SHARE_H - FOOT + 72);
+  x.fillText("Every covered call and income ETF in Canada and the US", textX, SHARE_H - FOOT + 72);
 
   x.textAlign = "right";
   x.fillStyle = "#FBF9F5";
@@ -752,12 +807,31 @@ const SHARE_TARGETS = [
 ];
 
 function sharePlatforms(){
+  // No social network accepts an image through a link — every "share to"
+  // URL carries text only, which is why LinkedIn showed just the address.
+  // So the picture goes on the clipboard first and the composer opens second,
+  // leaving a single paste. On a phone the share sheet carries it properly.
+  return SHARE_TARGETS.map(function(p){
+    return '<button class="sp-link" type="button" data-share="' + p.name + '">'
+      + p.name + '</button>';
+  }).join("");
+}
+
+async function shareTo(name, canvas){
+  const target = SHARE_TARGETS.filter(function(p){ return p.name === name; })[0];
+  if (!target) return;
   const text = encodeURIComponent("My income portfolio, built with Licentia");
   const url = encodeURIComponent("https://licentia.ca");
-  return SHARE_TARGETS.map(function(p){
-    return '<a class="sp-link" target="_blank" rel="noopener" href="'
-      + p.url(text, url) + '">' + p.name + '</a>';
-  }).join("");
+  let copied = false;
+  try {
+    const blob = await new Promise(function(res){ canvas.toBlob(res, "image/png"); });
+    if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+      await navigator.clipboard.write([new ClipboardItem({"image/png": blob})]);
+      copied = true;
+    }
+  } catch(e){}
+  window.open(target.url(text, url), "_blank", "noopener");
+  return copied;
 }
 
 function openShareCard(){
@@ -779,6 +853,7 @@ function openShareCard(){
         + '<button class="sm-alt" id="smShare">Share&hellip;</button>'
       + '</div>'
       + '<div class="sm-where"><span>Post it to</span>' + sharePlatforms() + '</div>'
+      + '<div class="sm-copied"></div>'
       + '<div class="sm-hide">'
       + '</div>'
     + '</div></div>';
@@ -813,6 +888,19 @@ function openShareCard(){
     a.download = "licentia-portfolio.png";
     a.click();
     setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+  });
+
+  wrap.addEventListener("click", async function(e){
+    const p = e.target.closest && e.target.closest("[data-share]");
+    if (!p) return;
+    const note = wrap.querySelector(".sm-copied");
+    const copied = await shareTo(p.dataset.share, canvas);
+    if (note) {
+      note.textContent = copied
+        ? "Picture copied — paste it into the post."
+        : "Save the picture first, then attach it to the post.";
+      note.classList.add("on");
+    }
   });
 
   wrap.querySelector("#smShare").addEventListener("click", async function(){
