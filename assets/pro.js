@@ -625,3 +625,72 @@
   setInterval(function(){ window.licentiaRefreshSession(false); }, 10 * 60 * 1000);
   window.licentiaRefreshSession(false);
 })();
+
+/* ---------------------------------------------------------------------------
+   A navigation bar that fits a phone.
+
+   Ten links do not fit across 390px. They were overflowing a bar with a fixed
+   height, which is what made every page drift sideways under a thumb. Below
+   760px the links move into a panel behind a single button, and the bar keeps
+   the wordmark and the avatar where they were.
+--------------------------------------------------------------------------- */
+(function licentiaMobileNav(){
+  function build(){
+    var nav = document.querySelector('nav');
+    var links = nav && nav.querySelector('.navlinks');
+    if (!nav || !links || document.getElementById('navToggle')) return;
+
+    var style = document.createElement('style');
+    style.id = 'licentia-mobile-nav';
+    style.textContent = [
+      '@media (max-width: 760px){',
+      '  nav{height:auto !important; padding:10px 14px !important;}',
+      '  nav .navlinks{display:none !important;}',
+      '  nav.menu-open .navlinks{display:flex !important; flex-direction:column;',
+      '    align-items:stretch; width:100%; padding:10px 0 4px; gap:0;}',
+      '  nav.menu-open .navlinks a{padding:11px 4px !important; width:100%;',
+      '    border-bottom:1px solid var(--line); font-size:15px;}',
+      '  nav.menu-open .navlinks a:last-of-type{border-bottom:none;}',
+      '  .nav-toggle{display:inline-flex !important; align-items:center; gap:7px;',
+      '    margin-left:auto; padding:7px 12px; border-radius:100px; cursor:pointer;',
+      '    background:none; border:1px solid var(--line-strong); color:var(--ink);',
+      '    font-family:inherit; font-size:13px;}',
+      '  .nav-toggle .nt-bars{display:inline-block; width:14px; height:9px;',
+      '    border-top:1.5px solid currentColor; border-bottom:1.5px solid currentColor;',
+      '    position:relative;}',
+      '  .nav-toggle .nt-bars::after{content:""; position:absolute; left:0; right:0;',
+      '    top:3px; border-top:1.5px solid currentColor;}',
+      '  nav a.nav-face{order:-1;}',
+      '}',
+      '@media (min-width: 761px){ .nav-toggle{display:none !important;} }'
+    ].join('\n');
+    document.head.appendChild(style);
+
+    var btn = document.createElement('button');
+    btn.id = 'navToggle';
+    btn.className = 'nav-toggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Menu');
+    btn.innerHTML = '<span class="nt-bars"></span><span class="nt-label">Menu</span>';
+    btn.addEventListener('click', function(){
+      var open = nav.classList.toggle('menu-open');
+      btn.querySelector('.nt-label').textContent = open ? 'Close' : 'Menu';
+    });
+    // close it once a destination is chosen
+    links.addEventListener('click', function(e){
+      if (e.target.closest('a')) {
+        nav.classList.remove('menu-open');
+        btn.querySelector('.nt-label').textContent = 'Menu';
+      }
+    });
+    nav.appendChild(btn);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+  // the avatar is added a moment later on some pages; keep the button last
+  setTimeout(build, 1200);
+})();
