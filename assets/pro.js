@@ -151,6 +151,19 @@
     function setOpen(on){
       nav.classList.toggle('open', on);
       btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      // set the panel directly rather than trusting the cascade
+      if (window.innerWidth <= BREAK) {
+        links.style.maxHeight = on ? '78vh' : '0px';
+        links.style.opacity = on ? '1' : '0';
+        links.style.overflowY = on ? 'auto' : 'hidden';
+        links.style.pointerEvents = on ? 'auto' : 'none';
+      } else {
+        // above the breakpoint the row lays out normally again
+        links.style.maxHeight = '';
+        links.style.opacity = '';
+        links.style.overflowY = '';
+        links.style.pointerEvents = '';
+      }
     }
     btn.addEventListener('click', function(e){
       e.stopPropagation();
@@ -169,6 +182,7 @@
     window.addEventListener('resize', function(){
       if (window.innerWidth > BREAK) setOpen(false);
     });
+    setOpen(false);   // start closed, with the panel actually shut
   }
 
   function start(){ css(); build(); }
