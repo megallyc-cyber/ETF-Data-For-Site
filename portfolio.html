@@ -321,26 +321,34 @@ function pct(v, dp){ return (v === null || v === undefined || !isFinite(v)) ? 'â
 
 // One position's worth, income and profit. Price and yield come from the same
 // dataset the rest of the site uses.
+// some issuers hand us a formatted string rather than a number: a yield of
+// "39.02%", a NAV of "$27.63". One NaN in the sum blanks the whole page.
+function num(v){
+  if (v === null || v === undefined) return null;
+  if (typeof v === "number") return isFinite(v) ? v : null;
+  const n = parseFloat(String(v).replace(/[^0-9.\-]/g, ""));
+  return isFinite(n) ? n : null;
+}
+
 function derive(row){
   const f = FUNDS[row.ticker] || null;
   const st = f ? (f.stats || {}) : {};
   // fall back to the NAV the issuer publishes when no market price is stored:
   // a holding worth nothing is a worse answer than one valued at NAV
-  const price = (st.price !== undefined && st.price !== null) ? st.price : st.nav;
+  const price = num(st.price) !== null ? num(st.price) : num(st.nav);
   const shares = Number(row.shares) || 0;
   const cost = row.cost_basis === null || row.cost_basis === undefined ? null : Number(row.cost_basis);
   const value = (price !== undefined && price !== null) ? shares * price : null;
   // what the fund actually paid per share over the last twelve months is a
   // better basis than a yield derived from a price we may not have
-  const income = (st.ttm_total !== undefined && st.ttm_total !== null)
-    ? shares * Number(st.ttm_total)
-    : ((value !== null && st.yield_ttm != null) ? value * st.yield_ttm / 100
-      : ((value !== null && st.yield != null) ? value * Number(st.yield) / 100 : null));
+  const ttm = num(st.ttm_total), yTtm = num(st.yield_ttm), yPub = num(st.yield);
+  const income = ttm !== null ? shares * ttm
+    : ((value !== null && yTtm !== null) ? value * yTtm / 100
+      : ((value !== null && yPub !== null) ? value * yPub / 100 : null));
   // and show a yield even when it had to be worked out from NAV
-  const yieldShown = (st.yield_ttm !== undefined && st.yield_ttm !== null)
-    ? st.yield_ttm
-    : ((st.ttm_total && price) ? Math.round(st.ttm_total / price * 1000) / 10
-      : (st.yield != null ? Number(st.yield) : undefined));
+  const yieldShown = yTtm !== null ? yTtm
+    : ((ttm !== null && price) ? Math.round(ttm / price * 1000) / 10
+      : (yPub !== null ? yPub : undefined));
   const spent = (cost !== null) ? shares * cost : null;
   const pl = (value !== null && spent !== null) ? value - spent : null;
   const plPct = (pl !== null && spent) ? pl / spent * 100 : null;
@@ -556,7 +564,7 @@ function renderTotals(){
   ROWS.forEach(function(r){
     const d = derive(r);
     if (d.value !== null){ value += d.value; valueKnown = true; }
-    if (d.income !== null) income += d.income;
+    if (d.income !== null && isFinite(d.income)) income += d.income;
     if (d.spent !== null){ spent += d.spent; spentKnown = true; }
   });
   const pl = (valueKnown && spentKnown) ? value - spent : null;
