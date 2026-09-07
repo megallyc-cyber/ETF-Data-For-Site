@@ -565,12 +565,29 @@ function currentBook(){
     const f = FUNDS[r.ticker];
     if (!f) return null;
     const st = f.stats || {};
-    if (st.price === undefined || st.price === null) return null;
-    const shares = Number(r.shares) || 0;
-    const cost = (r.cost_basis === null || r.cost_basis === undefined) ? null : Number(r.cost_basis);
-    return {t:r.ticker, shares:shares, price:st.price, yield:st.yield_ttm,
-            value: shares * st.price, spent: cost === null ? null : shares * cost,
-            income: st.yield_ttm === undefined ? 0 : shares * st.price * st.yield_ttm / 100};
+    // some issuers send "$27.63" or "39.02%" rather than a number
+    function num(v){
+      if (v === null || v === undefined) return null;
+      if (typeof v === "number") return isFinite(v) ? v : null;
+      const n = parseFloat(String(v).replace(/[^0-9.\-]/g, ""));
+      return isFinite(n) ? n : null;
+    }
+    // fall back to the published NAV rather than dropping the holding
+    const price = num(st.price) !== null ? num(st.price) : num(st.nav);
+    if (price === null) return null;
+    const shares = num(r.shares) || 0;
+    const cost = (r.cost_basis === null || r.cost_basis === undefined) ? null : num(r.cost_basis);
+    const value = shares * price;
+    // what the fund paid beats a yield we may not have
+    const ttm = num(st.ttm_total), yTtm = num(st.yield_ttm), yPub = num(st.yield);
+    const income = ttm !== null ? shares * ttm
+      : (yTtm !== null ? value * yTtm / 100
+        : (yPub !== null ? value * yPub / 100 : 0));
+    const shownYield = yTtm !== null ? yTtm
+      : (ttm !== null && price ? Math.round(ttm / price * 1000) / 10 : yPub);
+    return {t:r.ticker, shares:shares, price:price, yield:shownYield,
+            value: value, spent: cost === null ? null : shares * cost,
+            income: isFinite(income) ? income : 0};
   }).filter(Boolean);
 }
 
