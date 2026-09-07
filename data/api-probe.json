@@ -1,70 +1,58 @@
 {
-  "ranges": {
-    "ZWP.TO": {
-      "1mo": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "10y": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "max": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "5y": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      }
+  "keys": {
+    "twelvedata": true,
+    "fmp": true
+  },
+  "ZWP.TO": {
+    "twelvedata": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 404: Not Found"
     },
-    "ZWB.TO": {
-      "1mo": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "10y": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "max": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "5y": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      }
-    },
-    "MSTY": {
-      "1mo": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "10y": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "max": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      },
-      "5y": {
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
-      }
+    "fmp": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
     }
   },
-  "existing_files": {
-    "ZWB": {
-      "columns": [
-        "date",
-        "adj_close"
-      ],
-      "rows": 2510,
-      "last": {
-        "date": "2026-08-21",
-        "adj_close": "30.03"
-      }
+  "ZWB.TO": {
+    "twelvedata": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 404: Not Found"
     },
-    "MSTY": {
-      "columns": [
-        "date",
-        "adj_close"
-      ],
-      "rows": 402,
-      "last": {
-        "date": "2026-08-21",
-        "adj_close": "2.52"
-      }
+    "fmp": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
+    }
+  },
+  "QQCC.TO": {
+    "twelvedata": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 404: Not Found"
+    },
+    "fmp": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
+    }
+  },
+  "MSTY": {
+    "twelvedata": {
+      "status": 200,
+      "bars": 30,
+      "last": "16.059999"
+    },
+    "fmp": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
+    }
+  },
+  "CEPI": {
+    "twelvedata": {
+      "status": 200,
+      "bars": 30,
+      "last": "31.81000"
+    },
+    "fmp": {
+      "status": null,
+      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
     }
   }
 }
