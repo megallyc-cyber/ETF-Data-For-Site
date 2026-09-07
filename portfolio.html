@@ -653,7 +653,13 @@ function renderRows(){
 const SHARE_W = 1200, SHARE_H = 675;   // 16:9, which every platform crops kindly
 
 function shareCardData(){
-  const rows = ROWS.map(derive).filter(Boolean);
+  // derive drops the ticker, so pair each result back with the row it came from
+  const rows = ROWS.map(function(r){
+    const d = derive(r);
+    if (!d) return null;
+    d.t = r.ticker;
+    return d;
+  }).filter(Boolean);
   let value = 0, income = 0, known = false;
   rows.forEach(function(d){
     if (d.value !== null){ value += d.value; known = true; }
