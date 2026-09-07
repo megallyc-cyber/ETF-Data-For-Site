@@ -291,14 +291,24 @@
   /* The badge said "Account", which told a reader nothing they did not already
      know. It now carries the standing the portfolio has earned, in the metal
      that goes with it. */
-  #tierBadge.t-platinum{background:linear-gradient(115deg,#6E747E 0%,#AEB6C0 45%,#E6EAEF 70%,#AEB6C0 100%);
-    color:#1C2230;}
-  #tierBadge.t-platinum-plus{background:linear-gradient(115deg,#4C5666 0%,#8892A3 42%,#D5DBE4 68%,#8892A3 100%);
-    color:#141A25;}
-  #tierBadge.t-generational{background:linear-gradient(115deg,#8C6B1F 0%,#C9A227 45%,#E9D6A8 70%,#C9A227 100%);
-    color:#2A2008;}
-  #tierBadge.t-diamond{background:linear-gradient(115deg,#5B7FA6 0%,#8FA8C8 38%,#EAF3FB 66%,#8FA8C8 100%);
-    color:#10202F;}
+  #tierBadge.t-platinum{
+    /* the metal has to keep moving: a background shorthand resets
+       background-size, which left the sheen frozen in place */
+    background-image:linear-gradient(115deg,#6E747E 0%,#AEB6C0 42%,#F2F5F8 62%,#AEB6C0 82%,#6E747E 100%);
+    background-size:220% 100%; animation:tierdrift 9s ease-in-out infinite;
+    color:#1C2230; box-shadow:0 6px 18px rgba(110,116,126,0.28);}
+  #tierBadge.t-platinum-plus{
+    background-image:linear-gradient(115deg,#3E4756 0%,#8892A3 40%,#E4E9F0 62%,#8892A3 82%,#3E4756 100%);
+    background-size:220% 100%; animation:tierdrift 8s ease-in-out infinite;
+    color:#141A25; box-shadow:0 6px 18px rgba(62,71,86,0.32);}
+  #tierBadge.t-generational{
+    background-image:linear-gradient(115deg,#7A5C15 0%,#C9A227 40%,#F6E9C2 62%,#C9A227 82%,#7A5C15 100%);
+    background-size:220% 100%; animation:tierdrift 7s ease-in-out infinite;
+    color:#2A2008; box-shadow:0 6px 20px rgba(140,107,31,0.34);}
+  #tierBadge.t-diamond{
+    background-image:linear-gradient(115deg,#4A6C93 0%,#8FA8C8 36%,#FFFFFF 60%,#8FA8C8 82%,#4A6C93 100%);
+    background-size:220% 100%; animation:tierdrift 6s ease-in-out infinite;
+    color:#10202F; box-shadow:0 6px 22px rgba(91,127,166,0.38);}
   #tierBadge.t-platinum b, #tierBadge.t-platinum-plus b,
   #tierBadge.t-generational b, #tierBadge.t-diamond b{color:inherit; opacity:0.62;}
 
@@ -461,7 +471,7 @@ function portfolioView(){
   + '<div class="totals" id="totals"></div>'
   + '<div class="panel"><div class="panel-top"><h2>Holdings</h2>'
   + '<button class="editToggle" id="editToggle" type="button">Edit holdings</button>'
-  + '<button class="editToggle share-open" id="shareCard" type="button">Share this portfolio</button></div>'
+  + '<button class="editToggle share-open" id="shareCard" type="button">Share my portfolio</button></div>'
   + '<div class="note">Cost basis is what you paid per share. Leave it blank if you would rather not track it — '
   + 'everything except profit and yield on cost still works.</div>'
   + '<div id="rows"></div></div>'
@@ -754,30 +764,54 @@ function drawShareCard(showMoney){
     fig("Companies underneath", String(d.underlying || "\u2014"), 784, 196);
   }
 
-  const barY = 348, barH = 24, barW = SHARE_W - 128;
-  let cursor = 64;
+  // What the money is actually in. A split bar with no names told a reader
+  // nothing they could act on, so the funds are listed with the bar reduced
+  // to a marker beside each one.
+  const listTop = 340;
   const shades = ["#1C2230","#2E7D6B","#4A6FA5","#D8AE4E","#BE462D","#6C5B8C","#8A9099"];
-  const shown = d.mix.slice(0, 7);
-  shown.forEach(function(m, i){
-    const w = barW * m.pct / 100;
-    x.fillStyle = shades[i % shades.length];
-    x.fillRect(cursor, barY, Math.max(w - 2, 2), barH);
-    cursor += w;
-  });
+  const shown = d.mix.slice(0, 8);
 
-  let lx = 64, ly = 412;
-  x.font = "15px Inter, sans-serif";
+  x.fillStyle = "#8A9099";
+  x.font = "12px Inter, sans-serif";
+  x.fillText("WHAT IT HOLDS", 64, listTop);
+
+  // two columns, so eight funds fit without crowding
+  const colW = (SHARE_W - 128) / 2;
+  const rowH = 34;
   shown.forEach(function(m, i){
+    const col = i < 4 ? 0 : 1;
+    const row = i % 4;
+    const rx = 64 + col * colW;
+    const ry = listTop + 34 + row * rowH;
+
     x.fillStyle = shades[i % shades.length];
-    x.fillRect(lx, ly - 11, 11, 11);
+    if (x.roundRect){ x.beginPath(); x.roundRect(rx, ry - 11, 4, 15, 2); x.fill(); }
+    else { x.fillRect(rx, ry - 11, 4, 15); }
+
     x.fillStyle = "#1C2230";
-    const label = (m.t || "") + "  " + m.pct.toFixed(0) + "%";
-    x.fillText(label, lx + 18, ly);
-    lx += x.measureText(label).width + 42;
-    if (lx > SHARE_W - 200){ lx = 64; ly += 28; }
+    x.font = "600 17px Inter, sans-serif";
+    x.fillText(m.t || "", rx + 16, ry);
+
+    // the share of the portfolio, right-aligned within the column
+    x.fillStyle = "#4A5262";
+    x.font = "17px Inter, sans-serif";
+    x.textAlign = "right";
+    x.fillText(m.pct.toFixed(0) + "%", rx + colW - 40, ry);
+    x.textAlign = "left";
+
+    // a slim proportion bar under each name
+    x.fillStyle = "rgba(28,34,48,0.08)";
+    x.fillRect(rx + 16, ry + 7, colW - 96, 3);
+    x.fillStyle = shades[i % shades.length];
+    x.fillRect(rx + 16, ry + 7, Math.max((colW - 96) * m.pct / 100, 2), 3);
   });
 
-  // ---- the band that does the advertising ----
+  if (d.mix.length > 8){
+    x.fillStyle = "#8A9099";
+    x.font = "13px Inter, sans-serif";
+    x.fillText("and " + (d.mix.length - 8) + " more", 64, listTop + 34 + 4 * rowH + 4);
+  }
+
   x.fillStyle = "#1C2230";
   x.fillRect(0, SHARE_H - FOOT, SHARE_W, FOOT);
 
@@ -850,7 +884,7 @@ async function shareTo(name, canvas){
 }
 
 function openShareCard(){
-  let showMoney = false;   // default to the version anyone would post
+  let showMoney = true;   // the figures are what make the card worth posting
   const wrap = document.createElement("div");
   wrap.className = "share-modal";
   wrap.innerHTML =
@@ -859,10 +893,10 @@ function openShareCard(){
       + '<button class="sm-x" type="button" aria-label="Close">&times;</button></div>'
     + '<div class="sm-body">'
       + '<div class="sm-preview" id="smPreview"></div>'
-      + '<label class="sm-toggle"><input type="checkbox" id="smMoney">'
+      + '<label class="sm-toggle"><input type="checkbox" id="smMoney" checked>'
         + '<span>Include the dollar amounts</span></label>'
       + '<p class="sm-note">Off by default. The card still shows your yield, '
-        + 'your mix and how many companies sit underneath it.</p>'
+        + 'Your yield, mix and holdings still show.</p>'
       + '<div class="sm-acts">'
         + '<button class="sm-go" id="smSave">Download the image</button>'
         + '<button class="sm-alt" id="smShare">Share&hellip;</button>'
