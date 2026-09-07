@@ -1010,21 +1010,14 @@ sb.auth.onAuthStateChange(function(){ boot(); });
 boot();
 </script>
 <script src="assets/pro.js?v=99ab8eca">
-// the button only means anything once there is something to show
-(function(){
-  function wireShare(){
-    var b = document.getElementById("shareCard");
-    if (!b || b.dataset.wired) return;
-    b.dataset.wired = "1";
-    b.addEventListener("click", function(){
-      if (!ROWS.length) return;
-      openShareCard();
-    });
-  }
-  document.addEventListener("DOMContentLoaded", wireShare);
-  setTimeout(wireShare, 1500);
-  setTimeout(wireShare, 4000);
-})();
+// delegated, so it works whenever the button appears and however often
+// the holdings panel is redrawn
+document.addEventListener("click", function(e){
+  var b = e.target.closest && e.target.closest("#shareCard");
+  if (!b) return;
+  if (!ROWS.length) return;
+  openShareCard();
+});
 </script>
 </body>
 </html>
