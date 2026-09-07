@@ -1,48 +1,64 @@
-"""Does the 10y range still work, and can the existing files be read?"""
-import csv, json
+"""Which provider can actually serve our tickers, and on this plan?
+
+Yahoo answers every request with 429 from the runner, so the price
+files have not moved since August. Both keys are already in the repo
+secrets from an earlier evaluation; find out what each covers before
+rewriting the job around one of them.
+"""
+import json, os
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 OUT = Path("data/api-probe.json")
-UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/126.0.0.0 Safari/537.36"}
+TD = os.environ.get("TWELVEDATA_API_KEY", "")
+FMP = os.environ.get("FMP_API_KEY", "")
+UA = {"User-Agent": "Mozilla/5.0"}
 
 
-def ask(sym, rng):
-    url = ("https://query1.finance.yahoo.com/v8/finance/chart/"
-           + sym + "?range=" + rng + "&interval=1d")
+def get(url):
     try:
         with urlopen(Request(url, headers=UA), timeout=40) as r:
-            data = json.loads(r.read().decode())
+            return r.status, r.read().decode()[:4000]
     except Exception as exc:
-        return {"error": type(exc).__name__ + ": " + str(exc)[:100]}
-    res = ((data.get("chart") or {}).get("result") or [None])[0]
-    if not res:
-        err = (data.get("chart") or {}).get("error")
-        return {"no_result": True, "yahoo_error": str(err)[:100]}
-    q = ((res.get("indicators") or {}).get("quote") or [{}])[0]
-    closes = [c for c in (q.get("close") or []) if c is not None]
-    return {"bars": len(closes)}
+        return None, type(exc).__name__ + ": " + str(exc)[:120]
 
 
-report = {"ranges": {}}
-for sym in ("ZWP.TO", "ZWB.TO", "MSTY"):
-    report["ranges"][sym] = {r: ask(sym, r) for r in ("1mo", "10y", "max", "5y")}
+def twelve(sym):
+    if not TD:
+        return {"no_key": True}
+    code, body = get("https://api.twelvedata.com/time_series?symbol=" + sym
+                     + "&interval=1day&outputsize=30&apikey=" + TD)
+    try:
+        d = json.loads(body)
+    except Exception:
+        return {"status": code, "unparsable": body[:120]}
+    if d.get("status") == "error":
+        return {"status": code, "error": str(d.get("message"))[:140]}
+    vals = d.get("values") or []
+    return {"status": code, "bars": len(vals),
+            "last": vals[0].get("close") if vals else None}
 
-# can the files already in the repo be read by the current parser?
-sample = {}
-for t in ("ZWB", "MSTY"):
-    p = Path("data/prices/" + t + ".csv")
-    if not p.exists():
-        sample[t] = "missing"
-        continue
-    with p.open() as fh:
-        rd = csv.DictReader(fh)
-        rows = list(rd)
-    sample[t] = {"columns": rd.fieldnames, "rows": len(rows),
-                 "last": rows[-1] if rows else None}
-report["existing_files"] = sample
+
+def fmp(sym):
+    if not FMP:
+        return {"no_key": True}
+    code, body = get("https://financialmodelingprep.com/api/v3/historical-price-full/"
+                     + sym + "?serietype=line&apikey=" + FMP)
+    try:
+        d = json.loads(body)
+    except Exception:
+        return {"status": code, "unparsable": body[:120]}
+    if isinstance(d, dict) and d.get("Error Message"):
+        return {"status": code, "error": str(d["Error Message"])[:140]}
+    hist = (d or {}).get("historical") or []
+    return {"status": code, "bars": len(hist),
+            "last": hist[0].get("close") if hist else None}
+
+
+report = {"keys": {"twelvedata": bool(TD), "fmp": bool(FMP)}}
+# a Canadian listing, a US one, and one of each that is currently missing
+for sym in ("ZWP.TO", "ZWB.TO", "QQCC.TO", "MSTY", "CEPI"):
+    report[sym] = {"twelvedata": twelve(sym), "fmp": fmp(sym)}
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(report, indent=2))
