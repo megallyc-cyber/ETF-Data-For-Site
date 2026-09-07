@@ -99,6 +99,17 @@
 
   .market-cards{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   @media(max-width:720px){.market-cards{grid-template-columns:1fr;}}
+  .market, .market-figs, .market-head{min-width:0;}
+  .market-figs{flex-wrap:wrap; gap:14px 18px;}
+  .market-name{overflow-wrap:anywhere;}
+  @media(max-width:430px){
+    /* real phones are narrower than most desktop emulators, and their text
+       is often a step larger: give the card room rather than letting it
+       push past the edge */
+    .market{padding:20px 18px 18px;}
+    .market-figs{gap:12px 14px;}
+    .market-logos{flex-wrap:wrap;}
+  }
   /* National colours, so the choice reads instantly: Canadian red on the
      left, American navy with a red seam on the right. */
   .pick-line{display:flex; align-items:center; gap:16px; margin:6px 0 18px;}
@@ -406,6 +417,8 @@
   @media (prefers-reduced-motion: reduce){
     .issuer-arrive::before{animation:issuerGlow 1.4s ease-out forwards;}
     .bird-flight{display:none;}}
+  /* nothing on this page should be able to widen it */
+  #results-stage, .market-cards, .fund-card{max-width:100%;}
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
