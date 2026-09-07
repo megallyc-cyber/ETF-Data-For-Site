@@ -651,6 +651,8 @@
       '    align-items:stretch; position:absolute; top:100%; left:0; right:0;',
       '    background:var(--paper); padding:4px 16px 10px; gap:0; z-index:90;',
       '    border-bottom:1px solid var(--line-strong);',
+      '    height:auto !important; max-height:calc(100vh - 70px);',
+      '    overflow-y:auto; overflow-x:hidden;',
       '    box-shadow:0 16px 30px -18px rgba(28,34,48,0.5);}',
       '  nav.menu-open .navlinks a{padding:11px 4px !important; width:100%;',
       '    border-bottom:1px solid var(--line); font-size:15px;}',
