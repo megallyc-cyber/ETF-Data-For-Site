@@ -38,7 +38,8 @@ HEADERS = {
                   "Chrome/126.0.0.0 Safari/537.36",
     "Accept": "application/json,text/plain,*/*",
 }
-BACKOFF = 20  # seconds, doubled on each retry
+TIME_BUDGET = 40 * 60  # leave room to commit inside the hour
+BACKOFF = 8   # seconds, doubled on each retry
 PAUSE = 1.5          # be a good citizen; this is someone else's endpoint
 FULL_RANGE = "10y"   # first fetch for a fund
 TOP_UP_RANGE = "1mo" # subsequent runs
@@ -60,7 +61,7 @@ def candidates(ticker: str, region: str) -> list:
     remember the answer rather than maintaining a hand-kept list."""
     t = ticker.replace(".", "-")
     if region == "CAD":
-        return [f"{t}.TO", f"{t}.NE", f"{t}.V"]
+        return [f"{t}.TO", f"{t}.NE"]
     return [t, f"{t}.TO", f"{t}.NE"]
 
 
@@ -168,9 +169,15 @@ def main() -> None:
 
     resolved = added = unchanged = 0
     throttled = [0]
+    started = time.time()
+    ran_out = False
     unresolved = []
 
     for ticker, meta in sorted(funds.items()):
+        if time.time() - started > TIME_BUDGET:
+            ran_out = True
+            log.warning("Time budget spent; stopping so this run can commit")
+            break
         if ticker.startswith("_"):
             continue
         path = PRICE_DIR / f"{ticker}.csv"
@@ -182,7 +189,7 @@ def main() -> None:
 
         bars, used = [], None
         for sym in tries:
-            for attempt in range(4):
+            for attempt in range(3):
                 try:
                     bars = fetch_bars(sym, rng)
                     break
@@ -233,6 +240,9 @@ def main() -> None:
 
     # A job that fetched nothing should not report success. Silence here is
     # what let the price files sit weeks out of date.
+    if ran_out:
+        log.warning("Stopped early: %d of %d funds done", resolved, len(funds))
+
     if throttled[0] and not added:
         raise SystemExit(
             f"Yahoo rate limited every request ({throttled[0]} refusals) "
