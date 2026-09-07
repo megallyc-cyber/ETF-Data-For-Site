@@ -324,7 +324,9 @@ function pct(v, dp){ return (v === null || v === undefined || !isFinite(v)) ? 'â
 function derive(row){
   const f = FUNDS[row.ticker] || null;
   const st = f ? (f.stats || {}) : {};
-  const price = st.price;
+  // fall back to the NAV the issuer publishes when no market price is stored:
+  // a holding worth nothing is a worse answer than one valued at NAV
+  const price = (st.price !== undefined && st.price !== null) ? st.price : st.nav;
   const shares = Number(row.shares) || 0;
   const cost = row.cost_basis === null || row.cost_basis === undefined ? null : Number(row.cost_basis);
   const value = (price !== undefined && price !== null) ? shares * price : null;
