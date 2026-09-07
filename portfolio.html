@@ -227,6 +227,39 @@
   @media (prefers-reduced-motion: reduce){
     .lic-toast{transition:opacity .2s ease;}
     .lic-toast.show{transform:translate(-50%, 0) scale(1);}}
+
+  .share-modal{position:fixed; inset:0; z-index:320; display:flex; align-items:center;
+    justify-content:center; padding:clamp(12px,3vh,40px); background:rgba(28,34,48,0.5);
+    backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+    opacity:0; transition:opacity .22s ease;}
+  .share-modal.in{opacity:1;}
+  .sm-card{width:min(760px,96vw); max-height:92vh; overflow:auto; background:var(--paper);
+    border:1px solid var(--line-strong); border-radius:16px;
+    box-shadow:0 30px 70px -28px rgba(28,34,48,0.75);}
+  .sm-bar{display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px; border-bottom:1px solid var(--line); background:var(--white);}
+  .sm-bar b{font-weight:500; font-size:15px;}
+  .sm-x{width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:19px;
+    line-height:1; background:none; border:1px solid var(--line-strong); color:var(--ink);}
+  .sm-x:hover{background:var(--ink); color:var(--paper);}
+  .sm-body{padding:18px;}
+  .sm-preview canvas{display:block; box-shadow:0 10px 26px -14px rgba(28,34,48,0.55);}
+  .sm-toggle{display:flex; align-items:center; gap:9px; margin-top:16px; font-size:14px;
+    cursor:pointer;}
+  .sm-note{margin:6px 0 0; font-size:12.5px; color:var(--ink-faint); line-height:1.5;}
+  .sm-acts{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;}
+  .sm-go{padding:11px 20px; border-radius:100px; cursor:pointer; border:none;
+    background:var(--ink); color:var(--paper); font-family:inherit; font-size:14px;}
+  .sm-alt{padding:11px 20px; border-radius:100px; cursor:pointer; font-family:inherit;
+    font-size:14px; background:none; border:1px solid var(--line-strong); color:var(--ink);}
+  .sm-go:hover{filter:brightness(1.15);} .sm-alt:hover{border-color:var(--ink);}
+  .share-open{margin-left:8px;}
+  @media(max-width:560px){
+    .sm-body{padding:14px;}
+    .sm-acts{flex-direction:column;}
+    .sm-go, .sm-alt{width:100%;}
+  }
+
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -385,7 +418,8 @@ function portfolioView(){
   + '</div>'
   + '<div class="totals" id="totals"></div>'
   + '<div class="panel"><div class="panel-top"><h2>Holdings</h2>'
-  + '<button class="editToggle" id="editToggle" type="button">Edit holdings</button></div>'
+  + '<button class="editToggle" id="editToggle" type="button">Edit holdings</button>'
+  + '<button class="editToggle share-open" id="shareCard" type="button">Share this portfolio</button></div>'
   + '<div class="note">Cost basis is what you paid per share. Leave it blank if you would rather not track it — '
   + 'everything except profit and yield on cost still works.</div>'
   + '<div id="rows"></div></div>'
@@ -555,6 +589,206 @@ function renderRows(){
   box.querySelectorAll('.rowbtn').forEach(function(b){
     b.addEventListener('click', function(){ removeHolding(b.dataset.id); });
   });
+}
+
+// ---------------------------------------------------------------------------
+// A portfolio worth showing someone.
+//
+// Drawn on a canvas rather than screenshotted so it is legible at the sizes
+// social platforms actually serve, and so the dollar figures can be left out:
+// plenty of people will share a yield who would never post their balance.
+// ---------------------------------------------------------------------------
+const SHARE_W = 1200, SHARE_H = 675;   // 16:9, which every platform crops kindly
+
+function shareCardData(){
+  const rows = ROWS.map(derive).filter(Boolean);
+  let value = 0, income = 0, known = false;
+  rows.forEach(function(d){
+    if (d.value !== null){ value += d.value; known = true; }
+    if (d.income !== null && isFinite(d.income)) income += d.income;
+  });
+  const mix = rows.filter(function(d){ return d.value; })
+    .map(function(d){ return {t:d.t, pct: value ? d.value / value * 100 : 0}; })
+    .sort(function(a,b){ return b.pct - a.pct; });
+  let underlying = 0;
+  const seen = {};
+  rows.forEach(function(d){
+    const f = FUNDS[d.t];
+    if (f && f.holdings) Object.keys(f.holdings).forEach(function(h){ seen[h] = 1; });
+  });
+  underlying = Object.keys(seen).length;
+  return {value: known ? value : null, income: income, mix: mix,
+          funds: rows.length, underlying: underlying,
+          yield: value ? income / value * 100 : null};
+}
+
+function drawShareCard(showMoney){
+  const d = shareCardData();
+  const c = document.createElement("canvas");
+  c.width = SHARE_W; c.height = SHARE_H;
+  const x = c.getContext("2d");
+
+  x.fillStyle = "#FBF9F5"; x.fillRect(0, 0, SHARE_W, SHARE_H);
+  // a warm band down the left, the same ember the site uses
+  const g = x.createLinearGradient(0, 0, 0, SHARE_H);
+  g.addColorStop(0, "#FF6B35"); g.addColorStop(1, "#D4501F");
+  x.fillStyle = g; x.fillRect(0, 0, 10, SHARE_H);
+
+  x.fillStyle = "#1C2230";
+  x.font = "600 30px Inter, sans-serif";
+  x.fillText("My income portfolio", 64, 84);
+
+  x.fillStyle = "#8A9099";
+  x.font = "15px Inter, sans-serif";
+  x.fillText(d.funds + (d.funds === 1 ? " fund" : " funds")
+    + (d.underlying ? "  ·  " + d.underlying + " underlying companies" : ""), 64, 114);
+
+  // the figures
+  function fig(label, val, cx, cy){
+    x.fillStyle = "#8A9099";
+    x.font = "13px Inter, sans-serif";
+    x.fillText(label.toUpperCase(), cx, cy);
+    x.fillStyle = "#1C2230";
+    x.font = "600 46px Inter, sans-serif";
+    x.fillText(val, cx, cy + 52);
+  }
+  function money(n){
+    return "$" + Math.round(n).toLocaleString("en-CA");
+  }
+
+  if (showMoney && d.value){
+    fig("Invested", money(d.value), 64, 190);
+    fig("Income a year", money(d.income), 424, 190);
+    fig("Income a month", money(d.income / 12), 784, 190);
+  } else {
+    fig("Yield on value", (d.yield || 0).toFixed(1) + "%", 64, 190);
+    fig("Funds held", String(d.funds), 424, 190);
+    fig("Underlying names", String(d.underlying || "—"), 784, 190);
+  }
+  if (showMoney && d.yield !== null){
+    x.fillStyle = "#8A9099";
+    x.font = "15px Inter, sans-serif";
+    x.fillText("That is a " + d.yield.toFixed(1) + "% yield on what it is worth today.", 64, 292);
+  }
+
+  // the mix, as a single stacked bar: readable at any size
+  const barY = 350, barH = 26, barW = SHARE_W - 128;
+  let cursor = 64;
+  const shades = ["#1C2230","#2E7D6B","#4A6FA5","#D8AE4E","#BE462D","#6C5B8C","#8A9099"];
+  d.mix.slice(0, 7).forEach(function(m, i){
+    const w = barW * m.pct / 100;
+    x.fillStyle = shades[i % shades.length];
+    x.fillRect(cursor, barY, Math.max(w - 2, 2), barH);
+    cursor += w;
+  });
+
+  // and the legend beneath it
+  let lx = 64, ly = 418;
+  x.font = "15px Inter, sans-serif";
+  d.mix.slice(0, 7).forEach(function(m, i){
+    x.fillStyle = shades[i % shades.length];
+    x.fillRect(lx, ly - 11, 11, 11);
+    x.fillStyle = "#1C2230";
+    const label = m.t + "  " + m.pct.toFixed(0) + "%";
+    x.fillText(label, lx + 18, ly);
+    lx += x.measureText(label).width + 46;
+    if (lx > SHARE_W - 220){ lx = 64; ly += 30; }
+  });
+
+  // footer
+  x.fillStyle = "rgba(28,34,48,0.13)";
+  x.fillRect(64, SHARE_H - 96, SHARE_W - 128, 1);
+  x.fillStyle = "#1C2230";
+  x.font = "600 20px Inter, sans-serif";
+  x.fillText("Built with Licentia", 64, SHARE_H - 54);
+  x.fillStyle = "#8A9099";
+  x.font = "16px Inter, sans-serif";
+  x.fillText("licentia.ca", 64, SHARE_H - 28);
+  x.fillStyle = "#8A9099";
+  x.font = "13px Inter, sans-serif";
+  const stamp = new Date().toLocaleDateString("en-CA", {month:"long", day:"numeric", year:"numeric"});
+  x.textAlign = "right";
+  x.fillText(stamp, SHARE_W - 64, SHARE_H - 28);
+  x.textAlign = "left";
+  return c;
+}
+
+function openShareCard(){
+  let showMoney = false;   // default to the version anyone would post
+  const wrap = document.createElement("div");
+  wrap.className = "share-modal";
+  wrap.innerHTML =
+    '<div class="sm-card">'
+    + '<div class="sm-bar"><b>Share your portfolio</b>'
+      + '<button class="sm-x" type="button" aria-label="Close">&times;</button></div>'
+    + '<div class="sm-body">'
+      + '<div class="sm-preview" id="smPreview"></div>'
+      + '<label class="sm-toggle"><input type="checkbox" id="smMoney"> '
+        + 'Include the dollar amounts</label>'
+      + '<p class="sm-note">Off by default. The card still shows your yield, '
+        + 'your mix and how many companies sit underneath it.</p>'
+      + '<div class="sm-acts">'
+        + '<button class="sm-go" id="smSave">Download the image</button>'
+        + '<button class="sm-alt" id="smShare">Share&hellip;</button>'
+      + '</div>'
+    + '</div></div>';
+  document.body.appendChild(wrap);
+  document.body.style.overflow = "hidden";
+
+  function paint(){
+    const c = drawShareCard(showMoney);
+    const host = wrap.querySelector("#smPreview");
+    host.innerHTML = "";
+    c.style.width = "100%";
+    c.style.height = "auto";
+    c.style.borderRadius = "10px";
+    host.appendChild(c);
+    return c;
+  }
+  let canvas = paint();
+
+  wrap.querySelector("#smMoney").addEventListener("change", function(e){
+    showMoney = e.target.checked;
+    canvas = paint();
+  });
+
+  function blob(){
+    return new Promise(function(res){ canvas.toBlob(res, "image/png"); });
+  }
+
+  wrap.querySelector("#smSave").addEventListener("click", async function(){
+    const b = await blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(b);
+    a.download = "licentia-portfolio.png";
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+  });
+
+  wrap.querySelector("#smShare").addEventListener("click", async function(){
+    const b = await blob();
+    const file = new File([b], "licentia-portfolio.png", {type:"image/png"});
+    // the share sheet is the whole point on a phone; fall back to a download
+    if (navigator.canShare && navigator.canShare({files:[file]})){
+      try {
+        await navigator.share({files:[file], title:"My income portfolio",
+          text:"Built with Licentia \u2014 licentia.ca"});
+      } catch(e){}
+    } else {
+      wrap.querySelector("#smSave").click();
+    }
+  });
+
+  function shut(){
+    wrap.remove();
+    document.body.style.overflow = "";
+    document.removeEventListener("keydown", onKey);
+  }
+  function onKey(e){ if (e.key === "Escape") shut(); }
+  wrap.querySelector(".sm-x").addEventListener("click", shut);
+  wrap.addEventListener("click", function(e){ if (e.target === wrap) shut(); });
+  document.addEventListener("keydown", onKey);
+  requestAnimationFrame(function(){ wrap.classList.add("in"); });
 }
 
 function renderTotals(){
@@ -775,6 +1009,22 @@ async function boot(){
 sb.auth.onAuthStateChange(function(){ boot(); });
 boot();
 </script>
-<script src="assets/pro.js?v=99ab8eca"></script>
+<script src="assets/pro.js?v=99ab8eca">
+// the button only means anything once there is something to show
+(function(){
+  function wireShare(){
+    var b = document.getElementById("shareCard");
+    if (!b || b.dataset.wired) return;
+    b.dataset.wired = "1";
+    b.addEventListener("click", function(){
+      if (!ROWS.length) return;
+      openShareCard();
+    });
+  }
+  document.addEventListener("DOMContentLoaded", wireShare);
+  setTimeout(wireShare, 1500);
+  setTimeout(wireShare, 4000);
+})();
+</script>
 </body>
 </html>
