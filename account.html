@@ -320,6 +320,17 @@
   .fb-row{display:flex; align-items:center; gap:12px; margin-top:11px; flex-wrap:wrap;}
   .fb-msg{font-size:12.5px; color:var(--ink-faint);}
   .fb-msg.good{color:var(--ember-deep);}
+
+  /* the photo controls sit with the face, where a reader looks for them */
+  .face-wrap{display:flex; align-items:center; gap:9px; flex:none;}
+  .face-edit, .face-drop{padding:5px 11px; border-radius:100px; cursor:pointer;
+    font-family:inherit; font-size:11.5px; background:none;
+    border:1px solid var(--line-strong); color:var(--ink-soft);}
+  .face-edit:hover, .face-drop:hover{border-color:var(--ink); color:var(--ink);}
+  @media(max-width:520px){
+    .face-wrap{gap:7px;}
+    .face-edit, .face-drop{padding:5px 9px; font-size:11px;}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -544,7 +555,7 @@ function accountView(session){
     try { localStorage.setItem(AVKEY, meta.avatar_data); } catch(e){}
     sb.auth.updateUser({ data: { avatar_data: null } });
   }
-  const photo = readAvatar() || meta.avatar_url || null;
+  const photo = meta.avatar_small || readAvatar() || meta.avatar_url || null;
 
   const hour = new Date().getHours();
   const greet = hour < 5 ? 'Still up' : hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
@@ -570,7 +581,13 @@ function accountView(session){
   root.innerHTML =
     '<div class="dash">'
     + '<div class="dash-top">'
-      + '<div class="dash-face" id="face">' + face + '</div>'
+      + '<div class="face-wrap">'
+        + '<div class="dash-face" id="face">' + face + '</div>'
+        + '<button class="face-edit" id="pickPhoto" title="Change your photo">'
+          + (photo ? 'Change' : 'Add photo') + '</button>'
+        + (photo ? '<button class="face-drop" id="dropPhoto">Remove</button>' : '')
+        + '<input type="file" id="photoInput" accept="image/*" style="display:none">'
+      + '</div>'
       + '<div class="dash-who">'
         + '<div class="dash-hi">' + greet + (name ? ', ' + esc(first) : '') + '</div>'
         + '<div class="dash-sub">' + esc(email) + (since ? ' &middot; member since ' + since : '') + '</div>'
@@ -624,12 +641,7 @@ function accountView(session){
         + '<div class="field"><label for="idname">Display name</label>'
           + '<input id="idname" type="text" value="' + esc(name) + '" placeholder="What should we call you?"></div>'
         + '<div class="field"><label>Email</label><div class="fixed">' + esc(email) + '</div></div>'
-        + '<div class="field"><label>Photo</label><div class="photo-row">'
-          + '<button class="btn-quiet" id="pickPhoto">' + (photo ? 'Change photo' : 'Upload a photo') + '</button>'
-          + (photo ? '<button class="btn-quiet" id="dropPhoto">Remove photo</button>' : '')
-          + '<input type="file" id="photoInput" accept="image/*" style="display:none">'
-          + '<span class="saved" id="savedFlag">Saved</span>'
-        + '</div></div>'
+        + '<span class="saved" id="savedFlag">Saved</span>'
         + '</div>'
         + '<div class="fb" id="feedbackBox">'
           + '<label for="fbText">Any ideas you want to share?</label>'
@@ -671,13 +683,18 @@ function accountView(session){
     reader.onload = function(){
       const img = new Image();
       img.onload = function(){
-        const S = 160;
+        const S = 96;   // small enough to ride with the account
         const c = document.createElement('canvas'); c.width = S; c.height = S;
         const side = Math.min(img.width, img.height);
         c.getContext('2d').drawImage(img, (img.width - side) / 2, (img.height - side) / 2,
           side, side, 0, 0, S, S);
-        const small = c.toDataURL('image/jpeg', 0.82);
+        const small = c.toDataURL('image/jpeg', 0.7);
+        // A photo should follow the account, not the browser it was uploaded
+        // from. Keeping it only on the device meant it looked like it had
+        // reverted every time you opened the site somewhere else. It is small
+        // enough now to travel with the account without bloating the token.
         try { localStorage.setItem(AVKEY, small); } catch(e){}
+        sb.auth.updateUser({ data: { avatar_small: small } });
         document.getElementById('face').innerHTML = '<img id="faceImg" src="' + small + '" alt="">';
         if (!document.getElementById('dropPhoto')) {
           const b = document.createElement('button');
@@ -695,6 +712,7 @@ function accountView(session){
 
   function dropPhoto(){
     try { localStorage.removeItem(AVKEY); } catch(e){}
+    sb.auth.updateUser({ data: { avatar_small: null } });
     if (meta.avatar_url) sb.auth.updateUser({ data: { avatar_url: null } });
     document.getElementById('face').innerHTML = esc((first[0] || '?').toUpperCase());
     const d = document.getElementById('dropPhoto'); if (d) d.remove();
