@@ -170,7 +170,23 @@
   .rail-chip b{font-weight:400; opacity:.55; font-family:'IBM Plex Mono',monospace; font-size:11px;}
   .issuer-group{margin-bottom:46px;}
   .issuer-head{display:flex; align-items:center; gap:14px; margin:0 0 16px;
-    padding-bottom:11px; border-bottom:2px solid var(--fam);}
+    padding-bottom:11px; border-bottom:2px solid var(--fam);
+    flex-wrap:wrap; row-gap:9px; max-width:100%;}
+  @media(max-width:560px){
+    /* on a phone the row wraps rather than pushing the market pill off
+       the side of the page */
+    .issuer-head{gap:10px;}
+    .issuer-logo, .issuer-logo svg, .issuer-logo img{height:22px; max-width:120px;}
+    .issuer-name{font-size:17px;}
+    .issuer-market{font-size:9.5px; padding:2px 7px; letter-spacing:0.06em;}
+    .issuer-count{font-size:10.5px;}
+  }
+  @media(max-width:380px){
+    /* narrowest phones: the count moves under the logo rather than
+       squeezing the pill */
+    .issuer-logo, .issuer-logo svg, .issuer-logo img{max-width:96px;}
+    .issuer-count{margin-left:0;}
+  }
   .issuer-logo{height:28px; display:flex; align-items:center; color:var(--fam); flex:none;}
   /* the marks carry a viewBox but no width/height, so height must be explicit
      or they collapse to nothing inside a flex row */
