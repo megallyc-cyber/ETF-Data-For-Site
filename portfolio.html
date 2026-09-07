@@ -334,11 +334,13 @@ function derive(row){
   // better basis than a yield derived from a price we may not have
   const income = (st.ttm_total !== undefined && st.ttm_total !== null)
     ? shares * Number(st.ttm_total)
-    : ((value !== null && st.yield_ttm !== undefined) ? value * st.yield_ttm / 100 : null);
+    : ((value !== null && st.yield_ttm != null) ? value * st.yield_ttm / 100
+      : ((value !== null && st.yield != null) ? value * Number(st.yield) / 100 : null));
   // and show a yield even when it had to be worked out from NAV
   const yieldShown = (st.yield_ttm !== undefined && st.yield_ttm !== null)
     ? st.yield_ttm
-    : ((st.ttm_total && price) ? Math.round(st.ttm_total / price * 1000) / 10 : undefined);
+    : ((st.ttm_total && price) ? Math.round(st.ttm_total / price * 1000) / 10
+      : (st.yield != null ? Number(st.yield) : undefined));
   const spent = (cost !== null) ? shares * cost : null;
   const pl = (value !== null && spent !== null) ? value - spent : null;
   const plPct = (pl !== null && spent) ? pl / spent * 100 : null;
