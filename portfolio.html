@@ -260,6 +260,15 @@
     .sm-go, .sm-alt{width:100%;}
   }
 
+
+  .sm-where{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:16px;
+    padding-top:14px; border-top:1px solid var(--line);}
+  .sm-where span{font-size:12.5px; color:var(--ink-faint); margin-right:2px;}
+  .sp-link{font-size:13px; text-decoration:none; color:var(--ink-soft);
+    padding:6px 12px; border-radius:100px; border:1px solid var(--line-strong);}
+  .sp-link:hover{border-color:var(--ink); color:var(--ink);}
+  .sm-hide{display:none;}
+
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -713,6 +722,29 @@ function drawShareCard(showMoney){
   return c;
 }
 
+// Where a card actually gets posted. None of these accept an image through a
+// link, so the flow is: save the picture, then open the composer with the
+// words already written. On a phone the native sheet does carry the image,
+// which is why it is offered first there.
+const SHARE_TARGETS = [
+  {name:"Reddit",   url:function(t,u){ return "https://www.reddit.com/submit?title=" + t + "&url=" + u; }},
+  {name:"X",        url:function(t,u){ return "https://twitter.com/intent/tweet?text=" + t + "&url=" + u; }},
+  {name:"Bluesky",  url:function(t,u){ return "https://bsky.app/intent/compose?text=" + t + "%20" + u; }},
+  {name:"Threads",  url:function(t,u){ return "https://www.threads.net/intent/post?text=" + t + "%20" + u; }},
+  {name:"Facebook", url:function(t,u){ return "https://www.facebook.com/sharer/sharer.php?u=" + u; }},
+  {name:"LinkedIn", url:function(t,u){ return "https://www.linkedin.com/sharing/share-offsite/?url=" + u; }},
+  {name:"WhatsApp", url:function(t,u){ return "https://wa.me/?text=" + t + "%20" + u; }}
+];
+
+function sharePlatforms(){
+  const text = encodeURIComponent("My income portfolio, built with Licentia");
+  const url = encodeURIComponent("https://licentia.ca");
+  return SHARE_TARGETS.map(function(p){
+    return '<a class="sp-link" target="_blank" rel="noopener" href="'
+      + p.url(text, url) + '">' + p.name + '</a>';
+  }).join("");
+}
+
 function openShareCard(){
   let showMoney = false;   // default to the version anyone would post
   const wrap = document.createElement("div");
@@ -730,6 +762,9 @@ function openShareCard(){
       + '<div class="sm-acts">'
         + '<button class="sm-go" id="smSave">Download the image</button>'
         + '<button class="sm-alt" id="smShare">Share&hellip;</button>'
+      + '</div>'
+      + '<div class="sm-where"><span>Post it to</span>' + sharePlatforms() + '</div>'
+      + '<div class="sm-hide">'
       + '</div>'
     + '</div></div>';
   document.body.appendChild(wrap);
@@ -790,6 +825,16 @@ function openShareCard(){
   document.addEventListener("keydown", onKey);
   requestAnimationFrame(function(){ wrap.classList.add("in"); });
 }
+
+
+// delegated from inside this module, so it works however often the holdings
+// panel is redrawn
+document.addEventListener("click", function(e){
+  const b = e.target.closest && e.target.closest("#shareCard");
+  if (!b) return;
+  if (!ROWS.length) return;
+  openShareCard();
+});
 
 function renderTotals(){
   const box = document.getElementById('totals');
@@ -1010,14 +1055,7 @@ sb.auth.onAuthStateChange(function(){ boot(); });
 boot();
 </script>
 <script src="assets/pro.js?v=99ab8eca">
-// delegated, so it works whenever the button appears and however often
-// the holdings panel is redrawn
-document.addEventListener("click", function(e){
-  var b = e.target.closest && e.target.closest("#shareCard");
-  if (!b) return;
-  if (!ROWS.length) return;
-  openShareCard();
-});
+
 </script>
 </body>
 </html>
