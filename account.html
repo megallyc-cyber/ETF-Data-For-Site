@@ -801,15 +801,29 @@ async function loadFigures(session, isPro){
     }
     const res = await licentiaFundsFetch();
     const data = await res.json();
+    // the same arithmetic My Portfolio uses, so the two pages agree
+    function num(v){
+      if (v === null || v === undefined) return null;
+      if (typeof v === "number") return isFinite(v) ? v : null;
+      const n = parseFloat(String(v).replace(/[^0-9.\-]/g, ""));
+      return isFinite(n) ? n : null;
+    }
     let value = 0, income = 0, priced = 0;
     held.forEach(function(h){
       const f = data[h.ticker]; if (!f || !f.stats) return;
-      const price = Number(f.stats.price);
-      if (!isFinite(price)) return;
-      const v = Number(h.shares) * price;
+      const st = f.stats;
+      const shares = num(h.shares) || 0;
+      // fall back to the published NAV when no market price is stored
+      const price = num(st.price) !== null ? num(st.price) : num(st.nav);
+      if (price === null) return;
+      const v = shares * price;
       value += v; priced++;
-      const y = Number(f.stats.yield_ttm);
-      if (isFinite(y)) income += v * y / 100;
+      // what the fund actually paid beats a yield we may not have
+      const ttm = num(st.ttm_total), yTtm = num(st.yield_ttm), yPub = num(st.yield);
+      const rowIncome = ttm !== null ? shares * ttm
+        : (yTtm !== null ? v * yTtm / 100
+          : (yPub !== null ? v * yPub / 100 : 0));
+      if (isFinite(rowIncome)) income += rowIncome;
     });
     if (!priced) { document.getElementById('fVal').textContent = 'Not priced'; return; }
     const set = function(id, txt){ const el = document.getElementById(id);
