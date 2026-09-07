@@ -269,6 +269,14 @@
   .sp-link:hover{border-color:var(--ink); color:var(--ink);}
   .sm-hide{display:none;}
 
+
+  .sm-toggle{display:flex; align-items:center; gap:10px; margin-top:16px;
+    font-size:14px; cursor:pointer; line-height:1.4;}
+  .sm-toggle input[type="checkbox"]{flex:none; width:17px; height:17px; margin:0;
+    padding:0; border:1px solid var(--line-strong); border-radius:4px;
+    accent-color:var(--ink); cursor:pointer; appearance:auto; min-width:0;}
+  .sm-toggle span{flex:1;}
+
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -610,13 +618,7 @@ function renderRows(){
 const SHARE_W = 1200, SHARE_H = 675;   // 16:9, which every platform crops kindly
 
 function shareCardData(){
-  // derive does not carry the ticker, so pair each result with its row
-  const rows = ROWS.map(function(r){
-    const d = derive(r);
-    if (!d) return null;
-    d.t = r.ticker;
-    return d;
-  }).filter(Boolean);
+  const rows = ROWS.map(derive).filter(Boolean);
   let value = 0, income = 0, known = false;
   rows.forEach(function(d){
     if (d.value !== null){ value += d.value; known = true; }
@@ -642,88 +644,95 @@ function drawShareCard(showMoney){
   const c = document.createElement("canvas");
   c.width = SHARE_W; c.height = SHARE_H;
   const x = c.getContext("2d");
+  const FOOT = 96;   // the branded band along the bottom
 
   x.fillStyle = "#FBF9F5"; x.fillRect(0, 0, SHARE_W, SHARE_H);
-  // a warm band down the left, the same ember the site uses
-  const g = x.createLinearGradient(0, 0, 0, SHARE_H);
-  g.addColorStop(0, "#FF6B35"); g.addColorStop(1, "#D4501F");
-  x.fillStyle = g; x.fillRect(0, 0, 10, SHARE_H);
 
   x.fillStyle = "#1C2230";
-  x.font = "600 30px Inter, sans-serif";
-  x.fillText("My income portfolio", 64, 84);
+  x.font = "600 34px Inter, sans-serif";
+  x.fillText("My income portfolio", 64, 92);
 
   x.fillStyle = "#8A9099";
   x.font = "15px Inter, sans-serif";
   x.fillText(d.funds + (d.funds === 1 ? " fund" : " funds")
-    + (d.underlying ? "  ·  " + d.underlying + " underlying companies" : ""), 64, 114);
+    + (d.underlying ? "   \u00b7   " + d.underlying + " companies underneath" : ""), 64, 122);
 
-  // the figures
   function fig(label, val, cx, cy){
     x.fillStyle = "#8A9099";
-    x.font = "13px Inter, sans-serif";
+    x.font = "12px Inter, sans-serif";
     x.fillText(label.toUpperCase(), cx, cy);
     x.fillStyle = "#1C2230";
-    x.font = "600 46px Inter, sans-serif";
-    x.fillText(val, cx, cy + 52);
+    x.font = "600 44px Inter, sans-serif";
+    x.fillText(val, cx, cy + 50);
   }
-  function money(n){
-    return "$" + Math.round(n).toLocaleString("en-CA");
-  }
+  function money(n){ return "$" + Math.round(n).toLocaleString("en-CA"); }
 
   if (showMoney && d.value){
-    fig("Invested", money(d.value), 64, 190);
-    fig("Income a year", money(d.income), 424, 190);
-    fig("Income a month", money(d.income / 12), 784, 190);
-  } else {
-    fig("Yield on value", (d.yield || 0).toFixed(1) + "%", 64, 190);
-    fig("Funds held", String(d.funds), 424, 190);
-    fig("Underlying names", String(d.underlying || "—"), 784, 190);
-  }
-  if (showMoney && d.yield !== null){
+    fig("Invested", money(d.value), 64, 196);
+    fig("Income a year", money(d.income), 424, 196);
+    fig("Income a month", money(d.income / 12), 784, 196);
     x.fillStyle = "#8A9099";
     x.font = "15px Inter, sans-serif";
-    x.fillText("That is a " + d.yield.toFixed(1) + "% yield on what it is worth today.", 64, 292);
+    x.fillText("A " + (d.yield || 0).toFixed(1) + "% yield on what it is worth today.", 64, 292);
+  } else {
+    fig("Yield on value", (d.yield || 0).toFixed(1) + "%", 64, 196);
+    fig("Funds held", String(d.funds), 424, 196);
+    fig("Companies underneath", String(d.underlying || "\u2014"), 784, 196);
   }
 
-  // the mix, as a single stacked bar: readable at any size
-  const barY = 350, barH = 26, barW = SHARE_W - 128;
+  // the mix
+  const barY = 348, barH = 24, barW = SHARE_W - 128;
   let cursor = 64;
   const shades = ["#1C2230","#2E7D6B","#4A6FA5","#D8AE4E","#BE462D","#6C5B8C","#8A9099"];
-  d.mix.slice(0, 7).forEach(function(m, i){
+  const shown = d.mix.slice(0, 7);
+  shown.forEach(function(m, i){
     const w = barW * m.pct / 100;
     x.fillStyle = shades[i % shades.length];
     x.fillRect(cursor, barY, Math.max(w - 2, 2), barH);
     cursor += w;
   });
 
-  // and the legend beneath it
-  let lx = 64, ly = 418;
+  let lx = 64, ly = 412;
   x.font = "15px Inter, sans-serif";
-  d.mix.slice(0, 7).forEach(function(m, i){
+  shown.forEach(function(m, i){
     x.fillStyle = shades[i % shades.length];
     x.fillRect(lx, ly - 11, 11, 11);
     x.fillStyle = "#1C2230";
-    const label = m.t + "  " + m.pct.toFixed(0) + "%";
+    const label = (m.t || "") + "  " + m.pct.toFixed(0) + "%";
     x.fillText(label, lx + 18, ly);
-    lx += x.measureText(label).width + 46;
-    if (lx > SHARE_W - 220){ lx = 64; ly += 30; }
+    lx += x.measureText(label).width + 42;
+    if (lx > SHARE_W - 200){ lx = 64; ly += 28; }
   });
 
-  // footer
-  x.fillStyle = "rgba(28,34,48,0.13)";
-  x.fillRect(64, SHARE_H - 96, SHARE_W - 128, 1);
+  // ---- the band that does the advertising ----------------------------------
+  // Anyone who sees this picture on a feed should know in one glance what made
+  // it and where to get it. A dark band reads at thumbnail size in a way that
+  // a line of small grey text never does.
   x.fillStyle = "#1C2230";
-  x.font = "600 20px Inter, sans-serif";
-  x.fillText("Built with Licentia", 64, SHARE_H - 54);
-  x.fillStyle = "#8A9099";
-  x.font = "16px Inter, sans-serif";
-  x.fillText("licentia.ca", 64, SHARE_H - 28);
-  x.fillStyle = "#8A9099";
+  x.fillRect(0, SHARE_H - FOOT, SHARE_W, FOOT);
+
+  // the wordmark, with the ember accent the site uses
+  x.font = "600 30px Inter, sans-serif";
+  x.fillStyle = "#FBF9F5";
+  x.fillText("Licentia", 64, SHARE_H - FOOT + 46);
+  const wmW = x.measureText("Licentia").width;
+  x.fillStyle = "#FF6B35";
+  x.beginPath();
+  x.arc(64 + wmW + 14, SHARE_H - FOOT + 37, 5, 0, Math.PI * 2);
+  x.fill();
+
+  x.fillStyle = "rgba(251,249,245,0.62)";
+  x.font = "15px Inter, sans-serif";
+  x.fillText("Every covered call and income ETF in Canada and the US", 64, SHARE_H - FOOT + 72);
+
+  x.textAlign = "right";
+  x.fillStyle = "#FBF9F5";
+  x.font = "600 22px Inter, sans-serif";
+  x.fillText("licentia.ca", SHARE_W - 64, SHARE_H - FOOT + 46);
+  x.fillStyle = "rgba(251,249,245,0.5)";
   x.font = "13px Inter, sans-serif";
   const stamp = new Date().toLocaleDateString("en-CA", {month:"long", day:"numeric", year:"numeric"});
-  x.textAlign = "right";
-  x.fillText(stamp, SHARE_W - 64, SHARE_H - 28);
+  x.fillText(stamp, SHARE_W - 64, SHARE_H - FOOT + 72);
   x.textAlign = "left";
   return c;
 }
@@ -761,8 +770,8 @@ function openShareCard(){
       + '<button class="sm-x" type="button" aria-label="Close">&times;</button></div>'
     + '<div class="sm-body">'
       + '<div class="sm-preview" id="smPreview"></div>'
-      + '<label class="sm-toggle"><input type="checkbox" id="smMoney"> '
-        + 'Include the dollar amounts</label>'
+      + '<label class="sm-toggle"><input type="checkbox" id="smMoney">'
+        + '<span>Include the dollar amounts</span></label>'
       + '<p class="sm-note">Off by default. The card still shows your yield, '
         + 'your mix and how many companies sit underneath it.</p>'
       + '<div class="sm-acts">'
