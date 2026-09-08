@@ -2391,18 +2391,31 @@ def attach_price_and_yield(registry: list) -> None:
     # worse than showing a slightly different number. Issuers publish a NAV
     # even when the price history cannot be resolved, so fall back to it and
     # record where the figure came from.
+    def _as_number(v):
+        """A figure from an issuer, whatever shape it arrived in."""
+        if v is None:
+            return None
+        if isinstance(v, (int, float)):
+            return float(v)
+        cleaned = re.sub(r"[^0-9.\\-]", "", str(v))
+        try:
+            return float(cleaned)
+        except ValueError:
+            return None
+
     def _nav_fallback():
         for fund in registry:
             if fund.stats.get("price"):
                 fund.stats.setdefault("price_source", "market")
                 continue
-            nav = fund.stats.get("nav")
-            if nav:
-                fund.stats["price"] = round(float(nav), 4)
-                fund.stats["price_source"] = "nav"
-                ttm = fund.stats.get("ttm_total")
-                if ttm:
-                    fund.stats["yield_ttm"] = round(ttm / float(nav) * 100, 2)
+            nav = _as_number(fund.stats.get("nav"))
+            if not nav:
+                continue
+            fund.stats["price"] = round(nav, 4)
+            fund.stats["price_source"] = "nav"
+            ttm = _as_number(fund.stats.get("ttm_total"))
+            if ttm:
+                fund.stats["yield_ttm"] = round(ttm / nav * 100, 2)
 
     price_dir = Path("data/prices")
     if not price_dir.exists():
@@ -2602,7 +2615,12 @@ if __name__ == "__main__":
                  ", ".join(f.ticker for f in registry))
 
     results = run(registry)
-    attach_price_and_yield(results)
+    try:
+        attach_price_and_yield(results)
+    except Exception as exc:  # noqa: BLE001
+        # thirty six minutes of scraping should not be thrown away
+        # because one issuer formatted a number unusually
+        log.error("Could not attach prices and yields: %s", exc)
     write_output(results, merge=filtered)
 
 
