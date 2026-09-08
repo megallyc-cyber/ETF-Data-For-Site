@@ -1300,13 +1300,32 @@ async function removeHolding(id){
 
 // A sample book, not anyone's real holdings — this is what the homepage
 // renders so a visitor can see the page working rather than locked.
-const PREVIEW_BOOK = [
-  {id:'p1', ticker:'HDIV', shares:1200, cost_basis:14.10},
-  {id:'p2', ticker:'ZWB',  shares:900,  cost_basis:19.40},
-  {id:'p3', ticker:'HYLD', shares:1500, cost_basis:13.20},
-  {id:'p4', ticker:'ZWP',  shares:800,  cost_basis:18.75},
-  {id:'p5', ticker:'HHL',  shares:1100, cost_basis:8.60}
-];
+function buildPreviewBook(){
+  const usable = Object.keys(FUNDS).filter(function(t){
+    const st = (FUNDS[t] || {}).stats || {};
+    return num(st.price) !== null && (num(st.ttm_total) !== null || num(st.yield_ttm) !== null
+      || num(st.yield) !== null);
+  });
+  // a spread of managers reads better than five funds from one house
+  const seen = {}, picked = [];
+  usable.forEach(function(t){
+    const iss = (FUNDS[t] || {}).issuer || '';
+    if (picked.length >= 5) return;
+    if (seen[iss]) return;
+    seen[iss] = 1;
+    picked.push(t);
+  });
+  while (picked.length < 5 && usable.length > picked.length){
+    const t = usable[picked.length];
+    if (picked.indexOf(t) === -1) picked.push(t); else break;
+  }
+  const shares = [1200, 900, 1500, 800, 1100];
+  return picked.map(function(t, i){
+    const price = num((FUNDS[t].stats || {}).price) || 20;
+    return {id:'p' + i, ticker:t, shares:shares[i] || 1000,
+            cost_basis: Math.round(price * 0.86 * 100) / 100};
+  });
+}
 
 function isPreview(){
   return new URLSearchParams(location.search).get('preview') === '1';
@@ -1316,7 +1335,7 @@ async function boot(){
   if (isPreview()){
     const d = await licentiaFundsFetch().then(function(r){ return r.json(); });
     FUNDS = d;
-    ROWS = PREVIEW_BOOK.slice();
+    ROWS = buildPreviewBook();
     portfolioView();
     document.body.classList.add('is-preview');
     return;
