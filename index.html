@@ -441,6 +441,28 @@
     .ls-left .home-stats{justify-content:center;}
     .ls-tour{margin-left:auto; margin-right:auto;}
   }
+  /* The left column carries the page, so give it room and centre what sits
+     in it rather than leaving everything hugging the left edge. */
+  @media(min-width:900px){
+    .landing-split{grid-template-columns:1.55fr 0.9fr; gap:70px;
+      padding:70px 0 76px; align-items:center;}
+    .ls-left{text-align:center; display:flex; flex-direction:column; align-items:center;}
+    .ls-left h1{font-size:clamp(40px,4.3vw,60px); max-width:15ch;}
+    .ls-left .home-sub{max-width:44ch; margin-left:auto; margin-right:auto;}
+    .ls-left .home-stats{justify-content:center; width:100%;}
+  }
+  /* a button, with the weight of one */
+  .ls-tour{display:inline-flex; align-items:center; gap:10px; margin-top:34px;
+    padding:14px 28px; border-radius:100px; text-decoration:none;
+    font-family:"Inter",ui-sans-serif,sans-serif; font-size:15px; letter-spacing:0;
+    text-transform:none; color:var(--ink);
+    background:var(--white); border:1px solid var(--line-strong);
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 14px 28px -18px rgba(28,34,48,0.4);
+    transition:border-color .16s, transform .16s, box-shadow .16s;}
+  .ls-tour:hover{border-color:var(--ink); transform:translateY(-1px);
+    box-shadow:0 4px 8px rgba(28,34,48,0.07), 0 20px 36px -18px rgba(28,34,48,0.5);}
+  .lst-arw{color:var(--ember-deep); transition:transform .16s;}
+  .ls-tour:hover .lst-arw{transform:translateX(4px);}
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -506,7 +528,7 @@
         <div class="home-stat"><div class="v pending" id="statYield">—</div><div class="k">median yield</div></div>
       </div>
 
-      <a class="ls-tour" href="tour.html">What is Licentia? <span>&rarr;</span></a>
+      <a class="ls-tour" href="tour.html">What is Licentia?<span class="lst-arw">&rarr;</span></a>
     </div>
 
     <aside class="ls-card" id="authCard">
@@ -514,8 +536,8 @@
         <div class="lsc-title">Create an account</div>
         <p class="lsc-sub">It saves what you hold and what you are watching. Free.</p>
       </div>
-      <a class="lsc-go" href="account.html">Get started</a>
-      <a class="lsc-alt" href="account.html">I already have one</a>
+      <a class="lsc-go" href="account.html?mode=signup">Get started</a>
+      <a class="lsc-alt" href="account.html?mode=signin">Sign in</a>
       <div class="lsc-rule"><span>or look around first</span></div>
       <div class="lsc-open">
         <a href="funds.html">Fund directory</a>
