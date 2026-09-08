@@ -325,6 +325,11 @@
   .stl-go{display:inline-block; padding:9px 18px; border-radius:100px; text-decoration:none;
     background:linear-gradient(135deg,#C89B3C,#8F6B22); color:#fff; font-size:13px;}
   .stl-go:hover{filter:brightness(1.07);}
+  /* until the session answers, the pill holds its shape without naming a plan */
+  .tier.is-pending{color:transparent; min-width:104px;}
+  .tier.is-pending .tier-dots{color:var(--paper); opacity:0.5; letter-spacing:0.2em;
+    animation:tierwait 1.3s ease-in-out infinite;}
+  @keyframes tierwait{0%,100%{opacity:0.25;} 50%{opacity:0.6;}}
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -365,7 +370,7 @@
       <p class="sub">Two questions this page answers: what a market move would do to your income,
         and how much of a fund's return actually came from its distributions.</p>
     </div>
-    <div class="tier" id="tierBadge">Free Account</div>
+    <div class="tier is-pending" id="tierBadge"><span class="tier-dots">&middot;&middot;&middot;</span></div>
   </div>
 
   <div class="sec">
@@ -1096,6 +1101,7 @@ Promise.all([
     const tier = u ? ((u.app_metadata && u.app_metadata.tier) ||
                       (u.user_metadata && u.user_metadata.tier) || null) : null;
     badge.textContent = !session ? 'No Account' : (tier === 'pro' ? 'Licentia Pro' : 'Free Account');
+    badge.classList.remove('is-pending');   // claiming a plan before we know it reads as a glitch
     badge.className = 'tier' + (tier === 'pro' ? ' pro' : '');
   }
   if (session){
