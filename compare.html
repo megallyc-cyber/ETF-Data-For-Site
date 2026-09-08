@@ -674,6 +674,28 @@
       rgba(var(--famrgb,28,34,48),0.03) 48%, rgba(255,255,255,0.8) 100%) !important;}
   .fund:hover{border-color:rgba(var(--famrgb,28,34,48),0.45) !important;
     transform:translateY(-2px); box-shadow:0 8px 20px rgba(28,34,48,0.09) !important;}
+  /* ---------- the marks ----------
+     Issuer logos arrive at wildly different proportions: a tall roundel, a
+     long wordmark, a name with a tagline beside it. Left to size themselves
+     they made the column look accidental. Every mark gets the same room and
+     is fitted inside it, so the text after them starts on one line. */
+  .fam-logo{width:150px !important; min-width:150px !important; height:34px !important;
+    display:flex !important; align-items:center; justify-content:flex-start;
+    padding:0 !important; background:none !important; border:none !important;
+    border-radius:0 !important; overflow:hidden; flex:none !important;}
+  .fam-logo svg, .fam-logo img{max-width:150px !important; max-height:26px !important;
+    width:auto !important; height:auto !important; object-fit:contain;
+    display:block; margin:0;}
+  /* a hairline between the mark and the numbers, so the row has a spine */
+  .fam-logo{border-right:1px solid var(--line) !important; padding-right:14px !important;
+    box-sizing:content-box;}
+  .fam-name{min-width:150px; display:inline-block;}
+  @media(max-width:600px){
+    .fam-logo{width:112px !important; min-width:112px !important; height:30px !important;
+      padding-right:10px !important;}
+    .fam-logo svg, .fam-logo img{max-width:112px !important; max-height:22px !important;}
+    .fam-name{min-width:0;}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
