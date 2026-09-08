@@ -380,7 +380,9 @@ const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 const stage = document.getElementById('stage');
-let mode = 'signin';
+let mode = (new URLSearchParams(location.search).get('mode') === 'signup')
+  ? 'signup'   // arrive on the tab they asked for
+  : 'signin';
 let googleReady = null;
 
 // Ask Supabase which providers are actually on, so the Google button can
