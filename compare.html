@@ -631,6 +631,49 @@
   .slot.locked .lk{font-size:13px; opacity:0.7;}
   .slot.locked:hover{border-color:var(--gold-deep); color:var(--gold-deep);
     opacity:1; transform:none; box-shadow:none;}
+  /* ---------- fund families, revisited ----------
+     A coloured stripe down the left of a tinted block reads as a status
+     banner rather than a company. The funds page does this better: the
+     manager’s colour is a rule under their name, and the card itself stays
+     paper. Same idea here. */
+  .families{gap:12px;}
+  .fam{background:var(--white) !important;
+    border:1px solid var(--line) !important; border-left:1px solid var(--line) !important;
+    border-radius:12px !important; overflow:hidden;
+    box-shadow:0 1px 2px rgba(28,34,48,0.04);
+    transition:box-shadow .18s, border-color .18s, transform .18s;}
+  .fam:hover{border-color:rgba(var(--famrgb,28,34,48),0.4) !important;
+    box-shadow:0 10px 26px -18px rgba(28,34,48,0.5) !important; transform:translateY(-1px);}
+  .fam.open{transform:none; border-color:var(--line) !important;
+    box-shadow:0 6px 22px -16px rgba(28,34,48,0.4) !important;}
+  .fam-btn{padding:15px 18px !important; align-items:center;}
+  .fam-btn:hover{background:rgba(var(--famrgb,28,34,48),0.03) !important;}
+
+  /* the mark sits on paper, with the house colour as a rule under the name,
+     not a stripe down the side */
+  .fam-logo{width:auto !important; min-width:96px; height:38px !important;
+    padding:0 !important; background:none !important; border:none !important;
+    border-left:none !important; border-radius:0 !important; justify-content:flex-start;}
+  .fam-logo svg, .fam-logo img{max-height:24px !important;}
+  .fam-left{gap:14px !important; flex:1; min-width:0;}
+  .fam-name{font-size:18px !important; color:var(--ink) !important;
+    padding-bottom:4px;
+    border-bottom:2px solid var(--fam);}
+  .fam-meta{font-size:11px !important; letter-spacing:0.04em;}
+  .fam-meta b{color:var(--ink-soft) !important;}
+
+  /* a quiet dot of the house colour, so the eye can still track the manager */
+  .fam-btn::before{content:""; flex:none; width:7px; height:7px; border-radius:50%;
+    background:var(--fam); opacity:0.85; margin-right:2px;}
+
+  .fam-body{border-top:1px solid var(--line) !important;
+    background:var(--paper-raised) !important; padding:0 18px 18px !important;}
+  .fund{border-radius:9px !important;
+    border:1px solid rgba(var(--famrgb,28,34,48),0.2) !important;
+    background:linear-gradient(158deg, rgba(var(--famrgb,28,34,48),0.10) 0%,
+      rgba(var(--famrgb,28,34,48),0.03) 48%, rgba(255,255,255,0.8) 100%) !important;}
+  .fund:hover{border-color:rgba(var(--famrgb,28,34,48),0.45) !important;
+    transform:translateY(-2px); box-shadow:0 8px 20px rgba(28,34,48,0.09) !important;}
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
