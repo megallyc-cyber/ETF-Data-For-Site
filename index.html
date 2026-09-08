@@ -388,6 +388,13 @@
     font-size:11.5px; line-height:1.7; color:rgba(242,239,233,0.42);}
   body.pro .fs .v{color:var(--gold);}
   @media(max-width:700px){ .foot-in{flex-direction:column; align-items:flex-start;} }
+  /* Until the real figure arrives these read as a quiet dash rather than a
+     number from whenever the page was last edited. */
+  .pending{color:var(--ink-faint); opacity:0.45;}
+  @media (prefers-reduced-motion: no-preference){
+    .pending{animation:pendingpulse 1.4s ease-in-out infinite;}
+    @keyframes pendingpulse{0%,100%{opacity:0.3;} 50%{opacity:0.6;}}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -447,10 +454,10 @@
   </div>
 
   <div class="home-stats fade d2">
-    <div class="home-stat"><div class="v" id="statFunds">206</div><div class="k">funds tracked</div></div>
-    <div class="home-stat"><div class="v" id="statIssuers">17</div><div class="k">fund managers</div></div>
+    <div class="home-stat"><div class="v" id="statFunds" class="pending">—</div><div class="k">funds tracked</div></div>
+    <div class="home-stat"><div class="v" id="statIssuers" class="pending">—</div><div class="k">fund managers</div></div>
     <div class="home-stat"><div class="v ampersand">CA <span>&amp;</span> US</div><div class="k">both markets</div></div>
-    <div class="home-stat"><div class="v" id="statYield">12.1%</div><div class="k">median yield</div></div>
+    <div class="home-stat"><div class="v" id="statYield" class="pending">—</div><div class="k">median yield</div></div>
   </div>
 
   <div class="marquee fade d3"><div class="mq-track" id="mqTrack"></div></div>
@@ -489,9 +496,9 @@
         Canada and the United States.</span>
     </div>
     <div class="foot-stats">
-      <div class="fs"><div class="v" id="fFunds">206</div><div class="k">funds tracked</div></div>
-      <div class="fs"><div class="v" id="fIssuers">17</div><div class="k">fund managers</div></div>
-      <div class="fs"><div class="v" id="fYield">12.1%</div><div class="k">median yield</div></div>
+      <div class="fs"><div class="v" id="fFunds" class="pending">—</div><div class="k">funds tracked</div></div>
+      <div class="fs"><div class="v" id="fIssuers" class="pending">—</div><div class="k">fund managers</div></div>
+      <div class="fs"><div class="v" id="fYield" class="pending">—</div><div class="k">median yield</div></div>
       <div class="fs"><div class="v">Daily</div><div class="k">data refreshed</div></div>
     </div>
   </div>
@@ -581,7 +588,10 @@ async function licentiaFundsFetch(opts){
 
       function put(id, value){
         var el = document.getElementById(id);
-        if (el && value !== null && value !== undefined) el.textContent = value;
+        if (el && value !== null && value !== undefined) {
+          el.textContent = value;
+          el.classList.remove("pending");   // a figure typed into the page is a figure that will go stale
+        }
       }
       put("statFunds", count || totals.funds);
       // the footer reads the same figures as the headline, rather than
