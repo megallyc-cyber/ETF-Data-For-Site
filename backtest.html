@@ -330,6 +330,11 @@
   .tier.is-pending .tier-dots{color:var(--paper); opacity:0.5; letter-spacing:0.2em;
     animation:tierwait 1.3s ease-in-out infinite;}
   @keyframes tierwait{0%,100%{opacity:0.25;} 50%{opacity:0.6;}}
+
+  /* rendered as a picture on the homepage: no controls, nothing clickable */
+  body.is-preview .tier, body.is-preview #picker,
+  body.is-preview .stress-lock{display:none !important;}
+  body.is-preview{pointer-events:none;}
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -505,7 +510,35 @@ function pct(v, dp){ return (v===null||v===undefined||!isFinite(v)) ? '\u2014' :
 // The market stress test is a Pro tool. The panel is covered rather than the
 // figures merely hidden, and the slider underneath is switched off so nothing
 // recalculates behind the cover.
+function isPreview(){
+  return new URLSearchParams(location.search).get("preview") === "1";
+}
+
+// Built from funds a visitor can already see, so no row comes back empty.
+function buildPreviewBook(){
+  const usable = Object.keys(FUNDS).filter(function(t){
+    const st = (FUNDS[t] || {}).stats || {};
+    const p = parseFloat(String(st.price == null ? "" : st.price).replace(/[^0-9.\\-]/g, ""));
+    return isFinite(p) && p > 0;
+  });
+  const seen = {}, picked = [];
+  usable.forEach(function(t){
+    const iss = (FUNDS[t] || {}).issuer || "";
+    if (picked.length >= 5 || seen[iss]) return;
+    seen[iss] = 1;
+    picked.push(t);
+  });
+  const shares = [1200, 900, 1500, 800, 1100];
+  return picked.map(function(t, i){
+    const st = FUNDS[t].stats || {};
+    const p = parseFloat(String(st.price).replace(/[^0-9.\\-]/g, "")) || 20;
+    return {id:"b" + i, ticker:t, shares:shares[i] || 1000,
+            cost_basis: Math.round(p * 0.86 * 100) / 100};
+  });
+}
+
 function licentiaGateStress(){
+  if (typeof isPreview === "function" && isPreview()) return;   // the picture shows the tool working
   var d = window.LICENTIA_DATA || {};
   if (d.tier === "pro") return;
   var panel = document.querySelector(".sec .panel");
@@ -1104,7 +1137,10 @@ Promise.all([
     badge.classList.remove('is-pending');   // claiming a plan before we know it reads as a glitch
     badge.className = 'tier' + (tier === 'pro' ? ' pro' : '');
   }
-  if (session){
+  if (isPreview()){
+    ROWS = buildPreviewBook();
+    document.body.classList.add('is-preview');
+  } else if (session){
     const q = await sb.from('portfolio_holdings').select('id,ticker,shares,cost_basis');
     ROWS = q.error ? [] : (q.data || []);
   }
