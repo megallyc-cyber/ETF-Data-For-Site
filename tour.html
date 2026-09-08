@@ -97,14 +97,27 @@
     .frame iframe{transform:scale(0.34);}
     .lede{padding:32px 0 22px;}
   }
+
+  /* a way back to where they came from */
+  .btn-back{display:inline-flex; align-items:center; gap:8px; padding:9px 18px;
+    border-radius:100px; text-decoration:none; font-size:14px; color:var(--ink-soft);
+    border:1px solid transparent;}
+  .btn-back:hover{color:var(--ink); border-color:var(--line-strong);}
+  .bk-arw{transition:transform .16s;}
+  .btn-back:hover .bk-arw{transform:translateX(-3px);}
+  @media(max-width:560px){
+    .top{flex-wrap:wrap; gap:12px;}
+    .top-go{flex-wrap:wrap;}
+  }
 </style>
 </head>
 <body>
 <header class="top">
   <a class="brand" href="index.html">Licentia<img src="assets/bird.svg" alt="" width="25" height="16"></a>
   <div class="top-go">
+    <a class="btn-back" href="index.html"><span class="bk-arw">&larr;</span> Home</a>
     <a class="btn-line" href="funds.html">Browse funds</a>
-    <a class="btn-fill" href="account.html">Create an account</a>
+    <a class="btn-fill" href="account.html?mode=signup">Create an account</a>
   </div>
 </header>
 
@@ -126,8 +139,9 @@
     <h2>Seen enough?</h2>
     <p>An account saves what you hold and what you are watching. It takes a moment.</p>
     <div class="closer-go">
-      <a class="btn-fill" href="account.html">Create an account</a>
+      <a class="btn-fill" href="account.html?mode=signup">Create an account</a>
       <a class="btn-line" href="funds.html">Keep browsing first</a>
+      <a class="btn-back" href="index.html"><span class="bk-arw">&larr;</span> Back home</a>
     </div>
   </div>
 </section>
