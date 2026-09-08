@@ -610,8 +610,8 @@ function accountView(session){
           + (isPro ? '<span class="per">per month</span>' : '') + '</div>'
         + '<div class="plan-open" id="planOpen">'
           + (isPro
-            ? 'All <b>207 funds</b>, full holdings and the complete distribution history. Unlimited holdings in My Portfolio, sector overlap and the market stress test.'
-            : '<b>50 of 207 funds</b>, top five holdings each and a year of distributions. Three saved holdings in My Portfolio.')
+            ? 'All <b>' + planFundCount() + ' funds</b>, full holdings and the complete distribution history. Unlimited holdings in My Portfolio, sector overlap and the market stress test.'
+            : '<b>50 of ' + planFundCount() + ' funds</b>, top five holdings each and a year of distributions. Three saved holdings in My Portfolio.')
         + '</div>'
         + '<div class="btn-line">'
           + (isPro
@@ -787,6 +787,12 @@ function accountView(session){
 
 // The figures come from the same places the rest of the site reads: holdings
 // from the account, prices and yields from the funds endpoint.
+// The catalogue grows, so the plan description asks rather than assumes.
+function planFundCount(){
+  const total = (window.LICENTIA_DATA || {}).total;
+  return total ? total : "every";
+}
+
 async function loadFigures(session, isPro){
   function money(n){ return '$' + Math.round(n).toLocaleString(); }
   try {
