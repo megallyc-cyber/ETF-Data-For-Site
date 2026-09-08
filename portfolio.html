@@ -312,6 +312,22 @@
   #tierBadge.t-platinum b, #tierBadge.t-platinum-plus b,
   #tierBadge.t-generational b, #tierBadge.t-diamond b{color:inherit; opacity:0.62;}
 
+  .title-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; position:relative;}
+  .title-row h1{margin-bottom:0;}
+  .tier{cursor:pointer; font:inherit; font-family:"IBM Plex Mono",monospace;
+    border:none; padding:9px 18px !important; font-size:11.5px !important;}
+  .tier:hover{filter:brightness(1.08);}
+  .tier-card{position:absolute; top:calc(100% + 10px); left:0; z-index:120;
+    width:min(330px,88vw); background:var(--white);
+    border:1px solid var(--line-strong); border-radius:12px; padding:16px 18px;
+    box-shadow:0 18px 40px -20px rgba(28,34,48,0.55);
+    opacity:0; transform:translateY(-4px); transition:opacity .18s, transform .18s;}
+  .tier-card.in{opacity:1; transform:none;}
+  .tc-name{font-family:"Fraunces",serif; font-size:19px; margin-bottom:6px;}
+  .tc-body{font-size:13.5px; line-height:1.55; color:var(--ink-soft); margin:0 0 8px;}
+  .tc-step{font-size:13.5px; line-height:1.55; color:var(--ink); margin:0 0 10px;}
+  .tc-note{font-size:11.5px; line-height:1.5; color:var(--ink-faint); margin:0;
+    padding-top:10px; border-top:1px solid var(--line);}
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -464,9 +480,10 @@ function gateView(){
 function portfolioView(){
   stage.innerHTML =
     '<div class="head-row">'
-  + '<div><h1>My Portfolio</h1><p class="sub">What you hold, what it is worth now, and what it pays. '
+  + '<div><div class="title-row"><h1>My Portfolio</h1>'
+    + '<button class="tier" id="tierBadge" type="button" aria-haspopup="dialog">Account</button>'
+  + '</div><p class="sub">What you hold, what it is worth now, and what it pays. '
   + 'Prices and yields come from the same daily data as the rest of the site.</p></div>'
-  + '<div class="tier" id="tierBadge">Account</div>'
   + '</div>'
   + '<div class="totals" id="totals"></div>'
   + '<div class="panel"><div class="panel-top"><h2>Holdings</h2>'
@@ -996,6 +1013,72 @@ document.addEventListener("click", function(e){
 
 // The badge should say where you stand, using the same thresholds as the
 // shareable card so the two can never disagree.
+// A badge that will not say what it means is just decoration. Clicking it
+// explains the standing and what the next one takes.
+const TIER_LADDER = [
+  {floor: 100000,  name: "Platinum"},
+  {floor: 250000,  name: "Platinum Plus"},
+  {floor: 500000,  name: "Generational"},
+  {floor: 1000000, name: "Diamond"}
+];
+
+function tierExplainer(value){
+  const t = tierFor(value);
+  const money = function(n){ return "$" + Math.round(n).toLocaleString("en-CA"); };
+  let title, body;
+  if (!t){
+    title = "Your standing";
+    body = "Holdings worth " + money(value || 0) + " today. Platinum starts at "
+      + money(100000) + ".";
+  } else {
+    title = t.name;
+    body = "Your holdings are worth " + money(value) + " today, which puts you at "
+      + t.name + ".";
+  }
+  // the next rung, where there is one
+  let next = null;
+  for (const rung of TIER_LADDER){
+    if ((value || 0) < rung.floor){ next = rung; break; }
+  }
+  const step = next
+    ? money(next.floor - (value || 0)) + " more would reach " + next.name + "."
+    : "This is the highest standing.";
+  return {title: title, body: body, step: step};
+}
+
+function showTierCard(anchor){
+  const old = document.getElementById("tierCard");
+  if (old){ old.remove(); return; }   // a second click closes it
+  let value = 0;
+  ROWS.forEach(function(r){
+    const d = derive(r);
+    if (d && d.value !== null) value += d.value;
+  });
+  const info = tierExplainer(value);
+  const card = document.createElement("div");
+  card.id = "tierCard";
+  card.className = "tier-card";
+  card.innerHTML = "<div class=\"tc-name\">" + info.title + "</div>"
+    + "<p class=\"tc-body\">" + info.body + "</p>"
+    + "<p class=\"tc-step\">" + info.step + "</p>"
+    + "<p class=\"tc-note\">Standing is worked out from what your holdings are "
+    + "worth today, and updates with the daily prices.</p>";
+  anchor.parentNode.appendChild(card);
+  requestAnimationFrame(function(){ card.classList.add("in"); });
+  setTimeout(function(){
+    document.addEventListener("click", function shut(e){
+      if (card.contains(e.target) || anchor.contains(e.target)) return;
+      card.remove();
+      document.removeEventListener("click", shut);
+    });
+  }, 0);
+}
+
+document.addEventListener("click", function(e){
+  const b = e.target.closest && e.target.closest("#tierBadge");
+  if (b) showTierCard(b);
+});
+
 function paintTierBadge(value){
   const el = document.getElementById("tierBadge");
   if (!el) return;
