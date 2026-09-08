@@ -1139,6 +1139,7 @@ Promise.all([
   }
   if (isPreview()){
     ROWS = buildPreviewBook();
+    SCRATCH = ROWS.slice();
     document.body.classList.add('is-preview');
   } else if (session){
     const q = await sb.from('portfolio_holdings').select('id,ticker,shares,cost_basis');
