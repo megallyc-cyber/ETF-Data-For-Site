@@ -395,6 +395,52 @@
     .pending{animation:pendingpulse 1.4s ease-in-out infinite;}
     @keyframes pendingpulse{0%,100%{opacity:0.3;} 50%{opacity:0.6;}}
   }
+  /* ---------- the landing, split ----------
+     Left: what this is and how much of it there is. Right: the one action a
+     first-time reader can take. The pages that need no account are listed
+     under it, so the page is an invitation rather than a gate. */
+  .landing-split{display:grid; gap:38px; align-items:center;
+    padding:34px 0 46px; text-align:left;}
+  .ls-left h1{margin-bottom:14px;}
+  .ls-left .home-sub{margin-left:0; margin-right:0;}
+  .ls-left .home-stats{justify-content:flex-start; margin-top:30px;}
+  .ls-tour{display:inline-flex; align-items:center; gap:8px; margin-top:26px;
+    font-family:"IBM Plex Mono",monospace; font-size:12.5px; letter-spacing:0.08em;
+    text-transform:uppercase; text-decoration:none; color:var(--ember-deep);}
+  .ls-tour span{transition:transform .16s;}
+  .ls-tour:hover span{transform:translateX(4px);}
+
+  .ls-card{background:var(--white); border:1px solid var(--line);
+    border-radius:16px; padding:28px 26px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.06), 0 22px 44px -24px rgba(28,34,48,0.45);}
+  .lsc-title{font-family:"Fraunces",serif; font-size:24px; margin-bottom:7px;}
+  .lsc-sub{font-size:14px; color:var(--ink-soft); line-height:1.55; margin-bottom:20px;}
+  .lsc-go{display:block; text-align:center; padding:13px 20px; border-radius:100px;
+    background:var(--ink); color:var(--paper); text-decoration:none; font-size:15px;
+    border:1px solid var(--ink); transition:filter .16s;}
+  .lsc-go:hover{filter:brightness(1.2);}
+  .lsc-alt{display:block; text-align:center; margin-top:10px; padding:12px 20px;
+    border-radius:100px; border:1px solid var(--line-strong); text-decoration:none;
+    font-size:14.5px; color:var(--ink);}
+  .lsc-alt:hover{border-color:var(--ink);}
+  .lsc-rule{display:flex; align-items:center; gap:12px; margin:22px 0 16px;
+    font-size:11.5px; color:var(--ink-faint); letter-spacing:0.04em;}
+  .lsc-rule::before, .lsc-rule::after{content:""; flex:1; height:1px; background:var(--line);}
+  .lsc-open{display:flex; flex-direction:column; gap:9px;}
+  .lsc-open a{text-decoration:none; font-size:14.5px; color:var(--ink);
+    padding:9px 13px; border-radius:9px; border:1px solid var(--line);
+    transition:border-color .16s, background .16s;}
+  .lsc-open a:hover{border-color:var(--line-strong); background:var(--paper-raised);}
+  .lsc-note{margin-top:12px; font-size:11.5px; color:var(--ink-faint);}
+
+  @media(min-width:900px){
+    .landing-split{grid-template-columns:1.35fr 0.85fr; gap:56px; padding:52px 0 60px;}
+  }
+  @media(max-width:899px){
+    .landing-split{text-align:center;}
+    .ls-left .home-stats{justify-content:center;}
+    .ls-tour{margin-left:auto; margin-right:auto;}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -446,18 +492,38 @@
 <main>
 <div class="home">
 
-  <div class="home-head fade d1">
-    <img class="home-bird" src="assets/bird.svg" alt="" width="34" height="22">
-    <h1>The best all-in-one platform for income focused investing.</h1>
-    <p class="home-sub">Investing doesn't need to be intimidating. It can be easy
-      &mdash; and even <b>pay you monthly</b>.</p>
-  </div>
+  <div class="landing-split fade d1">
+    <div class="ls-left">
+      <img class="home-bird" src="assets/bird.svg" alt="" width="34" height="22">
+      <h1>The best all-in-one platform for income focused investing.</h1>
+      <p class="home-sub">Investing doesn't need to be intimidating. It can be easy
+        &mdash; and even <b>pay you monthly</b>.</p>
 
-  <div class="home-stats fade d2">
-    <div class="home-stat"><div class="v" id="statFunds" class="pending">—</div><div class="k">funds tracked</div></div>
-    <div class="home-stat"><div class="v" id="statIssuers" class="pending">—</div><div class="k">fund managers</div></div>
-    <div class="home-stat"><div class="v ampersand">CA <span>&amp;</span> US</div><div class="k">both markets</div></div>
-    <div class="home-stat"><div class="v" id="statYield" class="pending">—</div><div class="k">median yield</div></div>
+      <div class="home-stats">
+        <div class="home-stat"><div class="v pending" id="statFunds">—</div><div class="k">funds tracked</div></div>
+        <div class="home-stat"><div class="v pending" id="statIssuers">—</div><div class="k">fund managers</div></div>
+        <div class="home-stat"><div class="v ampersand">CA <span>&amp;</span> US</div><div class="k">both markets</div></div>
+        <div class="home-stat"><div class="v pending" id="statYield">—</div><div class="k">median yield</div></div>
+      </div>
+
+      <a class="ls-tour" href="tour.html">What is Licentia? <span>&rarr;</span></a>
+    </div>
+
+    <aside class="ls-card" id="authCard">
+      <div class="lsc-head">
+        <div class="lsc-title">Create an account</div>
+        <p class="lsc-sub">It saves what you hold and what you are watching. Free.</p>
+      </div>
+      <a class="lsc-go" href="account.html">Get started</a>
+      <a class="lsc-alt" href="account.html">I already have one</a>
+      <div class="lsc-rule"><span>or look around first</span></div>
+      <div class="lsc-open">
+        <a href="funds.html">Fund directory</a>
+        <a href="compare.html">Comparison tool</a>
+        <a href="learn.html">Learn</a>
+      </div>
+      <p class="lsc-note">Open to everyone, no account needed.</p>
+    </aside>
   </div>
 
   <div class="marquee fade d3"><div class="mq-track" id="mqTrack"></div></div>
