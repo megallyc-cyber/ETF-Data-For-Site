@@ -463,6 +463,53 @@
     box-shadow:0 4px 8px rgba(28,34,48,0.07), 0 20px 36px -18px rgba(28,34,48,0.5);}
   .lst-arw{color:var(--ember-deep); transition:transform .16s;}
   .ls-tour:hover .lst-arw{transform:translateX(4px);}
+  /* ---------- the reel: one page per screen ----------
+     Full width, alternating ground, the words on one side and the page
+     itself on the other. */
+  .reel{margin:60px -26px 0;}
+  .reel-sec{padding:76px 0; border-top:1px solid var(--line);}
+  .reel-sec.alt{background:var(--paper-raised);}
+  .reel-in{max-width:1180px; margin:0 auto; padding:0 26px;
+    display:grid; gap:38px; align-items:center;}
+  .reel-say{text-align:left;}
+  .reel-eye{font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px;}
+  .reel-eye b{color:var(--ink); font-weight:500;}
+  .reel-free{margin-left:8px; padding:2px 8px; border-radius:100px; font-size:9.5px;
+    background:rgba(46,125,107,0.12); color:#2E7D6B;
+    border:1px solid rgba(46,125,107,0.28);}
+  .reel-say h2{font-family:"Fraunces",serif; font-weight:400;
+    font-size:clamp(26px,3.1vw,40px); line-height:1.16; letter-spacing:-0.02em;
+    margin-bottom:26px; max-width:20ch;}
+  .reel-go{display:inline-flex; align-items:center; gap:10px; padding:13px 26px;
+    border-radius:100px; text-decoration:none; font-size:15px;
+    background:var(--ink); color:var(--paper); border:1px solid var(--ink);
+    box-shadow:0 6px 16px -8px rgba(28,34,48,0.6); transition:filter .16s, transform .16s;}
+  .reel-go:hover{filter:brightness(1.2); transform:translateY(-1px);}
+  .reel-go span{transition:transform .16s;}
+  .reel-go:hover span{transform:translateX(4px);}
+
+  .reel-shot{position:relative; height:400px; border-radius:14px; overflow:hidden;
+    background:var(--paper); border:1px solid var(--line);
+    box-shadow:0 3px 6px rgba(28,34,48,0.07), 0 30px 60px -30px rgba(28,34,48,0.55);}
+  .reel-shot iframe{position:absolute; top:0; left:0; width:1400px; height:1000px;
+    border:0; transform:scale(0.62); transform-origin:top left; pointer-events:none;}
+  .reel-shot::after{content:""; position:absolute; inset:0;
+    background:linear-gradient(to bottom, rgba(244,241,232,0) 74%, rgba(244,241,232,0.9) 100%);}
+  .reel-sec.alt .reel-shot::after{
+    background:linear-gradient(to bottom, rgba(251,249,245,0) 74%, rgba(251,249,245,0.9) 100%);}
+
+  @media(min-width:920px){
+    .reel-in{grid-template-columns:0.86fr 1.14fr; gap:56px;}
+    .reel-sec.alt .reel-say{order:2;}
+    .reel-sec.alt .reel-shot{order:1;}
+    .reel-shot{height:440px;}
+  }
+  @media(max-width:919px){
+    .reel-sec{padding:52px 0;}
+    .reel-shot{height:300px;}
+    .reel-shot iframe{transform:scale(0.42);}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -538,17 +585,17 @@
       </div>
       <a class="lsc-go" href="account.html?mode=signup">Get started</a>
       <a class="lsc-alt" href="account.html?mode=signin">Sign in</a>
-      <div class="lsc-rule"><span>or look around first</span></div>
-      <div class="lsc-open">
-        <a href="funds.html">Fund directory</a>
-        <a href="compare.html">Comparison tool</a>
-        <a href="learn.html">Learn</a>
-      </div>
-      <p class="lsc-note">Open to everyone, no account needed.</p>
+      <p class="lsc-note">Or scroll on — several parts are open without one.</p>
     </aside>
   </div>
 
   <div class="marquee fade d3"><div class="mq-track" id="mqTrack"></div></div>
+
+  </div>
+
+  <!-- one page per screen, so a reader can see the whole thing before
+       deciding whether to sign up -->
+  <div class="reel" id="reel"></div>
 
   <div class="home-doors fade d4">
     <a class="door" href="learn.html">
@@ -746,5 +793,44 @@ async function licentiaFundsFetch(opts){
 </script>
 
 <script src="assets/pro.js?v=f1a22a1e"></script>
+<script>
+// Each part of the site gets a screen of its own, shown live rather than as
+// a screenshot that would be out of date by the next deploy.
+const REEL = [
+  {name:'Fund directory', file:'funds.html', open:true,
+   line:'Every covered call and income ETF in Canada and the US, grouped by manager.'},
+  {name:'Comparison tool', file:'compare.html', open:true,
+   line:'Put two or three funds side by side and find where they own the same companies.'},
+  {name:'Portfolio builder', file:'portfolio-builder.html', open:false,
+   line:'Answer a few questions and see what the income would actually be.'},
+  {name:'My Portfolio', file:'portfolio.html', open:false,
+   line:'What you hold, what it is worth today, and what it pays you each month.'},
+  {name:'Backtesting', file:'backtest.html', open:false,
+   line:'What a market drop would do to your income, and how much of a return came from distributions.'},
+  {name:'Learn', file:'learn.html', open:true,
+   line:'How covered call funds actually work, in plain language.'}
+];
+
+(function(){
+  const host = document.getElementById("reel");
+  if (!host) return;
+  REEL.forEach(function(p, i){
+    const sec = document.createElement("section");
+    sec.className = "reel-sec" + (i % 2 ? " alt" : "");
+    sec.innerHTML =
+      '<div class="reel-in">'
+      + '<div class="reel-say">'
+        + '<div class="reel-eye">Licentia <b>' + p.name + '</b>'
+          + (p.open ? ' <span class="reel-free">no account needed</span>' : '') + '</div>'
+        + '<h2>' + p.line + '</h2>'
+        + '<a class="reel-go" href="' + p.file + '">Open <span>&rarr;</span></a>'
+      + '</div>'
+      + '<div class="reel-shot"><iframe loading="lazy" scrolling="no" title="' + p.name
+        + '" src="' + p.file + '?preview=1"></iframe></div>'
+      + '</div>';
+    host.appendChild(sec);
+  });
+})();
+</script>
 </body>
 </html>
