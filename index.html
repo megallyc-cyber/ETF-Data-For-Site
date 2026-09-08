@@ -523,6 +523,12 @@
     .reel-in{grid-template-columns:minmax(0,0.86fr) minmax(0,1.14fr);}
     .reel-say h2{max-width:20ch;}
   }
+
+  /* full bleed, whatever the parent is doing */
+  .reel{width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+    max-width:100vw; overflow:hidden;}
+  .reel-sec{width:100%; box-sizing:border-box;}
+  .reel-in{width:100%; box-sizing:border-box;}
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -603,8 +609,6 @@
   </div>
 
   <div class="marquee fade d3"><div class="mq-track" id="mqTrack"></div></div>
-
-  </div>
 
   <!-- one page per screen, so a reader can see the whole thing before
        deciding whether to sign up -->
