@@ -510,6 +510,19 @@
     .reel-shot{height:300px;}
     .reel-shot iframe{transform:scale(0.42);}
   }
+
+  /* Grid items will not shrink below their content unless told to, and the
+     frame inside carries a 1400px page. Without this the words were squeezed
+     into a column a few characters wide. */
+  .reel{width:100%; max-width:100%; overflow:hidden;}
+  .reel-sec{width:100%;}
+  .reel-in{width:100%; max-width:1180px; box-sizing:border-box;}
+  .reel-say, .reel-shot{min-width:0; max-width:100%;}
+  .reel-say h2{max-width:100%;}
+  @media(min-width:920px){
+    .reel-in{grid-template-columns:minmax(0,0.86fr) minmax(0,1.14fr);}
+    .reel-say h2{max-width:20ch;}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
