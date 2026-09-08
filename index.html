@@ -543,6 +543,13 @@
   @media(max-width:919px){
     .reel-shot{height:340px;}
   }
+
+  /* Alternating rows swap the order of the two columns, so the frame kept
+     landing in the narrow one every other section — which is why some looked
+     wide and some slim. The wide column follows the frame instead. */
+  @media(min-width:920px){
+    .reel-sec.alt .reel-in{grid-template-columns:minmax(0,1.22fr) minmax(0,0.78fr);}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
