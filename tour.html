@@ -54,17 +54,25 @@
   /* each page, shown live rather than as a screenshot that goes stale */
   .shots{display:grid; gap:26px; padding-bottom:80px;}
   .shot{background:var(--white); border:1px solid var(--line); border-radius:16px;
-    overflow:hidden; box-shadow:0 1px 2px rgba(28,34,48,0.05);
-    transition:box-shadow .2s, border-color .2s, transform .2s;}
-  .shot:hover{border-color:var(--line-strong); transform:translateY(-2px);
-    box-shadow:0 18px 40px -26px rgba(28,34,48,0.55);}
+    overflow:hidden;
+    /* two shadows: a close one for the edge, a wide soft one for the weight */
+    box-shadow:0 2px 4px rgba(28,34,48,0.06), 0 18px 34px -20px rgba(28,34,48,0.42);
+    transition:box-shadow .22s, border-color .22s, transform .22s;}
+  .shot:hover{border-color:var(--line-strong); transform:translateY(-3px);
+    box-shadow:0 4px 8px rgba(28,34,48,0.08), 0 32px 56px -26px rgba(28,34,48,0.6);}
   .shot-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px;
     padding:18px 22px 14px; flex-wrap:wrap;}
   .shot-name{font-family:'Fraunces',serif; font-size:22px;}
   .shot-what{font-size:14.5px; color:var(--ink-soft); line-height:1.6; flex:1; min-width:220px;}
-  .shot-open{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.1em;
-    text-transform:uppercase; text-decoration:none; color:var(--ember-deep); white-space:nowrap;}
-  .shot-open:hover{color:var(--ink);}
+  .shot-btn{display:inline-flex; align-items:center; gap:9px; white-space:nowrap;
+    padding:11px 22px; border-radius:100px; text-decoration:none; font-size:14.5px;
+    background:var(--ink); color:var(--paper); border:1px solid var(--ink);
+    box-shadow:0 6px 16px -8px rgba(28,34,48,0.6);
+    transition:filter .16s, transform .16s, box-shadow .16s;}
+  .shot-btn:hover{filter:brightness(1.2); transform:translateY(-1px);
+    box-shadow:0 10px 22px -10px rgba(28,34,48,0.7);}
+  .shot-btn .arw{transition:transform .16s;}
+  .shot-btn:hover .arw{transform:translateX(3px);}
   .frame{position:relative; height:420px; border-top:1px solid var(--line);
     background:var(--paper); overflow:hidden;}
   .frame iframe{position:absolute; top:0; left:0; width:1400px; height:1050px;
@@ -104,8 +112,10 @@
   <div class="lede">
     <div class="eyebrow">A look inside</div>
     <h1>Every part of Licentia, before you sign up.</h1>
-    <p>These are the actual pages, running live — not screenshots that go out of date.
-       Several are open to anyone without an account, marked below.</p>
+    <p>Licentia tracks every covered call and income ETF in Canada and the US — what each
+       one holds, what it pays, and what it has actually returned. The tools below let you
+       compare funds, build an income portfolio and see how it would hold up. Several are
+       open without an account.</p>
   </div>
 
   <div class="shots" id="shots"></div>
@@ -148,7 +158,7 @@ PAGES.forEach(function(p){
     '<div class="shot-head">'
     + '<div><div class="shot-name">' + p.name
       + (p.open ? '<span class="free">no account needed</span>' : '') + '</div></div>'
-    + '<a class="shot-open" href="' + p.file + '">Open &rarr;</a>'
+    + '<a class="shot-btn" href="' + p.file + '">Open <span class="arw">&rarr;</span></a>'
     + '</div>'
     + '<div class="shot-head" style="padding-top:0"><p class="shot-what">' + p.what + '</p></div>'
     + '<div class="frame"><iframe loading="lazy" title="' + p.name + '" src="' + p.file + '?preview=1" scrolling="no"></iframe></div>';
