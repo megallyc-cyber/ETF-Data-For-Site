@@ -233,6 +233,26 @@
     .bar-cell{display:none;}
     .sect{display:none;}
   }
+  .income-answer{margin-top:30px;}
+  .build-cta{display:flex; gap:26px; align-items:center; flex-wrap:wrap;
+    justify-content:space-between; margin-top:22px; padding:22px 24px;
+    background:var(--white); border:1px solid var(--line); border-radius:14px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 18px 34px -22px rgba(28,34,48,0.4);}
+  .bc-t{font-family:"Fraunces",serif; font-size:21px; margin-bottom:6px;}
+  .bc-p{font-size:14px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:46ch;}
+  .bc-go{display:flex; flex-direction:column; gap:9px; flex:none;}
+  .bc-primary{display:inline-flex; align-items:center; gap:9px; justify-content:center;
+    padding:13px 24px; border-radius:100px; text-decoration:none; font-size:15px;
+    background:var(--ink); color:var(--paper); border:1px solid var(--ink);
+    box-shadow:0 6px 16px -8px rgba(28,34,48,0.6); transition:filter .16s, transform .16s;}
+  .bc-primary:hover{filter:brightness(1.2); transform:translateY(-1px);}
+  .bc-primary span{transition:transform .16s;}
+  .bc-primary:hover span{transform:translateX(4px);}
+  .bc-second{text-align:center; padding:11px 24px; border-radius:100px;
+    text-decoration:none; font-size:14px; color:var(--ink);
+    border:1px solid var(--line-strong);}
+  .bc-second:hover{border-color:var(--ink);}
+  @media(max-width:640px){ .bc-go{width:100%;} }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -600,6 +620,73 @@ function render(){
 
   const pill = f.region === 'CAD' ? 'pill-cad' : 'pill-us';
 
+// What a holding would actually pay, which is the question behind almost
+// every search that lands here.
+function incomeAnswer(f){
+  const st = f.stats || {};
+  function n(v){
+    if (v === null || v === undefined) return null;
+    if (typeof v === "number") return isFinite(v) ? v : null;
+    const x = parseFloat(String(v).replace(/[^0-9.\-]/g, ""));
+    return isFinite(x) ? x : null;
+  }
+  const price = n(st.price) !== null ? n(st.price) : n(st.nav);
+  const ttm = n(st.ttm_total);
+  const y = n(st.yield_ttm) !== null ? n(st.yield_ttm) : n(st.yield);
+  if (price === null && ttm === null && y === null) return "";
+
+  const stake = 10000;
+  let annual = null, basis = "";
+  if (ttm !== null && price){
+    annual = stake / price * ttm;
+    basis = "from the " + fmt(ttm, 4) + " a share it paid over the last twelve months";
+  } else if (y !== null){
+    annual = stake * y / 100;
+    basis = "at the " + fmt(y, 1) + "% yield published by the issuer";
+  }
+  if (annual === null) return "";
+
+  const shares = price ? Math.floor(stake / price) : null;
+  const money = function(v){ return "$" + Math.round(v).toLocaleString("en-CA"); };
+
+  return `
+    <div class="section income-answer">
+      <div class="section-head">
+        <h2>What $10,000 in ${TICKER} would pay</h2>
+        <div class="section-note">Worked out ${basis}. Distributions are not guaranteed and
+          the capital can fall as well as rise.</div>
+      </div>
+      <div class="stat-strip">
+        <div class="stat">
+          <div class="stat-label">A year</div>
+          <div class="stat-value">${money(annual)}</div>
+          <div class="stat-sub">on $10,000 invested</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">A month</div>
+          <div class="stat-value">${money(annual / 12)}</div>
+          <div class="stat-sub">averaged across the year</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Shares</div>
+          <div class="stat-value">${shares === null ? "&mdash;" : shares.toLocaleString("en-CA")}</div>
+          <div class="stat-sub">${price ? "at " + money(price) + " a share" : "price not recorded"}</div>
+        </div>
+      </div>
+      <div class="build-cta">
+        <div class="bc-say">
+          <div class="bc-t">${TICKER} on its own is half the picture.</div>
+          <p class="bc-p">See what it pays alongside other income funds, where they
+             own the same companies, and what the combined income would be.</p>
+        </div>
+        <div class="bc-go">
+          <a class="bc-primary" href="portfolio-builder.html?add=${TICKER}">Build a portfolio with ${TICKER} <span>&rarr;</span></a>
+          <a class="bc-second" href="compare.html?add=${TICKER}">Compare it against another fund</a>
+        </div>
+      </div>
+    </div>`;
+}
+
   stage.innerHTML = `
     <div class="fund-head">
       <div>
@@ -615,6 +702,8 @@ function render(){
         <a class="btn" href="compare.html">Compare against another fund</a>
       </div>
     </div>
+
+    ${incomeAnswer(f)}
 
     <div class="section" style="margin-top:30px; margin-bottom:34px;">
       <div class="section-head">
