@@ -554,7 +554,9 @@ function tierOf(session){
   if (previewPro()) return 'paid';
   if (!session) return 'free';
   const u = session.user || {};
-  const t = (u.app_metadata && u.app_metadata.tier) || (u.user_metadata && u.user_metadata.tier) || null;
+  // billing writes app_metadata; user_metadata is writable by the account
+  // holder, so it cannot be allowed to decide what someone may use
+  const t = (u.app_metadata && u.app_metadata.tier) || null;
   return t === 'pro' ? 'paid' : 'member';
 }
 const TIERS = {
