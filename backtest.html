@@ -511,7 +511,15 @@ function pct(v, dp){ return (v===null||v===undefined||!isFinite(v)) ? '\u2014' :
 // figures merely hidden, and the slider underneath is switched off so nothing
 // recalculates behind the cover.
 function isPreview(){
-  return new URLSearchParams(location.search).get("preview") === "1";
+  if (new URLSearchParams(location.search).get("preview") !== "1") return false;
+  // only inside our own frame: this exists for the homepage reel, not as a
+  // way to unlock the page by typing a parameter
+  try {
+    if (window.self === window.top) return false;
+    return window.top.location.origin === window.location.origin;
+  } catch (e) {
+    return false;   // framed by someone else entirely
+  }
 }
 
 // Built from funds a visitor can already see, so no row comes back empty.
