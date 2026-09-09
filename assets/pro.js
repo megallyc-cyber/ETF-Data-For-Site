@@ -5,9 +5,10 @@
      1. app_metadata.tier   — set server side, users cannot touch it. When
                               billing exists, the payment webhook writes here
                               and this is the only branch that should remain.
-     2. user_metadata.tier  — writable by the account holder, so it is a label
-                              rather than a lock. Fine while Pro is being
-                              fitted out; delete this branch once (1) is live.
+     2. (removed) user_metadata.tier was consulted here. It is writable by
+                              the account holder, so anyone could have granted
+                              themselves the paid surface. Billing writes
+                              app_metadata; nothing else counts.
      3. ?pro=1              — a preview for one tab only. Deliberately kept in
                               sessionStorage so it dies with the tab and can
                               never leak into a normal signed-in session.
@@ -46,8 +47,7 @@
         var raw = JSON.parse(localStorage.getItem(k));
         var u = raw && (raw.user || (raw.currentSession && raw.currentSession.user));
         if (!u) continue;
-        return (u.app_metadata && u.app_metadata.tier) ||
-               (u.user_metadata && u.user_metadata.tier) || null;
+        return (u.app_metadata && u.app_metadata.tier) || null;   // a label anyone can write is not a lock
       }
     } catch (e) {}
     return null;
@@ -80,8 +80,7 @@
     }).then(function(r){ return r.ok ? r.json() : null; })
       .then(function(u){
         if (!u) { apply(false); return; }
-        var tier = (u.app_metadata && u.app_metadata.tier) ||
-                   (u.user_metadata && u.user_metadata.tier) || null;
+        var tier = (u.app_metadata && u.app_metadata.tier) || null;   // a label anyone can write is not a lock
         apply(tier === 'pro');
       })
       .catch(function(){});
@@ -339,8 +338,7 @@
     var s = storedSession();
     if (!s || !s.user) return "anon";
     var u = s.user;
-    var t = (u.app_metadata && u.app_metadata.tier) ||
-            (u.user_metadata && u.user_metadata.tier) || null;
+    var t = (u.app_metadata && u.app_metadata.tier) || null;   // a label anyone can write is not a lock
     return t === "pro" ? "pro" : "free";
   }
   function seed(){
@@ -520,7 +518,7 @@
 
     var u = s.user;
     var meta = u.user_metadata || {};
-    var tier = (u.app_metadata && u.app_metadata.tier) || meta.tier || null;
+    var tier = (u.app_metadata && u.app_metadata.tier) || null;
     var name = (meta.display_name || meta.full_name || meta.name || u.email || '?').trim();
     var photo = meta.avatar_small || null;
     if (!photo){

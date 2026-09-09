@@ -1136,7 +1136,7 @@ Promise.all([
   session = res[2].data.session;
   const badge = document.getElementById('tierBadge');
   if (badge){
-    // same entitlement source as assets/pro.js?v=34445571, so the badge cannot disagree
+    // same entitlement source as assets/pro.js?v=abddf571, so the badge cannot disagree
     // with the surface the reader is looking at
     const u = session ? (session.user || {}) : null;
     const tier = u ? ((u.app_metadata && u.app_metadata.tier) ||
@@ -1158,7 +1158,7 @@ Promise.all([
   buildPicker();
   renderStress();
 });
-</script><script src="assets/pro.js?v=34445571"></script>
+</script><script src="assets/pro.js?v=abddf571"></script>
 <script>
 // Tell the reader the slider is theirs to move, and stop saying so the moment
 // they do. A hint that outstays its welcome is worse than none.
