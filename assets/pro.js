@@ -522,8 +522,13 @@
     var meta = u.user_metadata || {};
     var tier = (u.app_metadata && u.app_metadata.tier) || meta.tier || null;
     var name = (meta.display_name || meta.full_name || meta.name || u.email || '?').trim();
-    var photo = null;
-    try { photo = localStorage.getItem('licentia_avatar_' + u.id); } catch(e){}
+    var photo = meta.avatar_small || null;
+    if (!photo){
+      try { photo = localStorage.getItem('licentia_avatar_' + u.id); } catch(e){}
+    } else {
+      // keep the device copy in step so the two can never disagree again
+      try { localStorage.setItem('licentia_avatar_' + u.id, photo); } catch(e){}
+    }
     if (!photo) photo = meta.avatar_url || null;
 
     var a = document.createElement('a');
