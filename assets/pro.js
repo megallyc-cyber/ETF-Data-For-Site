@@ -643,3 +643,121 @@
 /* The mobile menu lives in the pages themselves (button.navtoggle). An
    earlier version of this file added a second button here and hid the
    links with !important, which left two controls and neither working. */
+
+
+/* ---------------------------------------------------------------------------
+   Nine links across the bar asked a reader to scan the whole site to find one
+   thing. They group into two obvious families — what you read, and what you
+   build — so the bar carries five items instead of nine.
+
+   Done here rather than in each page's markup: the nav is written out twelve
+   times, and twelve copies of anything is how they drift apart.
+--------------------------------------------------------------------------- */
+(function licentiaGroupNav(){
+  const GROUPS = [
+    {label: 'Research', pages: ['learn.html', 'funds.html', 'compare.html']},
+    {label: 'Portfolio', pages: ['portfolio-builder.html', 'portfolio.html', 'backtest.html']}
+  ];
+
+  function build(){
+    const links = document.querySelector('nav .navlinks');
+    if (!links || links.dataset.grouped) return;
+
+    const all = [...links.querySelectorAll('a')];
+    if (all.length < 6) return;   // already grouped, or a page with a short bar
+    links.dataset.grouped = '1';
+
+    const byHref = {};
+    all.forEach(function(a){
+      const file = (a.getAttribute('href') || '').split('/').pop().split('?')[0];
+      byHref[file] = a;
+    });
+
+    GROUPS.forEach(function(g){
+      const members = g.pages.map(function(p){ return byHref[p]; }).filter(Boolean);
+      if (members.length < 2) return;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'navgroup';
+
+      const head = document.createElement('button');
+      head.type = 'button';
+      head.className = 'ng-head';
+      head.innerHTML = g.label + '<span class="ng-caret" aria-hidden="true"></span>';
+      head.setAttribute('aria-expanded', 'false');
+
+      const menu = document.createElement('div');
+      menu.className = 'ng-menu';
+
+      // the group carries the active mark when one of its pages is open
+      let holdsActive = false;
+      members.forEach(function(a){
+        if (a.classList.contains('active')) holdsActive = true;
+        menu.appendChild(a);
+      });
+      if (holdsActive) wrap.classList.add('has-active');
+
+      wrap.appendChild(head);
+      wrap.appendChild(menu);
+      links.insertBefore(wrap, byHref['membership.html'] || null);
+
+      head.addEventListener('click', function(e){
+        e.stopPropagation();
+        const open = wrap.classList.toggle('open');
+        head.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.querySelectorAll('.navgroup').forEach(function(o){
+          if (o !== wrap){ o.classList.remove('open'); }
+        });
+      });
+    });
+
+    document.addEventListener('click', function(){
+      document.querySelectorAll('.navgroup.open').forEach(function(o){ o.classList.remove('open'); });
+    });
+
+    const style = document.createElement('style');
+    style.textContent = [
+      '.navgroup{position:relative; display:inline-flex; align-items:center;}',
+      '.ng-head{font:inherit; font-family:"Inter",ui-sans-serif,sans-serif; font-size:14px;',
+      '  background:none; border:none; cursor:pointer; color:var(--ink-soft);',
+      '  padding:0; display:inline-flex; align-items:center; gap:6px;',
+      '  letter-spacing:0.01em;}',
+      '.ng-head:hover{color:var(--ink);}',
+      '.navgroup.has-active .ng-head{color:var(--ink); font-weight:500;}',
+      '.ng-caret{width:0; height:0; border-left:3.5px solid transparent;',
+      '  border-right:3.5px solid transparent; border-top:4px solid currentColor;',
+      '  opacity:0.55; transition:transform .16s;}',
+      '.navgroup.open .ng-caret{transform:rotate(180deg);}',
+      '.ng-menu{position:absolute; top:calc(100% + 12px); left:-14px; min-width:186px;',
+      '  background:var(--white); border:1px solid var(--line);',
+      '  border-radius:11px; padding:6px; z-index:120;',
+      '  box-shadow:0 3px 6px rgba(28,34,48,0.07), 0 20px 40px -22px rgba(28,34,48,0.5);',
+      '  opacity:0; visibility:hidden; transform:translateY(-5px);',
+      '  transition:opacity .16s, transform .16s, visibility .16s;}',
+      '.navgroup.open .ng-menu{opacity:1; visibility:visible; transform:none;}',
+      '.ng-menu a{display:block; padding:9px 12px; border-radius:7px; font-size:14px;',
+      '  white-space:nowrap;}',
+      '.ng-menu a::after{display:none;}',
+      '.ng-menu a:hover{background:var(--paper-raised);}',
+      '@media(max-width:820px){',
+      '  /* in the phone panel the groups read as sections, not menus */',
+      '  .navgroup{display:block; width:100%;}',
+      '  .ng-head{width:100%; justify-content:space-between; padding:11px 0;',
+      '    font-size:12px; letter-spacing:0.12em; text-transform:uppercase;',
+      '    color:var(--ink-faint); pointer-events:none;}',
+      '  .ng-caret{display:none;}',
+      '  .ng-menu{position:static; opacity:1; visibility:visible; transform:none;',
+      '    box-shadow:none; border:none; background:none; padding:0; min-width:0;}',
+      '  .ng-menu a{padding:9px 0;}',
+      '}'
+    ].join('\n');
+    document.head.appendChild(style);
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+  setTimeout(build, 900);
+})();
