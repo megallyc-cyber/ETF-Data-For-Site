@@ -8,7 +8,7 @@
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1C2230">
   <link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
-  <link rel="canonical" id="fundCanonical" href="https://licentia.ca/fund.html">
+  <link rel="canonical" id="fundCanonical" href="https://licentia.ca/fund">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Licentia">
   <meta property="og:title" id="ogTitle" content="Fund detail — Licentia">
@@ -1209,7 +1209,7 @@ function renderTable(rows, total){
   var t = (new URLSearchParams(location.search).get('t') || '').toUpperCase();
   if (!t) return;
   var c = document.getElementById('fundCanonical');
-  if (c) c.href = 'https://licentia.ca/fund.html?t=' + encodeURIComponent(t);
+  if (c) c.href = 'https://licentia.ca/fund?t=' + encodeURIComponent(t);
   function fill(){
     var name = (document.title || '').split(' — Licentia')[0];
     var og = document.getElementById('ogTitle');
