@@ -1,40 +1,97 @@
 {
-  "stooq": {
-    "HDIV.ca": {
+  "JEPI": {
+    "plain": {
       "status": 200,
-      "rows": 0,
-      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
+      "bytes": 59581,
+      "tableRows": 94,
+      "amountsSeen": 308,
+      "hasDividendTable": true,
+      "looksBlocked": true
     },
-    "ZWP.ca": {
+    "tsx": {
       "status": 200,
-      "rows": 0,
-      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
-    },
-    "MSTY.us": {
-      "status": 200,
-      "rows": 0,
-      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
-    },
-    "CEPI.us": {
-      "status": 200,
-      "rows": 0,
-      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
+      "bytes": 41147,
+      "tableRows": 41,
+      "amountsSeen": 111,
+      "hasDividendTable": true,
+      "looksBlocked": true
     }
   },
-  "yahoo_query1": {
-    "HDIV.TO": {
-      "status": null,
-      "note": "HTTPError: HTTP Error 429: Too Many Requests"
+  "JEPQ": {
+    "plain": {
+      "status": 200,
+      "bytes": 51874,
+      "tableRows": 71,
+      "amountsSeen": 226,
+      "hasDividendTable": true,
+      "looksBlocked": true
+    },
+    "tsx": {
+      "status": 200,
+      "bytes": 42234,
+      "tableRows": 41,
+      "amountsSeen": 105,
+      "hasDividendTable": true,
+      "looksBlocked": true
     }
   },
-  "yahoo_query2": {
-    "HDIV.TO": {
-      "status": null,
-      "note": "HTTPError: HTTP Error 429: Too Many Requests"
+  "GPIX": {
+    "plain": {
+      "status": 200,
+      "bytes": 45896,
+      "tableRows": 53,
+      "amountsSeen": 152,
+      "hasDividendTable": true,
+      "looksBlocked": true
+    },
+    "tsx": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
     }
   },
-  "twelvedata_tsx_suffix": {
-    "status": null,
-    "head": "HTTPError: HTTP Error 404: Not Found"
+  "SPYT": {
+    "plain": {
+      "status": 200,
+      "bytes": 43537,
+      "tableRows": 49,
+      "amountsSeen": 140,
+      "hasDividendTable": true,
+      "looksBlocked": true
+    },
+    "tsx": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  },
+  "HYGW": {
+    "plain": {
+      "status": 200,
+      "bytes": 50465,
+      "tableRows": 68,
+      "amountsSeen": 216,
+      "hasDividendTable": true,
+      "looksBlocked": true
+    },
+    "tsx": {
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  },
+  "CPCC": {
+    "tsx": {
+      "status": 200,
+      "bytes": 35964,
+      "tableRows": 27,
+      "amountsSeen": 42,
+      "hasDividendTable": true,
+      "looksBlocked": true
+    }
+  },
+  "SVCC": {
+    "tsx": {
+      "status": 200,
+      "bytes": 34686,
+      "tableRows": 22,
+      "amountsSeen": 26,
+      "hasDividendTable": true,
+      "looksBlocked": true
+    }
   }
 }
