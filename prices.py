@@ -124,7 +124,8 @@ def write_csv(path: Path, rows: dict) -> None:
         w.writerow(["date", "close", "adj_close", "volume"])
         for day in sorted(rows):
             r = rows[day]
-            w.writerow([day, r["close"], r["adj_close"], r["volume"]])
+            w.writerow([day, r.get("close", ""), r.get("adj_close", ""),
+                        r.get("volume", "")])
 
 
 def load_registry() -> dict:
