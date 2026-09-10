@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<title>That page has moved &mdash; Licentia</title>
+<link rel="stylesheet" href="/assets/pro.css">
+<style>
+  body{background:#F4F1E8; color:#1C2230; font-family:Inter,ui-sans-serif,sans-serif;
+    display:flex; align-items:center; justify-content:center; min-height:100vh;
+    margin:0; padding:24px; text-align:center;}
+  h1{font-family:Fraunces,serif; font-weight:400; font-size:30px; margin:0 0 10px;}
+  p{color:#4A5262; margin:0 0 18px;}
+  a{color:#1C2230;}
+</style>
+<script>
+(function(){
+  var p = location.pathname;
+  if (/\.html$/.test(p)) {
+    var clean = p.replace(/\.html$/, "");
+    if (clean === "/index") clean = "/";
+    location.replace(clean + location.search + location.hash);
+  }
+})();
+<\/script>
+</head>
+<body>
+  <div>
+    <h1>That page has moved</h1>
+    <p>If you are not sent on automatically, the fund directory is a good place to start.</p>
+    <p><a href="/funds">Browse every fund</a> &nbsp;&middot;&nbsp; <a href="/">Home</a></p>
+  </div>
+</body>
+</html>

@@ -1,21 +1,5 @@
 {
-  "converted": [
-    "funds/index.html (18 paths)",
-    "compare/index.html (19 paths)",
-    "learn/index.html (15 paths)",
-    "portfolio/index.html (18 paths)",
-    "portfolio-builder/index.html (17 paths)",
-    "backtest/index.html (18 paths)",
-    "membership/index.html (19 paths)",
-    "account/index.html (22 paths)",
-    "fund/index.html (18 paths)",
-    "tour/index.html (10 paths)",
-    "privacy/index.html (13 paths)",
-    "terms/index.html (13 paths)",
-    "index.html stays at / (27 paths)",
-    "assets/pro.js nav links"
-  ],
-  "stubs": [
+  "removedStubs": [
     "funds.html",
     "compare.html",
     "learn.html",
@@ -29,6 +13,8 @@
     "privacy.html",
     "terms.html"
   ],
-  "skipped": [],
-  "linksRewritten": 227
+  "kept": [],
+  "notes": [
+    "404.html carries old links to the clean address"
+  ]
 }
