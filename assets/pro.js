@@ -381,10 +381,10 @@
     pitch: function(what){
       if (tier === "anon"){
         return { text: "Create a free account to see " + what + ".",
-                 cta: "Create a free account", href: "account.html" };
+                 cta: "Create a free account", href: "/account" };
       }
       return { text: "Licentia Pro opens " + what + ".",
-               cta: "See Licentia Pro", href: "account.html" };
+               cta: "See Licentia Pro", href: "/account" };
     }
   };
   var s = document.createElement("style");
@@ -531,7 +531,7 @@
 
     var a = document.createElement('a');
     a.id = 'licentia-nav-face';
-    a.href = 'account.html';
+    a.href = '/account';
     a.className = 'nav-face' + (tier === 'pro' ? ' is-pro' : '');
     a.title = name;
     a.setAttribute('aria-label', 'Your account');
@@ -658,8 +658,8 @@
 --------------------------------------------------------------------------- */
 (function licentiaGroupNav(){
   const GROUPS = [
-    {label: 'Research', pages: ['learn.html', 'funds.html', 'compare.html']},
-    {label: 'Portfolio', pages: ['portfolio-builder.html', 'portfolio.html', 'backtest.html']}
+    {label: 'Research', pages: ['/learn', '/funds', '/compare']},
+    {label: 'Portfolio', pages: ['/portfolio-builder', '/portfolio', '/backtest']}
   ];
 
   function build(){
@@ -702,7 +702,7 @@
 
       wrap.appendChild(head);
       wrap.appendChild(menu);
-      links.insertBefore(wrap, byHref['membership.html'] || null);
+      links.insertBefore(wrap, byHref['/membership'] || null);
 
       head.addEventListener('click', function(e){
         e.stopPropagation();

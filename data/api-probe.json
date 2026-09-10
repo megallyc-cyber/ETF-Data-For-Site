@@ -1,97 +1,34 @@
 {
-  "JEPI": {
-    "plain": {
-      "status": 200,
-      "bytes": 59581,
-      "tableRows": 94,
-      "amountsSeen": 308,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    },
-    "tsx": {
-      "status": 200,
-      "bytes": 41147,
-      "tableRows": 41,
-      "amountsSeen": 111,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    }
-  },
-  "JEPQ": {
-    "plain": {
-      "status": 200,
-      "bytes": 51874,
-      "tableRows": 71,
-      "amountsSeen": 226,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    },
-    "tsx": {
-      "status": 200,
-      "bytes": 42234,
-      "tableRows": 41,
-      "amountsSeen": 105,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    }
-  },
-  "GPIX": {
-    "plain": {
-      "status": 200,
-      "bytes": 45896,
-      "tableRows": 53,
-      "amountsSeen": 152,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    },
-    "tsx": {
-      "error": "HTTPError: HTTP Error 404: Not Found"
-    }
-  },
-  "SPYT": {
-    "plain": {
-      "status": 200,
-      "bytes": 43537,
-      "tableRows": 49,
-      "amountsSeen": 140,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    },
-    "tsx": {
-      "error": "HTTPError: HTTP Error 404: Not Found"
-    }
-  },
-  "HYGW": {
-    "plain": {
-      "status": 200,
-      "bytes": 50465,
-      "tableRows": 68,
-      "amountsSeen": 216,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    },
-    "tsx": {
-      "error": "HTTPError: HTTP Error 404: Not Found"
-    }
-  },
-  "CPCC": {
-    "tsx": {
-      "status": 200,
-      "bytes": 35964,
-      "tableRows": 27,
-      "amountsSeen": 42,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    }
-  },
-  "SVCC": {
-    "tsx": {
-      "status": 200,
-      "bytes": 34686,
-      "tableRows": 22,
-      "amountsSeen": 26,
-      "hasDividendTable": true,
-      "looksBlocked": true
-    }
-  }
+  "converted": [
+    "funds/index.html (18 paths)",
+    "compare/index.html (19 paths)",
+    "learn/index.html (15 paths)",
+    "portfolio/index.html (18 paths)",
+    "portfolio-builder/index.html (17 paths)",
+    "backtest/index.html (18 paths)",
+    "membership/index.html (19 paths)",
+    "account/index.html (22 paths)",
+    "fund/index.html (18 paths)",
+    "tour/index.html (10 paths)",
+    "privacy/index.html (13 paths)",
+    "terms/index.html (13 paths)",
+    "index.html stays at / (27 paths)",
+    "assets/pro.js nav links"
+  ],
+  "stubs": [
+    "funds.html",
+    "compare.html",
+    "learn.html",
+    "portfolio.html",
+    "portfolio-builder.html",
+    "backtest.html",
+    "membership.html",
+    "account.html",
+    "fund.html",
+    "tour.html",
+    "privacy.html",
+    "terms.html"
+  ],
+  "skipped": [],
+  "linksRewritten": 227
 }

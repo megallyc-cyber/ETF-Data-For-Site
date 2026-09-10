@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Covered Call & Income ETFs — Every Fund, Canada and US | Licentia</title>
+  <meta name="description" content="Browse 206 covered call and income ETFs from 17 fund managers. Yields, holdings, distributions and fund size, taken from the issuers and refreshed daily.">
+  <link rel="canonical" href="https://licentia.ca/funds.html">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1C2230">
+  <link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licentia">
+  <meta property="og:locale" content="en_CA">
+  <meta property="og:title" content="Covered Call & Income ETFs — Every Fund, Canada and US | Licentia">
+  <meta property="og:description" content="Browse 206 covered call and income ETFs from 17 fund managers. Yields, holdings, distributions and fund size, taken from the issuers and refreshed daily.">
+  <meta property="og:url" content="https://licentia.ca/funds.html">
+  <meta property="og:image" content="https://licentia.ca/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Covered Call & Income ETFs — Every Fund, Canada and US | Licentia">
+  <meta name="twitter:description" content="Browse 206 covered call and income ETFs from 17 fund managers. Yields, holdings, distributions and fund size, taken from the issuers and refreshed daily.">
+  <meta name="twitter:image" content="https://licentia.ca/assets/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Ember — matches the mark. Names unchanged so existing rules keep working. */
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --rust-deep:#B3323A;
+    --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh;
+  }
+  .serif{font-family:'Fraunces',serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit; text-decoration:none;}
+  /* the wordmark is set in the face the mark was drawn in */
+  
+  .brand:hover{opacity:.75;}
+  .brand .dot{color:var(--gold-deep);}
+  .navlinks a:hover, .navlinks a.active{color:var(--ink);}
+
+  /* ---------- Picker stage ---------- */
+  .picker-title em{font-style:italic; color:var(--gold-deep);}
+  @keyframes riseIn{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ---------- Results stage ---------- */
+  #results-stage{display:none; padding:48px 48px 100px;}
+  #results-stage.visible{display:block;}
+  .results-head{
+    max-width:1200px; margin:0 auto 36px; display:flex; align-items:flex-end; justify-content:space-between;
+    flex-wrap:wrap; gap:24px; border-bottom:1px solid var(--line); padding-bottom:28px;
+  }
+  .results-head-left{display:flex; align-items:center; gap:18px;}
+  .results-title{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(24px,3vw,32px); letter-spacing:-0.01em;}
+  .results-sub{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-faint); margin-top:6px;}
+
+  .sort-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .sort-label{font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-right:4px;}
+  .sort-btn{
+    font-family:'Inter',sans-serif; font-size:13px; padding:8px 16px; border-radius:20px; border:1px solid var(--line-strong);
+    background:transparent; color:var(--ink-soft); cursor:pointer; transition:all .2s;
+  }
+  .sort-btn:hover{border-color:var(--ink);}
+  .sort-btn.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+  /* ---- issuer identity ------------------------------------------------
+     Each manager owns a colour and its own mark, so the page reads as a set
+     of distinct houses rather than one grid. Colour stays on structure —
+     rules, edges, logos — and never floods the card bodies. */
+  /* ---- landing --------------------------------------------------------
+     Leads with what the directory actually holds rather than asking a bare
+     question, so the numbers do the work of persuading anyone to scroll. */
+  .landing{min-height:calc(100vh - 70px); display:flex; align-items:center;
+    padding:60px 0 80px;}
+  .landing-inner{width:100%; max-width:1000px; margin:0 auto; padding:0 28px;}
+  .landing-kicker{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--gold-deep); margin-bottom:20px;}
+  .landing-title{font-family:'Fraunces',serif; font-weight:500; font-size:clamp(32px,4.6vw,56px);
+    line-height:1.08; letter-spacing:-0.02em; margin:0 0 18px;}
+  .landing-lede{font-size:16.5px; line-height:1.65; color:var(--ink-soft); max-width:56ch; margin:0 0 40px;}
+
+  .stat-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; margin-bottom:34px;}
+  .stat{background:var(--paper); padding:18px 20px;}
+  .stat .v{font-family:'Fraunces',serif; font-size:30px; line-height:1; color:var(--teal-deep);}
+  .stat .k{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:8px;}
+
+  .market-cards{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:720px){.market-cards{grid-template-columns:1fr;}}
+  .market, .market-figs, .market-head{min-width:0;}
+  .market-figs{flex-wrap:wrap; gap:14px 18px;}
+  .market-name{overflow-wrap:anywhere;}
+  @media(max-width:430px){
+    /* real phones are narrower than most desktop emulators, and their text
+       is often a step larger: give the card room rather than letting it
+       push past the edge */
+    .market{padding:20px 18px 18px;}
+    .market-figs{gap:12px 14px;}
+    .market-logos{flex-wrap:wrap;}
+  }
+  /* National colours, so the choice reads instantly: Canadian red on the
+     left, American navy with a red seam on the right. */
+  .pick-line{display:flex; align-items:center; gap:16px; margin:6px 0 18px;}
+  .pick-rule{flex:1; height:1px; background:var(--line);}
+  .pick-word{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--ink-faint);}
+  .market{position:relative; overflow:hidden; text-align:left; cursor:pointer;
+    border:1px solid rgba(var(--mkrgb),0.34); border-radius:12px;
+    padding:26px 26px 22px; font-family:inherit;
+    background:linear-gradient(158deg, rgba(var(--mkrgb),0.18) 0%, rgba(var(--mkrgb),0.06) 45%,
+      rgba(255,255,255,0.9) 100%);
+    transition:transform .18s, box-shadow .18s, border-color .18s, background .2s;}
+  .market:hover{transform:translateY(-4px); border-color:rgba(var(--mkrgb),0.6);
+    box-shadow:0 16px 34px rgba(var(--mkrgb),0.20);
+    background:linear-gradient(158deg, rgba(var(--mkrgb),0.30) 0%, rgba(var(--mkrgb),0.10) 48%,
+      rgba(255,255,255,0.92) 100%);}
+  /* a flag-coloured band across the top, drawn rather than pictured */
+  .market::before{content:''; position:absolute; top:0; left:0; right:0; height:5px;
+    background:var(--band);}
+  .market-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+  .market-name{font-family:'Fraunces',serif; font-size:23px; color:var(--ink);}
+  .market-n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--mk);}
+  .market-figs{display:flex; gap:26px; margin-top:16px; flex-wrap:wrap;}
+  .market-fig .fv{font-family:'Fraunces',serif; font-size:21px; color:var(--ink);}
+  .market-fig .fk{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:5px;}
+  .market-logos{display:flex; align-items:center; gap:14px; margin-top:20px;
+    padding-top:16px; border-top:1px solid var(--line); flex-wrap:wrap; min-height:20px;}
+  .market-logos span{height:18px; display:flex; align-items:center; opacity:.65;}
+  .market-logos svg, .market-logos img{height:18px; width:auto; max-width:74px; object-fit:contain;}
+  .market-go{margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--mk);}
+
+  /* This is the only hint that there is more below, so it should read as an
+   invitation rather than a footnote. */
+  .browse-all{display:inline-flex; align-items:center; gap:10px;
+    margin:34px auto 0; padding:13px 26px; border-radius:100px;
+    background:var(--white); border:1px solid var(--line-strong); cursor:pointer;
+    font-family:'Inter',ui-sans-serif,sans-serif; font-size:16px; font-weight:500;
+    letter-spacing:0; color:var(--ink); transition:all .18s;}
+  .browse-all:hover{border-color:var(--ember); color:var(--ember-deep);
+    transform:translateY(-2px); box-shadow:0 10px 24px -14px rgba(255,107,53,0.8);}
+  .browse-all:hover{color:var(--ink);}
+  .region-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .region-btn{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.06em;
+    padding:8px 15px; border-radius:100px; cursor:pointer; background:none;
+    border:1px solid var(--line-strong); color:var(--ink-soft); transition:all .16s;}
+  .region-btn:hover{border-color:var(--ink); color:var(--ink);}
+  .region-btn.active{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+  .issuer-rail{display:flex; gap:8px; overflow-x:auto; padding:14px 0 16px;
+    margin-bottom:8px; border-bottom:1px solid var(--line);}
+  .rail-chip{flex:none; display:inline-flex; align-items:center; gap:7px; font-size:12.5px;
+    padding:7px 14px; border-radius:8px; cursor:pointer; color:var(--fam);
+    background:linear-gradient(150deg, rgba(var(--famrgb),0.16) 0%, rgba(var(--famrgb),0.05) 100%);
+    border:1px solid rgba(var(--famrgb),0.30);
+    transition:transform .15s, box-shadow .15s, background .15s;}
+  .rail-chip:hover{background:linear-gradient(150deg, rgba(var(--famrgb),0.26) 0%, rgba(var(--famrgb),0.10) 100%);}
+  .rail-chip:hover{transform:translateY(-2px); box-shadow:0 4px 12px rgba(21,32,25,0.09);}
+  .rail-chip b{font-weight:400; opacity:.55; font-family:'IBM Plex Mono',monospace; font-size:11px;}
+  .issuer-group{margin-bottom:46px;}
+  .issuer-head{display:flex; align-items:center; gap:14px; margin:0 0 16px;
+    padding-bottom:11px; border-bottom:2px solid var(--fam);
+    flex-wrap:wrap; row-gap:9px; max-width:100%;}
+  @media(max-width:560px){
+    /* on a phone the row wraps rather than pushing the market pill off
+       the side of the page */
+    .issuer-head{gap:10px;}
+    .issuer-logo, .issuer-logo svg, .issuer-logo img{height:22px; max-width:120px;}
+    .issuer-name{font-size:17px;}
+    .issuer-market{font-size:9.5px; padding:2px 7px; letter-spacing:0.06em;}
+    .issuer-count{font-size:10.5px;}
+  }
+  @media(max-width:380px){
+    /* narrowest phones: the count moves under the logo rather than
+       squeezing the pill */
+    .issuer-logo, .issuer-logo svg, .issuer-logo img{max-width:96px;}
+    .issuer-count{margin-left:0;}
+  }
+  .issuer-logo{height:28px; display:flex; align-items:center; color:var(--fam); flex:none;}
+  /* the marks carry a viewBox but no width/height, so height must be explicit
+     or they collapse to nothing inside a flex row */
+  .issuer-logo svg, .issuer-logo img{height:28px; width:auto; max-width:170px;
+    object-fit:contain; display:block;}
+  .issuer-name{font-family:'Fraunces',serif; font-size:20px; letter-spacing:0;
+    text-transform:none; color:var(--fam); line-height:1;}
+  .issuer-market{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--fam); opacity:.85; border:1px solid currentColor;
+    border-radius:100px; padding:3px 9px; white-space:nowrap;}
+  .issuer-count{margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+    color:var(--ink-faint); white-space:nowrap;}
+  .issuer-aside{display:flex; flex-direction:column; justify-content:center; gap:10px;
+    padding:18px 22px; border-radius:10px; border:1px solid rgba(var(--famrgb),0.22);
+    background:linear-gradient(200deg, rgba(var(--famrgb),0.13) 0%, rgba(var(--famrgb),0.03) 60%,
+      rgba(255,255,255,0.6) 100%);}
+  .aside-line{display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint);}
+  .aside-line b{font-family:'Fraunces',serif; font-size:19px; color:var(--fam); font-weight:400;}
+  .aside-cta{margin-top:4px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    color:var(--fam); text-decoration:none;}
+  .aside-cta:hover{text-decoration:underline;}
+  /* the manager's colour washes through the card rather than sitting in a
+     stripe down one edge */
+  .fund-card{border:1px solid rgba(var(--famrgb),0.26) !important; border-radius:10px !important;
+    background:linear-gradient(158deg, rgba(var(--famrgb),0.14) 0%, rgba(var(--famrgb),0.035) 48%,
+      rgba(255,255,255,0.72) 100%) !important;
+    transition:transform .16s, box-shadow .16s, background .18s, border-color .16s;}
+  .fund-card:hover{border-color:rgba(var(--famrgb),0.5) !important;
+    background:linear-gradient(158deg, rgba(var(--famrgb),0.24) 0%, rgba(var(--famrgb),0.08) 52%,
+      rgba(255,255,255,0.8) 100%) !important;}
+  .fund-card:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(21,32,25,0.10);}
+  .card-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
+  .fund-yield{font-family:'Fraunces',serif; font-size:25px; line-height:1; color:var(--fam);}
+  .fund-yield small{font-size:13px; opacity:.7;}
+  .fund-yield.na{font-size:12px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
+  .fund-foot{border-top:1px solid rgba(var(--famrgb),0.18); display:flex; justify-content:space-between; align-items:center; gap:10px;
+    margin-top:12px; padding-top:9px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
+  .fund-foot .missing{opacity:.55; font-style:italic;}
+  .fund-open{color:var(--fam); opacity:.9;}
+  .issuer-name{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--teal-deep); margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .fund-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:14px;}
+  .fund-card{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:3px; padding:18px 20px;
+    transition:border-color .2s, transform .2s, box-shadow .2s; cursor:pointer;
+  }
+  .fund-card:hover{
+    border-color:var(--line-strong); transform:translateY(-2px);
+    box-shadow:0 12px 28px -18px rgba(21,32,25,0.4);
+  }
+  .fund-card:focus-visible{outline:2px solid var(--gold-deep); outline-offset:2px;}
+  .fund-open{color:var(--ink-faint); transition:color .2s, transform .2s; display:inline-block;}
+  .fund-card:hover .fund-open{color:var(--gold-deep); transform:translateX(3px);}
+  .fund-ticker{font-family:'Fraunces',serif; font-weight:600; font-size:19px; letter-spacing:-0.01em;}
+  .fund-region-pill{
+    display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; padding:2px 7px; border-radius:10px;
+    margin-left:8px; vertical-align:middle; letter-spacing:0.04em;
+  }
+  .pill-cad{background:rgba(166,69,44,0.12); color:var(--rust);}
+  .pill-us{background:rgba(31,92,78,0.12); color:var(--teal-deep);}
+  .fund-name{font-size:13px; color:var(--ink-soft); margin-top:6px; line-height:1.4; min-height:36px;}
+  .fund-meta{
+    display:flex; justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);
+  }
+  .fund-top-holding{color:var(--gold-deep);}
+  .fund-size{color:var(--teal-deep); font-weight:500;}
+
+  .data-note{
+    max-width:1200px; margin:40px auto 0; font-size:12.5px; color:var(--ink-faint); border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+
+  @media (max-width:640px){
+    #results-stage{padding:32px 20px 80px;}
+  }
+
+  /* ---- site navigation ------------------------------------------------
+     Identical on every page so the bar never appears to move or rename
+     itself as you browse. */
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; position:sticky; top:0; z-index:40; flex-wrap:wrap;
+    background:linear-gradient(180deg, rgba(242,239,233,0.97) 0%, rgba(242,239,233,0.86) 100%);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  .brand-bird{display:inline-block; width:25px; height:16px; margin-left:8px; vertical-align:-1px;}
+  .navlinks{display:flex; gap:26px; flex-wrap:wrap; align-items:center;}
+  .navlinks a{font-family:'Inter',ui-sans-serif,sans-serif; font-size:14px;
+    padding:5px 0; text-decoration:none; border:none; border-radius:0;
+    color:var(--ink-soft); white-space:nowrap; position:relative; transition:color .16s;}
+  /* the underline marks the page you are on and previews the one you are opening */
+  .navlinks a::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    border-radius:2px; background:var(--ember); transform:scaleX(0);
+    transform-origin:left center; transition:transform .2s ease;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:hover::after{transform:scaleX(0.45);}
+  .navlinks a.active{color:var(--ink); font-weight:500;}
+  .navlinks a.active::after{transform:scaleX(1);}
+  @media(max-width:820px){ nav{padding:12px 16px; gap:16px;} .navlinks{gap:15px;} .navlinks a{font-size:12.5px;} }
+
+
+  /* Says plainly how much of the directory is visible. Without it, a partial
+     list reads as the whole market. */
+  .gate-banner{display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px;
+    padding:16px 20px; margin:0 0 22px; border-radius:13px;
+    background:linear-gradient(140deg, rgba(255,107,53,0.10), rgba(255,107,53,0.03));
+    border:1px solid rgba(255,107,53,0.28);}
+  .gate-banner .gb-count{font-family:'Fraunces',serif; font-size:18px; letter-spacing:-0.01em;}
+  .gate-banner .gb-copy{font-size:13.5px; color:var(--ink-soft); line-height:1.5; flex:1 1 320px;}
+  .gate-banner .gb-cta{flex:none; padding:10px 18px; border-radius:100px; text-decoration:none;
+    background:var(--ink); color:var(--paper); font-size:13.5px;}
+  .gate-banner .gb-cta:hover{background:var(--ember-deep);}
+  body.pro .gate-banner{display:none;}
+  @media(max-width:640px){ .gate-banner{flex-direction:column; align-items:flex-start;} }
+
+  /* A locked fund keeps its place in the grid. The figures are absent rather
+     than hidden, so the card is dimmed and marked instead of blurred over. */
+  .fund-locked{position:relative; cursor:pointer;}
+  .fund-locked > *{filter:blur(3px); opacity:0.45; pointer-events:none; user-select:none;}
+  .fund-locked::after{content:'🔒'; position:absolute; inset:0; display:flex;
+    align-items:center; justify-content:center; font-size:17px; opacity:0.5;}
+  .fund-locked:hover{border-color:var(--ember); box-shadow:0 6px 22px -14px rgba(255,107,53,0.7);}
+  .fund-locked:hover::after{opacity:0.85;}
+
+  .lock-modal{position:fixed; inset:0; z-index:200; display:flex; align-items:center;
+    justify-content:center; padding:22px; background:rgba(28,34,48,0.42);
+    backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
+  .lock-modal .lm-card{background:var(--white); border:1px solid var(--line-strong);
+    border-radius:16px; padding:26px 26px 22px; max-width:400px; width:100%;
+    box-shadow:0 30px 70px -30px rgba(28,34,48,0.6);}
+  .lm-tick{font-family:'Fraunces',serif; font-size:28px; letter-spacing:-0.02em;}
+  .lm-name{font-size:13.5px; color:var(--ink-soft); margin:2px 0 14px;}
+  .lm-copy{font-size:14.5px; line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
+  .lm-row{display:flex; align-items:center; gap:14px;}
+  .lm-go{flex:none; padding:11px 20px; border-radius:100px; text-decoration:none;
+    background:var(--ink); color:var(--paper); font-size:13.5px;}
+  .lm-go:hover{background:var(--ember-deep);}
+  .lm-no{background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:13.5px; color:var(--ink-faint);}
+  .lm-no:hover{color:var(--ink);}
+  body.pro .fund-locked > *{filter:none; opacity:1;}
+  body.pro .fund-locked::after{display:none;}
+
+  /* The label sits in the middle of the card, where the eye lands, rather than
+     along the bottom edge where it read as a caption. Ember on paper was too
+     light to read at this size, so the text is ink and the Pro cards carry a
+     gold wash that marks the tier before a word is read. */
+  .fund-locked .lock-tag{position:absolute; inset:0; z-index:6;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; padding:14px; text-align:center;
+    filter:none !important; opacity:1 !important;
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.09em;
+    line-height:1.45; text-transform:uppercase;}
+  .fund-locked .lt-txt{max-width:15ch; font-weight:500;}
+
+  .fund-locked.lock-free .lock-tag{color:var(--ink);
+    background:linear-gradient(150deg, rgba(242,239,233,0.86) 0%, rgba(242,239,233,0.94) 100%);}
+  .fund-locked.lock-free{border-color:var(--line-strong);}
+
+  .fund-locked.lock-pro .lock-tag{color:#4A3A12;
+    background:linear-gradient(150deg, rgba(201,155,60,0.30) 0%, rgba(201,155,60,0.16) 45%, rgba(143,107,34,0.34) 100%);}
+  .fund-locked.lock-pro{border-color:rgba(201,155,60,0.55);}
+  .fund-locked.lock-pro:hover{border-color:#8F6B22;
+    box-shadow:0 6px 22px -14px rgba(143,107,34,0.85);}
+
+  .lock-tag .lt-pro{display:inline-block; padding:3px 9px; border-radius:5px;
+    background:linear-gradient(135deg, #C89B3C, #8F6B22);
+    color:#fff; font-size:9px; letter-spacing:0.13em; font-weight:500;
+    box-shadow:0 2px 6px -2px rgba(143,107,34,0.6);}
+
+  .fund-locked::after{display:none;}
+  /* a heavier blur, since the label now sits over the middle of the card */
+  .fund-locked > *:not(.lock-tag){filter:blur(4px); opacity:0.3;}
+
+  /* A manager whose funds fill the last row exactly still needs its summary.
+     It sits on its own row, styled exactly as every other one. */
+  .issuer-aside.aside-fullrow{max-width:340px;}
+
+  /* Arriving at a manager. The bird crosses the whole section and loops once,
+     so it is unmistakable, then leaves. Everything animates transform and
+     opacity only — animating background or box-shadow repaints the whole card
+     every frame, which is what made this stutter. */
+  .issuer-arrive{position:relative;}
+  .issuer-arrive::before{content:''; position:absolute; inset:-8px; border-radius:16px;
+    background:rgba(255,107,53,0.08); opacity:0; pointer-events:none;
+    animation:issuerGlow 2.8s ease-out forwards; will-change:opacity;}
+  @keyframes issuerGlow{0%{opacity:1;} 70%{opacity:0.55;} 100%{opacity:0;}}
+
+  .bird-flight{position:absolute; left:0; top:38%; --fly:900px; z-index:40; pointer-events:none;
+    width:46px; height:30px; will-change:transform, opacity;
+    animation:birdX 4s linear forwards;}
+  .bird-flight .bob{display:block; width:100%; height:100%;
+    animation:birdWave 4s cubic-bezier(.45,.02,.55,.98) forwards; will-change:transform;}
+  .bird-flight img{width:100%; height:100%; display:block;
+    animation:birdBank 4s cubic-bezier(.45,.02,.55,.98) forwards; will-change:transform;}
+  /* A long S across the section: up, down, up and away. The horizontal speed
+     is held even so the curve reads as one continuous line rather than a
+     series of separate moves. */
+  /* Each axis moves on its own layer. Easing the horizontal travel is what
+     made this feel harsh: the bird slowed at every waypoint, so one glide
+     read as a series of small stops. The crossing is now perfectly even
+     and only the rise and fall is eased, which is how a glide actually
+     looks: constant ground speed, smooth vertical curve. */
+  @keyframes birdX{
+    0%{transform:translateX(-90px); opacity:0;}
+    14%{opacity:1;}
+    76%{opacity:1;}
+    100%{transform:translateX(var(--fly)); opacity:0;}}
+
+  /* a sine, sampled often enough that no single step shows */
+  @keyframes birdWave{
+    0%{transform:translateY(2px);}
+    9%{transform:translateY(-16px);}
+    18%{transform:translateY(-30px);}
+    27%{transform:translateY(-16px);}
+    36%{transform:translateY(6px);}
+    45%{transform:translateY(24px);}
+    54%{transform:translateY(28px);}
+    63%{transform:translateY(14px);}
+    72%{transform:translateY(-8px);}
+    81%{transform:translateY(-22px);}
+    90%{transform:translateY(-18px);}
+    100%{transform:translateY(-2px);}}
+
+  /* the bank leads the turn, the way a bird tips before it climbs */
+  @keyframes birdBank{
+    0%{transform:rotate(-11deg);}
+    18%{transform:rotate(-2deg);}
+    36%{transform:rotate(11deg);}
+    54%{transform:rotate(1deg);}
+    72%{transform:rotate(-11deg);}
+    90%{transform:rotate(-3deg);}
+    100%{transform:rotate(3deg);}}
+
+  @media (prefers-reduced-motion: reduce){
+    .issuer-arrive::before{animation:issuerGlow 1.4s ease-out forwards;}
+    .bird-flight{display:none;}}
+  /* nothing on this page should be able to widen it */
+  #results-stage, .market-cards, .fund-card{max-width:100%;}
+</style>
+  <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://licentia.ca/funds.html",
+  "url": "https://licentia.ca/funds.html",
+  "name": "Covered call and income ETFs",
+  "description": "Every covered call and income ETF Licentia tracks, across Canadian and US listings.",
+  "isPartOf": {
+    "@id": "https://licentia.ca/#website"
+  },
+  "inLanguage": "en-CA"
+}
+  </script>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="/">Licentia<img class="brand-bird" src="/assets/bird.svg" alt="" width="25" height="16"></a>
+  <div class="navlinks">
+    <a href="/">Home</a>
+    <a href="/learn">Learn</a>
+    <a class="active" href="/funds">Funds</a>
+    <a href="/compare">Comparison Tool</a>
+    <a href="/portfolio-builder">Portfolio Builder</a>
+    <a href="/portfolio">My Portfolio</a>
+    <a href="/backtest">Backtesting</a>
+    <a href="/membership">Membership</a>
+    <a href="/account">My Account</a>
+  </div>
+</nav>
+<main>
+
+<section class="landing" id="landing">
+  <div class="landing-inner">
+    <div class="landing-kicker">The fund directory</div>
+    <h1 class="landing-title">Every covered call and<br>income fund, in one place.</h1>
+    <p class="landing-lede">Yields, holdings, distributions and size for every fund we track &mdash;
+      taken from the issuers themselves and refreshed daily.</p>
+    <div class="stat-strip" id="statStrip"></div>
+    <div class="pick-line"><span class="pick-rule"></span><span class="pick-word">Pick one</span><span class="pick-rule"></span></div>
+    <div class="market-cards" id="marketCards"></div>
+    <button class="browse-all" id="browseAll">Or browse every fund together &darr;</button>
+  </div>
+</section>
+
+<!-- STAGE 2: results -->
+<div id="results-stage">
+  <div class="results-head">
+    <div class="results-head-left">
+      <div>
+        <h2 class="results-title" id="resultsTitle">Covered call &amp; income funds</h2>
+        <div class="results-sub" id="resultsSub">— funds across — issuers</div>
+      </div>
+    </div>
+    <div class="region-row" id="regionRow">
+      <button class="region-btn active" data-region="ALL">All markets</button>
+      <button class="region-btn" data-region="CAD">Canada</button>
+      <button class="region-btn" data-region="US">United States</button>
+    </div>
+    <div class="sort-row">
+      <span class="sort-label">Sort</span>
+      <button class="sort-btn active" data-sort="issuer">By issuer</button>
+      <button class="sort-btn" data-sort="ticker">Ticker A–Z</button>
+      <button class="sort-btn" data-sort="breadth">Most holdings</button>
+        <button class="sort-btn" data-sort="size">Fund size</button>
+    </div>
+  </div>
+  <div class="issuer-rail" id="issuerRail"></div>
+  <div id="fundGroups"></div>
+  <div class="data-note">
+    Holdings shown are pulled directly from each issuer's own published holdings pages, refreshed automatically on a schedule.
+    Sorting by inception date and AUM is on the way — that data isn't in the pipeline yet, so for now funds sort by issuer, ticker, or breadth of top holdings.
+  </div>
+</div>
+
+</main>
+<script>
+const FALLBACK_FUNDS = {};
+let FUNDS = {};
+
+licentiaFundsFetch()
+  .then(r => { if(!r.ok) throw new Error('fetch failed'); return r.json(); })
+  .then(data => {
+    const live = {};
+    Object.entries(data).forEach(([t,v]) => {
+      const hasHoldings = v.holdings && Object.keys(v.holdings).length;
+      const hasIncome = v.distributions && v.distributions.length;
+      // a fund with a full distribution history is worth listing even where the
+      // issuer publishes no parseable holdings — it just cannot show a top holding
+      // a fund we track belongs in the directory even when a scrape could not
+      // read its holdings or income: the card shows what is known and marks
+      // the rest, rather than the fund vanishing
+      if(true){
+        live[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {} };
+      }
+    });
+    FUNDS = Object.keys(live).length ? live : FALLBACK_FUNDS;
+      Object.values(window.LICENTIA_LOCKED || {}).forEach(function(f){
+        FUNDS[f.ticker] = { name: f.name, issuer: f.issuer, region: f.region,
+          holdings: [], stats: {}, distributions: [], locked: true,
+          unlock: f.unlock || 'pro' };
+      });
+      try {
+        if (typeof setTrackedCount === 'function') setTrackedCount();
+        if (typeof buildLanding === 'function') buildLanding();
+        if (typeof buildRail === 'function') buildRail();
+        if (typeof renderResults === 'function') renderResults();
+        issuerFromQuery();
+      } catch (e) { console.error('redraw after load failed', e); }
+    init();
+  })
+  .catch(() => { FUNDS = FALLBACK_FUNDS; init(); });
+
+let currentRegion = null;
+let currentSort = 'issuer';
+
+
+// Fund data now comes from an Edge Function that decides what to send based on
+// the caller's token. The page can no longer widen its own access by asking
+// for more, because the extra data is never in the response.
+
+function licentiaAuthHeader(){
+  // A stored token is only good for an hour. pro.js publishes the refresh;
+  // if this page ran before pro.js loaded, fall back to whatever is stored
+  // rather than dropping a paying reader to the anonymous tier.
+  if (typeof window.licentiaRefreshSession === 'function') {
+    return window.licentiaRefreshSession(false);
+  }
+  return Promise.resolve(licentiaToken());
+}
+function licentiaToken(){
+  try {
+    for (var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if (!/auth-token/.test(k)) continue;
+      var v = JSON.parse(localStorage.getItem(k));
+      return v.access_token || (v.currentSession || {}).access_token || null;
+    }
+  } catch(e){}
+  return null;
+}
+function licentiaSeed(){
+  try {
+    var d = localStorage.getItem('licentia_device');
+    if (!d){ d = String(Date.now()) + Math.random().toString(36).slice(2);
+      localStorage.setItem('licentia_device', d); }
+    return d;
+  } catch(e){ return 'device'; }
+}
+// Shaped like a fetch response so the existing .then(r => r.json()) still works.
+async function licentiaFundsFetch(){
+  var headers = { 'Content-Type': 'application/json' };
+  var token = await licentiaAuthHeader();
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  return fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds', {
+    method: 'POST', headers: headers,
+    body: JSON.stringify({ seed: licentiaSeed() })
+  }).then(function(r){ return r.json(); }).then(function(j){
+    window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0, shown: j.shown || 0,
+      freeOpens: j.freeOpens || 50 };
+    window.LICENTIA_TOTALS = j.totals || null;
+    // Locked funds arrive as name, house and market only. They are drawn as the
+    // same card so the page keeps one shape, then veiled.
+    window.LICENTIA_LOCKED = {};
+    (j.locked || []).forEach(function(f){ window.LICENTIA_LOCKED[f.ticker] = f; });
+    var out = {};
+    (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
+    return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
+  });
+}
+
+
+function licentiaGateBanner(){
+  var d = window.LICENTIA_DATA;
+  if (!d || !d.total || d.shown >= d.total) return;
+  var host = document.querySelector('.rail') || document.querySelector('main .wrap') || document.querySelector('main');
+  if (!host || document.getElementById('gateBanner')) return;
+
+  var anon = d.tier === 'anon';
+  var box = document.createElement('div');
+  box.id = 'gateBanner';
+  box.className = 'gate-banner';
+  box.innerHTML =
+    '<div class="gb-count">Showing ' + d.shown + ' of ' + d.total + ' funds</div>' +
+    '<div class="gb-copy">' +
+      (anon
+        ? 'A free account opens 50 funds and saves what you are watching. Licentia Pro opens all ' + d.total + '.'
+        : 'Licentia Pro opens all ' + d.total + ' funds, their holdings, and the full distribution history.') +
+    '</div>' +
+    '<a class="gb-cta" href="/account">' +
+      (anon ? 'Create a free account' : 'See Licentia Pro') + '</a>';
+  host.insertBefore(box, host.firstChild);
+}
+
+
+// One prompt, named for the fund that was clicked, so it reads as an answer to
+// what the person just did rather than a generic wall.
+function licentiaLockPrompt(ticker){
+  var d = window.LICENTIA_DATA || {};
+  var f = (window.LICENTIA_LOCKED || {})[ticker] || {};
+  var toFree = (f.unlock || 'pro') === 'free';
+  var old = document.getElementById('lockModal');
+  if (old) old.remove();
+
+  var wrap = document.createElement('div');
+  wrap.id = 'lockModal';
+  wrap.className = 'lock-modal';
+  wrap.innerHTML =
+    '<div class="lm-card" role="dialog" aria-modal="true">' +
+      '<div class="lm-tick">' + ticker + '</div>' +
+      '<div class="lm-name">' + (f.name || '') + '</div>' +
+      '<div class="lm-copy">' +
+        (toFree
+          ? 'This fund is one of the ' + (d.freeOpens || 50) + ' a free account opens. ' +
+            'It takes a moment and keeps what you are watching.'
+          : 'This fund is part of the full directory. Licentia Pro opens all ' +
+            (d.total || 207) + ' funds, their holdings, and the complete distribution history.') +
+      '</div>' +
+      '<div class="lm-row">' +
+        '<a class="lm-go" href="/account">' +
+          (toFree ? 'Create a free account' : 'See Licentia Pro') + '</a>' +
+        '<button class="lm-no" type="button">Not now</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(wrap);
+
+  function close(){ wrap.remove(); document.removeEventListener('keydown', esc); }
+  function esc(e){ if (e.key === 'Escape') close(); }
+  wrap.querySelector('.lm-no').addEventListener('click', close);
+  wrap.addEventListener('click', function(e){ if (e.target === wrap) close(); });
+  document.addEventListener('keydown', esc);
+}
+
+// One listener on the page rather than one per card, so cards can be redrawn
+// freely without rewiring anything.
+document.addEventListener('click', function(e){
+  var card = e.target.closest ? e.target.closest('.fund-locked') : null;
+  if (!card) return;
+  e.preventDefault();
+  e.stopPropagation();
+  licentiaLockPrompt(card.getAttribute('data-ticker'));
+}, true);
+
+function init(){
+  const cad = Object.values(FUNDS).filter(f => f.region === 'CAD').length;
+  const us = Object.values(FUNDS).filter(f => f.region === 'US').length;
+    setTrackedCount(Object.keys(FUNDS).length);
+    loadLogos().then(function(){ buildLanding(); selectRegion('ALL'); });
+  // arriving back from a fund page: drop straight into that region's list
+  const wanted = (new RegExp('[?&]region=([^&]*)').exec(window.location.search) || [])[1];
+  if (wanted === 'CAD' || wanted === 'US') setTimeout(() => selectRegion(wanted), 0);
+
+
+  // Arriving from the provider carousel: open the right region, then jump to
+  // that issuer's group and mark it so the reason for the jump is obvious.
+  function issuerFromQuery(){
+  var want = new URLSearchParams(location.search).get('issuer');
+  if (!want) return;
+  var id = 'issuer-' + want.replace(/[^a-z0-9]+/gi, '-').toLowerCase().replace(/^-|-$/g, '');
+
+  function go(attempt){
+    var el = document.getElementById(id);
+    if (!el) {
+      // the directory draws after the data lands, so wait for it
+      if (attempt < 30) return setTimeout(function(){ go(attempt + 1); }, 200);
+      return;
+    }
+    // open themarket  the manager sits in, if the page is showing one market
+    var market = el.closest('[data-market]');
+    if (market && market.dataset.market && typeof selectRegion === 'function') {
+      try { selectRegion(market.dataset.market); } catch (e) {}
+    }
+    var lastTop = -1, stable = 0;
+    function land(){
+      var top = Math.round(el.getBoundingClientRect().top + window.pageYOffset - 82);
+      if (top === lastTop) { stable++; } else { stable = 0; lastTop = top; }
+      window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+      // three quiet passes means the page has finished growing
+      if (stable < 2) setTimeout(land, 400);
+    }
+    setTimeout(function(){
+      land();
+      el.classList.add('issuer-arrive');
+      var bird = document.createElement('div');
+      bird.className = 'bird-flight';
+      bird.innerHTML = '<span class="bob"><img src="/assets/bird.svg" alt=""></span>';
+      var box = el.getBoundingClientRect();
+      var exit = Math.max(700, Math.round(window.innerWidth - box.left) + 380);
+      bird.style.setProperty('--fly', exit + 'px');
+      el.appendChild(bird);
+      setTimeout(function(){ bird.remove(); }, 4100);
+      setTimeout(function(){ el.classList.remove('issuer-arrive'); }, 3400);
+    }, 250);
+  }
+  go(0);
+}
+
+  const ba = document.getElementById('browseAll');
+if (ba) ba.addEventListener('click', function(){ selectRegion('ALL'); jumpToList(); });
+document.querySelectorAll('.region-btn').forEach(function(b){
+    b.addEventListener('click', function(){ selectRegion(b.dataset.region); });
+  });
+
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSort = btn.dataset.sort;
+      renderResults();
+    });
+  });
+
+  // honour ?issuer= from the homepage strip once the directory exists
+  issuerFromQuery();
+}
+
+function selectRegion(region){
+  currentRegion = region;
+  const stage = document.getElementById('results-stage');
+  if (stage) stage.classList.add('visible');
+  const t = document.getElementById('resultsTitle');
+  if (t) t.textContent = region === 'CAD' ? 'Canadian covered call & income funds'
+        : region === 'US' ? 'US covered call & income funds'
+        : 'Covered call & income funds';
+  document.querySelectorAll('.region-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.region === region);
+  });
+  renderResults();
+}
+
+
+// Brand colours matched to the comparison tool, so the two pages speak the
+// same visual language. Real logos load from data/logos*.json when present.
+const FAM_COLOUR = {
+  'BMO ETFs':'#0075BE','Hamilton ETFs':'#123D66','Harvest ETFs':'#C9821F',
+  'Evolve ETFs':'#0F9B8E','Purpose Investments':'#E2571E','Global X Canada':'#1B6AC9',
+  'Global X':'#1B6AC9','NEOS Investments':'#1F7A5C','YieldMax':'#D1442F',
+  'J.P. Morgan Asset Management':'#3C2415','iShares':'#3A3A3A','Roundhill':'#5B3FA8',
+  'Defiance':'#B3142F','REX Shares':'#0E6E70','ProShares':'#00539B',
+  'Amplify ETFs':'#6E4B9E','Goldman Sachs':'#1B3A6B'
+};
+
+function hexToRgb(h){
+  const n = parseInt(h.slice(1), 16);
+  return ((n>>16)&255) + ',' + ((n>>8)&255) + ',' + (n&255);
+}
+function paintFam(el, issuer){
+  const c = famColour(issuer);
+  el.style.setProperty('--fam', c);
+  el.style.setProperty('--famrgb', hexToRgb(c));
+}
+
+function famColour(i){ return FAM_COLOUR[i] || '#1F5C4E'; }
+function shortIssuer(i){
+  // one brand, two arms — spell out which is which
+  if (i === 'Global X') return 'Global X US';
+  if (i === 'Global X Canada') return 'Global X Canada';
+  return i.replace(' ETFs','').replace(' Asset Management','').replace(' Investments','');
+}
+let LOGOS = {};
+function loadLogos(){
+  return Promise.all([
+    fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+    fetch('data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
+  ]).then(function(p){ LOGOS = Object.assign({}, p[0], p[1]); });
+}
+
+// A rail of every manager in view, so a reader can jump to a house instead of
+// scrolling several thousand pixels to find it.
+function buildRail(list){
+  const rail = document.getElementById('issuerRail');
+  if (!rail) return;
+  if (currentSort !== 'issuer'){ rail.style.display = 'none'; return; }
+  rail.style.display = 'flex';
+  const counts = {};
+  list.forEach(function(e){ counts[e[1].issuer] = (counts[e[1].issuer]||0) + 1; });
+  rail.innerHTML = '';
+  Object.entries(counts).sort(function(a,b){ return b[1]-a[1]; }).forEach(function(pair){
+    const c = document.createElement('button');
+    c.className = 'rail-chip';
+    paintFam(c, pair[0]);
+    c.innerHTML = shortIssuer(pair[0]) + '<b>' + pair[1] + '</b>';
+    c.onclick = function(){
+      const el = document.getElementById('issuer-' + pair[0].replace(/[^a-z0-9]+/gi,'-').toLowerCase());
+      if (!el) return;
+      const nav = document.querySelector('nav');
+      const navH = nav ? nav.getBoundingClientRect().height : 0;
+      window.scrollTo({top: el.getBoundingClientRect().top + window.pageYOffset - navH - 24, behavior:'smooth'});
+    };
+    rail.appendChild(c);
+  });
+}
+
+
+// ---- landing ---------------------------------------------------------
+// Everything here is computed from the same data the list uses, so the
+// headline numbers can never drift from what is shown below.
+function marketStats(pred, regionKey){
+  const list = Object.entries(FUNDS).filter(function(e){ return pred(e[1]); });
+  const ys = list.map(function(e){ return (e[1].stats||{}).yield_ttm; })
+                 .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
+  const aum = list.reduce(function(t,e){ return t + (((e[1].stats||{}).aum_musd)||0); }, 0);
+  const counts = {};
+  list.forEach(function(e){ counts[e[1].issuer] = (counts[e[1].issuer]||0) + 1; });
+  
+  // Substitute the market-wide figures. Counting the visible funds would tell
+  // a signed out visitor there are 25 funds from 8 houses, which is not true.
+  var T = window.LICENTIA_TOTALS;
+  if (T) {
+    var key = (regionKey === 'CAD' || regionKey === 'US') ? regionKey : 'all';
+    var t = T[key];
+    if (t) {
+      return {
+        funds: t.funds,
+        issuers: t.managers,
+        medYield: t.median_yield,
+        aum: t.aum_musd,
+        topIssuers: (function(){
+          var counts = {};
+          list.forEach(function(x){ if (x.issuer) counts[x.issuer] = (counts[x.issuer]||0)+1; });
+          return Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }).slice(0,4);
+        })()
+      };
+    }
+  }
+  return {
+    funds: list.length,
+    issuers: Object.keys(counts).length,
+    medYield: ys.length ? ys[Math.floor(ys.length/2)] : null,
+    aum: aum,
+    topIssuers: Object.entries(counts).sort(function(a,b){ return b[1]-a[1]; })
+                 .slice(0,5).map(function(p){ return p[0]; })
+  };
+}
+
+function buildLanding(){
+  const all = marketStats(function(){ return true; }, 'all');
+  const strip = document.getElementById('statStrip');
+  if (strip){
+    strip.innerHTML =
+      stat(all.funds, 'funds tracked') +
+      stat(all.issuers, 'fund managers') +
+      stat(all.aum ? fmtAum(all.aum) : '\u2014', 'combined size') +
+      stat(all.medYield !== null ? all.medYield.toFixed(1) + '%' : '\u2014', 'median yield');
+  }
+  const wrap = document.getElementById('marketCards');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  [['CAD','Canada','#C8102E','linear-gradient(90deg,#C8102E 0 22%,#FFFFFF 22% 78%,#C8102E 78% 100%)'],
+   ['US','United States','#1B3A6B','linear-gradient(90deg,#1B3A6B 0 36%,transparent 36%), repeating-linear-gradient(180deg,#B31942 0 1.7px,#FFFFFF 1.7px 3.4px)']
+  ].forEach(function(m){
+    const st = marketStats(function(f){ return f.region === m[0]; }, (Array.isArray(m) ? m[0] : (m && (m.code || m.region))) || null);
+    const el = document.createElement('button');
+    el.className = 'market';
+    el.style.setProperty('--mk', m[2]);
+    el.style.setProperty('--mkrgb', hexToRgb(m[2]));
+    el.style.setProperty('--band', m[3]);
+    const logos = st.topIssuers.map(function(i){
+      return LOGOS[i] ? '<span title="' + i + '">' + LOGOS[i] + '</span>' : '';
+    }).join('');
+    el.innerHTML =
+      '<div class="market-head"><span class="market-name">' + m[1] + '</span>' +
+        '<span class="market-n">' + st.funds + ' funds</span></div>' +
+      '<div class="market-figs">' +
+        fig(st.medYield !== null ? st.medYield.toFixed(1) + '%' : '\u2014', 'median yield') +
+        fig(st.issuers, 'managers') +
+        fig(st.aum ? fmtAum(st.aum) : '\u2014', 'combined size') +
+      '</div>' +
+      '<div class="market-logos">' + logos + '</div>' +
+      '<div class="market-go">See ' + m[1] + ' funds &#8594;</div>';
+    el.onclick = function(){ selectRegion(m[0]); jumpToList(); };
+    wrap.appendChild(el);
+  });
+}
+function stat(v,k){ return '<div class="stat"><div class="v">' + v + '</div><div class="k">' + k + '</div></div>'; }
+function fig(v,k){ return '<div class="market-fig"><div class="fv">' + v + '</div><div class="fk">' + k + '</div></div>'; }
+function jumpToList(){
+  const el = document.getElementById('results-stage');
+  if (!el) return;
+  const nav = document.querySelector('nav');
+  const navH = nav ? nav.getBoundingClientRect().height : 0;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.pageYOffset - navH - 18, behavior:'smooth'});
+}
+
+function renderResults(){
+  const list = Object.entries(FUNDS).filter(([t,f]) => currentRegion === 'ALL' ? true : f.region === currentRegion);
+  const issuers = new Set(list.map(([t,f]) => f.issuer));
+  document.getElementById('resultsSub').textContent = `${list.length} funds across ${issuers.size} issuers`;
+  buildRail(list);
+  setTimeout(fitAsides, 0);
+
+  const groupsEl = document.getElementById('fundGroups');
+  groupsEl.innerHTML = '';
+
+  if(currentSort === 'issuer'){
+    const byIssuer = {};
+    list.forEach(([t,f]) => { (byIssuer[f.issuer] = byIssuer[f.issuer] || []).push([t,f]); });
+    Object.keys(byIssuer).sort().forEach(issuer => {
+      const funds = byIssuer[issuer].sort((a,b) => a[0].localeCompare(b[0]));
+      groupsEl.appendChild(buildGroup(issuer, funds));
+    });
+  } else {
+    let sorted = [...list];
+    if(currentSort === 'ticker') sorted.sort((a,b) => a[0].localeCompare(b[0]));
+    if(currentSort === 'breadth') sorted.sort((a,b) => Object.keys(b[1].holdings).length - Object.keys(a[1].holdings).length);
+    if(currentSort === 'size') sorted.sort((a,b) => ((b[1].stats||{}).aum_musd || -1) - ((a[1].stats||{}).aum_musd || -1));
+    groupsEl.appendChild(buildGroup(null, sorted));
+  }
+}
+
+
+function fmtPct(v){ return v === undefined ? '—' : v.toFixed(1) + '%'; }
+function buildAside(issuer, funds){
+  const el = document.createElement('div');
+  el.className = 'issuer-aside';
+  paintFam(el, issuer);
+  const ys = funds.map(function(f){ return (f[1].stats||{}).yield_ttm; })
+                  .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
+  const med = ys.length ? ys[Math.floor(ys.length/2)] : undefined;
+  const aum = funds.reduce(function(t,f){ return t + (((f[1].stats||{}).aum_musd)||0); }, 0);
+  const cad = funds.filter(function(f){ return f[1].region === 'CAD'; }).length;
+  el.innerHTML =
+    '<div class="aside-line"><span>median yield</span><b>' + fmtPct(med) + '</b></div>' +
+    '<div class="aside-line"><span>combined size</span><b>' + (aum ? fmtAum(aum) : '—') + '</b></div>' +
+    '<div class="aside-line"><span>market</span><span>' +
+      (cad === funds.length ? 'Canada' : (cad === 0 ? 'United States' : cad + ' CA / ' + (funds.length-cad) + ' US')) +
+    '</span></div>' +
+    '<a class="aside-cta" href="/compare">Compare these funds &#8594;</a>';
+  return el;
+}
+
+// The grid is fixed-width columns, so work out how many are unused and let the
+// panel span them. Re-run on resize because the column count changes.
+function fitAsides(){
+  document.querySelectorAll('.issuer-group').forEach(function(group){
+    var grid = group.querySelector('.fund-grid');
+    var aside = group.querySelector('.issuer-aside');
+    if (!grid || !aside) return;
+    var cards = grid.querySelectorAll('.fund-card').length;
+    var cols = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length || 1;
+    var spare = (cols - (cards % cols)) % cols;
+    aside.style.display = 'flex';
+    if (spare <= 0) {
+      aside.classList.add('aside-fullrow');
+      aside.style.gridColumn = '1 / -1';
+    } else {
+      aside.classList.remove('aside-fullrow');
+      aside.style.gridColumn = 'span ' + spare;
+    }
+  });
+}
+window.addEventListener('resize', fitAsides);
+
+function buildGroup(label, funds){
+  const wrap = document.createElement('div');
+  wrap.className = 'issuer-group';
+  wrap.style.setProperty('--fam', label ? famColour(label) : '#1F5C4E');
+  if(label){
+    wrap.id = 'issuer-' + label.replace(/[^a-z0-9]+/gi,'-').toLowerCase();
+    const head = document.createElement('div');
+    head.className = 'issuer-head';
+    const cadN = funds.filter(function(f){ return f[1].region === 'CAD'; }).length;
+    const market = cadN === funds.length ? 'Canada'
+                 : cadN === 0 ? 'United States'
+                 : cadN + ' CA / ' + (funds.length - cadN) + ' US';
+    head.innerHTML = (LOGOS[label]
+        ? '<span class="issuer-logo">' + LOGOS[label] + '</span>'
+        : '<span class="issuer-name">' + shortIssuer(label) + '</span>')
+      + '<span class="issuer-market">' + market + '</span>'
+      + '<span class="issuer-count">' + funds.length + ' fund' + (funds.length>1?'s':'') + '</span>';
+    wrap.appendChild(head);
+  }
+  const grid = document.createElement('div');
+  grid.className = 'fund-grid';
+  funds.forEach(([ticker, f]) => grid.appendChild(buildCard(ticker, f)));
+  if (label) grid.appendChild(buildAside(label, funds));
+  wrap.appendChild(grid);
+  return wrap;
+}
+
+function fmtAum(m){
+  if(m === undefined || m === null) return null;
+  if(m >= 1000) return '$' + (m/1000).toFixed(m >= 100000 ? 0 : 1) + 'B';
+  if(m >= 1) return '$' + m.toFixed(m >= 100 ? 0 : 1) + 'M';
+  return '$' + (m*1000).toFixed(0) + 'K';
+}
+
+function setTrackedCount(n){
+  const el = document.getElementById("trackedCount");
+  if (el) el.textContent = n + " funds tracked, live from source";
+}
+
+function buildCard(ticker, f){
+  // A locked fund keeps its place and its shape; the figures are simply not
+  // there to show, so the card is veiled rather than filled with blurred data.
+  var isLocked = !!f.locked;
+  var unlockTier = f.unlock || 'pro';
+  const card = document.createElement('a');
+  card.className = 'fund-card';
+  paintFam(card, f.issuer);
+  card.href = 'fund.html?t=' + encodeURIComponent(ticker);
+  const holdingsArr = Object.entries(f.holdings).sort((a,b) => b[1]-a[1]);
+  const st = f.stats || {};
+  const aum = fmtAum(st.aum_musd);
+  const pillClass = f.region === 'CAD' ? 'pill-cad' : 'pill-us';
+  // Yield is what people scan for, so it carries the visual weight
+  const y = st.yield_ttm !== undefined
+    ? '<span class="fund-yield">' + st.yield_ttm.toFixed(1) + '<small>%</small></span>'
+    : '<span class="fund-yield na">yield n/a</span>';
+  card.innerHTML =
+    '<div class="card-top"><span><span class="fund-ticker">' + ticker + '</span>' +
+    '<span class="fund-region-pill ' + pillClass + '">' + f.region + '</span></span>' + y + '</div>' +
+    '<div class="fund-name">' + f.name + '</div>' +
+    '<div class="fund-foot">' +
+      '<span>' + (holdingsArr.length ? holdingsArr.length + ' holdings'
+                  : '<span class="missing">holdings not published</span>') + '</span>' +
+      '<span>' + (aum ? aum : '<span class="missing">size n/a</span>') + '</span>' +
+      '<span class="fund-open">Open &#8594;</span>' +
+    '</div>';
+  if (isLocked) {
+    card.classList.add('fund-locked');
+    card.classList.add(unlockTier === 'free' ? 'lock-free' : 'lock-pro');
+    card.setAttribute('data-ticker', ticker);
+    var tag = document.createElement('div');
+    tag.className = 'lock-tag';
+    tag.innerHTML = unlockTier === 'free'
+      ? '<span class="lt-txt">Unlock with a free account</span>'
+      : '<span class="lt-pro">PRO</span><span class="lt-txt">Unlock with Licentia Pro</span>';
+    card.appendChild(tag);
+  }
+  return card;
+}
+
+</script>
+<script src="/assets/pro.js?v=abddf571"></script>
+</body>
+</html>
