@@ -253,6 +253,44 @@
     border:1px solid var(--line-strong);}
   .bc-second:hover{border-color:var(--ink);}
   @media(max-width:640px){ .bc-go{width:100%;} }
+
+  .breakdown{margin-top:34px;}
+  .bd-grid{display:grid; gap:30px; align-items:start;}
+  @media(min-width:860px){ .bd-grid{grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:44px;} }
+  .bd-ring{display:flex; flex-direction:column; align-items:center; gap:18px;
+    background:var(--white); border:1px solid var(--line); border-radius:14px;
+    padding:24px 20px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 16px 30px -22px rgba(28,34,48,0.4);}
+  .ring-big{font-family:'Fraunces',serif; font-size:30px; fill:var(--ink);}
+  .ring-small{font-family:'IBM Plex Mono',monospace; font-size:10px; fill:var(--ink-faint);
+    letter-spacing:0.12em; text-transform:uppercase;}
+  .cmp-legend{width:100%; display:flex; flex-direction:column; gap:7px;}
+  .cmp-key{display:flex; align-items:center; gap:9px; font-size:13px;}
+  .cmp-dot{width:9px; height:9px; border-radius:2px; flex:none;}
+  .cmp-nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .cmp-w{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);}
+
+  .bd-list{background:var(--white); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 16px 30px -22px rgba(28,34,48,0.4);}
+  .bd-list-head{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.13em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px;}
+  .hld-list{list-style:none; margin:0; padding:0;}
+  .hld-row{display:grid; grid-template-columns:26px minmax(0,1fr) 90px 62px;
+    align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid var(--line);
+    font-size:14px;}
+  .hld-row:last-child{border-bottom:none;}
+  .hld-n{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
+  .hld-name{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .hld-bar{height:5px; border-radius:3px; background:rgba(28,34,48,0.07); overflow:hidden;}
+  .hld-bar i{display:block; height:100%; border-radius:3px;
+    background:linear-gradient(90deg, var(--ink), #4A6FA5);}
+  .hld-w{font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-align:right;
+    color:var(--ink-soft);}
+  @media(max-width:560px){
+    .hld-row{grid-template-columns:22px minmax(0,1fr) 58px;}
+    .hld-bar{display:none;}
+  }
 </style>
   <link rel="stylesheet" href="assets/pro.css?v=0d4d1c94">
 </head>
@@ -687,6 +725,88 @@ function incomeAnswer(f){
     </div>`;
 }
 
+// A picture of what the fund actually owns. Drawn from the holdings we hold
+// for 283 of the 288 funds — no geography or leverage here, because we do not
+// have that data and inventing it would be worse than leaving it out.
+function compositionPanel(f){
+  const h = f.holdings || {};
+  const rows = Object.entries(h)
+    .map(function(e){ return {name: e[0], w: Number(e[1]) || 0}; })
+    .filter(function(r){ return r.w > 0; })
+    .sort(function(a, b){ return b.w - a.w; });
+  if (!rows.length) return "";
+
+  const shown = rows.slice(0, 20);
+  const top = shown.slice(0, 6);
+  const topSum = top.reduce(function(s, r){ return s + r.w; }, 0);
+  const allSum = rows.reduce(function(s, r){ return s + r.w; }, 0);
+  const rest = Math.max(allSum - topSum, 0);
+
+  const shades = ["#1C2230","#2E7D6B","#4A6FA5","#D8AE4E","#BE462D","#6C5B8C"];
+  const restShade = "rgba(28,34,48,0.13)";
+
+  // a ring, drawn with stroke offsets so it needs no library
+  const R = 66, C = 2 * Math.PI * R;
+  let offset = 0;
+  const arcs = top.map(function(r, i){
+    const frac = allSum ? r.w / allSum : 0;
+    const len = C * frac;
+    const seg = `<circle cx="90" cy="90" r="${R}" fill="none" stroke="${shades[i % shades.length]}"
+      stroke-width="26" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-offset}"
+      transform="rotate(-90 90 90)"></circle>`;
+    offset += len;
+    return seg;
+  }).join("");
+  const restLen = C * (allSum ? rest / allSum : 0);
+  const restArc = rest > 0
+    ? `<circle cx="90" cy="90" r="${R}" fill="none" stroke="${restShade}" stroke-width="26"
+        stroke-dasharray="${restLen} ${C - restLen}" stroke-dashoffset="${-offset}"
+        transform="rotate(-90 90 90)"></circle>`
+    : "";
+
+  const legend = top.map(function(r, i){
+    return `<div class="cmp-key"><span class="cmp-dot" style="background:${shades[i % shades.length]}"></span>
+      <span class="cmp-nm">${r.name}</span><span class="cmp-w">${fmt(r.w, 1)}%</span></div>`;
+  }).join("") + (rest > 0
+    ? `<div class="cmp-key"><span class="cmp-dot" style="background:${restShade}"></span>
+       <span class="cmp-nm">Everything else</span><span class="cmp-w">${fmt(rest, 1)}%</span></div>`
+    : "");
+
+  const list = shown.map(function(r, i){
+    const bar = allSum ? (r.w / shown[0].w) * 100 : 0;
+    return `<li class="hld-row">
+      <span class="hld-n">${i + 1}</span>
+      <span class="hld-name">${r.name}</span>
+      <span class="hld-bar"><i style="width:${Math.max(bar, 2)}%"></i></span>
+      <span class="hld-w">${fmt(r.w, 2)}%</span>
+    </li>`;
+  }).join("");
+
+  return `
+  <div class="section breakdown">
+    <div class="section-head">
+      <h2>What ${TICKER} owns</h2>
+      <div class="section-note">${rows.length} position${rows.length === 1 ? "" : "s"}
+        as published by the issuer. Weights change as the fund trades.</div>
+    </div>
+    <div class="bd-grid">
+      <div class="bd-ring">
+        <svg viewBox="0 0 180 180" width="180" height="180" role="img"
+             aria-label="Composition of ${TICKER}">
+          ${arcs}${restArc}
+          <text x="90" y="84" text-anchor="middle" class="ring-big">${top.length}</text>
+          <text x="90" y="104" text-anchor="middle" class="ring-small">largest</text>
+        </svg>
+        <div class="cmp-legend">${legend}</div>
+      </div>
+      <div class="bd-list">
+        <div class="bd-list-head">Top ${shown.length} holdings</div>
+        <ol class="hld-list">${list}</ol>
+      </div>
+    </div>
+  </div>`;
+}
+
   stage.innerHTML = `
     <div class="fund-head">
       <div>
@@ -704,6 +824,8 @@ function incomeAnswer(f){
     </div>
 
     ${incomeAnswer(f)}
+
+    ${compositionPanel(f)}
 
     <div class="section" style="margin-top:30px; margin-bottom:34px;">
       <div class="section-head">
