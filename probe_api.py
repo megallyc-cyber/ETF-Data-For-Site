@@ -1,91 +1,38 @@
-"""Give every page a clean address, once, across the whole site.
+"""Undo the redirect loop, and keep the old links working anyway.
 
-funds.html becomes funds/index.html, served at /funds. Doing this by
-hand across twelve pages and every link between them is how links get
-missed, so it happens here in one pass with a report at the end.
+GitHub Pages answers /funds with funds.html before it looks for
+funds/index.html. The stub there redirected to /funds, which served the
+stub again: every page became a loop. The stubs have to go.
 
-The old addresses stay as redirect stubs: licentia.ca/funds.html is what
-Google has indexed today, and dropping it would throw that away.
+Old addresses are carried by a custom 404 instead, which Pages serves
+for anything it cannot find: it strips the .html and sends the reader on.
 """
-import json, re, subprocess
+import json, subprocess
 from pathlib import Path
 
 PAGES = ["funds", "compare", "learn", "portfolio", "portfolio-builder",
          "backtest", "membership", "account", "fund", "tour",
          "privacy", "terms"]
 
-report = {"converted": [], "stubs": [], "skipped": [], "linksRewritten": 0}
-
-
-def rooted(html: str) -> str:
-    """Paths that work from any depth."""
-    n = 0
-    # assets and data must be absolute once a page sits in a folder
-    html, k = re.subn(r'(src|href)="(assets/|data/)', r'\1="/\2', html)
-    n += k
-    # internal page links lose the extension
-    for p in PAGES:
-        html, k = re.subn(r'(src|href)="' + p + r'\.html"', r'\1="/' + p + '"', html)
-        n += k
-        html, k = re.subn(r'(src|href)="' + p + r'\.html\?', r'\1="/' + p + '?', html)
-        n += k
-    html, k = re.subn(r'(src|href)="index\.html"', r'\1="/"', html)
-    n += k
-    html, k = re.subn(r'(src|href)="index\.html\?', r'\1="/?', html)
-    n += k
-    return html, n
-
-
-def stub(page: str) -> str:
-    """The old address, pointing at the new one."""
-    url = "https://licentia.ca/" + page
-    return (
-        "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n"
-        "<meta charset=\"UTF-8\">\n"
-        '<link rel="canonical" href="' + url + '">\n'
-        '<meta http-equiv="refresh" content="0; url=' + url + '">\n'
-        '<meta name="robots" content="noindex, follow">\n'
-        "<title>Moved</title>\n</head>\n<body>\n"
-        '<p>This page now lives at <a href="' + url + '">' + url + '</a>.</p>\n'
-        "</body>\n</html>\n")
-
+report = {"removedStubs": [], "kept": [], "notes": []}
 
 for page in PAGES:
-    src = Path(page + ".html")
-    if not src.exists():
-        report["skipped"].append(page + ": no such file")
+    stub = Path(page + ".html")
+    folder = Path(page) / "index.html"
+    if not folder.exists():
+        report["notes"].append(page + ": no folder, stub left alone")
         continue
-    html = src.read_text()
-    if "http-equiv=\"refresh\"" in html:
-        report["skipped"].append(page + ": already a stub")
-        continue
-    converted, n = rooted(html)
-    report["linksRewritten"] += n
-    folder = Path(page)
-    folder.mkdir(exist_ok=True)
-    (folder / "index.html").write_text(converted)
-    report["converted"].append(page + "/index.html (" + str(n) + " paths)")
-    src.write_text(stub(page))
-    report["stubs"].append(page + ".html")
+    if stub.exists():
+        text = stub.read_text()
+        if "http-equiv" in text and "refresh" in text:
+            stub.unlink()
+            report["removedStubs"].append(page + ".html")
+        else:
+            report["kept"].append(page + ".html (not a stub)")
 
-# the homepage stays at the root but its links still need rewriting
-home = Path("index.html")
-if home.exists():
-    html, n = rooted(home.read_text())
-    home.write_text(html)
-    report["linksRewritten"] += n
-    report["converted"].append("index.html stays at / (" + str(n) + " paths)")
-
-# and the shared script writes its own nav links
-pro = Path("assets/pro.js")
-if pro.exists():
-    t = pro.read_text()
-    for p in PAGES:
-        t = t.replace("'" + p + ".html'", "'/" + p + "'")
-        t = t.replace('"' + p + '.html"', '"/' + p + '"')
-    t = t.replace("'index.html'", "'/'").replace('"index.html"', '"/"')
-    pro.write_text(t)
-    report["converted"].append("assets/pro.js nav links")
+NOT_FOUND = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<meta name=\"robots\" content=\"noindex, follow\">\n<title>That page has moved &mdash; Licentia</title>\n<link rel=\"stylesheet\" href=\"/assets/pro.css\">\n<style>\n  body{background:#F4F1E8; color:#1C2230; font-family:Inter,ui-sans-serif,sans-serif;\n    display:flex; align-items:center; justify-content:center; min-height:100vh;\n    margin:0; padding:24px; text-align:center;}\n  h1{font-family:Fraunces,serif; font-weight:400; font-size:30px; margin:0 0 10px;}\n  p{color:#4A5262; margin:0 0 18px;}\n  a{color:#1C2230;}\n</style>\n<script>\n(function(){\n  var p = location.pathname;\n  if (/\\.html$/.test(p)) {\n    var clean = p.replace(/\\.html$/, \"\");\n    if (clean === \"/index\") clean = \"/\";\n    location.replace(clean + location.search + location.hash);\n  }\n})();\n<\\/script>\n</head>\n<body>\n  <div>\n    <h1>That page has moved</h1>\n    <p>If you are not sent on automatically, the fund directory is a good place to start.</p>\n    <p><a href=\"/funds\">Browse every fund</a> &nbsp;&middot;&nbsp; <a href=\"/\">Home</a></p>\n  </div>\n</body>\n</html>"
+Path("404.html").write_text(NOT_FOUND)
+report["notes"].append("404.html carries old links to the clean address")
 
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
@@ -94,6 +41,5 @@ print(json.dumps(report, indent=2))
 subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
 subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
 subprocess.run(["git", "add", "-A"], check=False)
-subprocess.run(["git", "commit", "-m",
-                "Clean addresses: /funds rather than /funds.html"], check=False)
+subprocess.run(["git", "commit", "-m", "Stop the redirect loop; carry old links on a 404"], check=False)
 subprocess.run(["git", "push"], check=False)
