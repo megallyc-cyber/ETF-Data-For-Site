@@ -1,20 +1,5 @@
 {
-  "removedStubs": [
-    "funds.html",
-    "compare.html",
-    "learn.html",
-    "portfolio.html",
-    "portfolio-builder.html",
-    "backtest.html",
-    "membership.html",
-    "account.html",
-    "fund.html",
-    "tour.html",
-    "privacy.html",
-    "terms.html"
-  ],
-  "kept": [],
-  "notes": [
-    "404.html carries old links to the clean address"
-  ]
+  "canonicals": [],
+  "sitemap": "0 urls updated, lastmod refreshed",
+  "og": []
 }
