@@ -1,17 +1,10 @@
 {
-  "pages": [
-    "funds/index.html (4)",
-    "compare/index.html (4)",
-    "learn/index.html (4)",
-    "portfolio/index.html (2)",
-    "portfolio-builder/index.html (4)",
-    "backtest/index.html (4)",
-    "membership/index.html (2)",
-    "account/index.html (2)",
+  "files": [
+    "funds/index.html (1)",
+    "portfolio-builder/index.html (2)",
     "fund/index.html (2)",
-    "tour/index.html (2)",
-    "privacy/index.html (2)",
-    "terms/index.html (2)"
+    "tour/index.html (6)",
+    "index.html (7)"
   ],
-  "sitemap": "5 urls rewritten"
+  "total": 18
 }

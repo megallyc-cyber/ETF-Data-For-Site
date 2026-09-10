@@ -1097,7 +1097,7 @@ async function useRec(ix){
   const s = await sb.auth.getSession();
   if (!s.data.session){
     alert('Sign in first and this will save straight to My Portfolio.');
-    window.location.href = 'account.html';
+    window.location.href = '/account';
     return;
   }
   if (!A.amount){
@@ -1115,7 +1115,7 @@ async function useRec(ix){
   if (!rows.length){ alert('No prices available for those funds right now.'); return; }
   const res = await sb.from('portfolio_holdings').insert(rows);
   if (res.error){ alert(res.error.message); return; }
-  window.location.href = 'portfolio.html';
+  window.location.href = '/portfolio';
 }
 
 Promise.all([

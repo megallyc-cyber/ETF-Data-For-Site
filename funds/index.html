@@ -1038,7 +1038,7 @@ function buildCard(ticker, f){
   const card = document.createElement('a');
   card.className = 'fund-card';
   paintFam(card, f.issuer);
-  card.href = 'fund.html?t=' + encodeURIComponent(ticker);
+  card.href = '/fund?t=' + encodeURIComponent(ticker);
   const holdingsArr = Object.entries(f.holdings).sort((a,b) => b[1]-a[1]);
   const st = f.stats || {};
   const aum = fmtAum(st.aum_musd);

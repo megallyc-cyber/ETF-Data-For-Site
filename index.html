@@ -811,7 +811,7 @@ async function licentiaFundsFetch(opts){
       function chip(pair){
         var el = document.createElement('a');
         el.className = 'mq-item';
-        el.href = 'funds.html?issuer=' + encodeURIComponent(pair[0]);
+        el.href = '/funds?issuer=' + encodeURIComponent(pair[0]);
         el.title = 'See all ' + pair[1] + ' ' + pair[0] + ' funds';
         el.style.setProperty('--mq', COLOUR[pair[0]] || '#1F5C4E');
         var mark = LOGOS[pair[0]]
@@ -835,17 +835,17 @@ async function licentiaFundsFetch(opts){
 // Each part of the site gets a screen of its own, shown live rather than as
 // a screenshot that would be out of date by the next deploy.
 const REEL = [
-  {name:'Fund directory', file:'funds.html', open:true,
+  {name:'Fund directory', file:'/funds', open:true,
    line:'Every covered call and income ETF in Canada and the US, grouped by manager.'},
-  {name:'Comparison tool', file:'compare.html', open:true,
+  {name:'Comparison tool', file:'/compare', open:true,
    line:'Put two or three funds side by side and find where they own the same companies.'},
-  {name:'Portfolio builder', file:'portfolio-builder.html', open:false,
+  {name:'Portfolio builder', file:'/portfolio-builder', open:false,
    line:'Answer a few questions and see what the income would actually be.'},
-  {name:'My Portfolio', file:'portfolio.html', open:false,
+  {name:'My Portfolio', file:'/portfolio', open:false,
    line:'What you hold, what it is worth today, and what it pays you each month.'},
-  {name:'Backtesting', file:'backtest.html', open:false,
+  {name:'Backtesting', file:'/backtest', open:false,
    line:'What a market drop would do to your income, and how much of a return came from distributions.'},
-  {name:'Learn', file:'learn.html', open:true,
+  {name:'Learn', file:'/learn', open:true,
    line:'How covered call funds actually work, in plain language.'}
 ];
 
