@@ -1,58 +1,40 @@
 {
-  "keys": {
-    "twelvedata": true,
-    "fmp": true
-  },
-  "ZWP.TO": {
-    "twelvedata": {
-      "status": null,
-      "unparsable": "HTTPError: HTTP Error 404: Not Found"
-    },
-    "fmp": {
-      "status": null,
-      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
-    }
-  },
-  "ZWB.TO": {
-    "twelvedata": {
-      "status": null,
-      "unparsable": "HTTPError: HTTP Error 404: Not Found"
-    },
-    "fmp": {
-      "status": null,
-      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
-    }
-  },
-  "QQCC.TO": {
-    "twelvedata": {
-      "status": null,
-      "unparsable": "HTTPError: HTTP Error 404: Not Found"
-    },
-    "fmp": {
-      "status": null,
-      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
-    }
-  },
-  "MSTY": {
-    "twelvedata": {
+  "stooq": {
+    "HDIV.ca": {
       "status": 200,
-      "bars": 30,
-      "last": "16.059999"
+      "rows": 0,
+      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
     },
-    "fmp": {
-      "status": null,
-      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
+    "ZWP.ca": {
+      "status": 200,
+      "rows": 0,
+      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
+    },
+    "MSTY.us": {
+      "status": 200,
+      "rows": 0,
+      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
+    },
+    "CEPI.us": {
+      "status": 200,
+      "rows": 0,
+      "last": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" c"
     }
   },
-  "CEPI": {
-    "twelvedata": {
-      "status": 200,
-      "bars": 30,
-      "last": "31.81000"
-    },
-    "fmp": {
+  "yahoo_query1": {
+    "HDIV.TO": {
       "status": null,
-      "unparsable": "HTTPError: HTTP Error 403: Forbidden"
+      "note": "HTTPError: HTTP Error 429: Too Many Requests"
     }
+  },
+  "yahoo_query2": {
+    "HDIV.TO": {
+      "status": null,
+      "note": "HTTPError: HTTP Error 429: Too Many Requests"
+    }
+  },
+  "twelvedata_tsx_suffix": {
+    "status": null,
+    "head": "HTTPError: HTTP Error 404: Not Found"
   }
 }
