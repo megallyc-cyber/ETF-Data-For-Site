@@ -31,15 +31,16 @@ FUNDS = Path("data/funds.json")
 TICKERS = Path("data/tickers.json")
 PRICE_DIR = Path("data/prices")
 SYMBOL_MAP = PRICE_DIR / "_symbols.json"
-CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval=1d"
+CHART = ("https://licentia-prices.megallyc.workers.dev/"
+         "?symbol={sym}&range={rng}")
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                   "AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/126.0.0.0 Safari/537.36",
     "Accept": "application/json,text/plain,*/*",
 }
-TIME_BUDGET = 40 * 60  # leave room to commit inside the hour
-BACKOFF = 8   # seconds, doubled on each retry
+TIME_BUDGET = 45 * 60  # leave room to commit inside the hour
+BACKOFF = 3   # seconds, doubled on each retry: our own worker is not throttled
 PAUSE = 1.5          # be a good citizen; this is someone else's endpoint
 FULL_RANGE = "10y"   # first fetch for a fund
 TOP_UP_RANGE = "1mo" # subsequent runs
