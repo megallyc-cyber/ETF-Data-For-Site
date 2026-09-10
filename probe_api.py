@@ -1,44 +1,99 @@
-"""Why do 27 funds still have no distributions?
+"""Give every page a clean address, once, across the whole site.
 
-The dividendhistory fallback is attempted for every fund that has none,
-so either the site refuses a runner the way Yahoo now does, or the URL
-shape is wrong for these tickers. Ask, rather than guess.
+funds.html becomes funds/index.html, served at /funds. Doing this by
+hand across twelve pages and every link between them is how links get
+missed, so it happens here in one pass with a report at the end.
+
+The old addresses stay as redirect stubs: licentia.ca/funds.html is what
+Google has indexed today, and dropping it would throw that away.
 """
-import json, re
+import json, re, subprocess
 from pathlib import Path
-from urllib.request import Request, urlopen
 
-OUT = Path("data/api-probe.json")
-UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/126.0.0.0 Safari/537.36"}
+PAGES = ["funds", "compare", "learn", "portfolio", "portfolio-builder",
+         "backtest", "membership", "account", "fund", "tour",
+         "privacy", "terms"]
 
-
-def look(url):
-    try:
-        with urlopen(Request(url, headers=UA), timeout=45) as r:
-            body = r.read().decode("utf-8", "replace")
-            code = r.status
-    except Exception as exc:
-        return {"error": type(exc).__name__ + ": " + str(exc)[:90]}
-    # how many rows that look like a payment does the page carry?
-    rows = re.findall(r"<tr[^>]*>.*?</tr>", body, re.S)
-    money = re.findall(r"\$?\d+\.\d{2,6}", body)
-    return {"status": code, "bytes": len(body),
-            "tableRows": len(rows), "amountsSeen": len(money),
-            "hasDividendTable": "dividend-table" in body,
-            "looksBlocked": bool(re.search(r"captcha|cloudflare|access denied|robot", body, re.I))}
+report = {"converted": [], "stubs": [], "skipped": [], "linksRewritten": 0}
 
 
-report = {}
-for t in ("JEPI", "JEPQ", "GPIX", "SPYT", "HYGW"):
-    report[t] = {
-        "plain": look("https://dividendhistory.org/payout/" + t + "/"),
-        "tsx": look("https://dividendhistory.org/payout/tsx/" + t + "/"),
-    }
-for t in ("CPCC", "SVCC"):
-    report[t] = {"tsx": look("https://dividendhistory.org/payout/tsx/" + t + "/")}
+def rooted(html: str) -> str:
+    """Paths that work from any depth."""
+    n = 0
+    # assets and data must be absolute once a page sits in a folder
+    html, k = re.subn(r'(src|href)="(assets/|data/)', r'\1="/\2', html)
+    n += k
+    # internal page links lose the extension
+    for p in PAGES:
+        html, k = re.subn(r'(src|href)="' + p + r'\.html"', r'\1="/' + p + '"', html)
+        n += k
+        html, k = re.subn(r'(src|href)="' + p + r'\.html\?', r'\1="/' + p + '?', html)
+        n += k
+    html, k = re.subn(r'(src|href)="index\.html"', r'\1="/"', html)
+    n += k
+    html, k = re.subn(r'(src|href)="index\.html\?', r'\1="/?', html)
+    n += k
+    return html, n
 
-OUT.parent.mkdir(parents=True, exist_ok=True)
-OUT.write_text(json.dumps(report, indent=2))
+
+def stub(page: str) -> str:
+    """The old address, pointing at the new one."""
+    url = "https://licentia.ca/" + page
+    return (
+        "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n"
+        "<meta charset=\"UTF-8\">\n"
+        '<link rel="canonical" href="' + url + '">\n'
+        '<meta http-equiv="refresh" content="0; url=' + url + '">\n'
+        '<meta name="robots" content="noindex, follow">\n'
+        "<title>Moved</title>\n</head>\n<body>\n"
+        '<p>This page now lives at <a href="' + url + '">' + url + '</a>.</p>\n'
+        "</body>\n</html>\n")
+
+
+for page in PAGES:
+    src = Path(page + ".html")
+    if not src.exists():
+        report["skipped"].append(page + ": no such file")
+        continue
+    html = src.read_text()
+    if "http-equiv=\"refresh\"" in html:
+        report["skipped"].append(page + ": already a stub")
+        continue
+    converted, n = rooted(html)
+    report["linksRewritten"] += n
+    folder = Path(page)
+    folder.mkdir(exist_ok=True)
+    (folder / "index.html").write_text(converted)
+    report["converted"].append(page + "/index.html (" + str(n) + " paths)")
+    src.write_text(stub(page))
+    report["stubs"].append(page + ".html")
+
+# the homepage stays at the root but its links still need rewriting
+home = Path("index.html")
+if home.exists():
+    html, n = rooted(home.read_text())
+    home.write_text(html)
+    report["linksRewritten"] += n
+    report["converted"].append("index.html stays at / (" + str(n) + " paths)")
+
+# and the shared script writes its own nav links
+pro = Path("assets/pro.js")
+if pro.exists():
+    t = pro.read_text()
+    for p in PAGES:
+        t = t.replace("'" + p + ".html'", "'/" + p + "'")
+        t = t.replace('"' + p + '.html"', '"/' + p + '"')
+    t = t.replace("'index.html'", "'/'").replace('"index.html"', '"/"')
+    pro.write_text(t)
+    report["converted"].append("assets/pro.js nav links")
+
+Path("data").mkdir(exist_ok=True)
+Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
 print(json.dumps(report, indent=2))
+
+subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
+subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
+subprocess.run(["git", "add", "-A"], check=False)
+subprocess.run(["git", "commit", "-m",
+                "Clean addresses: /funds rather than /funds.html"], check=False)
+subprocess.run(["git", "push"], check=False)
