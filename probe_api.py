@@ -1,55 +1,52 @@
 """Point the signposts at the new addresses.
 
-The pages moved but their canonical tags still name the old .html
-address, which tells Google the old one is the real page — the exact
-opposite of what we want, and worse than leaving them alone. The
-sitemap lists the old addresses too.
+A canonical tag naming the old .html address tells Google the old page
+is the real one, which is worse than not moving at all. My first attempt
+used a regex that over-escaped and matched nothing; plain replacement
+cannot go wrong the same way.
 """
-import json, re, subprocess
+import json, subprocess
+from datetime import date
 from pathlib import Path
 
 PAGES = ["funds", "compare", "learn", "portfolio", "portfolio-builder",
          "backtest", "membership", "account", "fund", "tour",
          "privacy", "terms"]
 
-report = {"canonicals": [], "sitemap": None, "og": []}
+report = {"pages": [], "sitemap": None}
 
-def clean(html):
+
+def clean(text):
     n = 0
     for p in PAGES:
-        # canonical, og:url and anything else naming the old address
-        html, k = re.subn(r"https://licentia\\.ca/" + p + r"\\.html", 
-                          "https://licentia.ca/" + p, html)
-        n += k
-    html, k = re.subn(r"https://licentia\\.ca/index\\.html", "https://licentia.ca/", html)
-    n += k
-    return html, n
+        old = "https://licentia.ca/" + p + ".html"
+        new = "https://licentia.ca/" + p
+        n += text.count(old)
+        text = text.replace(old, new)
+    old_home = "https://licentia.ca/index.html"
+    n += text.count(old_home)
+    text = text.replace(old_home, "https://licentia.ca/")
+    return text, n
 
-for p in PAGES:
-    f = Path(p) / "index.html"
+
+targets = [Path(p) / "index.html" for p in PAGES] + [Path("index.html")]
+for f in targets:
     if not f.exists():
         continue
-    html, n = clean(f.read_text())
+    text, n = clean(f.read_text())
     if n:
-        f.write_text(html)
-        report["canonicals"].append(p + " (" + str(n) + " urls)")
-
-home = Path("index.html")
-if home.exists():
-    html, n = clean(home.read_text())
-    if n:
-        home.write_text(html)
-        report["canonicals"].append("index.html (" + str(n) + " urls)")
+        f.write_text(text)
+        report["pages"].append(str(f) + " (" + str(n) + ")")
 
 sm = Path("sitemap.xml")
 if sm.exists():
     text, n = clean(sm.read_text())
-    # a moved page should carry today as its last change
-    from datetime import date
-    text = re.sub(r"<lastmod>[^<]*</lastmod>",
+    # every page moved today, so say so
+    import re
+    text = re.sub("<lastmod>[^<]*</lastmod>",
                   "<lastmod>" + date.today().isoformat() + "</lastmod>", text)
     sm.write_text(text)
-    report["sitemap"] = str(n) + " urls updated, lastmod refreshed"
+    report["sitemap"] = str(n) + " urls rewritten"
 
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
