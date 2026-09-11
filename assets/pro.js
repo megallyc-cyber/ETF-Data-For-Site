@@ -133,6 +133,20 @@
     document.head.appendChild(s);
   }
 
+  // hide the row until it has been grouped, so the flat bar is never seen
+  (function hideUntilReady(){
+    if (document.getElementById('licentia-nav-hold')) return;
+    const s = document.createElement('style');
+    s.id = 'licentia-nav-hold';
+    s.textContent = '@media(min-width:821px){ nav .navlinks:not([data-grouped]){visibility:hidden;} }';
+    (document.head || document.documentElement).appendChild(s);
+    // never leave it hidden if something goes wrong
+    setTimeout(function(){
+      const el = document.getElementById('licentia-nav-hold');
+      if (el) el.remove();
+    }, 2500);
+  })();
+
   function build(){
     var nav = document.querySelector('nav');
     var links = nav && nav.querySelector('.navlinks');
@@ -734,7 +748,8 @@
       '  opacity:0.55; transition:transform .16s;}',
       '.navgroup.open .ng-caret{transform:rotate(180deg);}',
       '.ng-menu{position:absolute; top:calc(100% + 12px); left:-14px; min-width:186px;',
-      '  background:var(--white); border:1px solid var(--line);',
+      '  background:#FFFFFF;',
+      '  background:#FFFFFF; border:1px solid rgba(28,34,48,0.13);',
       '  border-radius:11px; padding:6px; z-index:120;',
       '  box-shadow:0 3px 6px rgba(28,34,48,0.07), 0 20px 40px -22px rgba(28,34,48,0.5);',
       '  opacity:0; visibility:hidden; transform:translateY(-5px);',
@@ -743,7 +758,7 @@
       '.ng-menu a{display:block; padding:9px 12px; border-radius:7px; font-size:14px;',
       '  white-space:nowrap;}',
       '.ng-menu a::after{display:none;}',
-      '.ng-menu a:hover{background:var(--paper-raised);}',
+      '.ng-menu a:hover{background:#FBF9F5;}',
       '@media(max-width:820px){',
       '  /* in the phone panel the groups read as sections, not menus */',
       '  .navgroup{display:block; width:100%;}',
@@ -757,6 +772,8 @@
       '}'
     ].join('\n');
     document.head.appendChild(style);
+    const hold = document.getElementById('licentia-nav-hold');
+    if (hold) hold.remove();
   }
 
   if (document.readyState === 'loading'){
