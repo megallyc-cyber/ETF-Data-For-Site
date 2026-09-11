@@ -1,11 +1,6 @@
 {
-  "dataPaths": [
-    "funds/index.html (2)",
-    "compare/index.html (4)",
-    "portfolio/index.html (1)",
-    "portfolio-builder/index.html (2)",
-    "backtest/index.html (2)",
-    "index.html (2)"
+  "patched": [
+    "fund/index.html accepts a named ticker"
   ],
-  "nav": "matcher line not found"
+  "note": null
 }

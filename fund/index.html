@@ -1206,7 +1206,10 @@ function renderTable(rows, total){
 // The ticker only exists in the query string, so the canonical and sharing tags
 // are completed here rather than being wrong in the source.
 (function(){
-  var t = (new URLSearchParams(location.search).get('t') || '').toUpperCase();
+  // a generated page names its fund directly; the query string still
+  // works for links written by hand
+  var t = (window.__TICKER ||
+    new URLSearchParams(location.search).get("t") || "").toUpperCase();
   if (!t) return;
   var c = document.getElementById('fundCanonical');
   if (c) c.href = 'https://licentia.ca/fund?t=' + encodeURIComponent(t);
