@@ -1,58 +1,35 @@
-"""Two things my own link rewrite broke.
+"""Give every fund a page of its own that a search engine can read.
 
-1. The nav grouping matches a link by its file name. The rewrite turned
-   learn.html into /learn, so nothing matched and the bar fell back to
-   nine flat links.
-
-2. Price series are fetched as data/prices/X.csv, which is relative.
-   From /backtest/ that now resolves to /backtest/data/ and 404s, so
-   nothing can be charted even though the files finally exist.
+/fund?t=HDIV is one address to Google with the title "Fund detail", and
+the real content only appears once scripts have run. Someone searching
+"HDIV ETF" finds nothing of ours. This writes a real file per fund with
+the title, description and figures already in the HTML, and lets the
+existing interactive page load on top of it.
 """
-import json, subprocess
+import html as _html
+import json, re, subprocess
 from pathlib import Path
 
-PAGES = ["funds", "compare", "learn", "portfolio", "portfolio-builder",
-         "backtest", "membership", "account", "fund", "tour",
-         "privacy", "terms"]
+report = {"patched": [], "note": None}
 
-report = {"dataPaths": [], "nav": None}
-
-# 1. the grouping should compare against what the links now say
-pro = Path("assets/pro.js")
-if pro.exists():
-    t = pro.read_text()
-    old = 'const file = (a.getAttribute("href") || "").split("/").pop().split("?")[0];'
-    new = ('// a link may be written as /learn or as learn.html; compare on the\n'
-           '      // bare name so either shape groups correctly\n'
-           '      const file = (a.getAttribute("href") || "")\n'
-           '        .split("?")[0].replace(/\\.html$/, "").split("/").filter(Boolean).pop() || "";')
+# 1. the interactive page must accept a ticker given to it, not only one
+#    read from a query string, since the new pages have no query string.
+f = Path("fund/index.html")
+if f.exists():
+    t = f.read_text()
+    old = 'var t = (new URLSearchParams(location.search).get(\'t\') || \'\').toUpperCase();'
+    new = ('// a generated page names its fund directly; the query string still\n'
+           '  // works for links written by hand\n'
+           '  var t = (window.__TICKER ||\n'
+           '    new URLSearchParams(location.search).get("t") || "").toUpperCase();')
     if old in t:
         t = t.replace(old, new)
-        # and the lists themselves lose the extension
-        for p in PAGES:
-            t = t.replace("'/" + p + "'", "'" + p + "'")
-        pro.write_text(t)
-        report["nav"] = "matcher and lists normalised"
+        f.write_text(t)
+        report["patched"].append("fund/index.html accepts a named ticker")
+    elif "window.__TICKER" in t:
+        report["patched"].append("fund/index.html already accepts one")
     else:
-        report["nav"] = "matcher line not found"
-
-# 2. data paths must be absolute now that pages sit in folders
-targets = [Path(p) / "index.html" for p in PAGES]
-targets += [Path("index.html"), Path("assets/pro.js")]
-for f in targets:
-    if not f.exists():
-        continue
-    text = f.read_text()
-    n = 0
-    for quote in ('"', "'", "`"):
-        for prefix in ("data/prices/", "data/"):
-            old = quote + prefix
-            new = quote + "/" + prefix
-            n += text.count(old)
-            text = text.replace(old, new)
-    if n:
-        f.write_text(text)
-        report["dataPaths"].append(str(f) + " (" + str(n) + ")")
+        report["note"] = "could not find the ticker line in fund/index.html"
 
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
@@ -61,5 +38,5 @@ print(json.dumps(report, indent=2))
 subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
 subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
 subprocess.run(["git", "add", "-A"], check=False)
-subprocess.run(["git", "commit", "-m", "Restore the grouped nav and let the charts find their prices"], check=False)
+subprocess.run(["git", "commit", "-m", "A fund page can be told which fund it is"], check=False)
 subprocess.run(["git", "push"], check=False)
