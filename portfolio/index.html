@@ -1345,7 +1345,7 @@ async function boot(){
   if (!session){ gateView(); return; }
   const d = await licentiaFundsFetch().then(function(r){ return r.json(); });
   FUNDS = d;
-  const patch = await fetch('data/aum_patch.json?cb=' + Math.random())
+  const patch = await fetch('/data/aum_patch.json?cb=' + Math.random())
     .then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; });
   Object.keys(patch).forEach(function(t){
     if (FUNDS[t]){ FUNDS[t].stats = FUNDS[t].stats || {};

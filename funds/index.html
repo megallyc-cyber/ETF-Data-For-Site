@@ -800,8 +800,8 @@ function shortIssuer(i){
 let LOGOS = {};
 function loadLogos(){
   return Promise.all([
-    fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
-    fetch('data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
+    fetch('/data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+    fetch('/data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
   ]).then(function(p){ LOGOS = Object.assign({}, p[0], p[1]); });
 }
 

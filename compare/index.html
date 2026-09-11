@@ -1201,8 +1201,8 @@ const SECTOR_COLOUR = {'Technology':'#3B6FD4','Financials':'#1F7A5C','Health Car
 // rest of the page only has to ask for a name.
 function loadLogos(){
   Promise.all([
-    fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
-    fetch('data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
+    fetch('/data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+    fetch('/data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
   ]).then(function(parts){
     LOGOS = Object.assign({}, parts[0], parts[1]);
     paintLogos();
@@ -1240,8 +1240,8 @@ function paintLogos(){
 
 function loadExtras(){
   return Promise.all([
-    fetch('data/sectors.json?cb='+Math.random()).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
-    fetch('data/aum_patch.json?cb='+Math.random()).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};})
+    fetch('/data/sectors.json?cb='+Math.random()).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+    fetch('/data/aum_patch.json?cb='+Math.random()).then(function(r){return r.ok?r.json():{};}).catch(function(){return {};})
   ]).then(function(p){
     SECTORS = (p[0] && p[0].map) ? p[0].map : {};
     AUM_PATCH = p[1] || {};

@@ -1,10 +1,11 @@
 {
-  "files": [
-    "funds/index.html (1)",
+  "dataPaths": [
+    "funds/index.html (2)",
+    "compare/index.html (4)",
+    "portfolio/index.html (1)",
     "portfolio-builder/index.html (2)",
-    "fund/index.html (2)",
-    "tour/index.html (6)",
-    "index.html (7)"
+    "backtest/index.html (2)",
+    "index.html (2)"
   ],
-  "total": 18
+  "nav": "matcher line not found"
 }

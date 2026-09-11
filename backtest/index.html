@@ -788,7 +788,7 @@ function ratioAt(steps, dayNum){
 }
 
 async function loadSeries(ticker){
-  const csv = await fetch('data/prices/' + ticker + '.csv?cb=' + Math.random())
+  const csv = await fetch('/data/prices/' + ticker + '.csv?cb=' + Math.random())
     .then(function(r){ return r.ok ? r.text() : null; }).catch(function(){ return null; });
   if (!csv) return null;
   const rows = csv.trim().split('\n').slice(1).map(function(l){ return l.trim().split(','); })
@@ -1128,7 +1128,7 @@ document.getElementById('slider').addEventListener('input', function(e){
 
 Promise.all([
   licentiaFundsFetch().then(function(r){ return r.json(); }),
-  fetch('data/close_ratio.json?cb='+Math.random()).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }),
+  fetch('/data/close_ratio.json?cb='+Math.random()).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }),
   sb.auth.getSession()
 ]).then(async function(res){
   FUNDS = res[0];

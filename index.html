@@ -796,8 +796,8 @@ async function licentiaFundsFetch(opts){
   };
   Promise.all([
     licentiaFundsFetch().then(function(r){ return r.json(); }),
-    fetch('data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
-    fetch('data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
+    fetch('/data/logos.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+    fetch('/data/logos-b.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; })
   ])
     .then(function(pair){
       var data = pair[0];
