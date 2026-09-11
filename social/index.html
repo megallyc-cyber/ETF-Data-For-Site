@@ -124,6 +124,47 @@
     background:none; border:none; color:var(--ink-faint);}
   .p-act:hover{background:var(--paper-raised); color:var(--ink);}
   .p-act.on{color:var(--ember-deep);}
+
+  /* ---- a post, shaped like a conversation ----
+     Avatar on the left with the body indented beside it, the way every feed
+     people already use is laid out. Names are links because a community where
+     you cannot look someone up is just a comment box. */
+  .post{display:grid; grid-template-columns:44px minmax(0,1fr); gap:13px;
+    background:var(--white); border:1px solid var(--line); border-radius:13px;
+    padding:16px 18px; margin-bottom:11px;}
+  .p-avatar{width:44px; height:44px; border-radius:50%; overflow:hidden; flex:none;
+    background:var(--paper-raised); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; color:var(--ink-soft); text-decoration:none;}
+  .p-avatar img{width:100%; height:100%; object-fit:cover; display:block;}
+  .p-line{display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:3px;}
+  .p-name{font-size:14.5px; font-weight:500; text-decoration:none; color:var(--ink);}
+  .p-name:hover{text-decoration:underline;}
+  .p-handle{font-size:13px; color:var(--ink-faint); text-decoration:none;}
+  .p-dot{color:var(--ink-faint); font-size:12px;}
+  .p-when{font-size:13px; color:var(--ink-faint);}
+  .p-kind{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:7px;}
+
+  /* ---- badges ----
+     Tier comes from billing and cannot be typed in. Size is written from the
+     portfolio page, never entered by hand. */
+  .badge{display:inline-flex; align-items:center; padding:2px 8px; border-radius:100px;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.06em;
+    text-transform:uppercase; white-space:nowrap;}
+  .badge.size{background:rgba(28,34,48,0.06); color:var(--ink-soft);
+    border:1px solid var(--line-strong);}
+  .badge.tier-platinum{background:linear-gradient(115deg,#6E747E,#E6EAEF,#6E747E);
+    color:#1C2230; border:1px solid rgba(110,116,126,0.5);}
+  .badge.tier-platinum-plus{background:linear-gradient(115deg,#3E4756,#D5DBE4,#3E4756);
+    color:#141A25; border:1px solid rgba(62,71,86,0.5);}
+  .badge.tier-generational{background:linear-gradient(115deg,#8C6B1F,#E9D6A8,#8C6B1F);
+    color:#2A2008; border:1px solid rgba(140,107,31,0.5);}
+  .badge.tier-diamond{background:linear-gradient(115deg,#5B7FA6,#EAF3FB,#5B7FA6);
+    color:#10202F; border:1px solid rgba(91,127,166,0.5);}
+  .badge.pro{background:rgba(255,107,53,0.12); color:var(--ember-deep);
+    border:1px solid rgba(255,107,53,0.35);}
+
   .side-card{background:var(--white); border:1px solid var(--line); border-radius:13px;
     padding:17px 18px; margin-bottom:14px;}
   .side-t{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.13em;
@@ -241,6 +282,40 @@ function when(iso){
   return d < 30 ? d + 'd' : new Date(iso).toLocaleDateString('en-CA', {month:'short', day:'numeric'});
 }
 
+
+// Badges someone has earned, never typed. Tier comes from billing; the size
+// band is written by the portfolio page from real holdings.
+const TIER_LABEL = {pro:'Pro', platinum:'Platinum', 'platinum-plus':'Platinum Plus',
+                    generational:'Generational', diamond:'Diamond'};
+function badges(w){
+  let out = '';
+  if (w.tier){
+    const key = String(w.tier).toLowerCase().replace(/ /g,'-');
+    const label = TIER_LABEL[key] || w.tier;
+    out += '<span class="badge ' + (key === 'pro' ? 'pro' : 'tier-' + key) + '">'
+        + esc(label) + '</span>';
+  }
+  if (w.size_band){
+    out += '<span class="badge size">' + esc(String(w.size_band).toUpperCase()) + '+</span>';
+  }
+  if (w.is_official){
+    out += '<span class="badge pro">Licentia</span>';
+  }
+  return out;
+}
+
+// The photo lives in user_metadata, which only its owner can read, so other
+// members saw a letter instead. Copy it once to the public profile.
+async function publishOwnAvatar(){
+  if (!session) return;
+  const meta = session.user.user_metadata || {};
+  const photo = meta.avatar_small || meta.avatar_url || null;
+  if (!photo) return;
+  const mine = await sb.from('profiles').select('avatar_url').eq('id', session.user.id).single();
+  if (mine.data && mine.data.avatar_url === photo) return;
+  await sb.from('profiles').update({avatar_url: photo}).eq('id', session.user.id);
+}
+
 function drawComposer(){
   const slot = document.getElementById('composer-slot');
   if (!session){
@@ -338,7 +413,10 @@ async function loadFeed(){
   // one query for the people, rather than one per post
   const ids = Array.from(new Set(rows.map(function(p){ return p.author_id; })));
   const who = {};
-  const people = await sb.from('profiles').select('id,full_name,handle,is_official').in('id', ids);
+  // profiles_public hides the badges someone chose not to publish, so the
+  // page cannot accidentally reveal what the database was asked to keep back
+  const people = await sb.from('profiles_public')
+    .select('id,full_name,handle,avatar_url,is_official,size_band,tier').in('id', ids);
   (people.data || []).forEach(function(p){ who[p.id] = p; });
 
   // which of these has the reader already liked
@@ -354,12 +432,27 @@ async function loadFeed(){
     const w = who[p.author_id] || {};
     const name = w.full_name || w.handle || 'A member';
     const kindLabel = (KINDS.find(function(k){ return k.id === p.kind; }) || {}).label || 'Post';
+    const w = who[p.author_id] || {};
+    const name = w.full_name || w.handle || 'A member';
+    const handle = w.handle ? '@' + w.handle : '';
+    const href = w.handle ? '/social/u/?h=' + encodeURIComponent(w.handle) : null;
+    const kindLabel = (KINDS.find(function(k){ return k.id === p.kind; }) || {}).label || 'Post';
+    const face = w.avatar_url
+      ? '<img src="' + esc(w.avatar_url) + '" alt="">'
+      : esc(name.trim().slice(0,1).toUpperCase());
     return '<article class="post" data-id="' + p.id + '">'
-      + '<div class="p-top"><div class="p-face">' + esc(name.trim().slice(0,1).toUpperCase()) + '</div>'
-      + '<div><div class="p-who">' + esc(name)
-      + (w.is_official ? '<span class="p-badge">Licentia</span>' : '') + '</div>'
-      + '<div class="p-kind">' + esc(kindLabel) + '</div></div>'
-      + '<div class="p-when">' + when(p.created_at) + '</div></div>'
+      + (href ? '<a class="p-avatar" href="' + href + '">' + face + '</a>'
+              : '<span class="p-avatar">' + face + '</span>')
+      + '<div>'
+      + '<div class="p-line">'
+        + (href ? '<a class="p-name" href="' + href + '">' + esc(name) + '</a>'
+                : '<span class="p-name">' + esc(name) + '</span>')
+        + (handle ? '<a class="p-handle" href="' + href + '">' + esc(handle) + '</a>' : '')
+        + badges(w)
+        + '<span class="p-dot">&middot;</span>'
+        + '<span class="p-when">' + when(p.created_at) + '</span>'
+      + '</div>'
+      + '<div class="p-kind">' + esc(kindLabel) + '</div>'
       + '<div class="p-body">' + esc(p.body) + '</div>'
       + (p.ticker ? '<a class="p-ticker" href="/fund/' + encodeURIComponent(p.ticker) + '">'
           + '<b>' + esc(p.ticker) + '</b> <span>see the fund &rarr;</span></a>' : '')
@@ -368,7 +461,7 @@ async function loadFeed(){
         + '" type="button">' + (liked[p.id] ? 'Liked' : 'Like')
         + (p.like_count ? ' &middot; ' + p.like_count : '') + '</button>'
       + '<button class="p-act report" data-id="' + p.id + '" type="button">Report</button>'
-      + '</div></article>';
+      + '</div></div></article>';
   }).join('');
 
   host.querySelectorAll('.like').forEach(function(b){
@@ -412,6 +505,7 @@ async function report(id){
       + '<p>Reload the page. If it keeps happening, tell us.</p></div>';
     return;
   }
+  await publishOwnAvatar();
   drawComposer();
   drawFilters();
   loadFeed();
