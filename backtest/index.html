@@ -335,6 +335,24 @@
   body.is-preview .tier, body.is-preview #picker,
   body.is-preview .stress-lock{display:none !important;}
   body.is-preview{pointer-events:none;}
+  /* ---------- the reading under the cursor ----------
+     A readable card, not a stack of unstyled lines: the label sits left, the
+     figure right, and the figures line up down the column so they can be
+     compared without re-reading. */
+  .hoverbox{position:absolute; pointer-events:none; opacity:0; z-index:40;
+    min-width:186px; padding:11px 13px; border-radius:10px;
+    background:#FFFFFF; border:1px solid rgba(28,34,48,0.14);
+    box-shadow:0 2px 6px rgba(28,34,48,0.08), 0 14px 28px -14px rgba(28,34,48,0.45);
+    transition:opacity .12s ease;}
+  .hoverbox .hd{font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+    letter-spacing:0.1em; text-transform:uppercase; color:#8A9099;
+    padding-bottom:7px; margin-bottom:7px; border-bottom:1px solid rgba(28,34,48,0.10);}
+  .hoverbox .hr{display:flex; align-items:center; gap:8px; font-size:13px;
+    color:#4A5262; line-height:1.9; white-space:nowrap;}
+  .hoverbox .hr i{width:8px; height:8px; border-radius:2px; flex:none;}
+  .hoverbox .hr b{margin-left:auto; padding-left:18px;
+    font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:13px;
+    color:#1C2230; font-variant-numeric:tabular-nums;}
 </style>
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
