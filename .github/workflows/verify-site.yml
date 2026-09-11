@@ -1,0 +1,71 @@
+name: Check the site still works
+
+# Every page was reachable this morning and half of them were not by the
+# afternoon. Nobody noticed until a reader did. This loads each page after a
+# deploy and fails loudly if one is broken, so the next mistake is caught in
+# seconds rather than by someone clicking around.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Wait for Pages to publish
+        run: sleep 90
+
+      - name: Every page loads, and loads itself rather than a redirect
+        run: |
+          set -u
+          fail=0
+          for p in "" funds compare learn portfolio portfolio-builder \
+                   backtest membership account tour privacy terms "fund?t=HDIV"; do
+            url="https://licentia.ca/$p"
+            body=$(curl -sSL --max-time 30 "$url" || true)
+            code=$(curl -sSL -o /dev/null -w "%{http_code}" --max-time 30 "$url" || echo 000)
+            size=${#body}
+            if [ "$code" != "200" ]; then
+              echo "BROKEN  $url -> HTTP $code"; fail=1; continue
+            fi
+            if [ "$size" -lt 3000 ]; then
+              echo "BROKEN  $url -> only $size bytes, page did not render"; fail=1; continue
+            fi
+            case "$body" in
+              *"That page has moved"*)
+                echo "BROKEN  $url -> served the redirect page"; fail=1; continue;;
+            esac
+            echo "ok      $url ($size bytes)"
+          done
+          exit $fail
+
+      - name: No page links to an address that no longer exists
+        run: |
+          set -u
+          fail=0
+          for p in "" funds compare learn portfolio portfolio-builder \
+                   backtest membership account tour privacy terms; do
+            url="https://licentia.ca/$p"
+            body=$(curl -sSL --max-time 30 "$url" || true)
+            old=$(printf "%s" "$body" | grep -o 'href="[a-z-]*\.html' | wc -l)
+            rel=$(printf "%s" "$body" | grep -oE '(src|href)="(assets|data)/' | wc -l)
+            if [ "$old" -gt 0 ]; then
+              echo "BROKEN  $url -> $old links still use the old .html address"; fail=1
+            fi
+            if [ "$rel" -gt 0 ]; then
+              echo "BROKEN  $url -> $rel relative asset paths, which break in a folder"; fail=1
+            fi
+          done
+          exit $fail
+
+      - name: The fund data still answers
+        run: |
+          out=$(curl -sS --max-time 30 -X POST \
+            -H "Content-Type: application/json" -d '{"seed":"ci"}' \
+            https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds || true)
+          case "$out" in
+            *'"tier":"anon"'*) echo "ok      the funds endpoint answers anonymously";;
+            *) echo "BROKEN  the funds endpoint did not answer as expected"; exit 1;;
+          esac
