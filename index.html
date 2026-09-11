@@ -834,60 +834,11 @@ async function licentiaFundsFetch(opts){
 <script>
 // Each part of the site gets a screen of its own, shown live rather than as
 // a screenshot that would be out of date by the next deploy.
-const REEL = [
-  {name:'Fund directory', file:'/funds', open:true,
-   line:'Every covered call and income ETF in Canada and the US, grouped by manager.'},
-  {name:'Comparison tool', file:'/compare', open:true,
-   line:'Put two or three funds side by side and find where they own the same companies.'},
-  {name:'Portfolio builder', file:'/portfolio-builder', open:false,
-   line:'Answer a few questions and see what the income would actually be.'},
-  {name:'My Portfolio', file:'/portfolio', open:false,
-   line:'What you hold, what it is worth today, and what it pays you each month.'},
-  {name:'Backtesting', file:'/backtest', open:false,
-   line:'What a market drop would do to your income, and how much of a return came from distributions.'},
-  {name:'Learn', file:'/learn', open:true,
-   line:'How covered call funds actually work, in plain language.'}
-];
+// The reel is parked. The homepage became unreachable with it in place and a
+// broken front page costs more than a missing feature. The section it filled
+// is left empty and the tour page still shows every part of the site.
+const REEL = [];
 
-(function(){
-  const host = document.getElementById("reel");
-  if (!host) return;
-  REEL.forEach(function(p, i){
-    const sec = document.createElement("section");
-    sec.className = "reel-sec" + (i % 2 ? " alt" : "");
-    sec.innerHTML =
-      '<div class="reel-in">'
-      + '<div class="reel-say">'
-        + '<div class="reel-eye">Licentia <b>' + p.name + '</b>'
-          + (p.open ? ' <span class="reel-free">no account needed</span>' : '') + '</div>'
-        + '<h2>' + p.line + '</h2>'
-        + '<a class="reel-go" href="' + p.file + '">Open <span>&rarr;</span></a>'
-      + '</div>'
-      + '<div class="reel-shot"><iframe loading="lazy" scrolling="no" data-defer="1" title="' + p.name
-        + '" data-src="' + p.file + '?preview=1"></iframe></div>'
-      + '</div>';
-    host.appendChild(sec);
-  });
-
-  // Every frame shows the same slice of its page: measure the box, then scale
-  // a fixed 1280px-wide render to fill it exactly.
-  function fitFrames(){
-    document.querySelectorAll(".reel-shot").forEach(function(box){
-      const f = box.querySelector("iframe");
-      if (!f) return;
-      const w = box.clientWidth, h = box.clientHeight;
-      if (!w || !h) return;
-      const scale = w / 1280;
-      f.style.width = "1280px";
-      f.style.height = Math.ceil(h / scale) + "px";
-      f.style.transform = "scale(" + scale + ")";
-    });
-  }
-  fitFrames();
-  window.addEventListener("resize", fitFrames);
-  setTimeout(fitFrames, 1200);
-  setTimeout(fitFrames, 4000);
-})();
 </script>
 
 <script>
