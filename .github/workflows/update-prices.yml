@@ -3,18 +3,10 @@ name: Update price history
 # Runs after the holdings scrape. First run backfills ~10y per fund and takes
 # a while; later runs only top up recent bars, so they finish in a few minutes.
 on:
-  # schedule:
-  #   - cron: '0 12 * * 1-5'
-  #
-  # Paused, not broken. Yahoo now refuses every request from GitHub's IP
-  # ranges: the last scheduled run logged 126 refusals, reached 17 of 288
-  # tickers in forty minutes and wrote nothing. Stooq serves a bot page and
-  # Twelve Data has no TSX on the current plan, so there is no free source
-  # left that answers.
-  #
-  # Restore the two lines above as soon as a paid feed is in place. Until
-  # then this runs on demand only, so a daily failure notice does not train
-  # anyone to ignore the alerts that matter.
+  # Prices come through our own Cloudflare worker now, which Yahoo answers
+  # normally. The block was on GitHub's addresses, not on the data.
+  schedule:
+    - cron: '0 12 * * 1-5'
   workflow_dispatch: {}
 
 jobs:
