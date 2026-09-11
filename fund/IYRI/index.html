@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IYRI — NEOS Real Estate High Income ETF | Licentia</title>
+  <meta name="description" content="IYRI: NEOS Real Estate High Income ETF, yielding 11.3%, paid $5.4014 a share over twelve months, from NEOS Investments. Holdings, distributions and fund size, taken from the issuer.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1C2230">
+  <link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
+  <link rel="canonical" id="fundCanonical" href="https://licentia.ca/fund">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licentia">
+  <meta property="og:title" id="ogTitle" content="Fund detail — Licentia">
+  <meta property="og:description" id="ogDesc" content="Yield, distributions and holdings for this income ETF.">
+  <meta property="og:image" content="https://licentia.ca/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Ember — matches the mark. Names unchanged so existing rules keep working. */
+    --paper:#F2EFE9; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --ember:#FF6B35; --ember-deep:#D4501F;
+    --gold:#FF6B35; --gold-deep:#D4501F;
+    --teal:#2F3E57; --teal-deep:#1C2230;
+    --rust:#E5484D; --rust-deep:#B3323A;
+    --up:#4CB782; --down:#E5484D;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh;
+  }
+  a{color:inherit;}
+  .serif{font-family:'Fraunces',serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; position:sticky; top:0; z-index:40; flex-wrap:wrap;
+    background:linear-gradient(180deg, rgba(242,239,233,0.97) 0%, rgba(242,239,233,0.86) 100%);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; letter-spacing:-0.02em; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  .brand-bird{display:inline-block; width:25px; height:16px; margin-left:8px; vertical-align:-1px;}
+  .navlinks{display:flex; gap:26px; flex-wrap:wrap; align-items:center;}
+  .navlinks a{font-family:'Inter',ui-sans-serif,sans-serif; font-size:14px;
+    padding:5px 0; text-decoration:none; border:none; border-radius:0;
+    color:var(--ink-soft); white-space:nowrap; position:relative; transition:color .16s;}
+  /* the underline marks the page you are on and previews the one you are opening */
+  .navlinks a::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    border-radius:2px; background:var(--ember); transform:scaleX(0);
+    transform-origin:left center; transition:transform .2s ease;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:hover::after{transform:scaleX(0.45);}
+  .navlinks a.active{color:var(--ink); font-weight:500;}
+  .navlinks a.active::after{transform:scaleX(1);}
+  @media(max-width:820px){ nav{padding:12px 16px; gap:16px;} .navlinks{gap:15px;} .navlinks a{font-size:12.5px;} }  .navlinks a.active{color:var(--gold-deep); font-weight:500;}
+
+  .wrap{max-width:1100px; margin:0 auto; padding:28px 48px 90px;}
+
+  .crumb{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint);
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px; margin-bottom:24px;
+  }
+  .crumb:hover{color:var(--ink);}
+
+  .fund-head{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:32px; flex-wrap:wrap;
+    padding-bottom:26px; border-bottom:1px solid var(--line);
+  }
+  .head-ticker{
+    font-family:'Fraunces',serif; font-weight:600; font-size:clamp(38px,6vw,58px);
+    letter-spacing:-0.02em; line-height:1;
+  }
+  .head-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .region-pill{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:4px 9px; border-radius:3px;
+    letter-spacing:0.04em;
+  }
+  .pill-cad{background:rgba(166,69,44,0.12); color:var(--rust);}
+  .pill-us{background:rgba(31,92,78,0.12); color:var(--teal-deep);}
+  .head-name{font-size:17px; color:var(--ink-soft); margin-top:10px; max-width:620px;}
+  .head-issuer{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-faint); margin-top:8px;
+  }
+  .head-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{
+    font-size:13px; padding:9px 16px; border:1px solid var(--line-strong); border-radius:4px;
+    background:transparent; color:var(--ink); cursor:pointer; text-decoration:none;
+    transition:background .2s, color .2s;
+  }
+  .btn:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+  .stat-strip{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); margin:30px 0 40px;
+  }
+  .stat{background:var(--paper-raised); padding:18px 20px;}
+  .stat-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint);
+  }
+  .stat-value{
+    font-family:'Fraunces',serif; font-weight:500; font-size:26px; margin-top:6px; line-height:1.1;
+  }
+  .stat-sub{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); margin-top:6px;}
+
+  .section{margin-bottom:48px;}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  h2{font-family:'Fraunces',serif; font-weight:500; font-size:23px; letter-spacing:-0.01em;}
+  .section-note{font-size:12.5px; color:var(--ink-faint); max-width:560px;}
+
+  .sector-bar{
+    display:flex; height:32px; width:100%; border-radius:3px; overflow:hidden; margin-bottom:18px;
+    border:1px solid var(--line);
+  }
+  .sector-seg{height:100%;}
+  .sector-list{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:10px 26px;}
+  .sector-row{
+    display:flex; align-items:center; gap:10px; font-size:13.5px;
+    padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .swatch{width:11px; height:11px; border-radius:2px; flex:none;}
+  .sector-name{flex:1; color:var(--ink-soft);}
+  .sector-pct{font-family:'IBM Plex Mono',monospace; font-size:12.5px;}
+
+  .lookthrough{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:12px;}
+  .lt-card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:4px; padding:14px 16px;
+    text-decoration:none; display:block; transition:border-color .2s, transform .2s;
+  }
+  .lt-card:hover{border-color:var(--line-strong); transform:translateY(-2px);}
+  .lt-card.dead{cursor:default;}
+  .lt-card.dead:hover{transform:none; border-color:var(--line);}
+  .lt-ticker{font-family:'Fraunces',serif; font-weight:600; font-size:17px;}
+  .lt-weight{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold-deep); float:right;}
+  .lt-name{font-size:12.5px; color:var(--ink-faint); margin-top:4px; line-height:1.4;}
+
+  .tools{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px;}
+  .search{
+    flex:1; min-width:200px; padding:9px 12px; font-family:'Inter',sans-serif; font-size:13px;
+    border:1px solid var(--line-strong); border-radius:4px; background:var(--paper-raised); color:var(--ink);
+  }
+  .search:focus{outline:none; border-color:var(--ink);}
+  .sort-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; padding:8px 12px; border-radius:4px;
+    border:1px solid var(--line-strong); background:transparent; color:var(--ink-soft); cursor:pointer;
+  }
+  .sort-btn.active{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+  table{width:100%; border-collapse:collapse;}
+  th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.07em;
+    color:var(--ink-faint); font-weight:500; padding:0 12px 10px 0; border-bottom:1px solid var(--line-strong);
+  }
+  th.num, td.num{text-align:right; padding-right:0;}
+  td{padding:11px 12px 11px 0; border-bottom:1px solid var(--line); font-size:14px; vertical-align:middle;}
+  .rank{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); width:44px;}
+  .tick{font-family:'IBM Plex Mono',monospace; font-weight:500;}
+  .tick a{color:var(--gold-deep); text-decoration:none;}
+  .tick a:hover{text-decoration:underline;}
+  .sect{font-size:12.5px; color:var(--ink-faint);}
+  .wt{font-family:'IBM Plex Mono',monospace; font-size:13px; width:70px;}
+  .bar-cell{width:34%; min-width:120px;}
+  .bar-track{height:7px; background:rgba(21,32,25,0.07); border-radius:4px; overflow:hidden;}
+  .bar-fill{height:100%; background:var(--teal); border-radius:4px;}
+
+  /* --- distributions ------------------------------------------------ */
+  .cadence{
+    display:flex; align-items:flex-end; gap:3px; height:96px; margin:6px 0 4px;
+    padding:10px 12px; background:var(--paper-raised); border:1px solid var(--line);
+    border-radius:4px; overflow:hidden;
+  }
+  .cbar{
+    flex:1 1 0; min-width:3px; background:var(--teal); border-radius:2px 2px 0 0;
+    position:relative; transition:background .15s;
+  }
+  .cbar.latest{background:var(--gold-deep);}
+  .cbar.cut{background:var(--rust);}
+  .cbar:hover{background:var(--ink);}
+  .cbar-label{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);
+    margin-bottom:14px;
+  }
+  .dist-table{width:100%; border-collapse:collapse; margin-top:6px;}
+  .dist-table th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.07em;
+    color:var(--ink-faint); font-weight:500; padding:0 12px 8px 0;
+    border-bottom:1px solid var(--line-strong);
+  }
+  .dist-table td{
+    padding:9px 12px 9px 0; border-bottom:1px solid var(--line);
+    font-size:13.5px; font-family:'IBM Plex Mono',monospace;
+  }
+  .dist-table td.amt{text-align:right; padding-right:0;}
+  .dist-more{
+    margin-top:12px; font-size:12.5px; color:var(--ink-faint); background:none;
+    border:none; border-bottom:1px solid var(--line-strong); cursor:pointer;
+    padding:0 0 2px; font-family:inherit;
+  }
+  .dist-more:hover{color:var(--ink);}
+
+
+  .yield-warn{
+    margin-top:14px; padding:12px 14px; border-radius:4px; font-size:13px; line-height:1.55;
+    border:1px solid var(--rust); color:var(--rust); background:rgba(166,69,44,0.05);
+  }
+  .empty{
+    padding:44px 20px; text-align:center; color:var(--ink-faint); font-size:14px;
+    border:1px dashed var(--line-strong); border-radius:4px;
+  }
+  .data-note{
+    margin-top:44px; font-size:12.5px; color:var(--ink-faint);
+    border-top:1px solid var(--line); padding-top:20px; line-height:1.7;
+  }
+  .loading{padding:70px 0; text-align:center; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace; font-size:13px;}
+
+  @media (max-width:640px){
+    nav{padding:16px 20px;}
+    .navlinks{gap:18px; font-size:13px;}
+    .wrap{padding:22px 20px 70px;}
+    .bar-cell{display:none;}
+    .sect{display:none;}
+  }
+  .income-answer{margin-top:30px;}
+  .build-cta{display:flex; gap:26px; align-items:center; flex-wrap:wrap;
+    justify-content:space-between; margin-top:22px; padding:22px 24px;
+    background:var(--white); border:1px solid var(--line); border-radius:14px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 18px 34px -22px rgba(28,34,48,0.4);}
+  .bc-t{font-family:"Fraunces",serif; font-size:21px; margin-bottom:6px;}
+  .bc-p{font-size:14px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:46ch;}
+  .bc-go{display:flex; flex-direction:column; gap:9px; flex:none;}
+  .bc-primary{display:inline-flex; align-items:center; gap:9px; justify-content:center;
+    padding:13px 24px; border-radius:100px; text-decoration:none; font-size:15px;
+    background:var(--ink); color:var(--paper); border:1px solid var(--ink);
+    box-shadow:0 6px 16px -8px rgba(28,34,48,0.6); transition:filter .16s, transform .16s;}
+  .bc-primary:hover{filter:brightness(1.2); transform:translateY(-1px);}
+  .bc-primary span{transition:transform .16s;}
+  .bc-primary:hover span{transform:translateX(4px);}
+  .bc-second{text-align:center; padding:11px 24px; border-radius:100px;
+    text-decoration:none; font-size:14px; color:var(--ink);
+    border:1px solid var(--line-strong);}
+  .bc-second:hover{border-color:var(--ink);}
+  @media(max-width:640px){ .bc-go{width:100%;} }
+
+  .breakdown{margin-top:34px;}
+  .bd-grid{display:grid; gap:30px; align-items:start;}
+  @media(min-width:860px){ .bd-grid{grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:44px;} }
+  .bd-ring{display:flex; flex-direction:column; align-items:center; gap:18px;
+    background:var(--white); border:1px solid var(--line); border-radius:14px;
+    padding:24px 20px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 16px 30px -22px rgba(28,34,48,0.4);}
+  .ring-big{font-family:'Fraunces',serif; font-size:30px; fill:var(--ink);}
+  .ring-small{font-family:'IBM Plex Mono',monospace; font-size:10px; fill:var(--ink-faint);
+    letter-spacing:0.12em; text-transform:uppercase;}
+  .cmp-legend{width:100%; display:flex; flex-direction:column; gap:7px;}
+  .cmp-key{display:flex; align-items:center; gap:9px; font-size:13px;}
+  .cmp-dot{width:9px; height:9px; border-radius:2px; flex:none;}
+  .cmp-nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .cmp-w{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);}
+
+  .bd-list{background:var(--white); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 16px 30px -22px rgba(28,34,48,0.4);}
+  .bd-list-head{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.13em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px;}
+  .hld-list{list-style:none; margin:0; padding:0;}
+  .hld-row{display:grid; grid-template-columns:26px minmax(0,1fr) 90px 62px;
+    align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid var(--line);
+    font-size:14px;}
+  .hld-row:last-child{border-bottom:none;}
+  .hld-n{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
+  .hld-name{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .hld-bar{height:5px; border-radius:3px; background:rgba(28,34,48,0.07); overflow:hidden;}
+  .hld-bar i{display:block; height:100%; border-radius:3px;
+    background:linear-gradient(90deg, var(--ink), #4A6FA5);}
+  .hld-w{font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-align:right;
+    color:var(--ink-soft);}
+  @media(max-width:560px){
+    .hld-row{grid-template-columns:22px minmax(0,1fr) 58px;}
+    .hld-bar{display:none;}
+  }
+</style>
+  <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "IYRI \u2014 NEOS Real Estate High Income ETF", "tickerSymbol": "IYRI", "url": "https://licentia.ca/fund/IYRI", "description": "IYRI: NEOS Real Estate High Income ETF, yielding 11.3%, paid $5.4014 a share over twelve months, from NEOS Investments. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "NEOS Investments"}}</script>\n</head>
+<body>\n<div id="seo-summary"><h1>IYRI — NEOS Real Estate High Income ETF</h1><p>IYRI: NEOS Real Estate High Income ETF, yielding 11.3%, paid $5.4014 a share over twelve months, from NEOS Investments. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>11.3%</b></li><li>Paid per share, twelve months: <b>$5.4014</b></li><li>Unit price: <b>$47.96</b></li><li>Manager: <b>NEOS Investments</b></li><li>Positions held: <b>60</b></li></ul></div>\n<script>window.__TICKER = "IYRI";</script>
+
+<nav>
+  <a class="brand" href="/">Licentia<img class="brand-bird" src="/assets/bird.svg" alt="" width="25" height="16"></a>
+  <div class="navlinks">
+    <a href="/">Home</a>
+    <a href="/learn">Learn</a>
+    <a class="active" href="/funds">Funds</a>
+    <a href="/compare">Comparison Tool</a>
+    <a href="/portfolio-builder">Portfolio Builder</a>
+    <a href="/portfolio">My Portfolio</a>
+    <a href="/backtest">Backtesting</a>
+    <a href="/account">My Account</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <a class="crumb" id="backLink" href="/funds">← All funds</a>
+  <div id="stage"><div class="loading">Loading fund…</div></div>
+</div>
+
+<script>
+
+function licentiaAuthHeader(){
+  // pro.js renews the session; a token older than an hour is rejected by
+  // the endpoint, which is what used to lock the Pro funds mid-session.
+  if (typeof window.licentiaRefreshSession === "function") {
+    return window.licentiaRefreshSession(false);
+  }
+  return Promise.resolve(licentiaToken());
+}
+function licentiaToken(){
+  try {
+    for (var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if (!/auth-token/.test(k)) continue;
+      var v = JSON.parse(localStorage.getItem(k));
+      return v.access_token || (v.currentSession || {}).access_token || null;
+    }
+  } catch(e){}
+  return null;
+}
+function licentiaSeed(){
+  try {
+    var d = localStorage.getItem('licentia_device');
+    if (!d){ d = String(Date.now()) + Math.random().toString(36).slice(2);
+      localStorage.setItem('licentia_device', d); }
+    return d;
+  } catch(e){ return 'device'; }
+}
+async function licentiaFundsFetch(opts){
+  var headers = { 'Content-Type': 'application/json' };
+  var t = await licentiaAuthHeader();
+  if (t) headers['Authorization'] = 'Bearer ' + t;
+  var body = { seed: licentiaSeed() };
+  if (opts && opts.sectors) body.sectors = true;
+  return fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds', {
+    method: 'POST', headers: headers, body: JSON.stringify(body)
+  }).then(function(r){ return r.json(); }).then(function(j){
+    window.LICENTIA_DATA = { tier: j.tier, total: j.total || 0,
+      shown: j.shown || 0, freeOpens: j.freeOpens || 50 };
+    window.LICENTIA_TOTALS = j.totals || null;
+    window.LICENTIA_SECTORS = j.sectors || null;
+    window.LICENTIA_LOCKED = {};
+    (j.locked || []).forEach(function(f){ window.LICENTIA_LOCKED[f.ticker] = f; });
+    var out = {};
+    (j.funds || []).forEach(function(f){ out[f.ticker] = f; });
+    // shaped like a Response: pages check r.ok before reading the body
+    return { ok: true, status: 200, json: function(){ return Promise.resolve(out); } };
+  });
+}
+
+
+const SECTOR_COLORS = {
+  "Technology":"#C89B3C","Financials":"#1F5C4E","Healthcare":"#A6452C","Energy":"#8F6B22",
+  "Consumer Discretionary":"#5B8A7A","Consumer Staples":"#D4B369","Communication Services":"#733023",
+  "Industrials":"#7A8577","Materials":"#4A6B5C","Real Estate":"#B98A52","Utilities":"#2E3F38",
+  "Fund / ETF":"#9AA79B","Cash":"#C4C7BC","Other":"#4A5049"
+};
+
+const SECTOR_MAP = {
+  // --- technology ---
+  "AAPL":"Technology","MSFT":"Technology","NVDA":"Technology","AVGO":"Technology","AMD":"Technology",
+  "INTC":"Technology","MU":"Technology","QCOM":"Technology","TXN":"Technology","ADI":"Technology",
+  "AMAT":"Technology","LRCX":"Technology","KLAC":"Technology","ASML":"Technology","ARM":"Technology",
+  "CRM":"Technology","ORCL":"Technology","ADBE":"Technology","NOW":"Technology","INTU":"Technology",
+  "CSCO":"Technology","ANET":"Technology","APH":"Technology","TEL":"Technology","GLW":"Technology",
+  "PANW":"Technology","CRWD":"Technology","FTNT":"Technology","ZS":"Technology","CYBR":"Technology",
+  "SNPS":"Technology","CDNS":"Technology","MRVL":"Technology","NXPI":"Technology","MCHP":"Technology",
+  "ON":"Technology","SWKS":"Technology","TER":"Technology","MPWR":"Technology","STX":"Technology",
+  "WDC":"Technology","SNDK":"Technology","DELL":"Technology","HPQ":"Technology","HPE":"Technology",
+  "IBM":"Technology","ACN":"Technology","CTSH":"Technology","INFY":"Technology","TSM":"Technology",
+  "PLTR":"Technology","SMCI":"Technology","DDOG":"Technology","SNOW":"Technology","MDB":"Technology",
+  "TEAM":"Technology","WDAY":"Technology","ADSK":"Technology","PTC":"Technology","TYL":"Technology",
+  "VRSN":"Technology","AKAM":"Technology","GEN":"Technology","JNPR":"Technology","FFIV":"Technology",
+  "NTAP":"Technology","KEYS":"Technology","TDY":"Technology","TRMB":"Technology","ZBRA":"Technology",
+  "CDW":"Technology","JBL":"Technology","FLEX":"Technology","CLS":"Technology","COHR":"Technology",
+  "LITE":"Technology","CIEN":"Technology","ALAB":"Technology","NBIS":"Technology","CRWV":"Technology",
+  "APP":"Technology","MSTR":"Technology","SONY":"Technology","ASX":"Technology","PDD":"Consumer Discretionary",
+  "CSU":"Technology","GIB/A":"Technology","OTEX":"Technology","SHOP":"Technology","NOK":"Technology",
+  "SMTOY":"Technology","EPAM":"Technology","IT":"Technology","GDDY":"Technology","MSI":"Technology",
+  "HUBS":"Technology","VEEV":"Technology","FICO":"Technology","MSCI":"Technology","ROP":"Technology",
+  "XYZ":"Technology","PYPL":"Technology","FIS":"Technology","FISV":"Technology","GPN":"Technology",
+  "JKHY":"Technology","BR":"Technology","CPAY":"Financials","V":"Technology","MA":"Technology",
+
+  // --- financials ---
+  "JPM":"Financials","BAC":"Financials","WFC":"Financials","C":"Financials","GS":"Financials",
+  "MS":"Financials","USB":"Financials","PNC":"Financials","TFC":"Financials","BNY":"Financials",
+  "SCHW":"Financials","BLK":"Financials","BX":"Financials","KKR":"Financials","APO":"Financials",
+  "ARES":"Financials","AXP":"Financials","COF":"Financials","DFS":"Financials","SYF":"Financials",
+  "CFG":"Financials","MTB":"Financials","FITB":"Financials","RF":"Financials","HBAN":"Financials",
+  "KEY":"Financials","ZION":"Financials","CMA":"Financials","EWBC":"Financials","FCNCA":"Financials",
+  "PNFP":"Financials","SSB":"Financials","FHN":"Financials","NTRS":"Financials","STT":"Financials",
+  "RJF":"Financials","IBKR":"Financials","HOOD":"Financials","COIN":"Financials","CRCL":"Financials",
+  "BRK":"Financials","BRK/B":"Financials","BRK.B":"Financials","PGR":"Financials","TRV":"Financials",
+  "ALL":"Financials","CB":"Financials","AIG":"Financials","MET":"Financials","PRU":"Financials",
+  "AFL":"Financials","HIG":"Financials","CINF":"Financials","WRB":"Financials","ACGL":"Financials",
+  "EG":"Financials","GL":"Financials","AIZ":"Financials","ERIE":"Financials","L":"Financials",
+  "AON":"Financials","AJG":"Financials","MRSH":"Financials","WTW":"Financials","BRO":"Financials",
+  "SPGI":"Financials","MCO":"Financials","ICE":"Financials","CME":"Financials","NDAQ":"Financials",
+  "CBOE":"Financials","AMP":"Financials","TROW":"Financials","BEN":"Financials","IVZ":"Financials",
+  "PFG":"Financials","RY":"Financials","TD":"Financials","BNS":"Financials","BMO":"Financials",
+  "CM":"Financials","NA":"Financials","MFC":"Financials","SLF":"Financials","GWO":"Financials",
+  "POW":"Financials","IFC":"Financials","FFH":"Financials","BN":"Financials","BAM":"Financials",
+  "IGM":"Financials","HSBC":"Financials","HSBA":"Financials","SAN":"Financials","BBVA":"Financials",
+  "ISP":"Financials","UCG":"Financials","BNP":"Financials","ACA":"Financials","GLE":"Financials",
+  "DANSKE":"Financials","NDA":"Financials","SWEDA":"Financials","DNB":"Financials","KBC":"Financials",
+  "INGA":"Financials","CABK":"Financials","EBS":"Financials","CBK":"Financials","STAN":"Financials",
+  "LLOY":"Financials","NWG":"Financials","BCS":"Financials","MUFG":"Financials","SMFG":"Financials",
+  "SHG":"Financials","CIB":"Financials","ITUB":"Financials","BMA":"Financials","TEO":"Communication Services",
+
+  // --- healthcare ---
+  "LLY":"Healthcare","JNJ":"Healthcare","ABBV":"Healthcare","MRK":"Healthcare","PFE":"Healthcare",
+  "BMY":"Healthcare","AMGN":"Healthcare","GILD":"Healthcare","VRTX":"Healthcare","REGN":"Healthcare",
+  "BIIB":"Healthcare","MRNA":"Healthcare","INCY":"Healthcare","ALNY":"Healthcare","UNH":"Healthcare",
+  "ELV":"Healthcare","CI":"Healthcare","CVS":"Healthcare","HUM":"Healthcare","CNC":"Healthcare",
+  "MCK":"Healthcare","COR":"Healthcare","CAH":"Healthcare","HCA":"Healthcare","UHS":"Healthcare",
+  "DVA":"Healthcare","TMO":"Healthcare","DHR":"Healthcare","ABT":"Healthcare","SYK":"Healthcare",
+  "BSX":"Healthcare","MDT":"Healthcare","ISRG":"Healthcare","EW":"Healthcare","ZBH":"Healthcare",
+  "BDX":"Healthcare","BAX":"Healthcare","STE":"Healthcare","RMD":"Healthcare","PODD":"Healthcare",
+  "DXCM":"Healthcare","IDXX":"Healthcare","A":"Healthcare","WAT":"Healthcare","MTD":"Healthcare",
+  "RVTY":"Healthcare","TECH":"Healthcare","CRL":"Healthcare","IQV":"Healthcare","LH":"Healthcare",
+  "DGX":"Healthcare","HSIC":"Healthcare","ALGN":"Healthcare","COO":"Healthcare","SOLV":"Healthcare",
+  "GEHC":"Healthcare","VTRS":"Healthcare","ZTS":"Healthcare","NVS":"Healthcare","NVO":"Healthcare",
+  "AZN":"Healthcare","GSK":"Healthcare","RHHBY":"Healthcare","TEVA":"Healthcare","SNY":"Healthcare",
+
+  // --- energy ---
+  "XOM":"Energy","CVX":"Energy","COP":"Energy","EOG":"Energy","OXY":"Energy","PSX":"Energy",
+  "VLO":"Energy","MPC":"Energy","SLB":"Energy","HAL":"Energy","BKR":"Energy","DVN":"Energy",
+  "FANG":"Energy","APA":"Energy","EQT":"Energy","TPL":"Energy","EXE":"Energy","DINO":"Energy",
+  "OKE":"Energy","WMB":"Energy","KMI":"Energy","TRGP":"Energy","LNG":"Energy","EPD":"Energy",
+  "ET":"Energy","MPLX":"Energy","PAA":"Energy","PAGP":"Energy","AM":"Energy","DTM":"Energy",
+  "CQP":"Energy","KNTK":"Energy","HESM":"Energy","GEL":"Energy","DKL":"Energy","NEXT":"Energy",
+  "CTRI":"Energy","TNK":"Energy","SU":"Energy","CNQ":"Energy","CVE":"Energy","IMO":"Energy",
+  "TOU":"Energy","ARX":"Energy","WCP":"Energy","OVV":"Energy","ENB":"Energy","TRP":"Energy",
+  "PPL":"Energy","KEY":"Energy","SHEL":"Energy","BP":"Energy","TTE":"Energy","E":"Energy",
+  "EQNR":"Energy","PBR":"Energy","YPF":"Energy","SSL":"Energy","TS":"Energy","CCJ":"Energy",
+  "CCO":"Energy",
+
+  // --- consumer discretionary ---
+  "AMZN":"Consumer Discretionary","TSLA":"Consumer Discretionary","HD":"Consumer Discretionary",
+  "LOW":"Consumer Discretionary","MCD":"Consumer Discretionary","SBUX":"Consumer Discretionary",
+  "NKE":"Consumer Discretionary","TJX":"Consumer Discretionary","ROST":"Consumer Discretionary",
+  "BURL":"Consumer Discretionary","ORLY":"Consumer Discretionary","AZO":"Consumer Discretionary",
+  "GM":"Consumer Discretionary","F":"Consumer Discretionary","APTV":"Consumer Discretionary",
+  "BKNG":"Consumer Discretionary","ABNB":"Consumer Discretionary","EXPE":"Consumer Discretionary",
+  "MAR":"Consumer Discretionary","HLT":"Consumer Discretionary","H":"Consumer Discretionary",
+  "WH":"Consumer Discretionary","RCL":"Consumer Discretionary","CCL":"Consumer Discretionary",
+  "NCLH":"Consumer Discretionary","VIK":"Consumer Discretionary","LVS":"Consumer Discretionary",
+  "WYNN":"Consumer Discretionary","MGM":"Consumer Discretionary","CZR":"Consumer Discretionary",
+  "BYD":"Consumer Discretionary","RRR":"Consumer Discretionary","TNL":"Consumer Discretionary",
+  "MTN":"Consumer Discretionary","DRI":"Consumer Discretionary","CMG":"Consumer Discretionary",
+  "YUM":"Consumer Discretionary","DPZ":"Consumer Discretionary","QSR":"Consumer Discretionary",
+  "LULU":"Consumer Discretionary","DECK":"Consumer Discretionary","RL":"Consumer Discretionary",
+  "TPR":"Consumer Discretionary","HAS":"Consumer Discretionary","TTWO":"Communication Services",
+  "EBAY":"Consumer Discretionary","ETSY":"Consumer Discretionary","DASH":"Consumer Discretionary",
+  "UBER":"Industrials","CVNA":"Consumer Discretionary","BABA":"Consumer Discretionary",
+  "MELI":"Consumer Discretionary","SE":"Consumer Discretionary","JD":"Consumer Discretionary",
+  "TM":"Consumer Discretionary","LEN":"Consumer Discretionary","DHI":"Consumer Discretionary",
+  "PHM":"Consumer Discretionary","NVR":"Consumer Discretionary","BLDR":"Industrials",
+  "GRMN":"Consumer Discretionary","WSM":"Consumer Discretionary","BBY":"Consumer Discretionary",
+  "ULTA":"Consumer Discretionary","DG":"Consumer Staples","DLTR":"Consumer Staples",
+  "MG":"Consumer Discretionary","GIL":"Consumer Discretionary","CTC/A":"Consumer Discretionary",
+  "DOL":"Consumer Discretionary","ATD":"Consumer Staples","CCL/B":"Materials",
+
+  // --- consumer staples ---
+  "PG":"Consumer Staples","KO":"Consumer Staples","PEP":"Consumer Staples","COST":"Consumer Staples",
+  "WMT":"Consumer Staples","TGT":"Consumer Staples","KR":"Consumer Staples","SYY":"Consumer Staples",
+  "CASY":"Consumer Staples","MO":"Consumer Staples","PM":"Consumer Staples","BTI":"Consumer Staples",
+  "STZ":"Consumer Staples","TAP":"Consumer Staples","BF/B":"Consumer Staples","BUD":"Consumer Staples",
+  "MNST":"Consumer Staples","KDP":"Consumer Staples","CCEP":"Consumer Staples","KHC":"Consumer Staples",
+  "GIS":"Consumer Staples","K":"Consumer Staples","HSY":"Consumer Staples","MKC":"Consumer Staples",
+  "SJM":"Consumer Staples","CAG":"Consumer Staples","CPB":"Consumer Staples","HRL":"Consumer Staples",
+  "TSN":"Consumer Staples","ADM":"Consumer Staples","BG":"Consumer Staples","MDLZ":"Consumer Staples",
+  "CL":"Consumer Staples","KMB":"Consumer Staples","CHD":"Consumer Staples","CLX":"Consumer Staples",
+  "EL":"Consumer Staples","KVUE":"Consumer Staples","UL":"Consumer Staples","FMX":"Consumer Staples",
+  "MRU":"Consumer Staples","L":"Consumer Staples","WN":"Consumer Staples","SAP":"Consumer Staples",
+
+  // --- communication services ---
+  "GOOGL":"Communication Services","GOOG":"Communication Services","META":"Communication Services",
+  "NFLX":"Communication Services","DIS":"Communication Services","CMCSA":"Communication Services",
+  "WBD":"Communication Services","PSKY":"Communication Services","CHTR":"Communication Services",
+  "T":"Communication Services","VZ":"Communication Services","TMUS":"Communication Services",
+  "LYV":"Communication Services","OMC":"Communication Services","IPG":"Communication Services",
+  "EA":"Communication Services","RBLX":"Communication Services","SPOT":"Communication Services",
+  "RDDT":"Communication Services","PINS":"Communication Services","SNAP":"Communication Services",
+  "TTD":"Communication Services","NTES":"Communication Services","BIDU":"Communication Services",
+  "BCE":"Communication Services","RCI/B":"Communication Services","RCI.B":"Communication Services",
+  "VOD":"Communication Services","AMX":"Communication Services","TELIA":"Communication Services",
+  "SCMN":"Communication Services","BT/A":"Communication Services","KPN":"Communication Services",
+  "SKM":"Communication Services","FOX":"Communication Services","FOXA":"Communication Services",
+  "NWS":"Communication Services","NWSA":"Communication Services","CSGP":"Real Estate",
+
+  // --- industrials ---
+  "GE":"Industrials","GEV":"Industrials","RTX":"Industrials","LMT":"Industrials","NOC":"Industrials",
+  "GD":"Industrials","LHX":"Industrials","HII":"Industrials","TXT":"Industrials","TDG":"Industrials",
+  "HWM":"Industrials","AXON":"Industrials","BA":"Industrials","HON":"Industrials","MMM":"Industrials",
+  "CAT":"Industrials","DE":"Industrials","CMI":"Industrials","PCAR":"Industrials","ETN":"Industrials",
+  "EMR":"Industrials","PH":"Industrials","ROK":"Industrials","AME":"Industrials","DOV":"Industrials",
+  "ITW":"Industrials","IEX":"Industrials","XYL":"Industrials","PNR":"Industrials","FTV":"Industrials",
+  "VLTO":"Industrials","HUBB":"Industrials","VRT":"Industrials","NDSN":"Industrials","SNA":"Industrials",
+  "SWK":"Industrials","MAS":"Industrials","AOS":"Industrials","ALLE":"Industrials","JCI":"Industrials",
+  "CARR":"Industrials","OTIS":"Industrials","TT":"Industrials","LII":"Industrials","GNRC":"Industrials",
+  "URI":"Industrials","FAST":"Industrials","GWW":"Industrials","FERG":"Industrials","WSO":"Industrials",
+  "PWR":"Industrials","EME":"Industrials","FIX":"Industrials","J":"Industrials","ACM":"Industrials",
+  "MLM":"Materials","VMC":"Materials","UNP":"Industrials","CSX":"Industrials","NSC":"Industrials",
+  "CP":"Industrials","CNR":"Industrials","ODFL":"Industrials","JBHT":"Industrials","CHRW":"Industrials",
+  "EXPD":"Industrials","UPS":"Industrials","FDX":"Industrials","FDXF":"Industrials","DAL":"Industrials",
+  "UAL":"Industrials","AAL":"Industrials","LUV":"Industrials","ALK":"Industrials","SKYW":"Industrials",
+  "CPA":"Industrials","RSG":"Industrials","WM":"Industrials","CLH":"Industrials","VRSK":"Industrials",
+  "EFX":"Industrials","ADP":"Industrials","PAYX":"Industrials","CTAS":"Industrials","CPRT":"Industrials",
+  "ROL":"Industrials","LDOS":"Industrials","BAH":"Industrials","TRI":"Industrials","SIEGY":"Industrials",
+  "WCN":"Industrials","WSP":"Industrials","CAE":"Industrials","CLAR":"Industrials","RKLB":"Industrials",
+  "Q":"Industrials","FSV":"Real Estate","JLL":"Real Estate","CBRE":"Real Estate",
+
+  // --- materials ---
+  "LIN":"Materials","APD":"Materials","SHW":"Materials","ECL":"Materials","PPG":"Materials",
+  "DOW":"Materials","DD":"Materials","LYB":"Materials","CE":"Materials","EMN":"Materials",
+  "ALB":"Materials","MOS":"Materials","CF":"Materials","NTR":"Materials","FCX":"Materials",
+  "NEM":"Materials","NUE":"Materials","STLD":"Materials","RS":"Materials","ATI":"Materials",
+  "MLI":"Materials","CRS":"Materials","AA":"Materials","X":"Materials","CLF":"Materials",
+  "SCCO":"Materials","RIO":"Materials","BHP":"Materials","VALE":"Materials","MT":"Materials",
+  "PKX":"Materials","TECK/B":"Materials","FM":"Materials","ABX":"Materials","AEM":"Materials",
+  "FNV":"Materials","WPM":"Materials","RGLD":"Materials","KGC":"Materials","AGI":"Materials",
+  "PAAS":"Materials","HL":"Materials","CDE":"Materials","AU":"Materials","GFI":"Materials",
+  "HMY":"Materials","B":"Materials","IP":"Materials","PKG":"Materials","SW":"Materials",
+  "BALL":"Materials","AMCR":"Materials","AVY":"Materials","IFF":"Materials","CRH":"Materials",
+  "SMCX":"Materials",
+
+  // --- real estate ---
+  "PLD":"Real Estate","AMT":"Real Estate","EQIX":"Real Estate","CCI":"Real Estate","SBAC":"Real Estate",
+  "DLR":"Real Estate","PSA":"Real Estate","EXR":"Real Estate","CUBE":"Real Estate","O":"Real Estate",
+  "SPG":"Real Estate","KIM":"Real Estate","REG":"Real Estate","FRT":"Real Estate","BRX":"Real Estate",
+  "NNN":"Real Estate","ADC":"Real Estate","GTY":"Real Estate","WPC":"Real Estate","VICI":"Real Estate",
+  "GLPI":"Real Estate","WELL":"Real Estate","VTR":"Real Estate","DOC":"Real Estate","OHI":"Real Estate",
+  "SBRA":"Real Estate","ARE":"Real Estate","BXP":"Real Estate","VNO":"Real Estate","KRC":"Real Estate",
+  "CUZ":"Real Estate","HIW":"Real Estate","AVB":"Real Estate","EQR":"Real Estate","ESS":"Real Estate",
+  "MAA":"Real Estate","UDR":"Real Estate","CPT":"Real Estate","INVH":"Real Estate","AMH":"Real Estate",
+  "ELS":"Real Estate","SUI":"Real Estate","HST":"Real Estate","RHP":"Real Estate","IRM":"Real Estate",
+  "LAMR":"Real Estate","STAG":"Real Estate","EGP":"Real Estate","FR":"Real Estate","REXR":"Real Estate",
+  "COLD":"Real Estate","WY":"Real Estate","NLY":"Real Estate","AGNC":"Real Estate","STWD":"Real Estate",
+  "RITM":"Real Estate","HR":"Real Estate","Z":"Real Estate","ZG":"Real Estate","MRP":"Real Estate",
+  "LINE":"Real Estate","GRT-U":"Real Estate","DIR-U":"Real Estate","REI-U":"Real Estate",
+  "SRU-U":"Real Estate","HR-U":"Real Estate","FCR-U":"Real Estate","CAR-U":"Real Estate",
+  "BEI-U":"Real Estate","AP-U":"Real Estate","CHP-U":"Real Estate","KDCREIT":"Real Estate",
+  "MRL":"Real Estate","CDP":"Real Estate","PSPN":"Real Estate","GMG":"Real Estate","VMRK":"Real Estate",
+
+  // --- utilities ---
+  "NEE":"Utilities","DUK":"Utilities","SO":"Utilities","D":"Utilities","AEP":"Utilities",
+  "EXC":"Utilities","XEL":"Utilities","ED":"Utilities","EIX":"Utilities","PCG":"Utilities",
+  "SRE":"Utilities","PEG":"Utilities","WEC":"Utilities","ES":"Utilities","FE":"Utilities",
+  "DTE":"Utilities","AEE":"Utilities","CMS":"Utilities","CNP":"Utilities","NI":"Utilities",
+  "LNT":"Utilities","EVRG":"Utilities","PNW":"Utilities","ATO":"Utilities","NRG":"Utilities",
+  "VST":"Utilities","CEG":"Utilities","ETR":"Utilities","AES":"Utilities","AWK":"Utilities",
+  "FTS":"Utilities","EMA":"Utilities","CU":"Utilities","AQN":"Utilities","H":"Utilities",
+  "BIP-U":"Utilities","BEPC":"Utilities","NG/":"Utilities","UU/":"Utilities","SVT":"Utilities",
+  "NTGY":"Utilities","VIE":"Utilities","ORA":"Utilities","FORTUM":"Utilities","ENLAY":"Utilities",
+  "RWEOY":"Utilities","EDP":"Utilities",
+
+  // --- cash & equivalents ---
+  "TBIL":"Cash","Cash":"Cash","SOFR":"Cash","AGPXX":"Cash","JIMXX":"Cash","CASH":"Cash",
+
+  // --- funds / ETFs held inside other funds ---
+  "Harvest":"Fund / ETF","iShares":"Fund / ETF","TLT":"Fund / ETF","TLH":"Fund / ETF",
+  "IEF":"Fund / ETF","VGIT":"Fund / ETF","SCHR":"Fund / ETF","VGLT":"Fund / ETF","IBIT":"Fund / ETF",
+  "HODL":"Fund / ETF","AAAU":"Fund / ETF","VOO":"Fund / ETF","IVV":"Fund / ETF","QQQM":"Fund / ETF",
+  "VTWO":"Fund / ETF","RSSL":"Fund / ETF","EFA":"Fund / ETF","IEFA":"Fund / ETF","ZAG":"Fund / ETF",
+  "XBB":"Fund / ETF","CNDX":"Fund / ETF","CMVP":"Fund / ETF","QMVP":"Fund / ETF","SMVP/U":"Fund / ETF",
+  "EAFX":"Fund / ETF","EMMX":"Fund / ETF","GLDX":"Fund / ETF","NRGY":"Fund / ETF","HBNK":"Fund / ETF",
+  "USCC":"Fund / ETF","BOND/U":"Fund / ETF","HFIN":"Fund / ETF","HUTS":"Fund / ETF",
+  "SPCX":"Other"
+};
+
+const FUND_URL = t => '/fund?t=' + encodeURIComponent(t);
+
+let FUNDS = {}, TICKER = '', SORT = 'weight', FILTER = '';
+
+function qs(name){
+  const m = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+  return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+}
+
+function fmt(n, d){ return Number(n).toFixed(d === undefined ? 2 : d); }
+
+function sectorOf(t){ return SECTOR_MAP[t] || 'Other'; }
+
+licentiaFundsFetch()
+  .then(r => { if(!r.ok) throw new Error('fetch failed'); return r.json(); })
+  .then(data => {
+    Object.entries(data).forEach(([t, v]) => {
+      if(t.charAt(0) === '_') return;
+      if(v.holdings && Object.keys(v.holdings).length){  // carried-forward funds have real data too
+        FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {}, as_of: v.as_of || '', stale: !!v.stale, distributions: v.distributions || [] };
+      }
+    });
+    render();
+  })
+  .catch(() => {
+    document.getElementById('stage').innerHTML =
+      '<div class="empty">Couldn\'t load the holdings file. Try again in a moment.</div>';
+  });
+
+function render(){
+  TICKER = (qs('t') || '').toUpperCase();
+  const f = FUNDS[TICKER];
+  const stage = document.getElementById('stage');
+
+  if(!f){
+    stage.innerHTML =
+      '<div class="empty">No live holdings for <strong>' + (TICKER || 'that ticker') + '</strong>. ' +
+      'It may be one of the funds whose issuer only publishes holdings as a PDF. ' +
+      '<a href="/funds">Browse the funds we do cover →</a></div>';
+    document.title = 'Fund not found — Licentia';
+    return;
+  }
+
+  document.title = TICKER + ' — ' + f.name + ' — Licentia';
+
+  // Returning to a bare region picker loses the user's place, so send them
+  // back into the list they were browsing.
+  const back = document.getElementById('backLink');
+  if (back && f.region) {
+    back.href = '/funds?region=' + f.region;
+    back.textContent = f.region === 'CAD' ? '\u2190 All Canadian funds' : '\u2190 All US funds';
+  }
+
+  const rows = Object.entries(f.holdings).sort((a,b) => b[1]-a[1]);
+  const total = rows.reduce((s,[,w]) => s+w, 0);
+  const topN = rows.length > 10 ? 10 : Math.min(3, rows.length);
+  const topSum = rows.slice(0,topN).reduce((s,[,w]) => s+w, 0);
+  const top10pct = total ? (topSum/total*100) : 0;
+  // effective number of holdings (inverse Herfindahl) — how concentrated it really is
+  const hhi = rows.reduce((s,[,w]) => { const p = total ? w/total : 0; return s + p*p; }, 0);
+  const effective = hhi ? 1/hhi : 0;
+
+  const fundHoldings = rows.filter(([t]) => FUNDS[t] || sectorOf(t) === 'Fund / ETF');
+  const fundWeight = fundHoldings.reduce((s,[,w]) => s+w, 0);
+  const isWrapper = total > 0 && (fundWeight/total) > 0.6;
+  const structure = isWrapper
+    ? (rows.length <= 2 ? 'Wrapper' : 'Fund of funds')
+    : (rows.length === 1 ? 'Single name' : 'Direct equity');
+
+  const pill = f.region === 'CAD' ? 'pill-cad' : 'pill-us';
+
+// What a holding would actually pay, which is the question behind almost
+// every search that lands here.
+function incomeAnswer(f){
+  const st = f.stats || {};
+  function n(v){
+    if (v === null || v === undefined) return null;
+    if (typeof v === "number") return isFinite(v) ? v : null;
+    const x = parseFloat(String(v).replace(/[^0-9.\-]/g, ""));
+    return isFinite(x) ? x : null;
+  }
+  const price = n(st.price) !== null ? n(st.price) : n(st.nav);
+  const ttm = n(st.ttm_total);
+  const y = n(st.yield_ttm) !== null ? n(st.yield_ttm) : n(st.yield);
+  if (price === null && ttm === null && y === null) return "";
+
+  const stake = 10000;
+  let annual = null, basis = "";
+  if (ttm !== null && price){
+    annual = stake / price * ttm;
+    basis = "from the " + fmt(ttm, 4) + " a share it paid over the last twelve months";
+  } else if (y !== null){
+    annual = stake * y / 100;
+    basis = "at the " + fmt(y, 1) + "% yield published by the issuer";
+  }
+  if (annual === null) return "";
+
+  const shares = price ? Math.floor(stake / price) : null;
+  const money = function(v){ return "$" + Math.round(v).toLocaleString("en-CA"); };
+
+  return `
+    <div class="section income-answer">
+      <div class="section-head">
+        <h2>What $10,000 in ${TICKER} would pay</h2>
+        <div class="section-note">Worked out ${basis}. Distributions are not guaranteed and
+          the capital can fall as well as rise.</div>
+      </div>
+      <div class="stat-strip">
+        <div class="stat">
+          <div class="stat-label">A year</div>
+          <div class="stat-value">${money(annual)}</div>
+          <div class="stat-sub">on $10,000 invested</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">A month</div>
+          <div class="stat-value">${money(annual / 12)}</div>
+          <div class="stat-sub">averaged across the year</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Shares</div>
+          <div class="stat-value">${shares === null ? "&mdash;" : shares.toLocaleString("en-CA")}</div>
+          <div class="stat-sub">${price ? "at " + money(price) + " a share" : "price not recorded"}</div>
+        </div>
+      </div>
+      <div class="build-cta">
+        <div class="bc-say">
+          <div class="bc-t">${TICKER} on its own is half the picture.</div>
+          <p class="bc-p">See what it pays alongside other income funds, where they
+             own the same companies, and what the combined income would be.</p>
+        </div>
+        <div class="bc-go">
+          <a class="bc-primary" href="/portfolio-builder?add=${TICKER}">Build a portfolio with ${TICKER} <span>&rarr;</span></a>
+          <a class="bc-second" href="/compare?add=${TICKER}">Compare it against another fund</a>
+        </div>
+      </div>
+    </div>`;
+}
+
+// A picture of what the fund actually owns. Drawn from the holdings we hold
+// for 283 of the 288 funds — no geography or leverage here, because we do not
+// have that data and inventing it would be worse than leaving it out.
+function compositionPanel(f){
+  const h = f.holdings || {};
+  const rows = Object.entries(h)
+    .map(function(e){ return {name: e[0], w: Number(e[1]) || 0}; })
+    .filter(function(r){ return r.w > 0; })
+    .sort(function(a, b){ return b.w - a.w; });
+  if (!rows.length) return "";
+
+  const shown = rows.slice(0, 20);
+  const top = shown.slice(0, 6);
+  const topSum = top.reduce(function(s, r){ return s + r.w; }, 0);
+  const allSum = rows.reduce(function(s, r){ return s + r.w; }, 0);
+  const rest = Math.max(allSum - topSum, 0);
+
+  const shades = ["#1C2230","#2E7D6B","#4A6FA5","#D8AE4E","#BE462D","#6C5B8C"];
+  const restShade = "rgba(28,34,48,0.13)";
+
+  // a ring, drawn with stroke offsets so it needs no library
+  const R = 66, C = 2 * Math.PI * R;
+  let offset = 0;
+  const arcs = top.map(function(r, i){
+    const frac = allSum ? r.w / allSum : 0;
+    const len = C * frac;
+    const seg = `<circle cx="90" cy="90" r="${R}" fill="none" stroke="${shades[i % shades.length]}"
+      stroke-width="26" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-offset}"
+      transform="rotate(-90 90 90)"></circle>`;
+    offset += len;
+    return seg;
+  }).join("");
+  const restLen = C * (allSum ? rest / allSum : 0);
+  const restArc = rest > 0
+    ? `<circle cx="90" cy="90" r="${R}" fill="none" stroke="${restShade}" stroke-width="26"
+        stroke-dasharray="${restLen} ${C - restLen}" stroke-dashoffset="${-offset}"
+        transform="rotate(-90 90 90)"></circle>`
+    : "";
+
+  const legend = top.map(function(r, i){
+    return `<div class="cmp-key"><span class="cmp-dot" style="background:${shades[i % shades.length]}"></span>
+      <span class="cmp-nm">${r.name}</span><span class="cmp-w">${fmt(r.w, 1)}%</span></div>`;
+  }).join("") + (rest > 0
+    ? `<div class="cmp-key"><span class="cmp-dot" style="background:${restShade}"></span>
+       <span class="cmp-nm">Everything else</span><span class="cmp-w">${fmt(rest, 1)}%</span></div>`
+    : "");
+
+  const list = shown.map(function(r, i){
+    const bar = allSum ? (r.w / shown[0].w) * 100 : 0;
+    return `<li class="hld-row">
+      <span class="hld-n">${i + 1}</span>
+      <span class="hld-name">${r.name}</span>
+      <span class="hld-bar"><i style="width:${Math.max(bar, 2)}%"></i></span>
+      <span class="hld-w">${fmt(r.w, 2)}%</span>
+    </li>`;
+  }).join("");
+
+  return `
+  <div class="section breakdown">
+    <div class="section-head">
+      <h2>What ${TICKER} owns</h2>
+      <div class="section-note">${rows.length} position${rows.length === 1 ? "" : "s"}
+        as published by the issuer. Weights change as the fund trades.</div>
+    </div>
+    <div class="bd-grid">
+      <div class="bd-ring">
+        <svg viewBox="0 0 180 180" width="180" height="180" role="img"
+             aria-label="Composition of ${TICKER}">
+          ${arcs}${restArc}
+          <text x="90" y="84" text-anchor="middle" class="ring-big">${top.length}</text>
+          <text x="90" y="104" text-anchor="middle" class="ring-small">largest</text>
+        </svg>
+        <div class="cmp-legend">${legend}</div>
+      </div>
+      <div class="bd-list">
+        <div class="bd-list-head">Top ${shown.length} holdings</div>
+        <ol class="hld-list">${list}</ol>
+      </div>
+    </div>
+  </div>`;
+}
+
+  stage.innerHTML = `
+    <div class="fund-head">
+      <div>
+        <div class="head-row">
+          <div class="head-ticker">${TICKER}</div>
+          <span class="region-pill ${pill}">${f.region === 'CAD' ? 'CAD-listed' : 'US-listed'}</span>
+        </div>
+        <div class="head-name">${f.name}</div>
+        <div class="head-issuer">${f.issuer || 'Issuer not recorded'}</div>
+        <div class="head-issuer" style="margin-top:4px;">${asOfLine(f)}</div>
+      </div>
+      <div class="head-actions">
+        <a class="btn" href="/compare">Compare against another fund</a>
+      </div>
+    </div>
+
+    ${incomeAnswer(f)}
+
+    ${compositionPanel(f)}
+
+    <div class="section" style="margin-top:30px; margin-bottom:34px;">
+      <div class="section-head">
+        <h2>Key facts</h2>
+        <div class="section-note">Read from ${f.issuer || 'the issuer'}'s own fund page on the same run that pulls holdings.</div>
+      </div>
+      ${keyFacts(f.stats || {}, f.issuer)}
+    </div>
+
+    ${distributionSection(f)}
+
+    <div class="section-head"><h2>Portfolio shape</h2></div>
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-label">Holdings</div>
+        <div class="stat-value">${rows.length}</div>
+        <div class="stat-sub">positions disclosed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Top ${topN} weight</div>
+        <div class="stat-value">${fmt(top10pct,1)}%</div>
+        <div class="stat-sub">of the portfolio</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Largest position</div>
+        <div class="stat-value">${rows[0][0]}</div>
+        <div class="stat-sub">${fmt(rows[0][1],2)}% weight</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Effective holdings</div>
+        <div class="stat-value">${fmt(effective,1)}</div>
+        <div class="stat-sub">concentration-adjusted</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Structure</div>
+        <div class="stat-value" style="font-size:20px;">${structure}</div>
+        <div class="stat-sub">${isWrapper ? fmt(fundWeight/total*100,0) + '% held via other funds' : 'holds securities directly'}</div>
+      </div>
+    </div>
+
+    ${isWrapper ? lookthroughSection(fundHoldings, total) : ''}
+    ${sectorSection(rows, total, isWrapper)}
+
+    <div class="section">
+      <div class="section-head">
+        <h2>All holdings</h2>
+        <div class="section-note">Weights as published by ${f.issuer || 'the issuer'}. They may not sum to 100% — cash, collateral and written options sit outside the equity sleeve.</div>
+      </div>
+      <div class="tools">
+        <input class="search" id="search" type="text" placeholder="Filter by ticker…">
+        <button class="sort-btn active" data-sort="weight">By weight</button>
+        <button class="sort-btn" data-sort="ticker">A–Z</button>
+      </div>
+      <div id="tableWrap"></div>
+    </div>
+
+    <div class="data-note">
+      Holdings are pulled straight from ${f.issuer || 'the issuer'}'s published holdings file and refreshed daily.
+      Sector labels are our own mapping, not the issuer's — treat them as a rough shape, not a classification.
+      Yield and expense labels are reproduced exactly as the issuer words them — a 30-day SEC yield and a
+      trailing 12-month distribution yield are not the same number and are not comparable across issuers.
+      Not investment advice.
+    </div>
+  `;
+
+  const more = document.getElementById('distMore');
+  if(more){
+    more.addEventListener('click', () => {
+      const body = document.getElementById('distRows');
+      body.innerHTML = (f.distributions || []).map(x =>
+        '<tr><td>' + x.ex_date + '</td><td>' + (x.pay_date || '—') +
+        '</td><td class="amt">$' + x.amount.toFixed(4) + '</td></tr>').join('');
+      more.remove();
+    });
+  }
+
+  document.getElementById('search').addEventListener('input', e => {
+    FILTER = e.target.value.trim().toUpperCase();
+    renderTable(rows, total);
+  });
+  document.querySelectorAll('.sort-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      SORT = b.dataset.sort;
+      renderTable(rows, total);
+    });
+  });
+  renderTable(rows, total);
+}
+
+function asOfLine(f){
+  const st = f.stats || {};
+  // Hand-captured holdings must say so — the reader should never think a
+  // manually copied table was scraped live today.
+  if (st.holdings_source && st.holdings_captured) {
+    return '<span style="color:var(--gold-deep);">Holdings captured ' + st.holdings_captured +
+           ' from ' + f.issuer + "'s published table — their site does not answer our automated fetch, " +
+           'so this is refreshed by hand rather than daily.</span>';
+  }
+  if(!f.as_of) return 'Holdings date not recorded';
+  if(!f.stale) return 'Holdings as of ' + f.as_of;
+  // Say so plainly. A number with no date reads as today's number.
+  return '<span style="color:var(--rust);">Holdings as of ' + f.as_of +
+         ' — the issuer page was unreachable on the last run, so this is the last good copy.</span>';
+}
+
+function fmtAum(m){
+  if(m === undefined || m === null) return null;
+  if(m >= 1000) return '$' + (m/1000).toFixed(m >= 100000 ? 0 : 1) + 'B';
+  if(m >= 1) return '$' + m.toFixed(m >= 100 ? 0 : 1) + 'M';
+  return '$' + (m*1000).toFixed(0) + 'K';
+}
+
+function titleCase(s){
+  return s.replace(/\b[a-z]/g, c => c.toUpperCase()).replace(/Sec /,'SEC ').replace(/Mer/,'MER');
+}
+
+function distProvenance(f, count){
+  const src = (f.stats || {}).distribution_source || 'issuer';
+  if(src === 'issuer') return count + ' payments published by ' + f.issuer + '.';
+  // aggregated elsewhere because the issuer publishes no parseable table
+  return count + ' payments via <a href="https://dividendhistory.org" target="_blank" rel="noopener" ' +
+         'style="color:var(--gold-deep);">dividendhistory.org</a>, because ' + f.issuer +
+         " doesn't publish a machine-readable history.";
+}
+
+function yieldContext(st){
+  const y = st.yield_ttm, tr = st.total_return_1y;
+  if (y === undefined || y === null) return "";
+  const win = st.return_window === "since inception" ? "since inception" : "over the last year";
+  if (tr === undefined || tr === null || y <= 15 || tr >= y / 2) return "";
+  const eroded = tr < 0;
+  return '<div class="yield-warn">Paying ' + y.toFixed(1) + "% while total return was " +
+    tr.toFixed(1) + "% " + win + ". " +
+    (eroded ? "Unit value fell over that period, so a large part of this distribution is a return of your own capital, not investment income."
+            : "Much of this distribution is a return of capital rather than income.") + "</div>";
+}
+
+function distributionSection(f){
+  const d = f.distributions || [];
+  const st = f.stats || {};
+  if(!d.length){
+    // A fund that pays but whose issuer doesn't publish a table still has a
+    // last payment in stats — show that rather than an empty section.
+    if(st.last_amount){
+      return `
+      <div class="section">
+        <div class="section-head"><h2>Distributions</h2></div>
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="stat-label">Latest payment</div>
+            <div class="stat-value">$${Number(st.last_amount).toFixed(4)}</div>
+            <div class="stat-sub">${st.last_ex_date ? 'ex-date ' + st.last_ex_date : ''}</div>
+          </div>
+        </div>
+        <div class="section-note" style="margin-top:12px;">${f.issuer} publishes the latest
+        payment but not a full history, so there's nothing further to chart.</div>
+      </div>`;
+    }
+    return `
+      <div class="section">
+        <div class="section-head"><h2>Distributions</h2></div>
+        <div class="empty" style="padding:22px;">No distribution history yet for ${f.issuer}.
+        Neither the issuer nor dividendhistory.org publishes a payment table we can read for this fund.</div>
+      </div>`;
+  }
+
+  const recent = d.slice(0, 24).reverse();          // oldest → newest, left to right
+  const max = Math.max(...recent.map(x => x.amount));
+  const bars = recent.map((x, i) => {
+    const h = Math.max(3, (x.amount / max) * 100);
+    const prev = i > 0 ? recent[i-1].amount : x.amount;
+    // a visible cut is the thing income investors are actually watching for
+    const cut = x.amount < prev * 0.95;
+    const isLast = i === recent.length - 1;
+    const cls = isLast ? 'cbar latest' : (cut ? 'cbar cut' : 'cbar');
+    return `<div class="${cls}" style="height:${h}%" title="${x.ex_date}: $${x.amount.toFixed(4)}"></div>`;
+  }).join('');
+
+  const rows = d.slice(0, 12).map(x => `
+    <tr>
+      <td>${x.ex_date}</td>
+      <td>${x.pay_date || '—'}</td>
+      <td class="amt">$${x.amount.toFixed(4)}</td>
+    </tr>`).join('');
+
+  const cuts = recent.filter((x,i) => i > 0 && x.amount < recent[i-1].amount * 0.95).length;
+  const trend = cuts === 0
+    ? 'Held or raised at every payment shown.'
+    : cuts + (cuts === 1 ? ' cut' : ' cuts') + ' in the last ' + recent.length + ' payments.';
+
+  return `
+  <div class="section">
+    <div class="section-head">
+      <h2>Distributions</h2>
+      <div class="section-note">${distProvenance(f, d.length)} ${trend}</div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-label">Latest payment</div>
+        <div class="stat-value">$${d[0].amount.toFixed(4)}</div>
+        <div class="stat-sub">ex-date ${d[0].ex_date}</div>
+      </div>
+      ${st.ttm_total ? `<div class="stat">
+        <div class="stat-label">Paid last 12 months</div>
+        <div class="stat-value">$${Number(st.ttm_total).toFixed(2)}</div>
+        <div class="stat-sub">${st.ttm_payments || ''} payments</div>
+      </div>` : ''}
+      ${st.total_return_1y !== undefined ? `<div class="stat">
+        <div class="stat-label">Total return</div>
+        <div class="stat-value">${st.total_return_1y > 0 ? "+" : ""}${st.total_return_1y}%</div>
+        <div class="stat-sub">last 12 months, distributions included</div>
+      </div>` : ""}
+      ${st.frequency ? `<div class="stat">
+        <div class="stat-label">Frequency</div>
+        <div class="stat-value" style="font-size:20px;">${st.frequency}</div>
+        <div class="stat-sub">as stated by the issuer</div>
+      </div>` : ''}
+    </div>
+
+    ${yieldContext(st)}
+
+    <div class="cbar-label" style="margin-top:26px;">
+      <span>${recent[0].ex_date}</span><span>most recent ${recent.length} payments</span><span>${recent[recent.length-1].ex_date}</span>
+    </div>
+    <div class="cadence">${bars}</div>
+
+    <table class="dist-table">
+      <thead><tr><th>Ex-date</th><th>Paid</th><th class="amt" style="text-align:right;">Amount</th></tr></thead>
+      <tbody id="distRows">${rows}</tbody>
+    </table>
+    ${d.length > 12 ? `<button class="dist-more" id="distMore">Show all ${d.length} payments</button>` : ''}
+  </div>`;
+}
+
+function keyFacts(st, issuer){
+  const cells = [];
+  const aum = fmtAum(st.aum_musd);
+  if(aum){
+    cells.push(['Fund size', aum, st.aum_display || '']);
+  }
+  if(st.yield){
+    cells.push([titleCase(st.yield_label || 'Yield'), st.yield, "the issuer's own measure"]);
+  }
+  if(st.mer){
+    cells.push([titleCase(st.mer_label || 'MER'), st.mer, '']);
+  } else if(st.mgmt_fee){
+    cells.push(['Management fee', st.mgmt_fee, '']);
+  }
+  if(st.nav){
+    cells.push(['NAV', st.nav, 'per unit']);
+  }
+  if(!cells.length){
+    return '<div class="empty" style="padding:22px;">' + (issuer || 'This issuer') +
+      " doesn't publish fund size, yield or MER on the page we read holdings from, " +
+      'so we have nothing to show here rather than a guess.</div>';
+  }
+  return '<div class="stat-strip">' + cells.map(([l,v,sub]) =>
+    '<div class="stat"><div class="stat-label">' + l + '</div>' +
+    '<div class="stat-value">' + v + '</div>' +
+    '<div class="stat-sub">' + sub + '</div></div>'
+  ).join('') + '</div>';
+}
+
+function lookthroughSection(fundHoldings, total){
+  const cards = fundHoldings.map(([t,w]) => {
+    const known = FUNDS[t];
+    const pct = total ? (w/total*100) : 0;
+    if(known){
+      return `<a class="lt-card" href="${FUND_URL(t)}">
+        <span class="lt-weight">${fmt(pct,1)}%</span>
+        <div class="lt-ticker">${t}</div>
+        <div class="lt-name">${known.name}</div>
+      </a>`;
+    }
+    return `<div class="lt-card dead">
+      <span class="lt-weight">${fmt(pct,1)}%</span>
+      <div class="lt-ticker">${t}</div>
+      <div class="lt-name">Not tracked separately</div>
+    </div>`;
+  }).join('');
+  return `
+    <div class="section">
+      <div class="section-head">
+        <h2>What's underneath</h2>
+        <div class="section-note">This fund mostly holds other funds. The real exposure sits one level down — open any tracked holding to keep drilling.</div>
+      </div>
+      <div class="lookthrough">${cards}</div>
+    </div>
+  `;
+}
+
+function sectorSection(rows, total, isWrapper){
+  const by = {};
+  let classified = 0;
+  rows.forEach(([t,w]) => {
+    const s = sectorOf(t);
+    by[s] = (by[s] || 0) + w;
+    if(s !== 'Other') classified += w;
+  });
+  const coverage = total ? classified/total : 0;
+  const ordered = Object.entries(by).sort((a,b) => b[1]-a[1]);
+
+  if(isWrapper || coverage < 0.5){
+    return `
+      <div class="section">
+        <div class="section-head"><h2>Sector mix</h2></div>
+        <div class="empty">${isWrapper
+          ? 'This fund holds other funds, so a sector split of its own holdings would just say "funds". Drill into the underlying funds above for the real sector exposure.'
+          : 'We can only classify ' + fmt(coverage*100,0) + '% of this portfolio by sector, which is not enough to show an honest breakdown.'}</div>
+      </div>
+    `;
+  }
+
+  const bar = ordered.map(([s,w]) =>
+    `<div class="sector-seg" style="width:${(w/total*100)}%; background:${SECTOR_COLORS[s] || SECTOR_COLORS.Other};" title="${s}"></div>`
+  ).join('');
+
+  const list = ordered.map(([s,w]) => `
+    <div class="sector-row">
+      <span class="swatch" style="background:${SECTOR_COLORS[s] || SECTOR_COLORS.Other};"></span>
+      <span class="sector-name">${s}</span>
+      <span class="sector-pct">${fmt(w/total*100,1)}%</span>
+    </div>
+  `).join('');
+
+  return `
+    <div class="section">
+      <div class="section-head">
+        <h2>Sector mix</h2>
+        <div class="section-note">Our own ticker-to-sector mapping applied to published weights, normalised to the equity sleeve.</div>
+      </div>
+      <div class="sector-bar">${bar}</div>
+      <div class="sector-list">${list}</div>
+    </div>
+  `;
+}
+
+function renderTable(rows, total){
+  let list = rows.slice();
+  if(FILTER) list = list.filter(([t]) => t.toUpperCase().indexOf(FILTER) !== -1);
+  if(SORT === 'ticker') list.sort((a,b) => a[0].localeCompare(b[0]));
+  else list.sort((a,b) => b[1]-a[1]);
+
+  const wrap = document.getElementById('tableWrap');
+  if(!list.length){
+    wrap.innerHTML = '<div class="empty">Nothing matches that filter.</div>';
+    return;
+  }
+  const max = Math.max(...rows.map(([,w]) => w));
+  const body = list.map(([t,w], i) => {
+    const known = FUNDS[t];
+    const rank = SORT === 'weight' ? (i+1) : (rows.findIndex(r => r[0] === t) + 1);
+    return `<tr>
+      <td class="rank">${rank}</td>
+      <td class="tick">${known ? '<a href="' + FUND_URL(t) + '">' + t + '</a>' : t}</td>
+      <td class="sect">${sectorOf(t)}</td>
+      <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:${(w/max*100)}%;"></div></div></td>
+      <td class="wt num">${fmt(w,2)}%</td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <table>
+      <thead><tr>
+        <th>#</th><th>Ticker</th><th>Sector</th><th></th><th class="num">Weight</th>
+      </tr></thead>
+      <tbody>${body}</tbody>
+    </table>
+  `;
+}
+</script>
+<script src="/assets/pro.js?v=abddf571"></script>
+
+<script>
+// The ticker only exists in the query string, so the canonical and sharing tags
+// are completed here rather than being wrong in the source.
+(function(){
+  // a generated page names its fund directly; the query string still
+  // works for links written by hand
+  var t = (window.__TICKER ||
+    new URLSearchParams(location.search).get("t") || "").toUpperCase();
+  if (!t) return;
+  var c = document.getElementById('fundCanonical');
+  if (c) c.href = 'https://licentia.ca/fund?t=' + encodeURIComponent(t);
+  function fill(){
+    var name = (document.title || '').split(' — Licentia')[0];
+    var og = document.getElementById('ogTitle');
+    var od = document.getElementById('ogDesc');
+    if (og) og.content = name;
+    if (od) od.content = 'Yield, distributions, holdings and performance for ' + t + ', refreshed daily.';
+    var d = document.querySelector('meta[name="description"]');
+    if (d) d.content = 'View ' + name + ' data including distributions, yield, performance and holdings.';
+  }
+  fill();
+  setTimeout(fill, 1500);
+})();
+</script>
+</body>
+</html>
