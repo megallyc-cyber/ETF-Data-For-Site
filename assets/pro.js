@@ -576,7 +576,16 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
   // the session can land after the page does
+  setTimeout(build, 300);
   setTimeout(build, 900);
+  setTimeout(build, 2000);
+
+  // if the bar is replaced, group the new one too
+  const nav = document.querySelector('nav');
+  if (nav && window.MutationObserver) {
+    const watch = new MutationObserver(function(){ build(); });
+    watch.observe(nav, {childList: true, subtree: true});
+  }
 })();
 
 /* ---------------------------------------------------------------------------
@@ -681,7 +690,10 @@
     if (!links || links.dataset.grouped) return;
 
     const all = [...links.querySelectorAll('a')];
-    if (all.length < 6) return;   // already grouped, or a page with a short bar
+    // the bar is rebuilt after we group it on some pages, so trust what is
+    // on the page rather than a flag that outlives the thing it described
+    if (links.querySelector('.navgroup')) return;   // genuinely done already
+    if (all.length < 6) return;                     // a page with a short bar
     links.dataset.grouped = '1';
 
     const byHref = {};
