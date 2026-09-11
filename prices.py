@@ -184,7 +184,14 @@ def main() -> None:
             continue
         path = PRICE_DIR / f"{ticker}.csv"
         existing = read_existing(path)
-        rng = TOP_UP_RANGE if existing else FULL_RANGE
+        # rows from the old two column format carry no close, and a chart
+        # that needs close cannot use them. Refetch the whole history rather
+        # than topping up a file that is half empty.
+        incomplete = any(not (r.get("close") or "") for r in existing.values())
+        rng = FULL_RANGE if (not existing or incomplete) else TOP_UP_RANGE
+        if existing and incomplete:
+            log.info("  %s: rows on disk lack close, refetching in full", ticker)
+            existing = {}
 
         known = symbols.get(ticker)
         tries = [known] if known else candidates(ticker, meta.get("region", "CAD"))
