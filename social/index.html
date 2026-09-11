@@ -431,9 +431,6 @@ async function loadFeed(){
   host.innerHTML = rows.map(function(p){
     const w = who[p.author_id] || {};
     const name = w.full_name || w.handle || 'A member';
-    const kindLabel = (KINDS.find(function(k){ return k.id === p.kind; }) || {}).label || 'Post';
-    const w = who[p.author_id] || {};
-    const name = w.full_name || w.handle || 'A member';
     const handle = w.handle ? '@' + w.handle : '';
     const href = w.handle ? '/social/u/?h=' + encodeURIComponent(w.handle) : null;
     const kindLabel = (KINDS.find(function(k){ return k.id === p.kind; }) || {}).label || 'Post';
