@@ -2727,6 +2727,11 @@ if __name__ == "__main__":
         # because one issuer formatted a number unusually
         log.error("Could not attach prices and yields: %s", exc)
     write_output(results, merge=filtered)
+    # a page per fund, so a search for a ticker finds us
+    try:
+        write_fund_pages(results)
+    except Exception as exc:  # noqa: BLE001
+        log.error("Could not write fund pages: %s", exc)
 
 
 

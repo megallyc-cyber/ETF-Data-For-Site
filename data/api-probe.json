@@ -1,6 +1,3 @@
 {
-  "patched": [
-    "fund/index.html accepts a named ticker"
-  ],
-  "note": null
+  "wired": true
 }
