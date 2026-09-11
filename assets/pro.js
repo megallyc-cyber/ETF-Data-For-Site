@@ -658,8 +658,8 @@
 --------------------------------------------------------------------------- */
 (function licentiaGroupNav(){
   const GROUPS = [
-    {label: 'Research', pages: ['/learn', '/funds', '/compare']},
-    {label: 'Portfolio', pages: ['/portfolio-builder', '/portfolio', '/backtest']}
+    {label: 'Research', pages: ['learn', 'funds', 'compare']},
+    {label: 'Portfolio', pages: ['portfolio-builder', 'portfolio', 'backtest']}
   ];
 
   function build(){
@@ -672,7 +672,9 @@
 
     const byHref = {};
     all.forEach(function(a){
-      const file = (a.getAttribute('href') || '').split('/').pop().split('?')[0];
+      // either shape groups correctly: /learn and learn.html both give 'learn'
+      const file = (a.getAttribute('href') || '')
+        .split('?')[0].replace(/\.html$/, '').split('/').filter(Boolean).pop() || '';
       byHref[file] = a;
     });
 
@@ -702,7 +704,7 @@
 
       wrap.appendChild(head);
       wrap.appendChild(menu);
-      links.insertBefore(wrap, byHref['/membership'] || null);
+      links.insertBefore(wrap, byHref['membership'] || null);
 
       head.addEventListener('click', function(e){
         e.stopPropagation();
