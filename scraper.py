@@ -2506,6 +2506,111 @@ def push_to_supabase(payload: dict) -> None:
         raise PushRejected("importer accepted the request but wrote no rows")
 
 
+def write_fund_pages(registry: list) -> int:
+    """A real page per fund, so a search engine can read one.
+
+    /fund?t=HDIV is a single address to Google, titled "Fund detail", with the
+    content arriving only after scripts run \u2014 so a search for "HDIV ETF"
+    finds nothing of ours. Each fund now gets its own file carrying the title,
+    description and figures in the HTML itself. The interactive page loads on
+    top and behaves exactly as before.
+    """
+    import html as _h
+
+    template_path = Path("fund/index.html")
+    if not template_path.exists():
+        log.warning("No fund template on disk; skipping page generation")
+        return 0
+    template = template_path.read_text()
+
+    def num(v):
+        if v is None:
+            return None
+        if isinstance(v, (int, float)):
+            return float(v)
+        cleaned = re.sub(r"[^0-9.\\-]", "", str(v))
+        try:
+            return float(cleaned)
+        except ValueError:
+            return None
+
+    written = 0
+    for fund in registry:
+        t = (getattr(fund, "ticker", "") or "").upper()
+        if not t or not re.match(r"^[A-Z0-9.\\-]{1,8}$", t):
+            continue
+        st = getattr(fund, "stats", {}) or {}
+        name = getattr(fund, "name", "") or t
+        issuer = getattr(fund, "issuer", "") or ""
+        y = num(st.get("yield_ttm"))
+        if y is None:
+            y = num(st.get("yield"))
+        price = num(st.get("price")) or num(st.get("nav"))
+        ttm = num(st.get("ttm_total"))
+
+        bits = [name]
+        if y is not None:
+            bits.append("yielding %.1f%%" % y)
+        if ttm is not None:
+            bits.append("paid $%.4f a share over twelve months" % ttm)
+        if issuer:
+            bits.append("from " + issuer)
+        desc = (t + ": " + ", ".join(bits) +
+                ". Holdings, distributions and fund size, taken from the issuer.")[:300]
+        title = "%s \u2014 %s | Licentia" % (t, name)
+        url = "https://licentia.ca/fund/%s" % t
+
+        facts = []
+        if y is not None:
+            facts.append("<li>Distribution yield: <b>%.1f%%</b></li>" % y)
+        if ttm is not None:
+            facts.append("<li>Paid per share, twelve months: <b>$%.4f</b></li>" % ttm)
+        if price is not None:
+            facts.append("<li>Unit price: <b>$%.2f</b></li>" % price)
+        if issuer:
+            facts.append("<li>Manager: <b>%s</b></li>" % _h.escape(issuer))
+        holds = getattr(fund, "holdings", {}) or {}
+        if holds:
+            facts.append("<li>Positions held: <b>%d</b></li>" % len(holds))
+
+        summary = ("<div id=\"seo-summary\">"
+                   + "<h1>" + _h.escape(t) + " \u2014 " + _h.escape(name) + "</h1>"
+                   + "<p>" + _h.escape(desc) + "</p>"
+                   + ("<ul>" + "".join(facts) + "</ul>" if facts else "")
+                   + "</div>")
+
+        ld = {"@context": "https://schema.org", "@type": "FinancialProduct",
+              "name": "%s \u2014 %s" % (t, name), "tickerSymbol": t,
+              "url": url, "description": desc}
+        if issuer:
+            ld["provider"] = {"@type": "Organization", "name": issuer}
+
+        page = template
+        page = re.sub(r"<title>[^<]*</title>",
+                      "<title>" + _h.escape(title) + "</title>", page, count=1)
+        page = re.sub(r'<meta name="description" content="[^"]*">',
+                      '<meta name="description" content="' + _h.escape(desc, quote=True) + '">',
+                      page, count=1)
+        if 'rel="canonical"' in page:
+            page = re.sub(r'<link rel="canonical" href="[^"]*">',
+                          '<link rel="canonical" href="' + url + '">', page, count=1)
+        else:
+            page = page.replace("</head>",
+                                '<link rel="canonical" href="' + url + '">\\n</head>', 1)
+        page = page.replace("</head>",
+            '<script type="application/ld+json">' + json.dumps(ld) + "</" + "script>\\n</head>", 1)
+        page = page.replace("<body>",
+            "<body>\\n" + summary + '\\n<script>window.__TICKER = "' + t + '";</' + "script>", 1)
+
+        out = Path("fund") / t
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "index.html").write_text(page)
+        written += 1
+
+    log.info("Wrote %d fund pages", written)
+    return written
+
+
 def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
                  merge: bool = False) -> None:
     """When only part of the registry was scraped (--only), merge into the
