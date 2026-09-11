@@ -863,8 +863,8 @@ const REEL = [
         + '<h2>' + p.line + '</h2>'
         + '<a class="reel-go" href="' + p.file + '">Open <span>&rarr;</span></a>'
       + '</div>'
-      + '<div class="reel-shot"><iframe loading="lazy" scrolling="no" title="' + p.name
-        + '" src="' + p.file + '?preview=1"></iframe></div>'
+      + '<div class="reel-shot"><iframe loading="lazy" scrolling="no" data-defer="1" title="' + p.name
+        + '" data-src="' + p.file + '?preview=1"></iframe></div>'
       + '</div>';
     host.appendChild(sec);
   });
@@ -887,6 +887,37 @@ const REEL = [
   window.addEventListener("resize", fitFrames);
   setTimeout(fitFrames, 1200);
   setTimeout(fitFrames, 4000);
+})();
+</script>
+
+<script>
+// Six whole pages rendering on arrival was enough to lock the browser up.
+// Each preview now loads only as it comes into view, so one page renders at
+// a time and the homepage is cheap again.
+(function(){
+  function start(){
+    var frames = document.querySelectorAll("iframe[data-defer]");
+    if (!frames.length) return;
+    if (!window.IntersectionObserver){
+      // no observer here, so load the first and leave the rest
+      if (frames[0] && frames[0].dataset.src) frames[0].src = frames[0].dataset.src;
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var f = en.target;
+        if (!f.getAttribute("src") && f.dataset.src) f.src = f.dataset.src;
+        io.unobserve(f);
+      });
+    }, {rootMargin: "200px"});
+    frames.forEach(function(f){ io.observe(f); });
+  }
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(start, 800); });
+  } else {
+    setTimeout(start, 800);
+  }
 })();
 </script>
 </body>
