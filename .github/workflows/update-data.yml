@@ -53,7 +53,8 @@ jobs:
           # data/funds.json is deliberately not committed: the site reads fund
           # data through a function that checks the caller's token, so a public
           # copy in the repo would undo the tiering.
-          git add data/prices data/close_ratio.json 2>/dev/null || true
+          # the scrape also writes a page per fund now, so those come too
+          git add data/prices data/close_ratio.json fund 2>/dev/null || true
           git diff --quiet --cached || git commit -m "Update price history"
           # a long scrape can finish after other commits have landed, so
           # rebase before pushing instead of failing on non-fast-forward
