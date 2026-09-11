@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Hub — Income investing, discussed | Licentia</title>
+<meta name="description" content="Discuss income investing with other Licentia members: share portfolios, compare covered call ETFs, ask questions and see what others are holding.">
+<link rel="canonical" href="https://licentia.ca/social">
+<meta name="theme-color" content="#1C2230">
+<link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Licentia">
+<meta property="og:title" content="Social Hub — Licentia">
+<meta property="og:description" content="Income investing, discussed. Share portfolios, compare funds, ask questions.">
+<meta property="og:url" content="https://licentia.ca/social">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pro.css">
+<style>
+  :root{
+    --paper:#F4F1E8; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+    --ember:#FF6B35; --ember-deep:#D4501F; --teal:#2E7D6B;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink);
+    font-family:'Inter',ui-sans-serif,sans-serif; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  main{max-width:1180px; margin:0 auto; padding:0 26px 90px;}
+  .sh-head{padding:34px 0 22px;}
+  .sh-eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--ember-deep); margin-bottom:12px;}
+  .sh-head h1{font-family:'Fraunces',serif; font-weight:400;
+    font-size:clamp(28px,3.4vw,40px); line-height:1.14; letter-spacing:-0.02em;}
+  .sh-head p{font-size:16px; color:var(--ink-soft); margin-top:10px; max-width:56ch; line-height:1.6;}
+  .sh-grid{display:grid; gap:26px;}
+  @media(min-width:940px){ .sh-grid{grid-template-columns:minmax(0,1fr) 290px; gap:38px;} }
+  .composer{background:var(--white); border:1px solid var(--line); border-radius:14px;
+    padding:18px 20px; margin-bottom:22px;
+    box-shadow:0 2px 4px rgba(28,34,48,0.05), 0 16px 30px -22px rgba(28,34,48,0.4);}
+  .cmp-kinds{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:13px;}
+  .cmp-kind{padding:6px 13px; border-radius:100px; cursor:pointer; font:inherit;
+    font-size:12.5px; background:none; border:1px solid var(--line-strong); color:var(--ink-soft);}
+  .cmp-kind:hover{border-color:var(--ink); color:var(--ink);}
+  .cmp-kind.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+  .composer textarea{width:100%; min-height:88px; resize:vertical; font:inherit;
+    font-size:15px; line-height:1.6; color:var(--ink); background:none; border:none; outline:none;}
+  .composer textarea::placeholder{color:var(--ink-faint);}
+  .cmp-foot{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    padding-top:12px; margin-top:8px; border-top:1px solid var(--line);}
+  .cmp-ticker{width:120px; padding:8px 11px; border-radius:8px; font:inherit; font-size:13px;
+    text-transform:uppercase; border:1px solid var(--line-strong); background:var(--paper-raised);
+    color:var(--ink); outline:none;}
+  .cmp-count{margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint);}
+  .cmp-go{padding:10px 22px; border-radius:100px; cursor:pointer; font:inherit; font-size:14px;
+    background:var(--ink); color:var(--paper); border:1px solid var(--ink);}
+  .cmp-go:hover{filter:brightness(1.2);}
+  .cmp-go[disabled]{opacity:0.4; cursor:default; filter:none;}
+  .cmp-note{font-size:12.5px; color:var(--ink-faint); margin-top:9px; line-height:1.5;}
+  .cmp-error{font-size:13px; color:var(--ember-deep); margin-top:9px;}
+  .filters{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px;}
+  .filter{padding:7px 15px; border-radius:100px; cursor:pointer; font:inherit; font-size:13px;
+    background:none; border:1px solid var(--line-strong); color:var(--ink-soft);}
+  .filter:hover{border-color:var(--ink); color:var(--ink);}
+  .filter.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+</style>
+<style>
+  .post{background:var(--white); border:1px solid var(--line); border-radius:13px;
+    padding:17px 19px; margin-bottom:13px; box-shadow:0 1px 2px rgba(28,34,48,0.05);
+    transition:border-color .16s, box-shadow .16s;}
+  .post:hover{border-color:var(--line-strong);
+    box-shadow:0 2px 4px rgba(28,34,48,0.06), 0 14px 28px -20px rgba(28,34,48,0.4);}
+  .p-top{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+  .p-face{width:32px; height:32px; border-radius:50%; flex:none;
+    background:var(--paper-raised); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--ink-soft);}
+  .p-who{font-size:14px; font-weight:500;}
+  .p-badge{margin-left:5px; padding:1px 7px; border-radius:100px; font-size:9.5px;
+    letter-spacing:0.07em; text-transform:uppercase; vertical-align:middle;
+    background:rgba(46,125,107,0.12); color:var(--teal); border:1px solid rgba(46,125,107,0.3);}
+  .p-when{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-faint); margin-left:auto;}
+  .p-kind{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint);}
+  .p-body{font-size:15px; line-height:1.65; color:var(--ink); white-space:pre-wrap; overflow-wrap:anywhere;}
+  .p-ticker{display:inline-flex; align-items:center; gap:7px; margin-top:11px; padding:6px 12px;
+    border-radius:8px; text-decoration:none; font-size:13px;
+    border:1px solid var(--line-strong); color:var(--ink);}
+  .p-ticker:hover{border-color:var(--ink); background:var(--paper-raised);}
+  .p-ticker b{font-family:'IBM Plex Mono',monospace;}
+  .p-acts{display:flex; gap:6px; margin-top:13px; padding-top:11px; border-top:1px solid var(--line);}
+  .p-act{padding:6px 12px; border-radius:8px; cursor:pointer; font:inherit; font-size:12.5px;
+    background:none; border:none; color:var(--ink-faint);}
+  .p-act:hover{background:var(--paper-raised); color:var(--ink);}
+  .p-act.on{color:var(--ember-deep);}
+  .side-card{background:var(--white); border:1px solid var(--line); border-radius:13px;
+    padding:17px 18px; margin-bottom:14px;}
+  .side-t{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.13em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:11px;}
+  .side-card p{font-size:13.5px; line-height:1.6; color:var(--ink-soft);}
+  .state{background:var(--white); border:1px dashed var(--line-strong); border-radius:13px;
+    padding:38px 26px; text-align:center;}
+  .state h2{font-family:'Fraunces',serif; font-weight:400; font-size:22px; margin-bottom:9px;}
+  .state p{font-size:14.5px; color:var(--ink-soft); line-height:1.6; max-width:44ch; margin:0 auto 16px;}
+  .state a.go{display:inline-block; padding:11px 22px; border-radius:100px; text-decoration:none;
+    font-size:14.5px; background:var(--ink); color:var(--paper);}
+  .disclaimer{margin-top:26px; padding-top:16px; border-top:1px solid var(--line);
+    font-size:12px; color:var(--ink-faint); line-height:1.6;}
+  @media(max-width:600px){
+    main{padding:0 16px 70px;}
+    .composer{padding:15px 16px;}
+    .post{padding:15px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="/">Licentia<img src="/assets/bird.svg" alt="" width="24" height="15"></a>
+  <div class="navlinks">
+    <a href="/">Home</a>
+    <a href="/learn">Learn</a>
+    <a href="/funds">Funds</a>
+    <a href="/compare">Comparison Tool</a>
+    <a href="/portfolio-builder">Portfolio Builder</a>
+    <a href="/portfolio">My Portfolio</a>
+    <a href="/backtest">Backtesting</a>
+    <a class="active" href="/social">Social</a>
+    <a href="/membership">Membership</a>
+    <a href="/account">My Account</a>
+  </div>
+</nav>
+
+<main>
+  <div class="sh-head">
+    <div class="sh-eyebrow">Social Hub</div>
+    <h1>Income investing, discussed.</h1>
+    <p>Share what you hold, compare funds, and ask the questions that are hard to
+       find honest answers to. Everything here is written by other investors.</p>
+  </div>
+
+  <div class="sh-grid">
+    <div>
+      <div id="composer-slot"></div>
+      <div class="filters" id="filters"></div>
+      <div id="feed"><div class="state"><p>Loading the feed…</p></div></div>
+    </div>
+    <aside>
+      <div class="side-card">
+        <div class="side-t">Getting started</div>
+        <p>Say what you are building and why. A portfolio with a question attached
+           gets better answers than a portfolio on its own.</p>
+      </div>
+      <div class="side-card">
+        <div class="side-t">What belongs here</div>
+        <p>Holdings, yields, strategy, and honest disagreement. Not tips, not
+           promotion, not anything you would not say to someone's face.</p>
+      </div>
+    </aside>
+  </div>
+
+  <p class="disclaimer">
+    Posts here are the opinions of individual members and are not financial advice.
+    Licentia does not verify claims made by members. Do your own research before
+    investing, and consider speaking to a licensed advisor about your situation.
+  </p>
+</main>
+<script type="module">
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
+
+// pro.js publishes the public key as window.LICENTIA_ANON, and it loads after
+// this module. Wait for it rather than starting with nothing, which would make
+// every query fail silently.
+async function client(){
+  for (let i = 0; i < 100; i++){
+    if (window.LICENTIA_ANON) break;
+    await new Promise(function(r){ setTimeout(r, 100); });
+  }
+  if (!window.LICENTIA_ANON) throw new Error('no key');
+  return createClient(SUPABASE_URL, window.LICENTIA_ANON);
+}
+
+let sb = null, session = null, kind = 'post', filter = 'all';
+let liked = {};
+
+const KINDS = [
+  {id:'post', label:'Post', ph:'Share an income investing idea, a holding, or something you have noticed…'},
+  {id:'question', label:'Question', ph:'Ask the thing you actually want to know. Specific questions get specific answers.'},
+  {id:'portfolio', label:'Portfolio', ph:'Describe what you hold and why. Percentages are more useful than dollar amounts.'},
+  {id:'etf', label:'ETF discussion', ph:'What have you noticed about this fund? Add its ticker below.'}
+];
+const FILTERS = [
+  {id:'all', label:'All'}, {id:'question', label:'Questions'},
+  {id:'portfolio', label:'Portfolios'}, {id:'etf', label:'ETF discussions'}
+];
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function when(iso){
+  const mins = Math.round((new Date() - new Date(iso)) / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm';
+  if (mins < 1440) return Math.round(mins / 60) + 'h';
+  const d = Math.round(mins / 1440);
+  return d < 30 ? d + 'd' : new Date(iso).toLocaleDateString('en-CA', {month:'short', day:'numeric'});
+}
+
+function drawComposer(){
+  const slot = document.getElementById('composer-slot');
+  if (!session){
+    slot.innerHTML = '<div class="state"><h2>Join the conversation</h2>'
+      + '<p>An account lets you post, reply and follow other investors. Reading is open to everyone.</p>'
+      + '<a class="go" href="/account?mode=signup">Create an account</a></div>';
+    return;
+  }
+  const k = KINDS.find(function(x){ return x.id === kind; }) || KINDS[0];
+  slot.innerHTML = '<div class="composer"><div class="cmp-kinds">'
+    + KINDS.map(function(x){ return '<button class="cmp-kind' + (x.id === kind ? ' on' : '')
+        + '" data-kind="' + x.id + '" type="button">' + x.label + '</button>'; }).join('')
+    + '</div><textarea id="cmp-body" maxlength="5000" placeholder="' + esc(k.ph) + '"></textarea>'
+    + '<div class="cmp-foot">'
+    + (kind === 'etf' ? '<input class="cmp-ticker" id="cmp-ticker" maxlength="8" placeholder="TICKER">' : '')
+    + '<span class="cmp-count" id="cmp-count">0</span>'
+    + '<button class="cmp-go" id="cmp-go" type="button">Post</button></div>'
+    + '<p class="cmp-note">Posts are public and show your name. Share percentages rather than '
+    + 'dollar amounts unless you are comfortable with them being seen.</p>'
+    + '<div class="cmp-error" id="cmp-error" hidden></div></div>';
+  slot.querySelectorAll('.cmp-kind').forEach(function(b){
+    b.addEventListener('click', function(){ kind = b.dataset.kind; drawComposer(); });
+  });
+  const body = document.getElementById('cmp-body');
+  body.addEventListener('input', function(){
+    document.getElementById('cmp-count').textContent = body.value.length;
+  });
+  document.getElementById('cmp-go').addEventListener('click', submit);
+}
+
+async function submit(){
+  const btn = document.getElementById('cmp-go');
+  const body = document.getElementById('cmp-body');
+  const err = document.getElementById('cmp-error');
+  const tk = document.getElementById('cmp-ticker');
+  err.hidden = true;
+  const text = (body.value || '').trim();
+  if (!text) return;
+  let ticker = tk ? (tk.value || '').trim().toUpperCase() : null;
+  if (kind === 'etf' && !ticker){
+    err.textContent = 'An ETF discussion needs a ticker, so it can be found from the fund page.';
+    err.hidden = false; return;
+  }
+  if (ticker && !/^[A-Z0-9.\-]{1,8}$/.test(ticker)){
+    err.textContent = 'That does not look like a ticker.'; err.hidden = false; return;
+  }
+  btn.disabled = true; btn.textContent = 'Posting…';
+  const r = await sb.from('posts').insert({
+    author_id: session.user.id, kind: kind, body: text, ticker: ticker || null
+  });
+  btn.disabled = false; btn.textContent = 'Post';
+  if (r.error){
+    // the rate limit lives in the database, so its wording is the honest one
+    err.textContent = r.error.message || 'That did not save. Try again shortly.';
+    err.hidden = false; return;
+  }
+  body.value = ''; document.getElementById('cmp-count').textContent = '0';
+  if (tk) tk.value = '';
+  loadFeed();
+}
+
+function drawFilters(){
+  const host = document.getElementById('filters');
+  host.innerHTML = FILTERS.map(function(f){
+    return '<button class="filter' + (f.id === filter ? ' on' : '') + '" data-f="' + f.id
+      + '" type="button">' + f.label + '</button>';
+  }).join('');
+  host.querySelectorAll('.filter').forEach(function(b){
+    b.addEventListener('click', function(){ filter = b.dataset.f; drawFilters(); loadFeed(); });
+  });
+}
+
+
+// --------------------------------------------------------------------- feed
+async function loadFeed(){
+  const host = document.getElementById('feed');
+  let q = sb.from('posts')
+    .select('id,kind,body,ticker,created_at,like_count,comment_count,author_id')
+    .is('removed_at', null).eq('visibility','public')
+    .order('created_at', {ascending:false}).limit(30);
+  if (filter !== 'all') q = q.eq('kind', filter);
+  const res = await q;
+  if (res.error){
+    host.innerHTML = '<div class="state"><h2>The feed did not load</h2><p>'
+      + esc(res.error.message) + '</p></div>';
+    return;
+  }
+  const rows = res.data || [];
+  if (!rows.length){
+    host.innerHTML = '<div class="state"><h2>Nothing here yet</h2>'
+      + '<p>Be the first. What are you holding, and what are you unsure about?</p></div>';
+    return;
+  }
+
+  // one query for the people, rather than one per post
+  const ids = Array.from(new Set(rows.map(function(p){ return p.author_id; })));
+  const who = {};
+  const people = await sb.from('profiles').select('id,full_name,handle,is_official').in('id', ids);
+  (people.data || []).forEach(function(p){ who[p.id] = p; });
+
+  // which of these has the reader already liked
+  liked = {};
+  if (session){
+    const mine = await sb.from('reactions').select('post_id')
+      .eq('user_id', session.user.id)
+      .in('post_id', rows.map(function(p){ return p.id; }));
+    (mine.data || []).forEach(function(r){ liked[r.post_id] = true; });
+  }
+
+  host.innerHTML = rows.map(function(p){
+    const w = who[p.author_id] || {};
+    const name = w.full_name || w.handle || 'A member';
+    const kindLabel = (KINDS.find(function(k){ return k.id === p.kind; }) || {}).label || 'Post';
+    return '<article class="post" data-id="' + p.id + '">'
+      + '<div class="p-top"><div class="p-face">' + esc(name.trim().slice(0,1).toUpperCase()) + '</div>'
+      + '<div><div class="p-who">' + esc(name)
+      + (w.is_official ? '<span class="p-badge">Licentia</span>' : '') + '</div>'
+      + '<div class="p-kind">' + esc(kindLabel) + '</div></div>'
+      + '<div class="p-when">' + when(p.created_at) + '</div></div>'
+      + '<div class="p-body">' + esc(p.body) + '</div>'
+      + (p.ticker ? '<a class="p-ticker" href="/fund/' + encodeURIComponent(p.ticker) + '">'
+          + '<b>' + esc(p.ticker) + '</b> <span>see the fund &rarr;</span></a>' : '')
+      + '<div class="p-acts">'
+      + '<button class="p-act like' + (liked[p.id] ? ' on' : '') + '" data-id="' + p.id
+        + '" type="button">' + (liked[p.id] ? 'Liked' : 'Like')
+        + (p.like_count ? ' &middot; ' + p.like_count : '') + '</button>'
+      + '<button class="p-act report" data-id="' + p.id + '" type="button">Report</button>'
+      + '</div></article>';
+  }).join('');
+
+  host.querySelectorAll('.like').forEach(function(b){
+    b.addEventListener('click', function(){ toggleLike(b.dataset.id); });
+  });
+  host.querySelectorAll('.report').forEach(function(b){
+    b.addEventListener('click', function(){ report(b.dataset.id); });
+  });
+}
+
+async function toggleLike(id){
+  if (!session){ location.href = '/account?mode=signup'; return; }
+  if (liked[id]){
+    await sb.from('reactions').delete()
+      .eq('user_id', session.user.id).eq('post_id', id);
+  } else {
+    await sb.from('reactions').insert({user_id: session.user.id, post_id: id});
+  }
+  loadFeed();
+}
+
+async function report(id){
+  if (!session){ location.href = '/account?mode=signup'; return; }
+  const why = prompt('What is wrong with this post? Spam, harassment, misleading, scam, or other:');
+  if (!why) return;
+  const r = await sb.from('reports').insert({
+    reporter_id: session.user.id, post_id: id, category: why.slice(0, 40)
+  });
+  alert(r.error ? ('That did not send: ' + r.error.message)
+                : 'Thank you. A moderator will look at it.');
+}
+
+(async function(){
+  try {
+    sb = await client();
+    const s = await sb.auth.getSession();
+    session = s.data.session;
+  } catch (e) {
+    document.getElementById('feed').innerHTML =
+      '<div class="state"><h2>The feed could not start</h2>'
+      + '<p>Reload the page. If it keeps happening, tell us.</p></div>';
+    return;
+  }
+  drawComposer();
+  drawFilters();
+  loadFeed();
+})();
+
+</script>
+
+<script src="/assets/pro.js"></script>
+</body>
+</html>
