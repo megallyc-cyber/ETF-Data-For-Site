@@ -580,12 +580,11 @@
   setTimeout(build, 900);
   setTimeout(build, 2000);
 
-  // if the bar is replaced, group the new one too
-  const nav = document.querySelector('nav');
-  if (nav && window.MutationObserver) {
-    const watch = new MutationObserver(function(){ build(); });
-    watch.observe(nav, {childList: true, subtree: true});
-  }
+  // No observer. Watching the bar and regrouping it put this script in a loop
+  // with whatever else redraws the nav, and the page froze. A few timed
+  // attempts answer the same question without a fight.
+  setTimeout(build, 3500);
+  setTimeout(build, 6000);
 })();
 
 /* ---------------------------------------------------------------------------
