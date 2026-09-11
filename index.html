@@ -687,6 +687,24 @@
   </div>
 </footer>
 
+<!-- pro.js defines licentiaFundsFetch, which the blocks below call, so it
+     loads before them rather than after: the homepage was stopping halfway
+     through because the function did not exist yet. -->
+<script src="/assets/pro.js?v=0733f861"></script>
+
+<script>
+// The blocks below need licentiaFundsFetch, which pro.js defines further down
+// the page. Wait for the shared script rather than assuming it has loaded:
+// calling it too early left the homepage half drawn and silent.
+function licentiaReady(run){
+  var tries = 0;
+  (function wait(){
+    if (typeof licentiaFundsFetch === "function") { run(); return; }
+    if (++tries > 100) return;            // ten seconds, then give up quietly
+    setTimeout(wait, 100);
+  })();
+}
+</script>
 <script>
 
 function licentiaAuthHeader(){
@@ -783,7 +801,7 @@ async function licentiaFundsFetch(opts){
 
 // --- provider marquee --------------------------------------------------
 // Built from the fund data, so it always matches what we actually hold.
-(function(){
+licentiaReady(function(){
   var track = document.getElementById('mqTrack');
   if (!track) return;
   var COLOUR = {
@@ -830,7 +848,6 @@ async function licentiaFundsFetch(opts){
 })();
 </script>
 
-<script src="/assets/pro.js?v=0733f861"></script>
 <script>
 // Each part of the site gets a screen of its own, shown live rather than as
 // a screenshot that would be out of date by the next deploy.
