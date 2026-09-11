@@ -2591,7 +2591,10 @@ def write_fund_pages(registry: list) -> int:
         page = re.sub(r'<meta name="description" content="[^"]*">',
                       '<meta name="description" content="' + _h.escape(desc, quote=True) + '">',
                       page, count=1)
-        if 'rel="canonical"' in page:
+        page = re.sub(r'<link rel="canonical"[^>]*>', "", page)
+        page = page.replace("</head>",
+            '<link rel="canonical" href="' + url + '">\n</head>', 1)
+        if False:
             page = re.sub(r'<link rel="canonical" href="[^"]*">',
                           '<link rel="canonical" href="' + url + '">', page, count=1)
         else:
