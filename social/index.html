@@ -204,23 +204,23 @@
   .p-act.on svg{fill:rgba(255,107,53,0.18); stroke:var(--ember-deep);}
   .p-act .n{font-family:"IBM Plex Mono",monospace; font-size:12px;}
   /* ---- the ring around a face ----
-     Pro carries the same gold the rest of the site uses for it; everyone else
-     gets the ember. It turns slowly rather than flickering: a feed full of
-     flashing rings would be unreadable. */
-  .p-avatar, .who-face{position:relative; background-clip:padding-box;}
-  .ring{position:relative; border-radius:50%; padding:2.5px; display:inline-flex;
-    background:conic-gradient(from 0deg, #FF6B35, #FFB088, #D4501F, #FF6B35);
-    animation:ringspin 6s linear infinite;}
-  .ring.is-pro{background:conic-gradient(from 0deg, #8C6B1F, #E9D6A8, #C9A227, #F6E9C2, #8C6B1F);
-    animation-duration:4.5s;}
+     Rotating the wrapper spun its whole bounding box and the avatar drifted
+     out of the post. Spin a gradient behind it instead, at a fixed size, so
+     only the colour moves. Pro wears the site gold; everyone else the ember. */
+  .ring{position:relative; width:50px; height:50px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center; flex:none;}
+  .ring::before{content:""; position:absolute; inset:0; border-radius:50%;
+    background:conic-gradient(from 0deg, #FF6B35, #FFD0B8, #D4501F, #FF6B35);
+    animation:ringspin 7s linear infinite;}
+  .ring.is-pro::before{
+    background:conic-gradient(from 0deg, #8C6B1F, #F6E9C2, #C9A227, #8C6B1F);
+    animation-duration:5s;}
+  .ring > *{position:relative; z-index:1;}
   @keyframes ringspin{to{transform:rotate(360deg);}}
-  /* the picture itself must not spin with the ring */
-  .ring > *{animation:ringspin 6s linear infinite reverse;}
-  .ring.is-pro > *{animation-duration:4.5s;}
-  @media (prefers-reduced-motion: reduce){
-    .ring, .ring > *{animation:none;}
-  }
+  @media (prefers-reduced-motion: reduce){ .ring::before{animation:none;} }
 
+  /* the column has to make room for the ring, not just the face */
+  .post{grid-template-columns:50px minmax(0,1fr);}
   /* Pro in the site gold, not red */
   .badge.pro{background:linear-gradient(115deg,#8C6B1F,#E9D6A8,#C9A227,#8C6B1F);
     color:#2A2008; border:1px solid rgba(140,107,31,0.55);}
