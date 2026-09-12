@@ -264,6 +264,13 @@
     color:var(--ember-deep); opacity:1;}
   .p-act.report{margin-left:auto; font-size:12px;}
   .sh-top{height:10px;}
+  /* ---- the ring, settled ----
+     A grid item stretches to its row by default, so the ring grew to the
+     height of the whole post. Pin it to the top and give the column the width
+     the ring needs. These come last so they win over the earlier rules. */
+  .post{grid-template-columns:50px minmax(0,1fr);}
+  .ring{align-self:start; width:50px; height:50px; flex:none;}
+  .ring > *{width:44px; height:44px;}
 </style>
 </head>
 <body>
