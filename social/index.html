@@ -271,6 +271,26 @@
   .post{grid-template-columns:50px minmax(0,1fr);}
   .ring{align-self:start; width:50px; height:50px; flex:none;}
   .ring > *{width:44px; height:44px;}
+
+  /* ---- a thread, one level deep ---- */
+  .thread{grid-column:1 / -1; margin-top:12px; padding-top:12px;
+    border-top:1px solid var(--line);}
+  .th-loading{font-size:13px; color:var(--ink-faint); padding:4px 0;}
+  .th-item{display:grid; grid-template-columns:34px minmax(0,1fr); gap:10px; padding:9px 0;}
+  .th-item .ring.sm{width:34px; height:34px; align-self:start;}
+  .th-item .ring.sm > *{width:29px; height:29px; font-size:12px;}
+  .th-who{font-size:13.5px; font-weight:500;}
+  .th-when{font-size:12px; color:var(--ink-faint); margin-left:8px; font-weight:400;}
+  .th-body{font-size:14px; line-height:1.6; color:var(--ink-soft);
+    white-space:pre-wrap; overflow-wrap:anywhere; margin-top:2px;}
+  .th-write{display:flex; gap:8px; margin-top:10px;}
+  .th-input{flex:1; min-width:0; font:inherit; font-size:14px; padding:9px 12px;
+    border-radius:9px; border:1px solid var(--line-strong);
+    background:var(--paper-raised); color:var(--ink); outline:none;}
+  .th-input:focus{border-color:var(--ink);}
+  .th-go{padding:9px 18px; border-radius:100px; cursor:pointer; font:inherit;
+    font-size:13.5px; background:var(--ink); color:var(--paper); border:1px solid var(--ink);}
+  .th-go:hover{filter:brightness(1.2);}
 </style>
 </head>
 <body>
@@ -639,14 +659,83 @@ async function loadFeed(){
     });
   });
   host.querySelectorAll('.reply').forEach(function(b){
-    b.addEventListener('click', function(){
-      // threads are the next piece of work; say so rather than do nothing
-      alert('Replies are coming next. For now, post your answer to the feed.');
-    });
+    b.addEventListener('click', function(){ toggleThread(b.dataset.id); });
   });
   host.querySelectorAll('.report').forEach(function(b){
     b.addEventListener('click', function(){ report(b.dataset.id); });
   });
+}
+
+
+// ---- replies ----------------------------------------------------------
+// One level deep. Deeper threads turn into arguments nobody can follow, and
+// the table only allows a single parent anyway.
+async function toggleThread(id){
+  const post = document.querySelector('.post[data-id="' + id + '"]');
+  if (!post) return;
+  const open = post.querySelector('.thread');
+  if (open){ open.remove(); return; }
+
+  const box = document.createElement('div');
+  box.className = 'thread';
+  box.innerHTML = '<div class="th-loading">Loading replies…</div>';
+  post.appendChild(box);
+
+  const r = await sb.from('comments')
+    .select('id,body,author_id,created_at')
+    .eq('post_id', id).is('removed_at', null)
+    .order('created_at', {ascending:true}).limit(100);
+
+  if (r.error){
+    box.innerHTML = '<div class="th-loading">' + esc(r.error.message) + '</div>';
+    return;
+  }
+  const rows = r.data || [];
+  const who = {};
+  if (rows.length){
+    const ids = Array.from(new Set(rows.map(function(c){ return c.author_id; })));
+    const people = await sb.from('profiles_public')
+      .select('id,full_name,handle,avatar_url,tier').in('id', ids);
+    (people.data || []).forEach(function(p){ who[p.id] = p; });
+  }
+
+  box.innerHTML =
+    (rows.length
+      ? rows.map(function(c){
+          const w = who[c.author_id] || {};
+          const nm = w.full_name || w.handle || 'A member';
+          const pro = String(w.tier || '').toLowerCase() === 'pro';
+          const face = w.avatar_url
+            ? '<img src="' + esc(w.avatar_url) + '" alt="">'
+            : esc(nm.trim().slice(0,1).toUpperCase());
+          return '<div class="th-item">'
+            + '<span class="ring sm' + (pro ? ' is-pro' : '') + '">'
+              + '<span class="p-avatar">' + face + '</span></span>'
+            + '<div><div class="th-who">' + esc(nm)
+              + '<span class="th-when">' + when(c.created_at) + '</span></div>'
+            + '<div class="th-body">' + esc(c.body) + '</div></div></div>';
+        }).join('')
+      : '<div class="th-loading">No replies yet.</div>')
+    + (session
+        ? '<div class="th-write"><input class="th-input" maxlength="2000" placeholder="Write a reply…"><button class="th-go" type="button">Reply</button></div>'
+        : '<div class="th-loading"><a href="/account?mode=signup">Create an account</a> to reply.</div>');
+
+  const input = box.querySelector('.th-input');
+  const go = box.querySelector('.th-go');
+  if (go){
+    go.addEventListener('click', async function(){
+      const text = (input.value || '').trim();
+      if (!text) return;
+      go.disabled = true;
+      const w = await sb.from('comments').insert({
+        post_id: id, author_id: session.user.id, body: text
+      });
+      go.disabled = false;
+      if (w.error){ alert(w.error.message); return; }
+      loadFeed();
+    });
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') go.click(); });
+  }
 }
 
 async function toggleLike(id){
