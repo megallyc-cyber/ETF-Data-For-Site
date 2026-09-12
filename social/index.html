@@ -355,6 +355,15 @@
      snapping back to the beginning. */
   .ring::before{animation-delay:var(--rd, 0s);}
   .ring::after{animation-delay:var(--rd2, 0s);}
+
+  .votes{display:inline-flex; align-items:center; gap:2px;}
+  .votes .p-act{padding:6px 7px;}
+  .votes .p-act.up.on{color:var(--teal);}
+  .votes .p-act.up.on svg{fill:rgba(46,125,107,0.18); stroke:var(--teal);}
+  .votes .p-act.down.on{color:var(--ember-deep);}
+  .votes .p-act.down.on svg{fill:rgba(212,80,31,0.16); stroke:var(--ember-deep);}
+  .score{font-family:'IBM Plex Mono',monospace; font-size:12.5px; min-width:16px;
+    text-align:center; color:var(--ink-soft);}
 </style>
 </head>
 <body>
@@ -427,7 +436,7 @@ async function client(){
 }
 
 let sb = null, session = null, kind = 'post', filter = 'all';
-let liked = {};
+let myVotes = {};
 
 // No post types. Choosing a category before writing narrows what people
 // say, and the only thing being moderated here is self-promotion.
@@ -462,7 +471,8 @@ function when(iso){
 // Line drawings rather than words: a heart, a speech bubble, a link and a
 // flag are understood without reading, and keep the row quiet.
 const ICON = {
-  like: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>',
+  up: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l7 8h-4v8h-6v-8H5z"/></svg>',
+  down: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20l-7-8h4V4h6v8h4z"/></svg>',
   reply: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 20.5l1.5-4.4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>',
   share: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
   bin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
@@ -662,12 +672,13 @@ async function loadFeed(){
   // every reaction on the posts in view, in one query
   reactionCounts = {}; myReaction = {};
   const postIds = rows.map(function(p){ return p.id; });
-  const all = await sb.from('reactions').select('post_id,kind,user_id').in('post_id', postIds);
-  (all.data || []).forEach(function(r){
-    reactionCounts[r.post_id] = reactionCounts[r.post_id] || {};
-    reactionCounts[r.post_id][r.kind] = (reactionCounts[r.post_id][r.kind] || 0) + 1;
-    if (session && r.user_id === session.user.id) myReaction[r.post_id] = r.kind;
-  });
+// which way this reader voted, so the arrow can show it
+  if (session){
+    const mine = await sb.from('reactions').select('post_id,value')
+      .eq('user_id', session.user.id)
+      .in('post_id', rows.map(function(p){ return p.id; }));
+    (mine.data || []).forEach(function(r){ myVotes[r.post_id] = r.value; });
+  }
 
   host.innerHTML = rows.map(function(p){
     const w = who[p.author_id] || {};
@@ -699,9 +710,15 @@ async function loadFeed(){
       + (p.ticker ? '<a class="p-ticker" href="/fund/' + encodeURIComponent(p.ticker) + '">'
           + '<b>' + esc(p.ticker) + '</b> <span>see the fund &rarr;</span></a>' : '')
       + '<div class="p-acts">'
-      + '<button class="p-act like' + (liked[p.id] ? ' on' : '') + '" data-id="' + p.id
-        + '" type="button" aria-label="Like">' + ICON.like
-        + (p.like_count ? '<span class="n">' + p.like_count + '</span>' : '') + '</button>'
+      + '<span class="votes">'
+        + '<button class="p-act vote up' + (myVotes[p.id] === 1 ? ' on' : '')
+          + '" data-id="' + p.id + '" data-v="1" type="button" aria-label="Agree">'
+          + ICON.up + '</button>'
+        + '<span class="score">' + (p.like_count || 0) + '</span>'
+        + '<button class="p-act vote down' + (myVotes[p.id] === -1 ? ' on' : '')
+          + '" data-id="' + p.id + '" data-v="-1" type="button" aria-label="Disagree">'
+          + ICON.down + '</button>'
+      + '</span>'
       + '<button class="p-act reply" data-id="' + p.id + '" type="button" aria-label="Reply">'
         + ICON.reply
         + (p.comment_count ? '<span class="n">' + p.comment_count + '</span>' : '') + '</button>'
@@ -720,6 +737,9 @@ async function loadFeed(){
   });
   makeCardsOpen(host);
   syncRings(host);
+  host.querySelectorAll('.vote').forEach(function(b){
+    b.addEventListener('click', function(){ vote(b.dataset.id, Number(b.dataset.v)); });
+  });
   host.querySelectorAll('.share').forEach(function(b){
     b.addEventListener('click', function(){
       const url = location.origin + '/social/post/?id=' + b.dataset.id;
@@ -862,14 +882,23 @@ function makeCardsOpen(host){
   });
 }
 
-async function toggleLike(id){
+async function vote(id, want){
   if (!session){ location.href = '/account?mode=signup'; return; }
-  if (liked[id]){
-    await sb.from('reactions').delete()
+  const now = myVotes[id] || 0;
+  let r;
+  if (now === want){
+    // the same arrow again takes the vote back
+    r = await sb.from('reactions').delete()
       .eq('user_id', session.user.id).eq('post_id', id);
+  } else if (now === 0){
+    r = await sb.from('reactions')
+      .insert({user_id: session.user.id, post_id: id, value: want});
   } else {
-    await sb.from('reactions').insert({user_id: session.user.id, post_id: id});
+    r = await sb.from('reactions').update({value: want})
+      .eq('user_id', session.user.id).eq('post_id', id);
   }
+  // a vote that failed silently is worse than one that says so
+  if (r && r.error){ alert(r.error.message); return; }
   loadFeed();
 }
 
