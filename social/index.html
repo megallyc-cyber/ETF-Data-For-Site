@@ -349,6 +349,12 @@
   .badge.size::after{display:none;}
 
   @media (prefers-reduced-motion: reduce){ .badge::after{animation:none; opacity:0.25;} }
+
+  /* A redrawn ring must not restart the turn. The delay is set from a clock
+     shared by the page, so a new element joins mid-rotation rather than
+     snapping back to the beginning. */
+  .ring::before{animation-delay:var(--rd, 0s);}
+  .ring::after{animation-delay:var(--rd2, 0s);}
 </style>
 </head>
 <body>
@@ -713,6 +719,7 @@ async function loadFeed(){
     b.addEventListener('click', function(){ react(b.dataset.id, b.dataset.r); });
   });
   makeCardsOpen(host);
+  syncRings(host);
   host.querySelectorAll('.share').forEach(function(b){
     b.addEventListener('click', function(){
       const url = location.origin + '/social/post/?id=' + b.dataset.id;
@@ -830,6 +837,19 @@ async function toggleThread(id){
 
 
 function open(id){ location.href = "/social/post/?id=" + encodeURIComponent(id); }
+
+
+// One clock for every ring on the page. A ring drawn a moment ago and one
+// drawn just now should be at the same point in the turn.
+function syncRings(root){
+  const t = performance.now() / 1000;
+  (root || document).querySelectorAll(".ring").forEach(function(r){
+    const fast = r.classList.contains("is-pro") ? 5 : 7;
+    const slow = r.classList.contains("is-pro") ? 8 : 11;
+    r.style.setProperty("--rd", "-" + (t % fast).toFixed(3) + "s");
+    r.style.setProperty("--rd2", "-" + (t % slow).toFixed(3) + "s");
+  });
+}
 
 function makeCardsOpen(host){
   host.querySelectorAll(".post").forEach(function(card){
