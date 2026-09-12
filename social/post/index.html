@@ -184,6 +184,40 @@
   @media (prefers-reduced-motion: reduce){
     .ring::before, .ring::after{animation:none;}
   }
+
+  /* ---- standings: the same metals as the feed, so a badge means the same
+     thing wherever it is seen ---- */
+  .badge{position:relative; display:inline-flex; align-items:center; gap:4px;
+    padding:3px 10px; border-radius:100px; overflow:hidden;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.07em;
+    text-transform:uppercase; white-space:nowrap; border:1px solid transparent;}
+  .badge::after{content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(115deg, rgba(255,255,255,0) 38%,
+      rgba(255,255,255,0.62) 50%, rgba(255,255,255,0) 62%);
+    background-size:260% 100%; animation:sheen 4.5s linear infinite;}
+  @keyframes sheen{from{background-position:160% 0;} to{background-position:-60% 0;}}
+  .badge.pro{color:#2A2008; border-color:rgba(140,107,31,0.55);
+    background-image:linear-gradient(115deg,#8C6B1F,#E9D6A8,#C9A227,#8C6B1F);}
+  .badge.tier-platinum{color:#20262F; border-color:rgba(110,116,126,0.6);
+    background-image:linear-gradient(115deg,#6E747E,#DCE1E7,#9AA1AB,#EEF1F4,#6E747E);}
+  .badge.tier-platinum::after{animation-duration:5.5s;}
+  .badge.tier-platinum-plus{color:#F2F5F9; border-color:rgba(62,71,86,0.75);
+    background-image:linear-gradient(115deg,#2A3140,#5C6678,#3E4756,#77839A,#2A3140);}
+  .badge.tier-platinum-plus::after{animation-duration:6.5s;
+    background:linear-gradient(115deg, rgba(255,255,255,0) 40%,
+      rgba(255,255,255,0.38) 50%, rgba(255,255,255,0) 60%); background-size:260% 100%;}
+  .badge.tier-generational{color:#2A2008; border-color:rgba(140,107,31,0.7);
+    background-image:linear-gradient(115deg,#6B4E12,#C9A227,#F6E9C2,#B8901F,#6B4E12);}
+  .badge.tier-generational::after{animation-duration:8s;}
+  .badge.tier-diamond{color:#0E1B27; border-color:rgba(91,127,166,0.6);
+    background-image:linear-gradient(115deg,#5B7FA6,#D7EBFA,#FFFFFF,#A9CDE8,#5B7FA6);}
+  .badge.tier-diamond::after{animation-duration:3.2s;
+    background:linear-gradient(115deg, rgba(255,255,255,0) 42%,
+      rgba(255,255,255,0.95) 50%, rgba(214,240,255,0) 58%); background-size:260% 100%;}
+  .badge.official{color:#1C5F51; border-color:rgba(46,125,107,0.34);
+    background-image:linear-gradient(115deg,#D7ECE6,#EFF8F5,#D7ECE6);}
+  .badge.official::after{display:none;}
+  @media (prefers-reduced-motion: reduce){ .badge::after{animation:none; opacity:0.25;} }
 </style>
 </head>
 <body>
