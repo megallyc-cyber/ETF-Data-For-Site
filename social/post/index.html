@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post — Licentia Social Hub</title>
+<meta name="description" content="A discussion in the Licentia Social Hub, where income investors compare funds and share what they hold.">
+<link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300..600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pro.css">
+<style>
+  :root{
+    --paper:#F4F1E8; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+    --ember:#FF6B35; --ember-deep:#D4501F; --teal:#2E7D6B;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink);
+    font-family:'Inter',ui-sans-serif,sans-serif; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  main{max-width:760px; margin:0 auto; padding:0 26px 90px;}
+
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; position:sticky; top:0; z-index:40; flex-wrap:wrap;
+    background:linear-gradient(180deg, rgba(242,239,233,0.97) 0%, rgba(242,239,233,0.86) 100%);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    backdrop-filter:saturate(150%) blur(14px); border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  nav .brand img{margin-left:8px;}
+  .navlinks{display:flex; gap:24px;}
+  .navlinks a{font-size:14px; color:var(--ink-soft); text-decoration:none;}
+  .navlinks a:hover{color:var(--ink);}
+
+  .back{display:inline-block; margin:22px 0 14px; font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink-faint); text-decoration:none;}
+  .back:hover{color:var(--ink);}
+
+  .card{background:var(--white); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px; margin-bottom:16px;}
+  .top{display:grid; grid-template-columns:50px minmax(0,1fr); gap:13px;}
+  .ring{position:relative; width:50px; height:50px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    flex:none; align-self:start;}
+  .ring::before{content:""; position:absolute; inset:0; border-radius:50%;
+    background:conic-gradient(from 0deg, #FF6B35, #FFD0B8, #D4501F, #FF6B35);
+    animation:ringspin 7s linear infinite;}
+  .ring.is-pro::before{background:conic-gradient(from 0deg, #8C6B1F, #F6E9C2, #C9A227, #8C6B1F);
+    animation-duration:5s;}
+  .ring > *{position:relative; z-index:1; width:44px; height:44px; border-radius:50%;
+    overflow:hidden; background:var(--paper-raised); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+    color:var(--ink-soft); text-decoration:none;}
+  .ring img{width:100%; height:100%; object-fit:cover; display:block;}
+  @keyframes ringspin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion: reduce){ .ring::before{animation:none;} }
+
+  .line{display:flex; align-items:center; gap:7px; flex-wrap:wrap;}
+  .nm{font-size:14.5px; font-weight:500; text-decoration:none;}
+  .nm:hover{text-decoration:underline;}
+  .hnd{font-size:13px; color:var(--ink-faint); text-decoration:none;}
+  .dot, .ago{font-size:12.5px; color:var(--ink-faint);}
+  .kind{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin:5px 0 9px;}
+  .body{font-size:16px; line-height:1.7; white-space:pre-wrap; overflow-wrap:anywhere;}
+  .tick{display:inline-flex; align-items:center; gap:7px; margin-top:13px;
+    padding:7px 13px; border-radius:8px; text-decoration:none; font-size:13.5px;
+    border:1px solid var(--line-strong);}
+  .tick:hover{border-color:var(--ink); background:var(--paper-raised);}
+  .tick b{font-family:'IBM Plex Mono',monospace;}
+
+  .badge{display:inline-flex; padding:2px 8px; border-radius:100px;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.06em;
+    text-transform:uppercase;}
+  .badge.pro{background:linear-gradient(115deg,#8C6B1F,#E9D6A8,#C9A227,#8C6B1F);
+    color:#2A2008; border:1px solid rgba(140,107,31,0.55);}
+  .badge.tier-platinum{background:linear-gradient(115deg,#6E747E,#E6EAEF,#6E747E); color:#1C2230;}
+  .badge.tier-platinum-plus{background:linear-gradient(115deg,#3E4756,#D5DBE4,#3E4756); color:#141A25;}
+  .badge.tier-generational{background:linear-gradient(115deg,#8C6B1F,#E9D6A8,#8C6B1F); color:#2A2008;}
+  .badge.tier-diamond{background:linear-gradient(115deg,#5B7FA6,#EAF3FB,#5B7FA6); color:#10202F;}
+  .badge.official{background:rgba(46,125,107,0.12); color:var(--teal);
+    border:1px solid rgba(46,125,107,0.32);}
+
+  .acts{display:flex; gap:4px; margin-top:16px; padding-top:12px;
+    border-top:1px solid var(--line);}
+  .act{display:inline-flex; align-items:center; gap:7px; padding:7px 12px;
+    border-radius:9px; cursor:pointer; font:inherit; font-size:13px;
+    background:none; border:none; color:var(--ink-faint);}
+  .act svg{width:16px; height:16px; stroke:currentColor; fill:none;
+    stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+  .act:hover{background:var(--paper-raised); color:var(--ink);}
+  .act.on{color:var(--ember-deep);}
+  .act.on svg{fill:rgba(255,107,53,0.18); stroke:var(--ember-deep);}
+  .act .n{font-family:'IBM Plex Mono',monospace; font-size:12px;}
+
+  .write{display:flex; gap:9px; margin:6px 0 18px;}
+  .write input{flex:1; min-width:0; font:inherit; font-size:14.5px; padding:12px 14px;
+    border-radius:10px; border:1px solid var(--line-strong);
+    background:var(--white); color:var(--ink); outline:none;}
+  .write input:focus{border-color:var(--ink);}
+  .write button{padding:11px 22px; border-radius:100px; cursor:pointer; font:inherit;
+    font-size:14px; background:var(--ink); color:var(--paper); border:1px solid var(--ink);}
+  .write button:hover{filter:brightness(1.2);}
+
+  .count{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-faint); margin:22px 0 12px;}
+  .reply{display:grid; grid-template-columns:38px minmax(0,1fr); gap:11px;
+    padding:14px 0; border-bottom:1px solid var(--line);}
+  .reply:last-child{border-bottom:none;}
+  .reply .ring{width:38px; height:38px;}
+  .reply .ring > *{width:33px; height:33px; font-size:13px;}
+  .r-body{font-size:14.5px; line-height:1.65; color:var(--ink-soft); margin-top:3px;
+    white-space:pre-wrap; overflow-wrap:anywhere;}
+  .r-del{margin-top:6px; padding:3px 9px; border-radius:7px; cursor:pointer;
+    font:inherit; font-size:11.5px; background:none; color:var(--ink-faint);
+    border:1px solid transparent;}
+  .r-del:hover{color:var(--ember-deep); border-color:rgba(212,80,31,0.35);}
+  .quiet{background:var(--white); border:1px dashed var(--line-strong); border-radius:13px;
+    padding:32px 22px; text-align:center; color:var(--ink-soft); font-size:14.5px;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">Licentia<img src="/assets/bird.svg" alt="" width="24" height="15"></a>
+  <div class="navlinks">
+    <a href="/social">Social</a>
+    <a href="/funds">Funds</a>
+    <a href="/portfolio">My Portfolio</a>
+    <a href="/account">My Account</a>
+  </div>
+</nav>
+<main>
+  <a class="back" href="/social">&larr; All posts</a>
+  <div id="post"><div class="quiet">Loading…</div></div>
+  <div id="replies"></div>
+</main>
+<script type="module">
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+async function client(){
+  for (let i = 0; i < 100; i++){
+    if (window.LICENTIA_ANON) break;
+    await new Promise(function(r){ setTimeout(r, 100); });
+  }
+  if (!window.LICENTIA_ANON) throw new Error('no key');
+  return createClient('https://sopzbiuwakowbuqgwpmg.supabase.co', window.LICENTIA_ANON);
+}
+
+const ICON = {
+  like: '<svg viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>',
+  share: '<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
+  flag: '<svg viewBox="0 0 24 24"><path d="M4 21V4"/><path d="M4 5h11l-1.5 3.5L15 12H4z"/></svg>',
+  bin: '<svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>'
+};
+const KIND = {post:'Post', question:'Question', portfolio:'Portfolio', etf:'ETF discussion'};
+const STANDING = {'100k':'Platinum', '250k':'Platinum Plus', '500k':'Generational', '1m':'Diamond'};
+
+let sb = null, session = null, postId = null, liked = false;
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function when(iso){
+  const mins = Math.round((new Date() - new Date(iso)) / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm ago';
+  if (mins < 1440) return Math.round(mins/60) + 'h ago';
+  const d = Math.round(mins/1440);
+  return d < 30 ? d + 'd ago'
+    : new Date(iso).toLocaleDateString('en-CA', {month:'short', day:'numeric', year:'numeric'});
+}
+function badges(w){
+  let out = '';
+  if (w.tier){
+    const k = String(w.tier).toLowerCase().replace(/ /g,'-');
+    out += '<span class="badge ' + (k === 'pro' ? 'pro' : 'tier-' + k) + '">'
+        + esc(k === 'pro' ? 'Pro' : w.tier) + '</span>';
+  }
+  if (w.size_band){
+    const named = STANDING[w.size_band];
+    const cls = named ? 'tier-' + named.toLowerCase().replace(/ /g,'-') : 'pro';
+    out += '<span class="badge ' + cls + '">'
+        + esc(named || String(w.size_band).toUpperCase() + '+') + '</span>';
+  }
+  if (w.is_official) out += '<span class="badge official">Licentia</span>';
+  return out;
+}
+function face(w, name){
+  const pro = String(w.tier || '').toLowerCase() === 'pro';
+  const inner = w.avatar_url
+    ? '<img src="' + esc(w.avatar_url) + '" alt="">'
+    : esc(name.trim().slice(0,1).toUpperCase());
+  const href = w.handle ? '/social/u/?h=' + encodeURIComponent(w.handle) : null;
+  return '<span class="ring' + (pro ? ' is-pro' : '') + '">'
+    + (href ? '<a href="' + href + '">' + inner + '</a>' : '<span>' + inner + '</span>')
+    + '</span>';
+}
+
+async function draw(){
+  const host = document.getElementById('post');
+  const r = await sb.from('posts')
+    .select('id,kind,body,ticker,created_at,like_count,comment_count,author_id')
+    .eq('id', postId).is('removed_at', null).single();
+
+  if (r.error || !r.data){
+    host.innerHTML = '<div class="quiet">That post is not here. It may have been deleted.<br>'
+      + '<a href="/social">Back to the feed</a></div>';
+    return;
+  }
+  const p = r.data;
+  const w0 = await sb.from('profiles_public')
+    .select('id,full_name,handle,avatar_url,is_official,size_band,tier')
+    .eq('id', p.author_id).single();
+  const w = w0.data || {};
+  const name = w.full_name || w.handle || 'A member';
+  const href = w.handle ? '/social/u/?h=' + encodeURIComponent(w.handle) : null;
+  const mine = session && p.author_id === session.user.id;
+
+  document.title = name + ' on Licentia — ' + (KIND[p.kind] || 'Post');
+
+  if (session){
+    const l = await sb.from('reactions').select('post_id')
+      .eq('user_id', session.user.id).eq('post_id', p.id);
+    liked = !!(l.data && l.data.length);
+  }
+
+  host.innerHTML = '<div class="card"><div class="top">'
+    + face(w, name)
+    + '<div>'
+      + '<div class="line">'
+        + (href ? '<a class="nm" href="' + href + '">' + esc(name) + '</a>'
+                : '<span class="nm">' + esc(name) + '</span>')
+        + (w.handle ? '<a class="hnd" href="' + href + '">@' + esc(w.handle) + '</a>' : '')
+        + badges(w)
+        + '<span class="dot">&middot;</span><span class="ago">' + when(p.created_at) + '</span>'
+      + '</div>'
+      + '<div class="kind">' + esc(KIND[p.kind] || 'Post') + '</div>'
+      + '<div class="body">' + esc(p.body) + '</div>'
+      + (p.ticker ? '<a class="tick" href="/fund/' + encodeURIComponent(p.ticker) + '">'
+          + '<b>' + esc(p.ticker) + '</b><span>see the fund &rarr;</span></a>' : '')
+      + '<div class="acts">'
+        + '<button class="act like' + (liked ? ' on' : '') + '" type="button">' + ICON.like
+          + (p.like_count ? '<span class="n">' + p.like_count + '</span>' : '') + '</button>'
+        + '<button class="act share" type="button">' + ICON.share + '</button>'
+        + (mine
+            ? '<button class="act del" type="button">' + ICON.bin + '</button>'
+            : '<button class="act report" type="button">' + ICON.flag + '</button>')
+      + '</div>'
+    + '</div></div></div>';
+
+  host.querySelector('.like').addEventListener('click', toggleLike);
+  host.querySelector('.share').addEventListener('click', function(){
+    navigator.clipboard.writeText(location.href);
+    this.classList.add('on');
+    const b = this;
+    setTimeout(function(){ b.classList.remove('on'); }, 1200);
+  });
+  const del = host.querySelector('.del');
+  if (del) del.addEventListener('click', async function(){
+    if (!confirm('Delete this post? Any replies go too, and it cannot be undone.')) return;
+    const x = await sb.from('posts').delete().eq('id', p.id);
+    if (x.error){ alert(x.error.message); return; }
+    location.href = '/social';
+  });
+  const rep = host.querySelector('.report');
+  if (rep) rep.addEventListener('click', async function(){
+    if (!session){ location.href = '/account?mode=signup'; return; }
+    const why = prompt('What is wrong with this post? Spam, harassment, misleading, scam, or other:');
+    if (!why) return;
+    const x = await sb.from('reports').insert({
+      reporter_id: session.user.id, post_id: p.id, category: why.slice(0, 40)
+    });
+    alert(x.error ? x.error.message : 'Thank you. A moderator will look at it.');
+  });
+
+  drawReplies();
+}
+
+async function toggleLike(){
+  if (!session){ location.href = '/account?mode=signup'; return; }
+  if (liked){
+    await sb.from('reactions').delete()
+      .eq('user_id', session.user.id).eq('post_id', postId);
+  } else {
+    await sb.from('reactions').insert({user_id: session.user.id, post_id: postId});
+  }
+  draw();
+}
+
+async function drawReplies(){
+  const host = document.getElementById('replies');
+  const r = await sb.from('comments').select('id,body,author_id,created_at')
+    .eq('post_id', postId).is('removed_at', null)
+    .order('created_at', {ascending:true}).limit(200);
+  const rows = r.data || [];
+
+  const who = {};
+  if (rows.length){
+    const ids = Array.from(new Set(rows.map(function(c){ return c.author_id; })));
+    const p = await sb.from('profiles_public')
+      .select('id,full_name,handle,avatar_url,is_official,size_band,tier').in('id', ids);
+    (p.data || []).forEach(function(x){ who[x.id] = x; });
+  }
+
+  host.innerHTML =
+    (session
+      ? '<div class="write"><input id="rbody" maxlength="2000" placeholder="Add a reply…">'
+        + '<button id="rgo" type="button">Reply</button></div>'
+      : '<div class="quiet"><a href="/account?mode=signup">Create an account</a> to reply.</div>')
+    + '<div class="count">' + rows.length + (rows.length === 1 ? ' reply' : ' replies') + '</div>'
+    + '<div class="card">'
+    + (rows.length
+        ? rows.map(function(c){
+            const w = who[c.author_id] || {};
+            const nm = w.full_name || w.handle || 'A member';
+            const mine = session && c.author_id === session.user.id;
+            return '<div class="reply">' + face(w, nm) + '<div>'
+              + '<div class="line">'
+                + (w.handle ? '<a class="nm" href="/social/u/?h=' + encodeURIComponent(w.handle)
+                    + '">' + esc(nm) + '</a>' : '<span class="nm">' + esc(nm) + '</span>')
+                + badges(w)
+                + '<span class="dot">&middot;</span><span class="ago">' + when(c.created_at) + '</span>'
+              + '</div>'
+              + '<div class="r-body">' + esc(c.body) + '</div>'
+              + (mine ? '<button class="r-del" data-id="' + c.id + '" type="button">Delete</button>' : '')
+              + '</div></div>';
+          }).join('')
+        : '<div style="color:var(--ink-faint); font-size:14px">Nobody has replied yet. Be the first.</div>')
+    + '</div>';
+
+  const go = document.getElementById('rgo');
+  if (go){
+    const input = document.getElementById('rbody');
+    go.addEventListener('click', async function(){
+      const text = (input.value || '').trim();
+      if (!text) return;
+      go.disabled = true;
+      const x = await sb.from('comments').insert({
+        post_id: postId, author_id: session.user.id, body: text
+      });
+      go.disabled = false;
+      if (x.error){ alert(x.error.message); return; }
+      input.value = '';
+      draw();
+    });
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') go.click(); });
+  }
+  host.querySelectorAll('.r-del').forEach(function(b){
+    b.addEventListener('click', async function(){
+      if (!confirm('Delete this reply?')) return;
+      const x = await sb.from('comments').delete().eq('id', b.dataset.id);
+      if (x.error){ alert(x.error.message); return; }
+      draw();
+    });
+  });
+}
+
+(async function(){
+  postId = new URLSearchParams(location.search).get('id');
+  const host = document.getElementById('post');
+  if (!postId){
+    host.innerHTML = '<div class="quiet">No post named. <a href="/social">Back to the feed</a></div>';
+    return;
+  }
+  try { sb = await client(); }
+  catch (e){ host.innerHTML = '<div class="quiet">Could not load. Reload the page.</div>'; return; }
+  const s = await sb.auth.getSession();
+  session = s.data.session;
+  draw();
+})();
+
+</script>
+
+<script src="/assets/pro.js"></script>
+</body>
+</html>
