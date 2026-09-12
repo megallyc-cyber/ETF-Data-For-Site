@@ -165,6 +165,44 @@
   .badge.pro{background:rgba(255,107,53,0.12); color:var(--ember-deep);
     border:1px solid rgba(255,107,53,0.35);}
 
+  /* ---- a banner, so the page opens with something to look at ----
+     A community deserves a face before it starts listing posts. Brand colours
+     and the bird, rather than a photograph we would have to source and keep. */
+  .hub-banner{width:100vw; margin-left:calc(50% - 50vw); margin-bottom:24px;
+    background:linear-gradient(135deg, #1C2230 0%, #2A3346 48%, #3A2A22 100%);
+    position:relative; overflow:hidden;}
+  .hub-banner::after{content:""; position:absolute; right:-60px; top:-70px;
+    width:300px; height:300px; border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle, rgba(255,107,53,0.32) 0%, rgba(255,107,53,0) 68%);}
+  .hb-in{position:relative; z-index:1; max-width:1180px; margin:0 auto;
+    padding:44px 26px 38px; display:flex; align-items:center; gap:18px;}
+  .hb-bird{width:46px; height:30px; flex:none; opacity:0.95;}
+  .hb-eye{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:0.18em;
+    text-transform:uppercase; color:#FF9068; margin-bottom:10px;}
+  .hb-in h1{font-family:"Fraunces",serif; font-weight:400; color:#FBF9F5;
+    font-size:clamp(27px,3.4vw,40px); line-height:1.12; letter-spacing:-0.02em;}
+  .hb-in p{font-size:15.5px; line-height:1.6; color:rgba(251,249,245,0.72);
+    margin-top:10px; max-width:58ch;}
+  @media(max-width:600px){
+    .hb-in{padding:30px 18px 26px; gap:12px;}
+    .hb-bird{width:34px; height:22px;}
+  }
+
+  /* ---- actions ----
+     A line drawing reads as a control; a bare word reads as debug output.
+     Same stroke and size on all three so the row stays calm. */
+  .p-acts{display:flex; gap:4px; margin-top:12px; padding-top:10px;
+    border-top:1px solid var(--line);}
+  .p-act{display:inline-flex; align-items:center; gap:7px;
+    padding:7px 12px; border-radius:9px; cursor:pointer; font:inherit;
+    font-size:13px; background:none; border:none; color:var(--ink-faint);
+    transition:background .14s, color .14s;}
+  .p-act svg{width:16px; height:16px; stroke:currentColor; fill:none;
+    stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+  .p-act:hover{background:var(--paper-raised); color:var(--ink);}
+  .p-act.on{color:var(--ember-deep);}
+  .p-act.on svg{fill:rgba(255,107,53,0.18); stroke:var(--ember-deep);}
+  .p-act .n{font-family:"IBM Plex Mono",monospace; font-size:12px;}
   .side-card{background:var(--white); border:1px solid var(--line); border-radius:13px;
     padding:17px 18px; margin-bottom:14px;}
   .side-t{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.13em;
@@ -216,7 +254,17 @@
 </nav>
 
 <main>
-  <div class="sh-top"></div>
+  <div class="hub-banner">
+    <div class="hb-in">
+      <img class="hb-bird" src="/assets/bird.svg" alt="">
+      <div>
+        <div class="hb-eye">Social Hub</div>
+        <h1>Income investing, discussed.</h1>
+        <p>Share what you hold, compare funds, and ask the questions that are hard
+           to find honest answers to. Everything here is written by other investors.</p>
+      </div>
+    </div>
+  </div>
 
   <div class="sh-grid">
     <div>
@@ -286,6 +334,15 @@ function when(iso){
 
 // Badges someone has earned, never typed. Tier comes from billing; the size
 // band is written by the portfolio page from real holdings.
+// Line drawings rather than words: a heart, a speech bubble, a link and a
+// flag are understood without reading, and keep the row quiet.
+const ICON = {
+  like: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>',
+  reply: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 20.5l1.5-4.4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>',
+  share: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
+  flag: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4"/><path d="M4 5h11l-1.5 3.5L15 12H4z"/></svg>'
+};
+
 const TIER_LABEL = {pro:'Pro', platinum:'Platinum', 'platinum-plus':'Platinum Plus',
                     generational:'Generational', diamond:'Diamond'};
 function badges(w){
@@ -377,8 +434,6 @@ function drawComposer(){
     + (kind === 'etf' ? '<input class="cmp-ticker" id="cmp-ticker" maxlength="8" placeholder="TICKER">' : '')
     + '<span class="cmp-count" id="cmp-count">0</span>'
     + '<button class="cmp-go" id="cmp-go" type="button">Post</button></div>'
-    + '<p class="cmp-note">Posts are public and show your name. Share percentages rather than '
-    + 'dollar amounts unless you are comfortable with them being seen.</p>'
     + '<div class="cmp-error" id="cmp-error" hidden></div></div>';
   slot.querySelectorAll('.cmp-kind').forEach(function(b){
     b.addEventListener('click', function(){ kind = b.dataset.kind; drawComposer(); });
@@ -499,13 +554,37 @@ async function loadFeed(){
       + '<div class="p-body">' + esc(p.body) + '</div>'
       + (p.ticker ? '<a class="p-ticker" href="/fund/' + encodeURIComponent(p.ticker) + '">'
           + '<b>' + esc(p.ticker) + '</b> <span>see the fund &rarr;</span></a>' : '')
-      + '<div class="p-acts">' + reactionBar(p) 
-      + '<button class="p-act report" data-id="' + p.id + '" type="button">Report</button>'
+      + '<div class="p-acts">'
+      + '<button class="p-act like' + (liked[p.id] ? ' on' : '') + '" data-id="' + p.id
+        + '" type="button" aria-label="Like">' + ICON.like
+        + (p.like_count ? '<span class="n">' + p.like_count + '</span>' : '') + '</button>'
+      + '<button class="p-act reply" data-id="' + p.id + '" type="button" aria-label="Reply">'
+        + ICON.reply
+        + (p.comment_count ? '<span class="n">' + p.comment_count + '</span>' : '') + '</button>'
+      + '<button class="p-act share" data-id="' + p.id + '" type="button" aria-label="Copy link">'
+        + ICON.share + '</button>'
+      + '<button class="p-act report" data-id="' + p.id + '" type="button" aria-label="Report">'
+        + ICON.flag + '</button>'
       + '</div></div></article>';
   }).join('');
 
   host.querySelectorAll('.react').forEach(function(b){
     b.addEventListener('click', function(){ react(b.dataset.id, b.dataset.r); });
+  });
+  host.querySelectorAll('.share').forEach(function(b){
+    b.addEventListener('click', function(){
+      const url = location.origin + '/social/post/?id=' + b.dataset.id;
+      navigator.clipboard.writeText(url).then(function(){
+        b.classList.add('on');
+        setTimeout(function(){ b.classList.remove('on'); }, 1200);
+      });
+    });
+  });
+  host.querySelectorAll('.reply').forEach(function(b){
+    b.addEventListener('click', function(){
+      // threads are the next piece of work; say so rather than do nothing
+      alert('Replies are coming next. For now, post your answer to the feed.');
+    });
   });
   host.querySelectorAll('.report').forEach(function(b){
     b.addEventListener('click', function(){ report(b.dataset.id); });
