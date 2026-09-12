@@ -111,6 +111,19 @@
     margin-top:8px;}
   .quiet{background:var(--white); border:1px dashed var(--line-strong); border-radius:13px;
     padding:30px 22px; text-align:center; color:var(--ink-soft); font-size:14.5px;}
+
+  .edit-row{display:flex; gap:8px; align-items:center; margin-top:12px; flex-wrap:wrap;}
+  .edit-row input{padding:8px 11px; border-radius:8px; font:inherit; font-size:14px;
+    border:1px solid var(--line-strong); background:var(--paper-raised); color:var(--ink);
+    outline:none;}
+  .edit-row input:focus{border-color:var(--ink);}
+  .edit-row input.handle{width:180px;}
+  .edit-row input.bio{flex:1; min-width:220px;}
+  .edit-go{padding:8px 16px; border-radius:100px; cursor:pointer; font:inherit; font-size:13.5px;
+    background:var(--ink); color:var(--paper); border:1px solid var(--ink);}
+  .edit-go:hover{filter:brightness(1.2);}
+  .edit-note{font-size:12.5px; color:var(--ink-faint); margin-top:7px;}
+  .edit-note.bad{color:var(--ember-deep);}
 </style>
 </head>
 <body>
@@ -216,6 +229,56 @@ function badges(w){
       + '<div class="who-stat"><b>' + (w.follower_count || 0) + '</b><span>followers</span></div>'
       + '<div class="who-stat"><b>' + when(w.signed_up).replace(' ago','') + '</b><span>joined</span></div>'
     + '</div></div></div>';
+
+  // Your own profile gets the controls. Everyone else's is read only, which
+  // is enforced by the database too, not just by hiding the form.
+  const me = await sb.auth.getSession();
+  const myId = me.data.session ? me.data.session.user.id : null;
+  if (myId === w.id){
+    const box = document.createElement('div');
+    box.className = 'panel';
+    box.innerHTML = '<div class="panel-t">Your profile</div>'
+      + '<div class="edit-row">'
+      + '<span style="color:var(--ink-faint)">@</span>'
+      + '<input class="handle" id="ed-handle" maxlength="20" value="' + esc(w.handle) + '">'
+      + '<input class="bio" id="ed-bio" maxlength="300" placeholder="A line about how you invest"'
+      + ' value="' + esc(w.bio || '') + '">'
+      + '<button class="edit-go" id="ed-save" type="button">Save</button>'
+      + '</div>'
+      + '<div class="edit-note" id="ed-note">Three to twenty letters, numbers or '
+      + 'underscores. Changing your handle changes the address of this page.</div>';
+    whoEl.appendChild(box);
+
+    document.getElementById('ed-save').addEventListener('click', async function(){
+      const note = document.getElementById('ed-note');
+      const btn = document.getElementById('ed-save');
+      const h = document.getElementById('ed-handle').value.trim().toLowerCase();
+      const b = document.getElementById('ed-bio').value;
+      btn.disabled = true;
+      note.className = 'edit-note';
+      note.textContent = 'Saving…';
+
+      // the database does the checking, so its refusal is the honest message
+      if (h && h !== w.handle){
+        const r = await sb.rpc('set_handle', {new_handle: h});
+        if (r.error){
+          note.className = 'edit-note bad';
+          note.textContent = r.error.message;
+          btn.disabled = false;
+          return;
+        }
+      }
+      const rb = await sb.rpc('set_bio', {new_bio: b});
+      btn.disabled = false;
+      if (rb.error){
+        note.className = 'edit-note bad';
+        note.textContent = rb.error.message;
+        return;
+      }
+      // the address changes with the handle, so go to the new one
+      location.href = '/social/u/?h=' + encodeURIComponent(h || w.handle);
+    });
+  }
 
   // Holdings, as percentages. A member has to have chosen to publish these;
   // the amounts are never shown, only the shape of the portfolio.
