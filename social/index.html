@@ -315,8 +315,17 @@ let liked = {};
 
 // No post types. Choosing a category before writing narrows what people
 // say, and the only thing being moderated here is self-promotion.
-const KINDS = [];
-const FILTERS = [];
+// The kinds of thing worth posting here, each with a prompt written for it.
+const KINDS = [
+  {id:'post', label:'Post', ph:'Share an income investing idea, a holding, or something you have noticed…'},
+  {id:'question', label:'Question', ph:'Ask the thing you actually want to know. Specific questions get specific answers.'},
+  {id:'portfolio', label:'Portfolio', ph:'Describe what you hold and why. Percentages are more useful than dollar amounts.'},
+  {id:'etf', label:'ETF discussion', ph:'What have you noticed about this fund? Add its ticker below.'}
+];
+const FILTERS = [
+  {id:'all', label:'All'}, {id:'question', label:'Questions'},
+  {id:'portfolio', label:'Portfolios'}, {id:'etf', label:'ETF discussions'}
+];
 
 function esc(s){
   return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
