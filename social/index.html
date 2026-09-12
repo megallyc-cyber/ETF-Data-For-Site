@@ -291,6 +291,12 @@
   .th-go{padding:9px 18px; border-radius:100px; cursor:pointer; font:inherit;
     font-size:13.5px; background:var(--ink); color:var(--paper); border:1px solid var(--ink);}
   .th-go:hover{filter:brightness(1.2);}
+
+  .th-del{margin-top:5px; padding:3px 9px; border-radius:7px; cursor:pointer;
+    font:inherit; font-size:11.5px; background:none; color:var(--ink-faint);
+    border:1px solid transparent;}
+  .th-del:hover{color:var(--ember-deep); border-color:rgba(212,80,31,0.35);}
+  .p-act.mine-del:hover{color:var(--ember-deep); background:rgba(212,80,31,0.07);}
 </style>
 </head>
 <body>
@@ -401,6 +407,7 @@ const ICON = {
   like: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>',
   reply: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 20.5l1.5-4.4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>',
   share: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
+  bin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
   flag: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4"/><path d="M4 5h11l-1.5 3.5L15 12H4z"/></svg>'
 };
 
@@ -610,6 +617,7 @@ async function loadFeed(){
     const handle = w.handle ? '@' + w.handle : '';
     const href = w.handle ? '/social/u/?h=' + encodeURIComponent(w.handle) : null;
     const kindLabel = (KINDS.find(function(k){ return k.id === p.kind; }) || {}).label || 'Post';
+    const mine = session && p.author_id === session.user.id;
     const isPro = String(w.tier || '').toLowerCase() === 'pro';
     const face = w.avatar_url
       ? '<img src="' + esc(w.avatar_url) + '" alt="">'
@@ -641,8 +649,11 @@ async function loadFeed(){
         + (p.comment_count ? '<span class="n">' + p.comment_count + '</span>' : '') + '</button>'
       + '<button class="p-act share" data-id="' + p.id + '" type="button" aria-label="Copy link">'
         + ICON.share + '</button>'
-      + '<button class="p-act report" data-id="' + p.id + '" type="button" aria-label="Report">'
-        + ICON.flag + '</button>'
+      + (mine
+          ? '<button class="p-act mine-del" data-id="' + p.id + '" type="button" aria-label="Delete">'
+            + ICON.bin + '</button>'
+          : '<button class="p-act report" data-id="' + p.id + '" type="button" aria-label="Report">'
+            + ICON.flag + '</button>')
       + '</div></div></article>';
   }).join('');
 
@@ -660,6 +671,16 @@ async function loadFeed(){
   });
   host.querySelectorAll('.reply').forEach(function(b){
     b.addEventListener('click', function(){ toggleThread(b.dataset.id); });
+  });
+  host.querySelectorAll('.mine-del').forEach(function(b){
+    b.addEventListener('click', async function(){
+      if (!confirm('Delete this post? Any replies to it go too, and it cannot be undone.')) return;
+      b.disabled = true;
+      const r = await sb.from('posts').delete().eq('id', b.dataset.id);
+      b.disabled = false;
+      if (r.error){ alert(r.error.message); return; }
+      loadFeed();
+    });
   });
   host.querySelectorAll('.report').forEach(function(b){
     b.addEventListener('click', function(){ report(b.dataset.id); });
@@ -713,12 +734,28 @@ async function toggleThread(id){
               + '<span class="p-avatar">' + face + '</span></span>'
             + '<div><div class="th-who">' + esc(nm)
               + '<span class="th-when">' + when(c.created_at) + '</span></div>'
-            + '<div class="th-body">' + esc(c.body) + '</div></div></div>';
+            + '<div class="th-body">' + esc(c.body) + '</div>'
+            + (session && c.author_id === session.user.id
+                ? '<button class="th-del" data-id="' + c.id + '" type="button">Delete</button>'
+                : '')
+            + '</div></div>';
         }).join('')
       : '<div class="th-loading">No replies yet.</div>')
     + (session
         ? '<div class="th-write"><input class="th-input" maxlength="2000" placeholder="Write a reply…"><button class="th-go" type="button">Reply</button></div>'
         : '<div class="th-loading"><a href="/account?mode=signup">Create an account</a> to reply.</div>');
+
+  box.querySelectorAll('.th-del').forEach(function(b){
+    b.addEventListener('click', async function(){
+      if (!confirm('Delete this reply?')) return;
+      b.disabled = true;
+      const r = await sb.from('comments').delete().eq('id', b.dataset.id);
+      b.disabled = false;
+      if (r.error){ alert(r.error.message); return; }
+      box.remove();
+      toggleThread(id);
+    });
+  });
 
   const input = box.querySelector('.th-input');
   const go = box.querySelector('.th-go');
