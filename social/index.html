@@ -183,6 +183,18 @@
     .composer{padding:15px 16px;}
     .post{padding:15px 16px;}
   }
+
+  /* a quiet row of reactions: unused ones stay faint until someone uses them,
+     so the bar does not shout six options at a reader */
+  .p-acts{gap:3px; flex-wrap:wrap;}
+  .p-act.react{font-size:13px; padding:5px 9px; min-width:32px; border-radius:7px;
+    border:1px solid transparent; transition:background .14s, border-color .14s, color .14s;}
+  .p-act.react.quiet{opacity:0.35;}
+  .p-act.react:hover{opacity:1; background:var(--paper-raised); border-color:var(--line);}
+  .p-act.react.on{background:rgba(255,107,53,0.10); border-color:rgba(255,107,53,0.4);
+    color:var(--ember-deep); opacity:1;}
+  .p-act.report{margin-left:auto; font-size:12px;}
+  .sh-top{height:10px;}
 </style>
 </head>
 <body>
@@ -204,12 +216,7 @@
 </nav>
 
 <main>
-  <div class="sh-head">
-    <div class="sh-eyebrow">Social Hub</div>
-    <h1>Income investing, discussed.</h1>
-    <p>Share what you hold, compare funds, and ask the questions that are hard to
-       find honest answers to. Everything here is written by other investors.</p>
-  </div>
+  <div class="sh-top"></div>
 
   <div class="sh-grid">
     <div>
@@ -258,16 +265,10 @@ async function client(){
 let sb = null, session = null, kind = 'post', filter = 'all';
 let liked = {};
 
-const KINDS = [
-  {id:'post', label:'Post', ph:'Share an income investing idea, a holding, or something you have noticed…'},
-  {id:'question', label:'Question', ph:'Ask the thing you actually want to know. Specific questions get specific answers.'},
-  {id:'portfolio', label:'Portfolio', ph:'Describe what you hold and why. Percentages are more useful than dollar amounts.'},
-  {id:'etf', label:'ETF discussion', ph:'What have you noticed about this fund? Add its ticker below.'}
-];
-const FILTERS = [
-  {id:'all', label:'All'}, {id:'question', label:'Questions'},
-  {id:'portfolio', label:'Portfolios'}, {id:'etf', label:'ETF discussions'}
-];
+// No post types. Choosing a category before writing narrows what people
+// say, and the only thing being moderated here is self-promotion.
+const KINDS = [];
+const FILTERS = [];
 
 function esc(s){
   return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -316,6 +317,51 @@ async function publishOwnAvatar(){
   await sb.from('profiles').update({avatar_url: photo}).eq('id', session.user.id);
 }
 
+
+// A handful of reactions rather than a single like, so agreeing and finding
+// something useful are not the same gesture. One per person per post, which
+// is what stops anyone stacking them on their own writing.
+const REACTIONS = [
+  {id:'like',       glyph:'\u2661', label:'Like'},
+  {id:'agree',      glyph:'\u2713', label:'Agree'},
+  {id:'disagree',   glyph:'\u2715', label:'Disagree'},
+  {id:'insightful', glyph:'\u25C6', label:'Insightful'},
+  {id:'curious',    glyph:'?',       label:'Curious'},
+  {id:'celebrate',  glyph:'\u2605', label:'Nice'}
+];
+
+function reactionBar(p){
+  const counts = reactionCounts[p.id] || {};
+  const mine = myReaction[p.id] || null;
+  return REACTIONS.map(function(r){
+    const n = counts[r.id] || 0;
+    // an unused reaction stays quiet until somebody uses it
+    if (!n && mine !== r.id) {
+      return '<button class="p-act react quiet" data-id="' + p.id + '" data-r="' + r.id
+        + '" type="button" title="' + r.label + '">' + r.glyph + '</button>';
+    }
+    return '<button class="p-act react' + (mine === r.id ? ' on' : '') + '" data-id="' + p.id
+      + '" data-r="' + r.id + '" type="button" title="' + r.label + '">'
+      + r.glyph + (n ? ' ' + n : '') + '</button>';
+  }).join('');
+}
+
+let reactionCounts = {}, myReaction = {};
+
+async function react(id, kind){
+  if (!session){ location.href = '/account?mode=signup'; return; }
+  const had = myReaction[id];
+  if (had === kind){
+    await sb.from('reactions').delete().eq('user_id', session.user.id).eq('post_id', id);
+  } else if (had){
+    await sb.from('reactions').update({kind: kind})
+      .eq('user_id', session.user.id).eq('post_id', id);
+  } else {
+    await sb.from('reactions').insert({user_id: session.user.id, post_id: id, kind: kind});
+  }
+  loadFeed();
+}
+
 function drawComposer(){
   const slot = document.getElementById('composer-slot');
   if (!session){
@@ -324,11 +370,9 @@ function drawComposer(){
       + '<a class="go" href="/account?mode=signup">Create an account</a></div>';
     return;
   }
-  const k = KINDS.find(function(x){ return x.id === kind; }) || KINDS[0];
-  slot.innerHTML = '<div class="composer"><div class="cmp-kinds">'
-    + KINDS.map(function(x){ return '<button class="cmp-kind' + (x.id === kind ? ' on' : '')
-        + '" data-kind="' + x.id + '" type="button">' + x.label + '</button>'; }).join('')
-    + '</div><textarea id="cmp-body" maxlength="5000" placeholder="' + esc(k.ph) + '"></textarea>'
+  const k = {ph: 'Say something. A holding, a question, something you noticed.'};
+  slot.innerHTML = '<div class="composer">'
+    + '<textarea id="cmp-body" maxlength="5000" placeholder="' + esc(k.ph) + '"></textarea>'
     + '<div class="cmp-foot">'
     + (kind === 'etf' ? '<input class="cmp-ticker" id="cmp-ticker" maxlength="8" placeholder="TICKER">' : '')
     + '<span class="cmp-count" id="cmp-count">0</span>'
@@ -420,13 +464,15 @@ async function loadFeed(){
   (people.data || []).forEach(function(p){ who[p.id] = p; });
 
   // which of these has the reader already liked
-  liked = {};
-  if (session){
-    const mine = await sb.from('reactions').select('post_id')
-      .eq('user_id', session.user.id)
-      .in('post_id', rows.map(function(p){ return p.id; }));
-    (mine.data || []).forEach(function(r){ liked[r.post_id] = true; });
-  }
+  // every reaction on the posts in view, in one query
+  reactionCounts = {}; myReaction = {};
+  const postIds = rows.map(function(p){ return p.id; });
+  const all = await sb.from('reactions').select('post_id,kind,user_id').in('post_id', postIds);
+  (all.data || []).forEach(function(r){
+    reactionCounts[r.post_id] = reactionCounts[r.post_id] || {};
+    reactionCounts[r.post_id][r.kind] = (reactionCounts[r.post_id][r.kind] || 0) + 1;
+    if (session && r.user_id === session.user.id) myReaction[r.post_id] = r.kind;
+  });
 
   host.innerHTML = rows.map(function(p){
     const w = who[p.author_id] || {};
@@ -453,16 +499,13 @@ async function loadFeed(){
       + '<div class="p-body">' + esc(p.body) + '</div>'
       + (p.ticker ? '<a class="p-ticker" href="/fund/' + encodeURIComponent(p.ticker) + '">'
           + '<b>' + esc(p.ticker) + '</b> <span>see the fund &rarr;</span></a>' : '')
-      + '<div class="p-acts">'
-      + '<button class="p-act like' + (liked[p.id] ? ' on' : '') + '" data-id="' + p.id
-        + '" type="button">' + (liked[p.id] ? 'Liked' : 'Like')
-        + (p.like_count ? ' &middot; ' + p.like_count : '') + '</button>'
+      + '<div class="p-acts">' + reactionBar(p) 
       + '<button class="p-act report" data-id="' + p.id + '" type="button">Report</button>'
       + '</div></div></article>';
   }).join('');
 
-  host.querySelectorAll('.like').forEach(function(b){
-    b.addEventListener('click', function(){ toggleLike(b.dataset.id); });
+  host.querySelectorAll('.react').forEach(function(b){
+    b.addEventListener('click', function(){ react(b.dataset.id, b.dataset.r); });
   });
   host.querySelectorAll('.report').forEach(function(b){
     b.addEventListener('click', function(){ report(b.dataset.id); });
