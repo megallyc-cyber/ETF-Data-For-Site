@@ -203,6 +203,37 @@
   .p-act.on{color:var(--ember-deep);}
   .p-act.on svg{fill:rgba(255,107,53,0.18); stroke:var(--ember-deep);}
   .p-act .n{font-family:"IBM Plex Mono",monospace; font-size:12px;}
+  /* ---- the ring around a face ----
+     Pro carries the same gold the rest of the site uses for it; everyone else
+     gets the ember. It turns slowly rather than flickering: a feed full of
+     flashing rings would be unreadable. */
+  .p-avatar, .who-face{position:relative; background-clip:padding-box;}
+  .ring{position:relative; border-radius:50%; padding:2.5px; display:inline-flex;
+    background:conic-gradient(from 0deg, #FF6B35, #FFB088, #D4501F, #FF6B35);
+    animation:ringspin 6s linear infinite;}
+  .ring.is-pro{background:conic-gradient(from 0deg, #8C6B1F, #E9D6A8, #C9A227, #F6E9C2, #8C6B1F);
+    animation-duration:4.5s;}
+  @keyframes ringspin{to{transform:rotate(360deg);}}
+  /* the picture itself must not spin with the ring */
+  .ring > *{animation:ringspin 6s linear infinite reverse;}
+  .ring.is-pro > *{animation-duration:4.5s;}
+  @media (prefers-reduced-motion: reduce){
+    .ring, .ring > *{animation:none;}
+  }
+
+  /* Pro in the site gold, not red */
+  .badge.pro{background:linear-gradient(115deg,#8C6B1F,#E9D6A8,#C9A227,#8C6B1F);
+    color:#2A2008; border:1px solid rgba(140,107,31,0.55);}
+  .badge.official{background:rgba(46,125,107,0.12); color:var(--teal);
+    border:1px solid rgba(46,125,107,0.32);}
+
+  .side-card.rules ul{margin:0; padding-left:17px;}
+  .side-card.rules li{font-size:13.5px; line-height:1.7; color:var(--ink-soft);}
+
+  .cmp-flair{font:inherit; font-size:13px; padding:7px 11px; border-radius:8px;
+    border:1px solid var(--line-strong); background:var(--paper-raised);
+    color:var(--ink); cursor:pointer;}
+  .cmp-flair:focus{outline:none; border-color:var(--ink);}
   .side-card{background:var(--white); border:1px solid var(--line); border-radius:13px;
     padding:17px 18px; margin-bottom:14px;}
   .side-t{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.13em;
@@ -254,16 +285,11 @@
 </nav>
 
 <main>
-  <div class="hub-banner">
-    <div class="hb-in">
-      <img class="hb-bird" src="/assets/bird.svg" alt="">
-      <div>
-        <div class="hb-eye">Social Hub</div>
-        <h1>Income investing, discussed.</h1>
-        <p>Share what you hold, compare funds, and ask the questions that are hard
-           to find honest answers to. Everything here is written by other investors.</p>
-      </div>
-    </div>
+  <div class="sh-head">
+    <div class="sh-eyebrow">Social Hub</div>
+    <h1>Income investing, discussed.</h1>
+    <p>Share what you hold, compare funds, and ask the questions that are hard to
+       find honest answers to. Everything here is written by other investors.</p>
   </div>
 
   <div class="sh-grid">
@@ -273,15 +299,14 @@
       <div id="feed"><div class="state"><p>Loading the feed…</p></div></div>
     </div>
     <aside>
-      <div class="side-card">
-        <div class="side-t">Getting started</div>
-        <p>Say what you are building and why. A portfolio with a question attached
-           gets better answers than a portfolio on its own.</p>
-      </div>
-      <div class="side-card">
-        <div class="side-t">What belongs here</div>
-        <p>Holdings, yields, strategy, and honest disagreement. Not tips, not
-           promotion, not anything you would not say to someone's face.</p>
+      <div class="side-card rules">
+        <div class="side-t">House rules</div>
+        <ul>
+          <li>No self promotion.</li>
+          <li>No politics.</li>
+          <li>No abuse.</li>
+          <li>Posts must be relevant to investing.</li>
+        </ul>
       </div>
     </aside>
   </div>
@@ -363,10 +388,17 @@ function badges(w){
         + esc(label) + '</span>';
   }
   if (w.size_band){
-    out += '<span class="badge size">' + esc(String(w.size_band).toUpperCase()) + '+</span>';
+    // the same standings the portfolio page names, so a badge means the same
+    // thing wherever it is seen
+    const STANDING = {'100k':'Platinum', '250k':'Platinum Plus',
+                      '500k':'Generational', '1m':'Diamond'};
+    const named = STANDING[w.size_band];
+    const cls = named ? 'tier-' + named.toLowerCase().replace(/ /g,'-') : 'size';
+    out += '<span class="badge ' + cls + '">'
+        + esc(named || String(w.size_band).toUpperCase() + '+') + '</span>';
   }
   if (w.is_official){
-    out += '<span class="badge pro">Licentia</span>';
+    out += '<span class="badge official">Licentia</span>';
   }
   return out;
 }
@@ -439,10 +471,12 @@ function drawComposer(){
   const k = KINDS.find(function(x){ return x.id === kind; }) || KINDS[0];
   slot.innerHTML = '<div class="composer">'
     + '<div class="cmp-kinds">'
-      + KINDS.map(function(x){
-          return '<button class="cmp-kind' + (x.id === kind ? ' on' : '')
-            + '" data-kind="' + x.id + '" type="button">' + x.label + '</button>';
-        }).join('')
+      + '<select class="cmp-flair" id="cmp-flair" aria-label="What kind of post is this?">'
+        + KINDS.map(function(x){
+            return '<option value="' + x.id + '"' + (x.id === kind ? ' selected' : '')
+              + '>' + x.label + '</option>';
+          }).join('')
+      + '</select>'
     + '</div>'
     + '<textarea id="cmp-body" maxlength="5000" placeholder="' + esc(k.ph) + '"></textarea>'
     + '<div class="cmp-foot">'
@@ -450,9 +484,8 @@ function drawComposer(){
     + '<span class="cmp-count" id="cmp-count">0</span>'
     + '<button class="cmp-go" id="cmp-go" type="button">Post</button></div>'
     + '<div class="cmp-error" id="cmp-error" hidden></div></div>';
-  slot.querySelectorAll('.cmp-kind').forEach(function(b){
-    b.addEventListener('click', function(){ kind = b.dataset.kind; drawComposer(); });
-  });
+  const flair = document.getElementById('cmp-flair');
+  if (flair) flair.addEventListener('change', function(){ kind = flair.value; drawComposer(); });
   const body = document.getElementById('cmp-body');
   body.addEventListener('input', function(){
     document.getElementById('cmp-count').textContent = body.value.length;
@@ -550,12 +583,15 @@ async function loadFeed(){
     const handle = w.handle ? '@' + w.handle : '';
     const href = w.handle ? '/social/u/?h=' + encodeURIComponent(w.handle) : null;
     const kindLabel = (KINDS.find(function(k){ return k.id === p.kind; }) || {}).label || 'Post';
+    const isPro = String(w.tier || '').toLowerCase() === 'pro';
     const face = w.avatar_url
       ? '<img src="' + esc(w.avatar_url) + '" alt="">'
       : esc(name.trim().slice(0,1).toUpperCase());
     return '<article class="post" data-id="' + p.id + '">'
-      + (href ? '<a class="p-avatar" href="' + href + '">' + face + '</a>'
-              : '<span class="p-avatar">' + face + '</span>')
+      + '<span class="ring' + (isPro ? ' is-pro' : '') + '">'
+        + (href ? '<a class="p-avatar" href="' + href + '">' + face + '</a>'
+                : '<span class="p-avatar">' + face + '</span>')
+      + '</span>'
       + '<div>'
       + '<div class="p-line">'
         + (href ? '<a class="p-name" href="' + href + '">' + esc(name) + '</a>'
