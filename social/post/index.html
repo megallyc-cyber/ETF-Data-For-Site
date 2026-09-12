@@ -120,6 +120,70 @@
   .r-del:hover{color:var(--ember-deep); border-color:rgba(212,80,31,0.35);}
   .quiet{background:var(--white); border:1px dashed var(--line-strong); border-radius:13px;
     padding:32px 22px; text-align:center; color:var(--ink-soft); font-size:14.5px;}
+
+  /* ---- votes ----
+     Arrows rather than a heart: agreeing and disagreeing are the same gesture
+     in opposite directions, and the number between them is net support. */
+  .votes{display:inline-flex; align-items:center; gap:2px;}
+  .votes .act{padding:6px 7px;}
+  .votes .act.up.on{color:var(--teal);}
+  .votes .act.up.on svg{fill:rgba(46,125,107,0.18); stroke:var(--teal);}
+  .votes .act.down.on, .votes .act.cdown.on{color:var(--ember-deep);}
+  .votes .act.down.on svg, .votes .act.cdown.on svg{
+    fill:rgba(212,80,31,0.16); stroke:var(--ember-deep);}
+  .votes .act.cup.on{color:var(--teal);}
+  .votes .act.cup.on svg{fill:rgba(46,125,107,0.18); stroke:var(--teal);}
+  .score{font-family:'IBM Plex Mono',monospace; font-size:12.5px; min-width:16px;
+    text-align:center; color:var(--ink-soft);}
+  .votes.sm .act{padding:4px 6px;}
+  .votes.sm .act svg{width:14px; height:14px;}
+  .votes.sm .score{font-size:11.5px;}
+
+  .r-acts{display:flex; align-items:center; gap:6px; margin-top:6px;}
+  .r-reply{padding:4px 10px; border-radius:7px; cursor:pointer; font:inherit;
+    font-size:11.5px; background:none; color:var(--ink-faint); border:1px solid transparent;}
+  .r-reply:hover{color:var(--ink); background:var(--paper-raised);}
+  .write.sub{margin:9px 0 4px;}
+  .write.sub input{font-size:13.5px; padding:9px 12px;}
+  .write.sub button{padding:9px 16px; font-size:13px;}
+  /* a reply to a reply is indented once, and never again */
+  .reply.nested{grid-template-columns:32px minmax(0,1fr); margin-left:22px;
+    padding-left:14px; border-left:2px solid var(--line); border-bottom:none;}
+  .reply.nested .ring{width:32px; height:32px;}
+  .reply.nested .ring > *{width:27px; height:27px; font-size:12px;}
+
+  /* ---- the ring, with something to catch the light ----
+     A flat sweep of colour reads as a border. Two layers turning at different
+     speeds, plus a soft bloom underneath, give it depth without becoming a
+     distraction in a list of twenty. */
+  .ring::before{
+    background:conic-gradient(from 0deg,
+      #FF6B35 0deg, #FFD0B8 60deg, #D4501F 140deg, #FF8A5B 220deg,
+      #FFE3D2 290deg, #FF6B35 360deg);
+    animation:ringspin 7s linear infinite;}
+  .ring::after{content:""; position:absolute; inset:-3px; border-radius:50%;
+    background:conic-gradient(from 180deg,
+      rgba(255,107,53,0) 0deg, rgba(255,107,53,0.55) 90deg,
+      rgba(255,107,53,0) 200deg, rgba(212,80,31,0.45) 300deg,
+      rgba(255,107,53,0) 360deg);
+    filter:blur(5px); z-index:-1;
+    animation:ringspin 11s linear infinite reverse;}
+  .ring.is-pro::before{
+    background:conic-gradient(from 0deg,
+      #6B4E12 0deg, #C9A227 40deg, #F6E9C2 95deg, #FFFBEA 120deg,
+      #E9D6A8 170deg, #B8901F 240deg, #F2DFA4 310deg, #6B4E12 360deg);
+    animation-duration:5s;}
+  .ring.is-pro::after{
+    background:conic-gradient(from 90deg,
+      rgba(201,162,39,0) 0deg, rgba(246,233,194,0.75) 80deg,
+      rgba(201,162,39,0.5) 170deg, rgba(255,251,234,0.7) 260deg,
+      rgba(201,162,39,0) 360deg);
+    filter:blur(6px);
+    animation-duration:8s;}
+  .ring{isolation:isolate;}
+  @media (prefers-reduced-motion: reduce){
+    .ring::before, .ring::after{animation:none;}
+  }
 </style>
 </head>
 <body>
@@ -151,7 +215,9 @@ async function client(){
 }
 
 const ICON = {
-  like: '<svg viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>',
+  up: '<svg viewBox="0 0 24 24"><path d="M12 4l7 8h-4v8h-6v-8H5z"/></svg>',
+  down: '<svg viewBox="0 0 24 24"><path d="M12 20l-7-8h4V4h6v8h4z"/></svg>',
+  reply: '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 20.5l1.5-4.4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>',
   share: '<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
   flag: '<svg viewBox="0 0 24 24"><path d="M4 21V4"/><path d="M4 5h11l-1.5 3.5L15 12H4z"/></svg>',
   bin: '<svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>'
@@ -159,7 +225,8 @@ const ICON = {
 const KIND = {post:'Post', question:'Question', portfolio:'Portfolio', etf:'ETF discussion'};
 const STANDING = {'100k':'Platinum', '250k':'Platinum Plus', '500k':'Generational', '1m':'Diamond'};
 
-let sb = null, session = null, postId = null, liked = false;
+let sb = null, session = null, postId = null, myVote = 0;
+let myCommentVotes = {}, replyingTo = null;
 
 function esc(s){
   return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -223,10 +290,11 @@ async function draw(){
 
   document.title = name + ' on Licentia — ' + (KIND[p.kind] || 'Post');
 
+  myVote = 0;
   if (session){
-    const l = await sb.from('reactions').select('post_id')
+    const l = await sb.from('reactions').select('value')
       .eq('user_id', session.user.id).eq('post_id', p.id);
-    liked = !!(l.data && l.data.length);
+    if (l.data && l.data.length) myVote = l.data[0].value;
   }
 
   host.innerHTML = '<div class="card"><div class="top">'
@@ -244,8 +312,13 @@ async function draw(){
       + (p.ticker ? '<a class="tick" href="/fund/' + encodeURIComponent(p.ticker) + '">'
           + '<b>' + esc(p.ticker) + '</b><span>see the fund &rarr;</span></a>' : '')
       + '<div class="acts">'
-        + '<button class="act like' + (liked ? ' on' : '') + '" type="button">' + ICON.like
-          + (p.like_count ? '<span class="n">' + p.like_count + '</span>' : '') + '</button>'
+        + '<span class="votes">'
+          + '<button class="act vote up' + (myVote === 1 ? ' on' : '') + '" data-v="1"'
+            + ' type="button" aria-label="Agree">' + ICON.up + '</button>'
+          + '<span class="score">' + (p.like_count || 0) + '</span>'
+          + '<button class="act vote down' + (myVote === -1 ? ' on' : '') + '" data-v="-1"'
+            + ' type="button" aria-label="Disagree">' + ICON.down + '</button>'
+        + '</span>'
         + '<button class="act share" type="button">' + ICON.share + '</button>'
         + (mine
             ? '<button class="act del" type="button">' + ICON.bin + '</button>'
@@ -253,7 +326,9 @@ async function draw(){
       + '</div>'
     + '</div></div></div>';
 
-  host.querySelector('.like').addEventListener('click', toggleLike);
+  host.querySelectorAll('.vote').forEach(function(b){
+    b.addEventListener('click', function(){ vote('post', p.id, Number(b.dataset.v)); });
+  });
   host.querySelector('.share').addEventListener('click', function(){
     navigator.clipboard.writeText(location.href);
     this.classList.add('on');
@@ -281,20 +356,29 @@ async function draw(){
   drawReplies();
 }
 
-async function toggleLike(){
+async function vote(target, id, want){
   if (!session){ location.href = '/account?mode=signup'; return; }
-  if (liked){
-    await sb.from('reactions').delete()
-      .eq('user_id', session.user.id).eq('post_id', postId);
+  const table = target === 'post' ? 'reactions' : 'comment_reactions';
+  const key = target === 'post' ? 'post_id' : 'comment_id';
+  const now = target === 'post' ? myVote : (myCommentVotes[id] || 0);
+
+  if (now === want){
+    // pressing the same arrow again takes the vote back
+    await sb.from(table).delete().eq('user_id', session.user.id).eq(key, id);
+  } else if (now === 0){
+    const row = {user_id: session.user.id, value: want};
+    row[key] = id;
+    await sb.from(table).insert(row);
   } else {
-    await sb.from('reactions').insert({user_id: session.user.id, post_id: postId});
+    await sb.from(table).update({value: want})
+      .eq('user_id', session.user.id).eq(key, id);
   }
   draw();
 }
 
 async function drawReplies(){
   const host = document.getElementById('replies');
-  const r = await sb.from('comments').select('id,body,author_id,created_at')
+  const r = await sb.from('comments').select('id,body,author_id,created_at,parent_id,score')
     .eq('post_id', postId).is('removed_at', null)
     .order('created_at', {ascending:true}).limit(200);
   const rows = r.data || [];
@@ -307,6 +391,54 @@ async function drawReplies(){
     (p.data || []).forEach(function(x){ who[x.id] = x; });
   }
 
+  myCommentVotes = {};
+  if (session && rows.length){
+    const v = await sb.from('comment_reactions').select('comment_id,value')
+      .eq('user_id', session.user.id).in('comment_id', rows.map(function(c){ return c.id; }));
+    (v.data || []).forEach(function(x){ myCommentVotes[x.comment_id] = x.value; });
+  }
+
+  // a reply to a reply sits under its parent, one level only
+  const top = rows.filter(function(c){ return !c.parent_id; });
+  const kids = {};
+  rows.forEach(function(c){
+    if (!c.parent_id) return;
+    (kids[c.parent_id] = kids[c.parent_id] || []).push(c);
+  });
+
+  function one(c, nested){
+    const w = who[c.author_id] || {};
+    const nm = w.full_name || w.handle || 'A member';
+    const mine = session && c.author_id === session.user.id;
+    const mv = myCommentVotes[c.id] || 0;
+    return '<div class="reply' + (nested ? ' nested' : '') + '">' + face(w, nm) + '<div>'
+      + '<div class="line">'
+        + (w.handle ? '<a class="nm" href="/social/u/?h=' + encodeURIComponent(w.handle)
+            + '">' + esc(nm) + '</a>' : '<span class="nm">' + esc(nm) + '</span>')
+        + badges(w)
+        + '<span class="dot">&middot;</span><span class="ago">' + when(c.created_at) + '</span>'
+      + '</div>'
+      + '<div class="r-body">' + esc(c.body) + '</div>'
+      + '<div class="r-acts">'
+        + '<span class="votes sm">'
+          + '<button class="act vote cup' + (mv === 1 ? ' on' : '') + '" data-c="' + c.id
+            + '" data-v="1" type="button" aria-label="Agree">' + ICON.up + '</button>'
+          + '<span class="score">' + (c.score || 0) + '</span>'
+          + '<button class="act vote cdown' + (mv === -1 ? ' on' : '') + '" data-c="' + c.id
+            + '" data-v="-1" type="button" aria-label="Disagree">' + ICON.down + '</button>'
+        + '</span>'
+        + (nested ? '' : '<button class="r-reply" data-c="' + c.id + '" type="button">Reply</button>')
+        + (mine ? '<button class="r-del" data-id="' + c.id + '" type="button">Delete</button>' : '')
+      + '</div>'
+      + (replyingTo === c.id
+          ? '<div class="write sub"><input class="sub-body" maxlength="2000" '
+            + 'placeholder="Reply to ' + esc(nm) + '…"><button class="sub-go" data-c="' + c.id
+            + '" type="button">Reply</button></div>'
+          : '')
+      + (kids[c.id] || []).map(function(k){ return one(k, true); }).join('')
+      + '</div></div>';
+  }
+
   host.innerHTML =
     (session
       ? '<div class="write"><input id="rbody" maxlength="2000" placeholder="Add a reply…">'
@@ -314,42 +446,30 @@ async function drawReplies(){
       : '<div class="quiet"><a href="/account?mode=signup">Create an account</a> to reply.</div>')
     + '<div class="count">' + rows.length + (rows.length === 1 ? ' reply' : ' replies') + '</div>'
     + '<div class="card">'
-    + (rows.length
-        ? rows.map(function(c){
-            const w = who[c.author_id] || {};
-            const nm = w.full_name || w.handle || 'A member';
-            const mine = session && c.author_id === session.user.id;
-            return '<div class="reply">' + face(w, nm) + '<div>'
-              + '<div class="line">'
-                + (w.handle ? '<a class="nm" href="/social/u/?h=' + encodeURIComponent(w.handle)
-                    + '">' + esc(nm) + '</a>' : '<span class="nm">' + esc(nm) + '</span>')
-                + badges(w)
-                + '<span class="dot">&middot;</span><span class="ago">' + when(c.created_at) + '</span>'
-              + '</div>'
-              + '<div class="r-body">' + esc(c.body) + '</div>'
-              + (mine ? '<button class="r-del" data-id="' + c.id + '" type="button">Delete</button>' : '')
-              + '</div></div>';
-          }).join('')
+    + (top.length ? top.map(function(c){ return one(c, false); }).join('')
         : '<div style="color:var(--ink-faint); font-size:14px">Nobody has replied yet. Be the first.</div>')
     + '</div>';
 
   const go = document.getElementById('rgo');
   if (go){
     const input = document.getElementById('rbody');
-    go.addEventListener('click', async function(){
-      const text = (input.value || '').trim();
-      if (!text) return;
-      go.disabled = true;
-      const x = await sb.from('comments').insert({
-        post_id: postId, author_id: session.user.id, body: text
-      });
-      go.disabled = false;
-      if (x.error){ alert(x.error.message); return; }
-      input.value = '';
-      draw();
-    });
+    go.addEventListener('click', function(){ send(input, null, go); });
     input.addEventListener('keydown', function(e){ if (e.key === 'Enter') go.click(); });
   }
+  host.querySelectorAll('.vote').forEach(function(b){
+    b.addEventListener('click', function(){ vote('comment', b.dataset.c, Number(b.dataset.v)); });
+  });
+  host.querySelectorAll('.r-reply').forEach(function(b){
+    b.addEventListener('click', function(){
+      replyingTo = (replyingTo === b.dataset.c) ? null : b.dataset.c;
+      drawReplies();
+    });
+  });
+  host.querySelectorAll('.sub-go').forEach(function(b){
+    const box = b.previousElementSibling;
+    b.addEventListener('click', function(){ send(box, b.dataset.c, b); });
+    box.addEventListener('keydown', function(e){ if (e.key === 'Enter') b.click(); });
+  });
   host.querySelectorAll('.r-del').forEach(function(b){
     b.addEventListener('click', async function(){
       if (!confirm('Delete this reply?')) return;
@@ -358,6 +478,20 @@ async function drawReplies(){
       draw();
     });
   });
+}
+
+async function send(input, parentId, btn){
+  const text = (input.value || '').trim();
+  if (!text) return;
+  btn.disabled = true;
+  const x = await sb.from('comments').insert({
+    post_id: postId, author_id: session.user.id, body: text, parent_id: parentId
+  });
+  btn.disabled = false;
+  if (x.error){ alert(x.error.message); return; }
+  input.value = '';
+  replyingTo = null;
+  draw();
 }
 
 (async function(){
