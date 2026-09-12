@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moderation — Licentia</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300..600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pro.css">
+<style>
+  :root{
+    --paper:#F4F1E8; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+    --ember:#FF6B35; --ember-deep:#D4501F; --teal:#2E7D6B;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink);
+    font-family:'Inter',ui-sans-serif,sans-serif; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  main{max-width:900px; margin:0 auto; padding:0 26px 90px;}
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  nav .brand img{margin-left:8px;}
+  .navlinks{display:flex; gap:22px;}
+  .navlinks a{font-size:14px; color:var(--ink-soft); text-decoration:none;}
+  .navlinks a:hover{color:var(--ink);}
+
+  h1{font-family:'Fraunces',serif; font-weight:400; font-size:31px; margin:30px 0 6px;}
+  .sub{font-size:15px; color:var(--ink-soft); margin-bottom:22px; line-height:1.6;}
+  .tabs{display:flex; gap:7px; margin-bottom:18px;}
+  .tab{padding:7px 15px; border-radius:100px; cursor:pointer; font:inherit; font-size:13px;
+    background:none; border:1px solid var(--line-strong); color:var(--ink-soft);}
+  .tab.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+
+  .rep{background:var(--white); border:1px solid var(--line); border-radius:13px;
+    padding:16px 18px; margin-bottom:12px;}
+  .rep-top{display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+    font-size:12.5px; color:var(--ink-faint); margin-bottom:10px;}
+  .rep-cat{padding:2px 9px; border-radius:100px; font-family:'IBM Plex Mono',monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    background:rgba(212,80,31,0.10); color:var(--ember-deep);
+    border:1px solid rgba(212,80,31,0.3);}
+  .rep-quote{background:var(--paper-raised); border-left:3px solid var(--line-strong);
+    border-radius:0 8px 8px 0; padding:11px 13px; font-size:14.5px; line-height:1.6;
+    white-space:pre-wrap; overflow-wrap:anywhere;}
+  .rep-who{font-size:13px; color:var(--ink-soft); margin-top:9px;}
+  .rep-who a{font-weight:500;}
+  .rep-acts{display:flex; gap:8px; margin-top:13px; flex-wrap:wrap;}
+  .act{padding:8px 15px; border-radius:100px; cursor:pointer; font:inherit; font-size:13px;
+    border:1px solid var(--line-strong); background:none; color:var(--ink);}
+  .act:hover{border-color:var(--ink);}
+  .act.warn{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+  .act.warn:hover{filter:brightness(1.2);}
+  .act[disabled]{opacity:0.45; cursor:default;}
+  .said{font-size:12.5px; color:var(--teal); margin-top:9px;}
+  .quiet{background:var(--white); border:1px dashed var(--line-strong); border-radius:13px;
+    padding:34px 22px; text-align:center; color:var(--ink-soft); font-size:14.5px;}
+  .gone{opacity:0.5;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">Licentia<img src="/assets/bird.svg" alt="" width="24" height="15"></a>
+  <div class="navlinks"><a href="/social">Back to the feed</a></div>
+</nav>
+<main>
+  <h1>Moderation</h1>
+  <p class="sub">Reports members have raised. Removing something hides it from the
+     feed but keeps it here, so a mistake can be undone and there is a record of
+     what was actually said.</p>
+  <div class="tabs" id="tabs"></div>
+  <div id="queue"><div class="quiet">Loading…</div></div>
+</main>
+<script type="module">
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+async function client(){
+  for (let i = 0; i < 100; i++){
+    if (window.LICENTIA_ANON) break;
+    await new Promise(function(r){ setTimeout(r, 100); });
+  }
+  if (!window.LICENTIA_ANON) throw new Error('no key');
+  return createClient('https://sopzbiuwakowbuqgwpmg.supabase.co', window.LICENTIA_ANON);
+}
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function when(iso){
+  const mins = Math.round((new Date() - new Date(iso)) / 60000);
+  if (mins < 60) return Math.max(mins,1) + 'm ago';
+  if (mins < 1440) return Math.round(mins/60) + 'h ago';
+  return new Date(iso).toLocaleDateString('en-CA', {month:'short', day:'numeric'});
+}
+
+let sb = null, session = null, status = 'open';
+const TABS = [
+  {id:'open', label:'Open'},
+  {id:'actioned', label:'Actioned'},
+  {id:'dismissed', label:'Dismissed'}
+];
+
+function drawTabs(){
+  const host = document.getElementById('tabs');
+  host.innerHTML = TABS.map(function(t){
+    return '<button class="tab' + (t.id === status ? ' on' : '') + '" data-s="' + t.id
+      + '" type="button">' + t.label + '</button>';
+  }).join('');
+  host.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){ status = b.dataset.s; drawTabs(); load(); });
+  });
+}
+
+async function load(){
+  const host = document.getElementById('queue');
+  const r = await sb.from('reports')
+    .select('id,category,note,status,created_at,post_id,comment_id,reporter_id')
+    .eq('status', status)
+    .order('created_at', {ascending:false}).limit(80);
+
+  if (r.error){
+    host.innerHTML = '<div class="quiet">' + esc(r.error.message) + '</div>';
+    return;
+  }
+  const rows = r.data || [];
+  if (!rows.length){
+    host.innerHTML = '<div class="quiet">'
+      + (status === 'open' ? 'Nothing waiting. ' : 'Nothing here. ')
+      + 'Reports members raise will appear here.</div>';
+    return;
+  }
+
+  // fetch the reported things in two queries, not one per report
+  const postIds = rows.map(function(x){ return x.post_id; }).filter(Boolean);
+  const commentIds = rows.map(function(x){ return x.comment_id; }).filter(Boolean);
+  const posts = {}, comments = {};
+  if (postIds.length){
+    const p = await sb.from('posts')
+      .select('id,body,author_id,removed_at,ticker,kind').in('id', postIds);
+    (p.data || []).forEach(function(x){ posts[x.id] = x; });
+  }
+  if (commentIds.length){
+    const c = await sb.from('comments')
+      .select('id,body,author_id,removed_at,post_id').in('id', commentIds);
+    (c.data || []).forEach(function(x){ comments[x.id] = x; });
+  }
+
+  const people = {};
+  const ids = Object.values(posts).map(function(x){ return x.author_id; })
+    .concat(Object.values(comments).map(function(x){ return x.author_id; }))
+    .concat(rows.map(function(x){ return x.reporter_id; }));
+  if (ids.length){
+    const w = await sb.from('profiles_public')
+      .select('id,full_name,handle').in('id', Array.from(new Set(ids)));
+    (w.data || []).forEach(function(x){ people[x.id] = x; });
+  }
+
+  host.innerHTML = rows.map(function(rep){
+    const thing = rep.post_id ? posts[rep.post_id] : comments[rep.comment_id];
+    const kind = rep.post_id ? 'post' : 'reply';
+    const author = thing ? (people[thing.author_id] || {}) : {};
+    const reporter = people[rep.reporter_id] || {};
+    const removed = thing && thing.removed_at;
+    return '<div class="rep' + (removed ? ' gone' : '') + '" data-rep="' + rep.id + '">'
+      + '<div class="rep-top">'
+        + '<span class="rep-cat">' + esc(rep.category || 'reported') + '</span>'
+        + '<span>a ' + kind + ' &middot; ' + when(rep.created_at) + '</span>'
+        + (removed ? '<span>&middot; already removed</span>' : '')
+      + '</div>'
+      + '<div class="rep-quote">' + (thing ? esc(thing.body) : 'That content is gone.') + '</div>'
+      + '<div class="rep-who">by '
+        + (author.handle ? '<a href="/social/u/?h=' + esc(author.handle) + '">'
+            + esc(author.full_name || author.handle) + '</a>' : 'someone')
+        + ' &middot; reported by ' + esc(reporter.full_name || reporter.handle || 'a member')
+      + '</div>'
+      + (rep.note ? '<div class="rep-who">note: ' + esc(rep.note) + '</div>' : '')
+      + '<div class="rep-acts">'
+        + (thing && !removed
+            ? '<button class="act warn rm" data-kind="' + kind + '" data-id="' + thing.id
+              + '" data-rep="' + rep.id + '" type="button">Remove it</button>'
+            : (thing ? '<button class="act restore" data-kind="' + kind + '" data-id="'
+              + thing.id + '" data-rep="' + rep.id + '" type="button">Put it back</button>' : ''))
+        + '<button class="act keep" data-rep="' + rep.id + '" type="button">Leave it up</button>'
+      + '</div>'
+      + '<div class="said" data-said="' + rep.id + '"></div>'
+      + '</div>';
+  }).join('');
+
+  host.querySelectorAll('.rm').forEach(function(b){
+    b.addEventListener('click', function(){ setRemoved(b, true); });
+  });
+  host.querySelectorAll('.restore').forEach(function(b){
+    b.addEventListener('click', function(){ setRemoved(b, false); });
+  });
+  host.querySelectorAll('.keep').forEach(function(b){
+    b.addEventListener('click', function(){ settle(b.dataset.rep, 'dismissed', b); });
+  });
+}
+
+function tell(repId, msg){
+  const el = document.querySelector('[data-said="' + repId + '"]');
+  if (el) el.textContent = msg;
+}
+
+// Nothing is destroyed: removing sets a timestamp, so it can be undone and the
+// record of what was said survives.
+async function setRemoved(btn, remove){
+  btn.disabled = true;
+  const table = btn.dataset.kind === 'post' ? 'posts' : 'comments';
+  const patch = remove
+    ? {removed_at: new Date().toISOString(), removed_by: session.user.id}
+    : {removed_at: null, removed_by: null};
+  const r = await sb.from(table).update(patch).eq('id', btn.dataset.id);
+  btn.disabled = false;
+  if (r.error){ tell(btn.dataset.rep, r.error.message); return; }
+  await settle(btn.dataset.rep, remove ? 'actioned' : 'open', null);
+  load();
+}
+
+async function settle(repId, newStatus, btn){
+  if (btn) btn.disabled = true;
+  const r = await sb.from('reports').update({status: newStatus}).eq('id', repId);
+  if (btn) btn.disabled = false;
+  if (r.error){ tell(repId, r.error.message); return; }
+  if (btn) load();
+}
+
+(async function(){
+  const host = document.getElementById('queue');
+  try { sb = await client(); }
+  catch (e){ host.innerHTML = '<div class="quiet">Could not start. Reload.</div>'; return; }
+
+  const s = await sb.auth.getSession();
+  session = s.data.session;
+  if (!session){
+    host.innerHTML = '<div class="quiet">Sign in first.</div>';
+    return;
+  }
+  // the database decides who may moderate; this only decides what to draw
+  const mod = await sb.from('moderators').select('user_id').eq('user_id', session.user.id);
+  if (mod.error || !mod.data || !mod.data.length){
+    host.innerHTML = '<div class="quiet">This page is for moderators.</div>';
+    document.getElementById('tabs').innerHTML = '';
+    return;
+  }
+  drawTabs();
+  load();
+})();
+
+</script>
+
+<script src="/assets/pro.js"></script>
+</body>
+</html>
