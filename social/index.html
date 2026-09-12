@@ -429,6 +429,12 @@ function drawComposer(){
   }
   const k = {ph: 'Say something. A holding, a question, something you noticed.'};
   slot.innerHTML = '<div class="composer">'
+    + '<div class="cmp-kinds">'
+      + KINDS.map(function(x){
+          return '<button class="cmp-kind' + (x.id === kind ? ' on' : '')
+            + '" data-kind="' + x.id + '" type="button">' + x.label + '</button>';
+        }).join('')
+    + '</div>'
     + '<textarea id="cmp-body" maxlength="5000" placeholder="' + esc(k.ph) + '"></textarea>'
     + '<div class="cmp-foot">'
     + (kind === 'etf' ? '<input class="cmp-ticker" id="cmp-ticker" maxlength="8" placeholder="TICKER">' : '')
