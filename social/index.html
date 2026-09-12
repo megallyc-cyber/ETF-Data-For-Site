@@ -297,6 +297,10 @@
     border:1px solid transparent;}
   .th-del:hover{color:var(--ember-deep); border-color:rgba(212,80,31,0.35);}
   .p-act.mine-del:hover{color:var(--ember-deep); background:rgba(212,80,31,0.07);}
+
+  .post{cursor:pointer;}
+  .post:hover{border-color:var(--line-strong);}
+  .post button, .post a{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -660,6 +664,7 @@ async function loadFeed(){
   host.querySelectorAll('.react').forEach(function(b){
     b.addEventListener('click', function(){ react(b.dataset.id, b.dataset.r); });
   });
+  makeCardsOpen(host);
   host.querySelectorAll('.share').forEach(function(b){
     b.addEventListener('click', function(){
       const url = location.origin + '/social/post/?id=' + b.dataset.id;
@@ -670,7 +675,7 @@ async function loadFeed(){
     });
   });
   host.querySelectorAll('.reply').forEach(function(b){
-    b.addEventListener('click', function(){ toggleThread(b.dataset.id); });
+    b.addEventListener('click', function(){ open(b.dataset.id); });
   });
   host.querySelectorAll('.mine-del').forEach(function(b){
     b.addEventListener('click', async function(){
@@ -773,6 +778,20 @@ async function toggleThread(id){
     });
     input.addEventListener('keydown', function(e){ if (e.key === 'Enter') go.click(); });
   }
+}
+
+
+function open(id){ location.href = "/social/post/?id=" + encodeURIComponent(id); }
+
+function makeCardsOpen(host){
+  host.querySelectorAll(".post").forEach(function(card){
+    card.addEventListener("click", function(e){
+      // a click on a button, a link or selected text is not a click on the card
+      if (e.target.closest("button, a")) return;
+      if (String(window.getSelection())) return;
+      open(card.dataset.id);
+    });
+  });
 }
 
 async function toggleLike(id){
