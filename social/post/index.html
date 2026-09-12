@@ -218,6 +218,12 @@
     background-image:linear-gradient(115deg,#D7ECE6,#EFF8F5,#D7ECE6);}
   .badge.official::after{display:none;}
   @media (prefers-reduced-motion: reduce){ .badge::after{animation:none; opacity:0.25;} }
+
+  /* A redrawn ring must not restart the turn: voting redraws this page, and a
+     fresh element would otherwise snap back to the beginning. The delay comes
+     from a clock shared by the page. */
+  .ring::before{animation-delay:var(--rd, 0s);}
+  .ring::after{animation-delay:var(--rd2, 0s);}
 </style>
 </head>
 <body>
@@ -300,6 +306,19 @@ function face(w, name){
   return '<span class="ring' + (pro ? ' is-pro' : '') + '">'
     + (href ? '<a href="' + href + '">' + inner + '</a>' : '<span>' + inner + '</span>')
     + '</span>';
+}
+
+
+// One clock for every ring on the page, so a ring drawn a moment ago and one
+// drawn just now sit at the same point in the turn.
+function syncRings(){
+  const t = performance.now() / 1000;
+  document.querySelectorAll('.ring').forEach(function(r){
+    const fast = r.classList.contains('is-pro') ? 5 : 7;
+    const slow = r.classList.contains('is-pro') ? 8 : 11;
+    r.style.setProperty('--rd', '-' + (t % fast).toFixed(3) + 's');
+    r.style.setProperty('--rd2', '-' + (t % slow).toFixed(3) + 's');
+  });
 }
 
 async function draw(){
@@ -387,6 +406,7 @@ async function draw(){
     alert(x.error ? x.error.message : 'Thank you. A moderator will look at it.');
   });
 
+  syncRings();
   drawReplies();
 }
 
@@ -484,6 +504,7 @@ async function drawReplies(){
         : '<div style="color:var(--ink-faint); font-size:14px">Nobody has replied yet. Be the first.</div>')
     + '</div>';
 
+  syncRings();
   const go = document.getElementById('rgo');
   if (go){
     const input = document.getElementById('rbody');
