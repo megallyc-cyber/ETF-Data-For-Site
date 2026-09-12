@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members — Licentia</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300..600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pro.css">
+<style>
+  :root{
+    --paper:#F4F1E8; --paper-raised:#FBF9F5; --white:#FFFFFF;
+    --ink:#1C2230; --ink-soft:#4A5262; --ink-faint:#8A9099;
+    --line:rgba(28,34,48,0.13); --line-strong:rgba(28,34,48,0.26);
+    --ember:#FF6B35; --ember-deep:#D4501F; --teal:#2E7D6B; --gold:#8C6B1F;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink);
+    font-family:'Inter',ui-sans-serif,sans-serif; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  main{max-width:1100px; margin:0 auto; padding:0 26px 90px;}
+  nav{display:flex; align-items:center; justify-content:space-between; gap:28px;
+    padding:15px 30px; border-bottom:1px solid var(--line);}
+  nav .brand{font-family:'Space Grotesk',ui-sans-serif,sans-serif; font-weight:700;
+    font-size:19px; color:var(--ink); text-decoration:none;
+    display:inline-flex; align-items:center;}
+  nav .brand img{margin-left:8px;}
+  .navlinks{display:flex; gap:22px;}
+  .navlinks a{font-size:14px; color:var(--ink-soft); text-decoration:none;}
+  .navlinks a:hover{color:var(--ink);}
+
+  h1{font-family:'Fraunces',serif; font-weight:400; font-size:32px; margin:30px 0 6px;}
+  .sub{font-size:15px; color:var(--ink-soft); margin-bottom:24px;}
+
+  .figures{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    margin-bottom:26px;}
+  .fig{background:var(--white); border:1px solid var(--line); border-radius:13px;
+    padding:16px 18px;}
+  .fig .v{font-family:'Fraunces',serif; font-size:27px; line-height:1.1;}
+  .fig .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-faint); margin-top:6px;}
+  .fig.pro .v{color:var(--gold);}
+
+  .bar{display:flex; gap:9px; align-items:center; margin-bottom:16px; flex-wrap:wrap;}
+  .find{flex:1; min-width:200px; font:inherit; font-size:14px; padding:10px 13px;
+    border-radius:9px; border:1px solid var(--line-strong);
+    background:var(--white); color:var(--ink); outline:none;}
+  .find:focus{border-color:var(--ink);}
+  .pick{font:inherit; font-size:13px; padding:9px 12px; border-radius:9px;
+    border:1px solid var(--line-strong); background:var(--white); color:var(--ink);
+    cursor:pointer;}
+
+  .list{background:var(--white); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden;}
+  .row{display:grid; grid-template-columns:minmax(0,2fr) minmax(0,2fr) 110px 110px 96px;
+    gap:14px; align-items:center; padding:13px 18px;
+    border-bottom:1px solid var(--line); font-size:14px;}
+  .row:last-child{border-bottom:none;}
+  .row.head{background:var(--paper-raised); font-family:'IBM Plex Mono',monospace;
+    font-size:10px; letter-spacing:0.11em; text-transform:uppercase;
+    color:var(--ink-faint);}
+  .who{display:flex; flex-direction:column; min-width:0;}
+  .who b{font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .who span{font-size:12.5px; color:var(--ink-faint);}
+  .mail{font-size:13px; color:var(--ink-soft); overflow:hidden;
+    text-overflow:ellipsis; white-space:nowrap;}
+  .tag{display:inline-flex; padding:3px 9px; border-radius:100px;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.06em;
+    text-transform:uppercase; white-space:nowrap;}
+  .tag.pro{background:linear-gradient(115deg,#8C6B1F,#E9D6A8,#C9A227,#8C6B1F);
+    color:#2A2008; border:1px solid rgba(140,107,31,0.55);}
+  .tag.free{background:rgba(28,34,48,0.06); color:var(--ink-soft);
+    border:1px solid var(--line-strong);}
+  .tag.susp{background:rgba(212,80,31,0.12); color:var(--ember-deep);
+    border:1px solid rgba(212,80,31,0.35);}
+  .when{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);}
+  .acts{display:flex; gap:6px; justify-content:flex-end;}
+  .mini{padding:5px 10px; border-radius:7px; cursor:pointer; font:inherit; font-size:11.5px;
+    background:none; border:1px solid var(--line-strong); color:var(--ink-soft);}
+  .mini:hover{border-color:var(--ink); color:var(--ink);}
+  .mini.danger:hover{border-color:var(--ember-deep); color:var(--ember-deep);}
+  .quiet{padding:34px 22px; text-align:center; color:var(--ink-soft); font-size:14.5px;}
+  @media(max-width:820px){
+    .row{grid-template-columns:minmax(0,1fr) 90px; gap:10px;}
+    .row .mail, .row .when, .row .acts{display:none;}
+    .row.head{display:none;}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">Licentia<img src="/assets/bird.svg" alt="" width="24" height="15"></a>
+  <div class="navlinks">
+    <a href="/social/admin/">Reports</a>
+    <a href="/social">Feed</a>
+  </div>
+</nav>
+<main>
+  <h1>Members</h1>
+  <p class="sub">Everyone who has an account, newest first.</p>
+  <div class="figures" id="figures"></div>
+  <div class="bar">
+    <input class="find" id="find" placeholder="Search a name, handle or email…">
+    <select class="pick" id="pick">
+      <option value="all">Everyone</option>
+      <option value="pro">Pro only</option>
+      <option value="free">Free only</option>
+      <option value="suspended">Suspended</option>
+      <option value="week">Joined this week</option>
+    </select>
+  </div>
+  <div class="list" id="list"><div class="quiet">Loading…</div></div>
+</main>
+<script type="module">
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+async function client(){
+  for (let i = 0; i < 100; i++){
+    if (window.LICENTIA_ANON) break;
+    await new Promise(function(r){ setTimeout(r, 100); });
+  }
+  if (!window.LICENTIA_ANON) throw new Error('no key');
+  return createClient('https://sopzbiuwakowbuqgwpmg.supabase.co', window.LICENTIA_ANON);
+}
+
+let sb = null, session = null, members = [];
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function day(iso){
+  if (!iso) return '—';
+  const mins = Math.round((new Date() - new Date(iso)) / 60000);
+  if (mins < 60) return Math.max(mins,1) + 'm ago';
+  if (mins < 1440) return Math.round(mins/60) + 'h ago';
+  const d = Math.round(mins/1440);
+  if (d < 30) return d + 'd ago';
+  return new Date(iso).toLocaleDateString('en-CA', {month:'short', day:'numeric', year:'2-digit'});
+}
+
+function figures(){
+  const now = new Date();
+  const week = members.filter(function(m){
+    return (now - new Date(m.signed_up)) < 7 * 86400000;
+  }).length;
+  const pro = members.filter(function(m){ return m.tier === 'pro'; }).length;
+  const posting = members.filter(function(m){ return (m.post_count || 0) > 0; }).length;
+  const unconfirmed = members.filter(function(m){ return !m.email_confirmed_at; }).length;
+
+  document.getElementById('figures').innerHTML =
+      fig(members.length, 'members')
+    + fig(week, 'joined this week')
+    + fig(pro, 'on Pro', 'pro')
+    + fig(posting, 'have posted')
+    + fig(unconfirmed, 'email unconfirmed');
+}
+function fig(v, k, cls){
+  return '<div class="fig' + (cls ? ' ' + cls : '') + '"><div class="v">' + v
+    + '</div><div class="k">' + k + '</div></div>';
+}
+
+function draw(){
+  const q = (document.getElementById('find').value || '').toLowerCase().trim();
+  const pick = document.getElementById('pick').value;
+  const now = new Date();
+
+  let rows = members.filter(function(m){
+    if (pick === 'pro' && m.tier !== 'pro') return false;
+    if (pick === 'free' && m.tier === 'pro') return false;
+    if (pick === 'suspended' && !m.is_suspended) return false;
+    if (pick === 'week' && (now - new Date(m.signed_up)) >= 7 * 86400000) return false;
+    if (!q) return true;
+    return [m.full_name, m.handle, m.email].join(' ').toLowerCase().indexOf(q) > -1;
+  });
+
+  const host = document.getElementById('list');
+  if (!rows.length){
+    host.innerHTML = '<div class="quiet">Nobody matches that.</div>';
+    return;
+  }
+
+  host.innerHTML =
+    '<div class="row head"><span>Member</span><span>Email</span><span>Membership</span>'
+    + '<span>Joined</span><span></span></div>'
+    + rows.map(function(m){
+        const name = m.full_name || m.handle || 'No name yet';
+        return '<div class="row">'
+          + '<span class="who"><b>' + esc(name) + '</b>'
+            + '<span>@' + esc(m.handle || '—')
+            + (m.post_count ? ' · ' + m.post_count + ' posts' : '') + '</span></span>'
+          + '<span class="mail">' + esc(m.email || '—')
+            + (m.email_confirmed_at ? '' : ' (unconfirmed)') + '</span>'
+          + '<span>'
+            + '<span class="tag ' + (m.tier === 'pro' ? 'pro">Pro' : 'free">Free') + '</span>'
+            + (m.is_suspended ? ' <span class="tag susp">Suspended</span>' : '')
+          + '</span>'
+          + '<span class="when">' + day(m.signed_up) + '</span>'
+          + '<span class="acts">'
+            + (m.handle ? '<a class="mini" href="/social/u/?h=' + esc(m.handle) + '">Profile</a>' : '')
+            + '<button class="mini danger susp" data-id="' + m.id + '" data-now="'
+              + (m.is_suspended ? '1' : '0') + '" type="button">'
+              + (m.is_suspended ? 'Restore' : 'Suspend') + '</button>'
+          + '</span>'
+        + '</div>';
+      }).join('');
+
+  host.querySelectorAll('.susp').forEach(function(b){
+    b.addEventListener('click', async function(){
+      const on = b.dataset.now === '1';
+      if (!confirm(on ? 'Let this member post again?'
+                      : 'Suspend this member? They will not be able to post or reply.')) return;
+      b.disabled = true;
+      const r = await sb.from('profiles').update({is_suspended: !on}).eq('id', b.dataset.id);
+      b.disabled = false;
+      if (r.error){ alert(r.error.message); return; }
+      load();
+    });
+  });
+}
+
+async function load(){
+  // the database decides who may see this; the page only decides what to draw
+  const r = await sb.rpc('members_for_admin');
+  if (r.error){
+    document.getElementById('list').innerHTML =
+      '<div class="quiet">' + esc(r.error.message) + '</div>';
+    return;
+  }
+  members = r.data || [];
+  figures();
+  draw();
+}
+
+(async function(){
+  const host = document.getElementById('list');
+  try { sb = await client(); }
+  catch (e){ host.innerHTML = '<div class="quiet">Could not start. Reload.</div>'; return; }
+
+  const s = await sb.auth.getSession();
+  session = s.data.session;
+  if (!session){ host.innerHTML = '<div class="quiet">Sign in first.</div>'; return; }
+
+  const mod = await sb.from('moderators').select('user_id').eq('user_id', session.user.id);
+  if (mod.error || !mod.data || !mod.data.length){
+    host.innerHTML = '<div class="quiet">This page is for moderators.</div>';
+    return;
+  }
+  document.getElementById('find').addEventListener('input', draw);
+  document.getElementById('pick').addEventListener('change', draw);
+  load();
+})();
+
+</script>
+
+<script src="/assets/pro.js"></script>
+</body>
+</html>
