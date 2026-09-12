@@ -427,7 +427,7 @@ function drawComposer(){
       + '<a class="go" href="/account?mode=signup">Create an account</a></div>';
     return;
   }
-  const k = {ph: 'Say something. A holding, a question, something you noticed.'};
+  const k = KINDS.find(function(x){ return x.id === kind; }) || KINDS[0];
   slot.innerHTML = '<div class="composer">'
     + '<div class="cmp-kinds">'
       + KINDS.map(function(x){
