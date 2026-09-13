@@ -577,15 +577,15 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
   // the session can land after the page does
-  setTimeout(build, 300);
-  setTimeout(build, 900);
-  setTimeout(build, 2000);
+  setTimeout(build, 60);
+  setTimeout(build, 250);
+  setTimeout(build, 800);
 
   // No observer. Watching the bar and regrouping it put this script in a loop
   // with whatever else redraws the nav, and the page froze. A few timed
   // attempts answer the same question without a fight.
-  setTimeout(build, 3500);
-  setTimeout(build, 6000);
+  setTimeout(build, 1800);
+  setTimeout(build, 4000);
 })();
 
 /* ---------------------------------------------------------------------------
@@ -830,10 +830,12 @@
     if (hold) hold.remove();
   }
 
+  // The nav is in the markup from the first byte, so there is nothing to wait
+  // for: build immediately, and again once the document is ready in case this
+  // script ran before the bar existed.
+  build();
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', build);
-  } else {
-    build();
   }
   setTimeout(build, 900);
 })();
