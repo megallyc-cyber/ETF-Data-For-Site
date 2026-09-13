@@ -705,37 +705,57 @@
     return p || "/";
   }
 
-  // ---- an entry only a moderator is offered ----
-  // The pages themselves are protected by the database; this only decides
-  // whether to show the way in.
-  async function offerAdmin(){
+  // ---- the way in to admin ----
+  // The pages are protected by the database; this only decides whether the
+  // link is offered. The owner is recognised outright, so the founder can
+  // never be locked out of his own site by a lookup that fails quietly.
+  const OWNER_EMAIL = "megallyc@gmail.com";
+
+  function addAdminLink(){
     var links = document.querySelector("nav .navlinks");
     if (!links || links.querySelector(".nav-admin")) return;
-    var token = null;
-    try {
-      for (var i = 0; i < localStorage.length; i++){
-        var k = localStorage.key(i);
-        if (k.indexOf("-auth-token") === -1) continue;
-        var v = JSON.parse(localStorage.getItem(k));
-        token = v.access_token || (v.currentSession || {}).access_token;
-        break;
-      }
-    } catch (e) { return; }
-    if (!token || !window.LICENTIA_ANON) return;
-
-    var r = await fetch("https://sopzbiuwakowbuqgwpmg.supabase.co/rest/v1/moderators?select=user_id",
-      {headers: {apikey: window.LICENTIA_ANON, Authorization: "Bearer " + token}});
-    if (!r.ok) return;
-    var rows = await r.json();
-    if (!rows.length) return;   // the policy returns only your own row
-
     var a = document.createElement("a");
     a.className = "nav-admin";
     a.href = "/social/admin/members/";
     a.textContent = "Admin";
     a.style.color = "#8C6B1F";
+    a.style.fontWeight = "500";
     var account = links.querySelector('a[href="/account"]');
     links.insertBefore(a, account || null);
+  }
+
+  async function offerAdmin(){
+    var saved = null;
+    try {
+      for (var i = 0; i < localStorage.length; i++){
+        var k = localStorage.key(i);
+        if (k.indexOf("-auth-token") === -1) continue;
+        saved = JSON.parse(localStorage.getItem(k));
+        break;
+      }
+    } catch (e) { return; }
+    if (!saved) return;
+
+    var sess = saved.currentSession || saved;
+    var user = sess.user || null;
+    var token = sess.access_token || null;
+
+    // the owner, without waiting on anything that can fail
+    if (user && user.email && user.email.toLowerCase() === OWNER_EMAIL){
+      addAdminLink();
+      return;
+    }
+    if (!token || !window.LICENTIA_ANON) return;
+
+    try {
+      var r = await fetch("https://sopzbiuwakowbuqgwpmg.supabase.co/rest/v1/moderators?select=user_id",
+        {headers: {apikey: window.LICENTIA_ANON, Authorization: "Bearer " + token}});
+      if (!r.ok) return;
+      var rows = await r.json();
+      if (rows.length) addAdminLink();
+    } catch (e) {
+      console.warn("admin link check failed", e);   // say so rather than vanish
+    }
   }
   function renderNav(){
     var links = document.querySelector("nav .navlinks");
@@ -752,6 +772,8 @@
     }).join("");
     links.dataset.rendered = "1";
     offerAdmin();
+    setTimeout(offerAdmin, 700);
+    setTimeout(offerAdmin, 2500);
   }
 
   const GROUPS = [
