@@ -1,5 +1,20 @@
 {
-  "canonical": "always written",
-  "directory": "links to /fund/TICKER",
-  "learn": "given a heading"
+  "socialAdded": [
+    "funds/index.html",
+    "compare/index.html",
+    "learn/index.html",
+    "portfolio/index.html",
+    "portfolio-builder/index.html",
+    "membership/index.html",
+    "account/index.html",
+    "fund/index.html",
+    "privacy/index.html",
+    "terms/index.html",
+    "index.html"
+  ],
+  "learn": "stray heading not found",
+  "skipped": [
+    "backtest/index.html: no nav anchor",
+    "tour/index.html: no nav anchor"
+  ]
 }
