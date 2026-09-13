@@ -553,8 +553,12 @@ async function showModeratorLinks(){
   if (!u) return;
   const mod = await sb.from('moderators').select('user_id').eq('user_id', u.id);
   if (mod.error || !mod.data || !mod.data.length) return;
-  const host = document.getElementById('stage');
-  if (!host || document.getElementById('modBox')) return;
+  if (document.getElementById('modBox')) return;
+  // the signed-in view is built elsewhere, so hang this off the page itself
+  const main = document.querySelector('main');
+  const cards = main ? main.querySelectorAll('.card, .panel') : [];
+  const host = cards.length ? cards[cards.length - 1].parentElement : main;
+  if (!host) return;
   const box = document.createElement('div');
   box.id = 'modBox';
   box.className = 'panel';
