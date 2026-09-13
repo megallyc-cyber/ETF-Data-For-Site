@@ -463,7 +463,6 @@ function authView(){
   + (mode === 'signup' ? 'Create account' : 'Sign in') + '</button>'
   + '</form>'
   + '<div class="msg" id="msg" style="display:none;"></div>'
-  showModeratorLinks(u);
   + '<div class="hint">' + (mode === 'signup'
       ? 'We will email you a confirmation link. You can delete your account at any time.'
       : 'Signing in keeps your saved funds and portfolios on any device.') + '</div>';
@@ -876,6 +875,7 @@ async function loadFigures(session, isPro){
 }
 
 async function render(){
+  showModeratorLinks(u);   // only a moderator ever sees this
   const r = await sb.auth.getSession();
   if (r.data.session) accountView(r.data.session); else authView();
 }
