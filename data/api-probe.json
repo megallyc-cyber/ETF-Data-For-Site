@@ -1,20 +1,24 @@
 {
-  "socialAdded": [
+  "renamed": [
     "funds/index.html",
     "compare/index.html",
     "learn/index.html",
     "portfolio/index.html",
     "portfolio-builder/index.html",
+    "backtest/index.html",
     "membership/index.html",
     "account/index.html",
     "fund/index.html",
     "privacy/index.html",
     "terms/index.html",
+    "social/index.html",
+    "social/post/index.html",
+    "social/u/index.html",
     "index.html"
   ],
-  "learn": "stray heading not found",
   "skipped": [
-    "backtest/index.html: no nav anchor",
-    "tour/index.html: no nav anchor"
+    "tour/index.html: nothing to rename",
+    "social/admin/index.html: nothing to rename",
+    "social/admin/members/index.html: nothing to rename"
   ]
 }
