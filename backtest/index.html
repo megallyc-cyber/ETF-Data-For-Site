@@ -565,6 +565,18 @@ function buildPreviewBook(){
 }
 
 function licentiaGateStress(){
+  // Entitlement may not have arrived yet. Showing the tool and then
+  // snatching it back reads as a bug; wait the moment out instead.
+  var data = window.LICENTIA_DATA || {};
+  if (!data.tier){
+    var p0 = document.querySelector(".sec .panel");
+    if (p0) p0.style.visibility = "hidden";
+    if (licentiaGateStress.waited) { if (p0) p0.style.visibility = ""; }
+    else { licentiaGateStress.waited = true; setTimeout(licentiaGateStress, 400); return; }
+  } else {
+    var pv = document.querySelector(".sec .panel");
+    if (pv) pv.style.visibility = "";
+  }
   if (typeof isPreview === "function" && isPreview()) return;   // the picture shows the tool working
   var d = window.LICENTIA_DATA || {};
   if (d.tier === "pro") return;
@@ -706,7 +718,7 @@ function renderScenarios(){
 }
 
 function renderStress(){
-  setTimeout(licentiaGateStress, 40);
+  licentiaGateStress();   // decide before drawing, not a moment after
   renderScenarios();
   const lab = document.getElementById('shiftLabel');
   lab.textContent = (shift > 0 ? '+' : '') + shift + '%';
