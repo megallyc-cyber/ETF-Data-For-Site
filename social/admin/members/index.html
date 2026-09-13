@@ -53,8 +53,9 @@
 
   .list{background:var(--white); border:1px solid var(--line); border-radius:14px;
     overflow:hidden;}
-  .row{display:grid; grid-template-columns:minmax(0,2fr) minmax(0,2fr) 110px 110px 96px;
-    gap:14px; align-items:center; padding:13px 18px;
+  .row{display:grid;
+    grid-template-columns:minmax(0,1.6fr) minmax(0,1.8fr) 120px 92px minmax(230px,auto);
+    gap:16px; align-items:center; padding:13px 18px;
     border-bottom:1px solid var(--line); font-size:14px;}
   .row:last-child{border-bottom:none;}
   .row.head{background:var(--paper-raised); font-family:'IBM Plex Mono',monospace;
@@ -89,6 +90,20 @@
 
   .mini.tier{border-color:rgba(140,107,31,0.5); color:#6B4E12;}
   .mini.tier:hover{border-color:#8C6B1F; background:rgba(201,162,39,0.10);}
+
+  /* three buttons need room to sit side by side; at 96px they wrapped and
+     climbed over the column beside them */
+  .acts{display:flex; gap:7px; justify-content:flex-end; flex-wrap:nowrap;}
+  .acts .mini{white-space:nowrap; padding:6px 12px; font-size:12px; line-height:1.2;}
+  .mini.tier{border-color:rgba(140,107,31,0.5); color:#6B4E12; background:none;}
+  .mini.tier:hover{border-color:#8C6B1F; background:rgba(201,162,39,0.10);}
+  a.mini{text-decoration:none; display:inline-flex; align-items:center;}
+  .when{white-space:nowrap;}
+  @media(max-width:1000px){
+    .row{grid-template-columns:minmax(0,1fr) minmax(230px,auto); gap:12px;}
+    .row .mail, .row .when{display:none;}
+    .row.head{display:none;}
+  }
 </style>
 </head>
 <body>
