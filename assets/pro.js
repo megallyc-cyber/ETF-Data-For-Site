@@ -695,6 +695,7 @@
     {href: "/portfolio",         label: "My Portfolio"},
     {href: "/backtest",          label: "Backtesting"},
     {href: "/membership",        label: "Membership"},
+    {href: "/social/admin/members/", label: "Admin", adminOnly: true},
     {href: "/account",           label: "My Account"}
   ];
 
@@ -712,17 +713,17 @@
   const OWNER_EMAIL = "megallyc@gmail.com";
 
   function addAdminLink(){
-    var links = document.querySelector("nav .navlinks");
-    if (!links || links.querySelector(".nav-admin")) return;
-    var a = document.createElement("a");
-    a.className = "nav-admin";
-    a.href = "/social/admin/members/";
-    a.textContent = "Admin";
-    a.style.color = "#8C6B1F";
-    a.style.fontWeight = "500";
-    var account = links.querySelector('a[href="/account"]');
-    links.insertBefore(a, account || null);
+    window.LICENTIA_IS_ADMIN = true;
+    var bar = document.querySelector("nav .navlinks");
+    if (!bar || bar.querySelector('a[href="/social/admin/members/"]')) return;
+    bar.dataset.rendered = "";     // let it be built again, with Admin in it
+    bar.dataset.grouped = "";
+    var groups = bar.querySelectorAll(".navgroup");
+    for (var i = 0; i < groups.length; i++) groups[i].remove();
+    renderNav();
+    build();
   }
+
 
   async function offerAdmin(){
     var saved = null;
@@ -761,7 +762,10 @@
     var links = document.querySelector("nav .navlinks");
     if (!links || links.dataset.rendered) return;
     var path = here();
-    links.innerHTML = NAV.map(function(item){
+    // part of the list, not bolted on after, so a redraw cannot lose it
+    links.innerHTML = NAV.filter(function(item){
+      return !item.adminOnly || window.LICENTIA_IS_ADMIN;
+    }).map(function(item){
       // a sub page counts as its section: /fund/HDIV belongs to Funds
       var on = item.href === "/"
         ? path === "/"
