@@ -86,6 +86,9 @@
     .row .mail, .row .when, .row .acts{display:none;}
     .row.head{display:none;}
   }
+
+  .mini.tier{border-color:rgba(140,107,31,0.5); color:#6B4E12;}
+  .mini.tier:hover{border-color:#8C6B1F; background:rgba(201,162,39,0.10);}
 </style>
 </head>
 <body>
@@ -200,6 +203,9 @@ function draw(){
           + '<span class="when">' + day(m.signed_up) + '</span>'
           + '<span class="acts">'
             + (m.handle ? '<a class="mini" href="/social/u/?h=' + esc(m.handle) + '">Profile</a>' : '')
+            + '<button class="mini tier" data-id="' + m.id + '" data-tier="'
+              + (m.tier === 'pro' ? 'free' : 'pro') + '" type="button">'
+              + (m.tier === 'pro' ? 'Remove Pro' : 'Give Pro') + '</button>'
             + '<button class="mini danger susp" data-id="' + m.id + '" data-now="'
               + (m.is_suspended ? '1' : '0') + '" type="button">'
               + (m.is_suspended ? 'Restore' : 'Suspend') + '</button>'
@@ -207,6 +213,28 @@ function draw(){
         + '</div>';
       }).join('');
 
+  host.querySelectorAll('.tier').forEach(function(b){
+    b.addEventListener('click', async function(){
+      const want = b.dataset.tier;
+      if (!confirm(want === 'pro'
+            ? 'Give this member Pro? They get everything a paying subscriber does.'
+            : 'Remove Pro from this member?')) return;
+      b.disabled = true;
+      b.textContent = 'Saving…';
+      const s = await sb.auth.getSession();
+      const token = s.data.session ? s.data.session.access_token : null;
+      // no apikey header: it trips the preflight and the function does not need it
+      const r = await fetch('https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/grant-tier', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
+        body: JSON.stringify({user_id: b.dataset.id, tier: want})
+      });
+      const out = await r.json().catch(function(){ return {error: 'No answer'}; });
+      b.disabled = false;
+      if (!r.ok || out.error){ alert(out.error || 'That did not work.'); load(); return; }
+      load();
+    });
+  });
   host.querySelectorAll('.susp').forEach(function(b){
     b.addEventListener('click', async function(){
       const on = b.dataset.now === '1';
