@@ -147,6 +147,47 @@
     }, 2500);
   })();
 
+  // ---- the bar itself -------------------------------------------------
+  // Every page used to carry its own copy of these links, so adding one meant
+  // editing fifteen files and forgetting at least one. This is the list now:
+  // one list, not fifteen copies. The markup in each page stays as a fallback
+  // for crawlers and for the moment before this script runs.
+  const NAV = [
+    {href: "/",                  label: "Home"},
+    {href: "/social",            label: "Social Hub"},
+    {href: "/learn",             label: "Learn"},
+    {href: "/funds",             label: "Funds"},
+    {href: "/compare",           label: "Comparison Tool"},
+    {href: "/portfolio-builder", label: "Portfolio Builder"},
+    {href: "/portfolio",         label: "My Portfolio"},
+    {href: "/backtest",          label: "Backtesting"},
+    {href: "/membership",        label: "Membership"},
+    {href: "/account",           label: "My Account"}
+  ];
+
+  // which of them is the page we are on
+  function here(){
+    var p = location.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
+    if (p.length > 1) p = p.replace(/\/$/, "");
+    return p || "/";
+  }
+
+  function renderNav(){
+    var links = document.querySelector("nav .navlinks");
+    if (!links || links.dataset.rendered) return;
+    var path = here();
+    links.innerHTML = NAV.map(function(item){
+      // a sub page counts as its section: /fund/HDIV belongs to Funds
+      var on = item.href === "/"
+        ? path === "/"
+        : (path === item.href || path.indexOf(item.href + "/") === 0
+           || (item.href === "/funds" && path.indexOf("/fund") === 0));
+      return '<a' + (on ? ' class="active"' : "") + ' href="' + item.href + '">'
+        + item.label + "</a>";
+    }).join("");
+    links.dataset.rendered = "1";
+  }
+
   function build(){
     var nav = document.querySelector('nav');
     var links = nav && nav.querySelector('.navlinks');
@@ -685,6 +726,7 @@
   ];
 
   function build(){
+    renderNav();
     const links = document.querySelector('nav .navlinks');
     if (!links || links.dataset.grouped) return;
 
