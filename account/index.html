@@ -336,15 +336,6 @@
   .mod-links a{padding:9px 16px; border-radius:100px; text-decoration:none;
     font-size:14px; border:1px solid var(--line-strong); color:var(--ink);}
   .mod-links a:hover{border-color:var(--ink); background:var(--paper-raised);}
-
-  .admin-card{border-color:rgba(140,107,31,0.45);}
-  .admin-links{display:flex; gap:9px; flex-wrap:wrap; margin-top:12px;}
-  .admin-go{padding:10px 18px; border-radius:100px; text-decoration:none; font-size:14px;
-    background:linear-gradient(115deg,#8C6B1F,#E9D6A8,#C9A227,#8C6B1F); color:#2A2008;
-    border:1px solid rgba(140,107,31,0.55);}
-  .admin-alt{padding:10px 18px; border-radius:100px; text-decoration:none; font-size:14px;
-    border:1px solid var(--line-strong); color:var(--ink);}
-  .admin-alt:hover{border-color:var(--ink);}
 </style>
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
 </head>
@@ -554,18 +545,32 @@ async function licentiaFundsFetch(){
 const LICENTIA_FEEDBACK_TO = 'megallyc@gmail.com';
 
 
-
-
-// Shown only to an account the database lists as a moderator. The pages it
-// links to are protected there too, so this only decides what is offered.
-async function offerAdmin(){
-  const card = document.getElementById('adminCard');
-  if (!card) return;
+// The moderation pages are protected by the database, not by being hard to
+// find — but there is no reason to show them to people they are not for.
+async function showModeratorLinks(){
   const who = await sb.auth.getUser();
   const u = who.data && who.data.user;
   if (!u) return;
   const mod = await sb.from('moderators').select('user_id').eq('user_id', u.id);
-  if (!mod.error && mod.data && mod.data.length) card.hidden = false;
+  if (mod.error || !mod.data || !mod.data.length) return;
+  if (document.getElementById('modBox')) return;
+  // the signed-in view is built elsewhere, so hang this off the page itself
+  const main = document.querySelector('main');
+  const cards = main ? main.querySelectorAll('.card, .panel') : [];
+  const host = cards.length ? cards[cards.length - 1].parentElement : main;
+  if (!host) return;
+  const box = document.createElement('div');
+  box.id = 'modBox';
+  box.className = 'panel';
+  box.innerHTML =
+    '<div class="panel-top"><h2>Running the place</h2></div>'
+    + '<p class="sub">Only a moderator sees this.</p>'
+    + '<div class="mod-links">'
+      + '<a href="/social/admin/members/">Members</a>'
+      + '<a href="/social/admin/">Reports</a>'
+      + '<a href="/social">The feed</a>'
+    + '</div>';
+  host.appendChild(box);
 }
 
 function accountView(session){
@@ -623,7 +628,6 @@ function accountView(session){
       + '<div class="dash-who">'
         + '<div class="dash-hi">' + greet + (name ? ', ' + esc(first) : '') + '</div>'
         + '<div class="dash-sub">' + esc(email) + (since ? ' &middot; member since ' + since : '') + '</div>'
-  offerAdmin();
       + '</div>'
       + '<div class="dash-badge' + (isPro ? ' is-pro' : '') + '">'
         + (isPro ? 'Licentia Pro' : 'Free account') + '</div>'
@@ -665,18 +669,6 @@ function accountView(session){
           + '<a href="/portfolio-builder"><div class="t">Portfolio builder</div><div class="d">Build one from scratch</div></a>'
           + '<a href="/backtest"><div class="t">Backtesting</div><div class="d">Stress test your income</div></a>'
           + '<a href="/learn"><div class="t">Learn</div><div class="d">How these funds work</div></a>'
-        + '</div>'
-      + '</div>'
-
-      // Founder only. The card is built with the rest of the page so it cannot
-      // land somewhere invisible; whether it appears at all is decided by the
-      // database, which is asked a moment later.
-      + '<div class="dcard admin-card" id="adminCard" hidden>'
-        + '<h2>Admin</h2>'
-        + '<p class="sub">Everyone who has joined, what they are on, and the report queue.</p>'
-        + '<div class="admin-links">'
-          + '<a class="admin-go" href="/social/admin/members/">Open the dashboard</a>'
-          + '<a class="admin-alt" href="/social/admin/">Reports</a>'
         + '</div>'
       + '</div>'
 
@@ -892,6 +884,7 @@ async function loadFigures(session, isPro){
 async function render(){
   const r = await sb.auth.getSession();
   if (r.data.session) accountView(r.data.session); else authView();
+      if (r.data.session) showModeratorLinks();   // moderators only
 }
 
 // the pitch numbers come from the same file the rest of the site reads
