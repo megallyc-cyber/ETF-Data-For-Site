@@ -546,7 +546,9 @@ const LICENTIA_FEEDBACK_TO = 'megallyc@gmail.com';
 
 // The moderation pages are protected by the database, not by being hard to
 // find — but there is no reason to show them to people they are not for.
-async function showModeratorLinks(u){
+async function showModeratorLinks(){
+  const who = await sb.auth.getUser();
+  const u = who.data && who.data.user;
   if (!u) return;
   const mod = await sb.from('moderators').select('user_id').eq('user_id', u.id);
   if (mod.error || !mod.data || !mod.data.length) return;
@@ -875,9 +877,9 @@ async function loadFigures(session, isPro){
 }
 
 async function render(){
-  showModeratorLinks(u);   // only a moderator ever sees this
   const r = await sb.auth.getSession();
   if (r.data.session) accountView(r.data.session); else authView();
+      if (r.data.session) showModeratorLinks();   // moderators only
 }
 
 // the pitch numbers come from the same file the rest of the site reads
