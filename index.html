@@ -589,6 +589,7 @@
   <div class="navlinks">
     <a class="active" href="/">Home</a>
     <a href="/learn">Learn</a>
+        <a href="/social">Social Hub</a>
     <a href="/funds">Funds</a>
     <a href="/compare">Comparison Tool</a>
     <a href="/portfolio-builder">Portfolio Builder</a>
@@ -838,6 +839,8 @@ async function licentiaFundsFetch(opts){
 // screenshot that goes stale. Loading all six on arrival is what took the site
 // down before: one page at a time, and only once it is nearly on screen.
 const REEL = [
+  {name:'Social Hub', file:'/social', open:true,
+   line:'What other income investors are holding, and the questions they are asking.'},
   {name:'Fund directory', file:'/funds', open:true,
    line:'Every covered call and income ETF in Canada and the US, grouped by manager.'},
   {name:'Comparison tool', file:'/compare', open:true,
