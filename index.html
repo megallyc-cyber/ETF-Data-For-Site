@@ -882,14 +882,15 @@ const REEL = [
   // the next waits until that one has finished, so the browser is never asked
   // to render several whole pages at once.
   const queue = [].slice.call(host.querySelectorAll('iframe[data-src]'));
-  let busy = false;
+  let running = 0;
+  const AT_ONCE = 2;   // two is quick without asking the browser for six
 
   function loadNext(f){
-    if (busy || !f || f.getAttribute('src')) return;
-    busy = true;
-    f.addEventListener('load', function(){ busy = false; }, {once: true});
-    // never wait forever on a page that will not settle
-    setTimeout(function(){ busy = false; }, 4000);
+    if (!f || f.getAttribute('src') || running >= AT_ONCE) return;
+    running++;
+    f.addEventListener('load', function(){ running--; }, {once: true});
+    // never let one slow page hold up the rest
+    setTimeout(function(){ if (running > 0) running--; }, 3000);
     f.src = f.dataset.src;
     f.removeAttribute('data-src');
   }
@@ -914,7 +915,7 @@ const REEL = [
       loadNext(box.querySelector('iframe'));
       io.unobserve(box);
     });
-  }, {rootMargin: '150px'});
+  }, {rootMargin: '1200px'});
 
   host.querySelectorAll('.reel-shot').forEach(function(b){ io.observe(b); });
   window.addEventListener('resize', function(){
