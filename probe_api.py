@@ -1,37 +1,35 @@
-"""Twenty-one funds were called "Learn More".
+"""Why sixteen funds still have no distributions.
 
-A button label was scraped into the registry as the fund name and has been
-sitting in the fund list, the comparison tool and the page titles ever
-since. These are the names Global X itself publishes, read from each
-product page.
+Several are marked listing_only, meaning they depend entirely on
+dividendhistory.org. Ask that source directly, from the runner, and report
+what comes back rather than guessing.
 """
-import json, re, subprocess
+import json, re, urllib.request
 from pathlib import Path
 
-NAMES = {"AGCC":"Global X Silver Covered Call ETF","BCCC":"Global X Bitcoin Covered Call ETF","BCCL":"Global X Enhanced Bitcoin Covered Call ETF","CPCC":"Global X Copper Producer Equity Covered Call ETF","HGY":"Global X Gold Yield ETF","LPAY":"Global X Long-Term U.S. Treasury Premium Yield ETF","MPAY":"Global X Mid-Term U.S. Treasury Premium Yield ETF","PAYL":"Global X Long-Term Government Bond Premium Yield ETF","PAYM":"Global X Mid-Term Government Bond Premium Yield ETF","PAYS":"Global X Short-Term Government Bond Premium Yield ETF","QQCC":"Global X Nasdaq-100 Covered Call ETF","QQCL":"Global X Enhanced Nasdaq-100 Covered Call ETF","RNCC":"Global X Equal Weight Canadian Telecommunications Covered Call ETF","RNCL":"Global X Enhanced Equal Weight Canadian Telecommunications Covered Call ETF","RSCC":"Global X Russell 2000 Covered Call ETF","RSCL":"Global X Enhanced Russell 2000 Covered Call ETF","SPAY":"Global X Short-Term U.S. Treasury Premium Yield ETF","SVCC":"Global X Silver Miners Covered Call ETF","URCC":"Global X Uranium Covered Call ETF","USCC":"Global X S&P 500 Covered Call ETF","USCL":"Global X Enhanced S&P 500 Covered Call ETF"}
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 
-p = Path("scraper.py")
-t = p.read_text()
-report = {"renamed": [], "missed": []}
+def look(url):
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=40) as r:
+            html = r.read().decode("utf-8", "replace")
+        low = html.lower()
+        return {"status": 200, "bytes": len(html),
+                "tables": low.count("<table"), "rows": low.count("<tr"),
+                "amounts": len(re.findall(r"\\$\\s?\\d+\\.\\d{2,6}", html)),
+                "blocked": ("captcha" in low or "just a moment" in low)}
+    except Exception as exc:  # noqa: BLE001
+        return {"error": str(exc)[:130]}
 
-for ticker, proper in NAMES.items():
-    old = 'Fund("' + ticker + '", "Learn More"'
-    new = 'Fund("' + ticker + '", "' + proper + '"'
-    if old in t:
-        t = t.replace(old, new)
-        report["renamed"].append(ticker)
-    else:
-        report["missed"].append(ticker)
+report = {}
+for t in ["HYGW", "TLTW", "BALI", "JEPI"]:
+    report["dividendhistory_" + t] = look("https://dividendhistory.org/payout/" + t + "/")
 
-p.write_text(t)
-report["remainingLearnMore"] = t.count('"Learn More"')
+report["defiance_SPYT"] = look("https://www.defianceetfs.com/spyt-full-holdings/")
+report["rex_DACL"] = look("https://www.rexshares.com/dacl/")
 
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
 print(json.dumps(report, indent=2))
-
-subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
-subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
-subprocess.run(["git", "add", "-A"], check=False)
-subprocess.run(["git", "commit", "-m", "Give twenty-one funds their real names back"], check=False)
-subprocess.run(["git", "push"], check=False)
