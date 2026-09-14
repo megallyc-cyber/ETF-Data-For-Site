@@ -1640,7 +1640,7 @@ function vennTwo(host, a, b){
   // figures above 100%. Say what is actually true instead: the smaller share is
   // the honest measure of how much they genuinely double up, and when one owns
   // the other the relationship itself is the answer.
-  var holdsOther = (onlyA[b] || shared.indexOf(b) > -1 || onlyB[a] || shared.indexOf(a) > -1);
+  var holdsOther = (sumShareA > 99.5 || sumShareB > 99.5);
   var shownPct = Math.min(sumShareA, sumShareB);
   var midBig = shownPct.toFixed(1) + "%";
   var midCap = "shared";
@@ -1670,7 +1670,8 @@ function vennTwo(host, a, b){
       "</div>" +
       "<div class='ovl-foot'>" +
         (holdsOther
-          ? "These are not two separate baskets: one of them holds the other, so the " +
+          ? "One of these holds the other, so this is not two baskets overlapping: " +
+            "the shares below are of a fund you would already own through the first."
             "shares below are of a fund you already own through the first."
           : "The names they both hold are <b>" + sumShareA.toFixed(1) + "%</b> of " + a +
             " and <b>" + sumShareB.toFixed(1) + "%</b> of " + b + "." +
