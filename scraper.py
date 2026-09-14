@@ -2599,11 +2599,11 @@ def write_fund_pages(registry: list) -> int:
                           '<link rel="canonical" href="' + url + '">', page, count=1)
         else:
             page = page.replace("</head>",
-                                '<link rel="canonical" href="' + url + '">\\n</head>', 1)
+                                '<link rel="canonical" href="' + url + '">\n</head>', 1)
         page = page.replace("</head>",
-            '<script type="application/ld+json">' + json.dumps(ld) + "</" + "script>\\n</head>", 1)
+            '<script type="application/ld+json">' + json.dumps(ld) + "</" + "script>\n</head>", 1)
         page = page.replace("<body>",
-            "<body>\\n" + summary + '\\n<script>window.__TICKER = "' + t + '";</' + "script>", 1)
+            "<body>\n" + summary + '\n<script>window.__TICKER = "' + t + '";</' + "script>", 1)
 
         out = Path("fund") / t
         out.mkdir(parents=True, exist_ok=True)
