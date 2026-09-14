@@ -749,6 +749,9 @@
     .ovl-mid{width:108px; height:108px; margin:-54px 0 0 -54px;}
     .ovl-pct{font-size:25px;}
   }
+
+  .ovl-pct-words{font-size:16px; line-height:1.3; text-align:center;
+    font-family:'Inter',ui-sans-serif,sans-serif;}
 </style>
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -1633,7 +1636,21 @@ function vennTwo(host, a, b){
   var moreB = Object.keys(onlyB).length - lb.length;
   var moreS = shared.length - ls.length;
 
-  var shownPct = Math.max(sumShareA, sumShareB);
+  // One fund holding the other is not an overlap, and treating it as one gave
+  // figures above 100%. Say what is actually true instead: the smaller share is
+  // the honest measure of how much they genuinely double up, and when one owns
+  // the other the relationship itself is the answer.
+  var holdsOther = (onlyA[b] || shared.indexOf(b) > -1 || onlyB[a] || shared.indexOf(a) > -1);
+  var shownPct = Math.min(sumShareA, sumShareB);
+  var midBig = shownPct.toFixed(1) + "%";
+  var midCap = "shared";
+  if (holdsOther){
+    midBig = "One holds<br>the other";
+    midCap = "not an overlap";
+  } else if (!shared.length){
+    midBig = "None";
+    midCap = "in common";
+  }
 
   host.innerHTML =
     "<div class='ovl-wrap'>" +
@@ -1647,13 +1664,17 @@ function vennTwo(host, a, b){
         "<div class='ovl-circle ovl-a'>" + a + "</div>" +
         "<div class='ovl-circle ovl-b'>" + b + "</div>" +
         "<div class='ovl-mid'>" +
-          "<div class='ovl-pct'>" + shownPct.toFixed(1) + "%</div>" +
-          "<div class='ovl-cap'>shared</div>" +
+          "<div class='ovl-pct" + (holdsOther ? " ovl-pct-words" : "") + "'>" + midBig + "</div>" +
+          "<div class='ovl-cap'>" + midCap + "</div>" +
         "</div>" +
       "</div>" +
-      "<div class='ovl-foot'>The names they both hold are <b>" + sumShareA.toFixed(1) + "%</b> of " + a +
-        " and <b>" + sumShareB.toFixed(1) + "%</b> of " + b + "." +
-        (shared.length ? " <b>" + shared.length + "</b> holdings in common." : " Nothing in common.") +
+      "<div class='ovl-foot'>" +
+        (holdsOther
+          ? "These are not two separate baskets: one of them holds the other, so the " +
+            "shares below are of a fund you already own through the first."
+          : "The names they both hold are <b>" + sumShareA.toFixed(1) + "%</b> of " + a +
+            " and <b>" + sumShareB.toFixed(1) + "%</b> of " + b + "." +
+            (shared.length ? " <b>" + shared.length + "</b> holdings in common." : " Nothing in common.")) +
       "</div>" +
       "<div class='ovl-lists'>" +
         "<div class='ovl-col'><h4>Only " + a + "</h4>" + col(la, "a") +
