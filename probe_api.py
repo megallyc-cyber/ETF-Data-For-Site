@@ -1,19 +1,25 @@
-"""Rebuild the fund pages from the data already on disk.
+"""Reprint the fund pages, taking the data from the API.
 
-The 288 pages were stamped out of the old template, which read the ticker
-only from a query string \u2014 so every /fund/TICKER/ page looked up an empty
-ticker and said it could not find the fund. The template is fixed now, and
-there is no need to scrape every issuer again to reprint them.
+data/funds.json is not in the repository \u2014 the scrape pushes it to Supabase
+and does not commit it, so a fresh checkout has nothing to read. The funds
+endpoint is open to everyone now, so ask it instead.
 """
 import html as _h
-import json, re, subprocess
+import json, re, subprocess, urllib.request
 from pathlib import Path
 
-template = Path("fund/index.html").read_text()
-data = json.loads(Path("data/funds.json").read_text())
-rows = data.get("funds") if isinstance(data, dict) else data
+URL = "https://sopzbiuwakowbuqgwpmg.supabase.co/functions/v1/funds"
+req = urllib.request.Request(URL, method="POST",
+                             data=json.dumps({"seed": "reprint"}).encode(),
+                             headers={"Content-Type": "application/json"})
+with urllib.request.urlopen(req, timeout=90) as r:
+    payload = json.loads(r.read().decode())
+
+rows = payload.get("funds") or payload.get("data") or []
 if isinstance(rows, dict):
     rows = list(rows.values())
+
+template = Path("fund/index.html").read_text()
 
 def num(v):
     if v is None:
@@ -97,7 +103,8 @@ for f in rows:
     (out / "index.html").write_text(page)
     written += 1
 
-report = {"pagesWritten": written, "fundsSeen": len(rows)}
+report = {"pagesWritten": written, "fundsFromApi": len(rows),
+          "tier": payload.get("tier")}
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
 print(json.dumps(report, indent=2))
@@ -105,5 +112,5 @@ print(json.dumps(report, indent=2))
 subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
 subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
 subprocess.run(["git", "add", "-A"], check=False)
-subprocess.run(["git", "commit", "-m", "Reprint the fund pages from the fixed template"], check=False)
+subprocess.run(["git", "commit", "-m", "Reprint every fund page from the fixed template"], check=False)
 subprocess.run(["git", "push"], check=False)
