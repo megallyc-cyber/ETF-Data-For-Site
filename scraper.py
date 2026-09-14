@@ -2573,7 +2573,7 @@ def write_fund_pages(registry: list) -> int:
         if holds:
             facts.append("<li>Positions held: <b>%d</b></li>" % len(holds))
 
-        summary = ("<div id=\"seo-summary\">"
+        summary = ("<div id=\"seo-summary\" style=\"position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap\">"
                    + "<h1>" + _h.escape(t) + " \u2014 " + _h.escape(name) + "</h1>"
                    + "<p>" + _h.escape(desc) + "</p>"
                    + ("<ul>" + "".join(facts) + "</ul>" if facts else "")
