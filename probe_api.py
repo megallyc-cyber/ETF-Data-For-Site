@@ -1,29 +1,39 @@
-"""A fixed ?v=1 is not a cache buster.
+"""The fund pages showed my own escape characters.
 
-I stamped the Social pages with a constant, so browsers kept the copy they
-already had — the same fault I was trying to cure. Stamp them with a hash of
-the file instead, so the address changes exactly when the file does.
+The injected markup was built inside a string that was itself escaped, so a
+line break reached the page as two literal characters, and the summary meant
+for crawlers sat visible above the header. Both are the same mistake: writing
+markup through two layers of quoting without checking what came out.
 """
-import hashlib, json, re, subprocess
+import json, subprocess
 from pathlib import Path
 
-pro = Path("assets/pro.js")
-stamp = hashlib.sha1(pro.read_bytes()).hexdigest()[:8] if pro.exists() else "1"
+p = Path("scraper.py")
+t = p.read_text()
+report = {}
 
-PAGES = ["social/index.html", "social/post/index.html", "social/u/index.html",
-         "social/admin/index.html", "social/admin/members/index.html"]
+BS = chr(92)
+bad = BS + BS + "n"      # the letters backslash, backslash, n
+good = BS + "n"          # an escaped newline, as intended
+if bad in t:
+    t = t.replace(bad, good)
+    report["escapes"] = "repaired"
+else:
+    report["escapes"] = "none found"
 
-report = {"stamp": stamp, "updated": [], "skipped": []}
-for name in PAGES:
-    f = Path(name)
-    if not f.exists():
-        report["skipped"].append(name)
-        continue
-    t = f.read_text()
-    new = re.sub(r'/assets/pro\.js(\?v=[^"]*)?', "/assets/pro.js?v=" + stamp, t)
-    if new != t:
-        f.write_text(new)
-        report["updated"].append(name)
+old = chr(39) + chr(60) + chr(100) + chr(105) + chr(118) + chr(32) + chr(105) + chr(100) + chr(61) + chr(92) + chr(34) + "seo-summary" + chr(92) + chr(34) + chr(62) + chr(39)
+new = (chr(39) + chr(60) + chr(100) + chr(105) + chr(118) + chr(32) + chr(105) + chr(100) + chr(61) + chr(92) + chr(34) + "seo-summary" + chr(92) + chr(34)
+       + " style=" + chr(92) + chr(34)
+       + "position:absolute;width:1px;height:1px;overflow:hidden;"
+       + "clip:rect(0 0 0 0);white-space:nowrap"
+       + chr(92) + chr(34) + chr(62) + chr(39))
+if old in t:
+    t = t.replace(old, new)
+    report["summary"] = "clipped, so it is read but not seen"
+else:
+    report["summary"] = "marker not found"
+
+p.write_text(t)
 
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
@@ -32,5 +42,5 @@ print(json.dumps(report, indent=2))
 subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
 subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
 subprocess.run(["git", "add", "-A"], check=False)
-subprocess.run(["git", "commit", "-m", "Stamp with a hash, so the address changes when the file does"], check=False)
+subprocess.run(["git", "commit", "-m", "Stop printing my own escape characters onto the fund pages"], check=False)
 subprocess.run(["git", "push"], check=False)
