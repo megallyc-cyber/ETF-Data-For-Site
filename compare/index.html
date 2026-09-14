@@ -696,6 +696,59 @@
     .fam-logo svg, .fam-logo img{max-width:112px !important; max-height:22px !important;}
     .fam-name{min-width:0;}
   }
+
+  /* ---- overlap, redrawn ----
+     The figure people came for sits in the middle, large. The names stay
+     below, where they are useful once the question has been answered. */
+  .ovl-wrap{padding:8px 0 2px;}
+  .ovl-names{display:flex; align-items:center; justify-content:center;
+    gap:26px; flex-wrap:wrap; margin-bottom:14px;}
+  .ovl-name{display:flex; align-items:center; gap:8px; font-size:13.5px;}
+  .ovl-dot{width:10px; height:10px; border-radius:50%; flex:none;}
+  .ovl-name b{font-family:'IBM Plex Mono',monospace; font-size:14.5px;}
+  .ovl-name span{color:var(--ink-faint); font-size:12.5px;}
+
+  .ovl-stage{position:relative; height:250px; margin:0 auto 6px;
+    max-width:460px;}
+  .ovl-circle{position:absolute; top:50%; width:208px; height:208px;
+    margin-top:-104px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-family:'IBM Plex Mono',monospace;
+    font-size:14px; letter-spacing:0.04em;}
+  .ovl-a{left:8%; background:rgba(44,110,99,0.22);
+    border:1px solid rgba(44,110,99,0.42); color:#1F4F47;
+    padding-right:78px;}
+  .ovl-b{right:8%; background:rgba(255,107,53,0.20);
+    border:1px solid rgba(212,80,31,0.40); color:#8A3410;
+    padding-left:78px;}
+  /* the middle is lifted out of both, so the number is never washed out */
+  .ovl-mid{position:absolute; left:50%; top:50%; width:132px; height:132px;
+    margin:-66px 0 0 -66px; border-radius:50%; background:var(--paper-raised);
+    border:1px solid var(--line); z-index:3;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    box-shadow:0 2px 6px rgba(28,34,48,0.10);}
+  .ovl-pct{font-family:'Fraunces',serif; font-size:31px; line-height:1;
+    color:var(--ink);}
+  .ovl-cap{font-family:'IBM Plex Mono',monospace; font-size:9.5px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint);
+    margin-top:5px;}
+  .ovl-foot{text-align:center; font-size:13.5px; color:var(--ink-soft);
+    margin-top:6px; line-height:1.6;}
+
+  .ovl-lists{display:grid; gap:14px; margin-top:20px;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));}
+  .ovl-col{background:var(--white); border:1px solid var(--line);
+    border-radius:11px; padding:13px 15px;}
+  .ovl-col h4{font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint);
+    margin-bottom:9px; font-weight:400;}
+  .ovl-col .vn-line{font-size:13px;}
+  @media(max-width:560px){
+    .ovl-stage{height:210px; max-width:340px;}
+    .ovl-circle{width:166px; height:166px; margin-top:-83px; font-size:12.5px;}
+    .ovl-a{padding-right:62px;} .ovl-b{padding-left:62px;}
+    .ovl-mid{width:108px; height:108px; margin:-54px 0 0 -54px;}
+    .ovl-pct{font-size:25px;}
+  }
 </style>
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
   <script type="application/ld+json">
@@ -1580,23 +1633,36 @@ function vennTwo(host, a, b){
   var moreB = Object.keys(onlyB).length - lb.length;
   var moreS = shared.length - ls.length;
 
+  var shownPct = Math.max(sumShareA, sumShareB);
+
   host.innerHTML =
-    "<div class='venn'>" +
-      "<div class='vn-head'>" +
-        "<div class='vn-h vn-h-a'><b>" + a + "</b><span>" + Object.keys(onlyA).length + " of its own</span></div>" +
-        "<div class='vn-h vn-h-s'><b>Both</b><span>" + shared.length + " shared</span></div>" +
-        "<div class='vn-h vn-h-b'><b>" + b + "</b><span>" + Object.keys(onlyB).length + " of its own</span></div>" +
+    "<div class='ovl-wrap'>" +
+      "<div class='ovl-names'>" +
+        "<span class='ovl-name'><i class='ovl-dot' style='background:#2C6E63'></i>" +
+          "<b>" + a + "</b><span>" + (Object.keys(onlyA).length + shared.length) + " holdings</span></span>" +
+        "<span class='ovl-name'><i class='ovl-dot' style='background:#D4501F'></i>" +
+          "<b>" + b + "</b><span>" + (Object.keys(onlyB).length + shared.length) + " holdings</span></span>" +
       "</div>" +
-      "<div class='vn-rings'>" +
-        "<div class='vn-ring vn-ring-a'></div>" +
-        "<div class='vn-ring vn-ring-b'></div>" +
-        "<div class='vn-lens'></div>" +
-        "<div class='vn-zone vn-zone-a'>" + col(la, "a") + (moreA > 0 ? "<span class='vn-more'>+" + moreA + " more</span>" : "") + "</div>" +
-        "<div class='vn-zone vn-zone-s'>" + col(ls, "s") + (moreS > 0 ? "<span class='vn-more'>+" + moreS + " more</span>" : "") + "</div>" +
-        "<div class='vn-zone vn-zone-b'>" + col(lb, "b") + (moreB > 0 ? "<span class='vn-more'>+" + moreB + " more</span>" : "") + "</div>" +
+      "<div class='ovl-stage'>" +
+        "<div class='ovl-circle ovl-a'>" + a + "</div>" +
+        "<div class='ovl-circle ovl-b'>" + b + "</div>" +
+        "<div class='ovl-mid'>" +
+          "<div class='ovl-pct'>" + shownPct.toFixed(1) + "%</div>" +
+          "<div class='ovl-cap'>shared</div>" +
+        "</div>" +
       "</div>" +
-      "<div class='vn-foot'>The shared names make up <b>" + sumShareA.toFixed(1) + "%</b> of " + a +
-        " and <b>" + sumShareB.toFixed(1) + "%</b> of " + b + ".</div>" +
+      "<div class='ovl-foot'>The names they both hold are <b>" + sumShareA.toFixed(1) + "%</b> of " + a +
+        " and <b>" + sumShareB.toFixed(1) + "%</b> of " + b + "." +
+        (shared.length ? " <b>" + shared.length + "</b> holdings in common." : " Nothing in common.") +
+      "</div>" +
+      "<div class='ovl-lists'>" +
+        "<div class='ovl-col'><h4>Only " + a + "</h4>" + col(la, "a") +
+          (moreA > 0 ? "<span class='vn-more'>+" + moreA + " more</span>" : "") + "</div>" +
+        "<div class='ovl-col'><h4>Held by both</h4>" + col(ls, "s") +
+          (moreS > 0 ? "<span class='vn-more'>+" + moreS + " more</span>" : "") + "</div>" +
+        "<div class='ovl-col'><h4>Only " + b + "</h4>" + col(lb, "b") +
+          (moreB > 0 ? "<span class='vn-more'>+" + moreB + " more</span>" : "") + "</div>" +
+      "</div>" +
     "</div>";
 }
 
