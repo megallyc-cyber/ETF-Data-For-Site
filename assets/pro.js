@@ -763,18 +763,24 @@
     if (!links || links.dataset.rendered) return;
     var path = here();
     // part of the list, not bolted on after, so a redraw cannot lose it
-    links.innerHTML = NAV.filter(function(item){
+    var shown = NAV.filter(function(item){
       return !item.adminOnly || window.LICENTIA_IS_ADMIN;
-    }).map(function(item){
-      // a sub page counts as its section: /fund/HDIV belongs to Funds
-      var on = item.href === "/"
-        ? path === "/"
-        : (path === item.href || path.indexOf(item.href + "/") === 0
-           || (item.href === "/funds" && path.indexOf("/fund") === 0));
+    });
+    function trim(s){ return s.length > 1 ? s.replace(/\/$/, "") : s; }
+    var best = "", bestLen = -1;
+    shown.forEach(function(item){
+      var h = trim(item.href);
+      var hit = (h === "/") ? (path === "/")
+        : (path === h || path.indexOf(h + "/") === 0);
+      // /social/admin/members belongs to Admin, not to Social Hub:
+      // the longest match wins
+      if (hit && h.length > bestLen){ best = item.href; bestLen = h.length; }
+    });
+    links.innerHTML = shown.map(function(item){
+      var on = item.href === best;
       return '<a' + (on ? ' class="active"' : "") + ' href="' + item.href + '">'
         + item.label + "</a>";
-    }).join("");
-    links.dataset.rendered = "1";
+    }).join("");    links.dataset.rendered = "1";
     offerAdmin();
     setTimeout(offerAdmin, 700);
     setTimeout(offerAdmin, 2500);
