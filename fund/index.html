@@ -606,7 +606,9 @@ licentiaFundsFetch()
   .then(data => {
     Object.entries(data).forEach(([t, v]) => {
       if(t.charAt(0) === '_') return;
-      if(v.holdings && Object.keys(v.holdings).length){  // carried-forward funds have real data too
+      // Holdings are not the only thing worth showing: a yield, a price and
+      // a distribution history make a page on their own. Keep every fund.
+      {
         FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {}, as_of: v.as_of || '', stale: !!v.stale, distributions: v.distributions || [] };
       }
     });
@@ -618,7 +620,8 @@ licentiaFundsFetch()
   });
 
 function render(){
-  TICKER = (qs('t') || '').toUpperCase();
+  // a generated page names its fund; a hand-written link still uses ?t=
+  TICKER = (window.__TICKER || qs('t') || '').toUpperCase();
   const f = FUNDS[TICKER];
   const stage = document.getElementById('stage');
 
