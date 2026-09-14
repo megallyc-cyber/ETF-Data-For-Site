@@ -1,5 +1,27 @@
 {
-  "pagesWritten": 288,
-  "fundsFromApi": 288,
-  "tier": "anon"
+  "renamed": [
+    "AGCC",
+    "BCCC",
+    "BCCL",
+    "CPCC",
+    "HGY",
+    "LPAY",
+    "MPAY",
+    "PAYL",
+    "PAYM",
+    "PAYS",
+    "QQCC",
+    "QQCL",
+    "RNCC",
+    "RNCL",
+    "RSCC",
+    "RSCL",
+    "SPAY",
+    "SVCC",
+    "URCC",
+    "USCC",
+    "USCL"
+  ],
+  "missed": [],
+  "remainingLearnMore": 0
 }
