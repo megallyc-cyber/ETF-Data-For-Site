@@ -294,7 +294,6 @@
 </style>
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
 <link rel="canonical" href="https://licentia.ca/fund/TDY">
-<link rel="canonical" href="https://licentia.ca/fund/TDY">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "TDY \u2014 Purpose TD Yield Shares ETF", "tickerSymbol": "TDY", "url": "https://licentia.ca/fund/TDY", "description": "TDY: Purpose TD Yield Shares ETF, yielding 7.1%, paid $1.0800 a share over twelve months, from Purpose Investments. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "Purpose Investments"}}</script>
 </head>
 <body>
@@ -611,7 +610,9 @@ licentiaFundsFetch()
   .then(data => {
     Object.entries(data).forEach(([t, v]) => {
       if(t.charAt(0) === '_') return;
-      if(v.holdings && Object.keys(v.holdings).length){  // carried-forward funds have real data too
+      // Holdings are not the only thing worth showing: a yield, a price and
+      // a distribution history make a page on their own. Keep every fund.
+      {
         FUNDS[t] = { name: v.name, issuer: v.issuer, region: v.region, holdings: v.holdings, stats: v.stats || {}, as_of: v.as_of || '', stale: !!v.stale, distributions: v.distributions || [] };
       }
     });
@@ -623,7 +624,8 @@ licentiaFundsFetch()
   });
 
 function render(){
-  TICKER = (qs('t') || '').toUpperCase();
+  // a generated page names its fund; a hand-written link still uses ?t=
+  TICKER = (window.__TICKER || qs('t') || '').toUpperCase();
   const f = FUNDS[TICKER];
   const stage = document.getElementById('stage');
 
