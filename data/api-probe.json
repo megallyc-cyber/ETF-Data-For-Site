@@ -1,27 +1,50 @@
 {
-  "renamed": [
-    "AGCC",
-    "BCCC",
-    "BCCL",
-    "CPCC",
-    "HGY",
-    "LPAY",
-    "MPAY",
-    "PAYL",
-    "PAYM",
-    "PAYS",
-    "QQCC",
-    "QQCL",
-    "RNCC",
-    "RNCL",
-    "RSCC",
-    "RSCL",
-    "SPAY",
-    "SVCC",
-    "URCC",
-    "USCC",
-    "USCL"
-  ],
-  "missed": [],
-  "remainingLearnMore": 0
+  "dividendhistory_HYGW": {
+    "status": 200,
+    "bytes": 50471,
+    "tables": 3,
+    "rows": 68,
+    "amounts": 0,
+    "blocked": false
+  },
+  "dividendhistory_TLTW": {
+    "status": 200,
+    "bytes": 50403,
+    "tables": 3,
+    "rows": 68,
+    "amounts": 0,
+    "blocked": false
+  },
+  "dividendhistory_BALI": {
+    "status": 200,
+    "bytes": 45327,
+    "tables": 3,
+    "rows": 54,
+    "amounts": 0,
+    "blocked": false
+  },
+  "dividendhistory_JEPI": {
+    "status": 200,
+    "bytes": 59591,
+    "tables": 3,
+    "rows": 94,
+    "amounts": 0,
+    "blocked": false
+  },
+  "defiance_SPYT": {
+    "status": 200,
+    "bytes": 165558,
+    "tables": 1,
+    "rows": 6,
+    "amounts": 0,
+    "blocked": true
+  },
+  "rex_DACL": {
+    "status": 200,
+    "bytes": 428799,
+    "tables": 2,
+    "rows": 10,
+    "amounts": 0,
+    "blocked": true
+  }
 }
