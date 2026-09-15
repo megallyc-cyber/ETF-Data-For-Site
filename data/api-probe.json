@@ -1,50 +1,80 @@
 {
-  "dividendhistory_HYGW": {
-    "status": 200,
-    "bytes": 50471,
-    "tables": 3,
-    "rows": 68,
-    "amounts": 0,
-    "blocked": false
+  "HYGW": {
+    "tableCount": 3,
+    "tableIds": [
+      "dividend-table"
+    ],
+    "rowCount": 52,
+    "sample": [
+      [
+        "Ex-Dividend Date",
+        "Payout Date",
+        "Cash Amount",
+        "Change / Status"
+      ],
+      [
+        "2026-10-02",
+        "2026-10-07",
+        "$0.179205",
+        "unconfirmed/estimated"
+      ],
+      [
+        "2026-09-03",
+        "2026-09-08",
+        "$0.179205",
+        "unconfirmed/estimated"
+      ],
+      [
+        "2026-09-02",
+        "2026-09-08",
+        "$0.179205",
+        "-7.08%"
+      ],
+      [
+        "2026-08-04",
+        "2026-08-07",
+        "$0.192867",
+        "11.98%"
+      ]
+    ]
   },
-  "dividendhistory_TLTW": {
-    "status": 200,
-    "bytes": 50403,
-    "tables": 3,
-    "rows": 68,
-    "amounts": 0,
-    "blocked": false
-  },
-  "dividendhistory_BALI": {
-    "status": 200,
-    "bytes": 45327,
-    "tables": 3,
-    "rows": 54,
-    "amounts": 0,
-    "blocked": false
-  },
-  "dividendhistory_JEPI": {
-    "status": 200,
-    "bytes": 59591,
-    "tables": 3,
-    "rows": 94,
-    "amounts": 0,
-    "blocked": false
-  },
-  "defiance_SPYT": {
-    "status": 200,
-    "bytes": 165558,
-    "tables": 1,
-    "rows": 6,
-    "amounts": 0,
-    "blocked": true
-  },
-  "rex_DACL": {
-    "status": 200,
-    "bytes": 428799,
-    "tables": 2,
-    "rows": 10,
-    "amounts": 0,
-    "blocked": true
+  "JEPI": {
+    "tableCount": 3,
+    "tableIds": [
+      "dividend-table"
+    ],
+    "rowCount": 78,
+    "sample": [
+      [
+        "Ex-Dividend Date",
+        "Payout Date",
+        "Cash Amount",
+        "Change / Status"
+      ],
+      [
+        "2026-10-01",
+        "2026-10-02",
+        "$0.37142",
+        "unconfirmed/estimated"
+      ],
+      [
+        "2026-09-02",
+        "2026-09-04",
+        "$0.37142",
+        "unconfirmed/estimated"
+      ],
+      [
+        "2026-09-01",
+        "2026-09-03",
+        "$0.37142",
+        "1.3%"
+      ],
+      [
+        "2026-08-03",
+        "2026-08-05",
+        "$0.36664",
+        "-5.3%"
+      ]
+    ]
   }
 }
