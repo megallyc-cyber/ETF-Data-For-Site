@@ -1,5 +1,7 @@
 {
-  "fallbackLoop": "slowed, with one retry",
-  "delays": "already there",
-  "scraperParses": true
+  "state": "defined",
+  "dhDelayDefined": true,
+  "dhBackoffDefined": true,
+  "usedInLoop": true,
+  "parses": true
 }

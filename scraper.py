@@ -80,6 +80,8 @@ ACTIVE_HEADERS = REQUEST_HEADERS
 
 REQUEST_TIMEOUT = 20
 DELAY_BETWEEN_REQUESTS = 1.5  # be polite, avoid hammering issuer sites
+DH_DELAY = 4.0     # the fallback is one site asked a hundred times
+DH_BACKOFF = 12.0  # and it needs a real pause once it has refused
 
 
 @dataclass
