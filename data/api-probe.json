@@ -1,5 +1,38 @@
 {
-  "fetchTest": "counts distributions too",
-  "carriedReport": "matches the new test",
-  "scraperParses": true
+  "QQCC": {
+    "tsx": "176 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "USCC": {
+    "tsx": "151 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "HGY": {
+    "tsx": "176 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "BCCL": {
+    "tsx": "35 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "MPAY": {
+    "tsx": "35 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "CNCC": {
+    "tsx": "185 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "BRKY": {
+    "tsx": "45 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "YUNH": {
+    "tsx": "18 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  },
+  "TY": {
+    "tsx": "13 paid rows",
+    "plain": "HTTP Error 404: Not Found"
+  }
 }
