@@ -1,36 +1,32 @@
-"""Define the two delays my last change started using.
+"""Never come back from a scrape with less than we started with.
 
-The guard that was meant to avoid adding them twice saw the names in the
-code I had just inserted and skipped the definitions. The file still parses,
-because a missing name is only found when the line runs \u2014 which would have
-been on the first fallback of the next scrape.
+CPCC was showing a 6.85% yield and no distributions at all: the figure had
+survived from an earlier run while the payments behind it were wiped by a
+later one. A source refusing us today says nothing about whether those
+payments happened, so keep what we had and try again tomorrow.
 """
 import json, subprocess
 from pathlib import Path
+
+OLD = "                prev = previous.get(fund.ticker) or {}\n                if prev.get(\"holdings\"):\n                    fund.holdings = prev[\"holdings\"]\n                    fund.stale = True"
+NEW = "                prev = previous.get(fund.ticker) or {}\n                if prev.get(\"holdings\"):\n                    fund.holdings = prev[\"holdings\"]\n                    fund.stale = True\n                # Never come back with less than we already had. A source that\n                # refuses us today is not evidence that yesterday's payments\n                # stopped existing, and dropping them takes the yield with them.\n                if not fund.distributions and prev.get(\"distributions\"):\n                    fund.distributions = prev[\"distributions\"]\n                    fund.stale = True"
 
 p = Path("scraper.py")
 t = p.read_text()
 report = {}
 
-anchor = "DELAY_BETWEEN_REQUESTS = 1.5  # be polite, avoid hammering issuer sites"
-defined = "DH_DELAY = " in t
-
-if defined:
-    report["state"] = "already defined"
-elif anchor in t:
-    adds = (anchor + chr(10)
-            + "DH_DELAY = 4.0     # the fallback is one site asked a hundred times" + chr(10)
-            + "DH_BACKOFF = 12.0  # and it needs a real pause once it has refused")
-    t = t.replace(anchor, adds)
-    p.write_text(t)
-    report["state"] = "defined"
+if OLD in t:
+    t = t.replace(OLD, NEW)
+    report["keepDistributions"] = "carried forward when a fetch comes back empty"
 else:
-    report["state"] = "anchor missing"
+    report["keepDistributions"] = "anchor missing"
 
-# prove both names exist before they are used
-report["dhDelayDefined"] = "DH_DELAY = " in t
-report["dhBackoffDefined"] = "DH_BACKOFF = " in t
-report["usedInLoop"] = "time.sleep(DH_DELAY)" in t
+# the long waits did not help and cost two and a half hours; put them back
+t = t.replace("DH_DELAY = 4.0", "DH_DELAY = 2.0")
+t = t.replace("DH_BACKOFF = 12.0", "DH_BACKOFF = 8.0")
+report["delays"] = "eased back"
+
+p.write_text(t)
 
 import ast
 try:
@@ -47,5 +43,5 @@ print(json.dumps(report, indent=2))
 subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
 subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
 subprocess.run(["git", "add", "-A"], check=False)
-subprocess.run(["git", "commit", "-m", "Define the delays my last change started using"], check=False)
+subprocess.run(["git", "commit", "-m", "A scrape must never come back with less than it started with"], check=False)
 subprocess.run(["git", "push"], check=False)
