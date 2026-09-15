@@ -2305,7 +2305,11 @@ def run(registry: list[Fund]) -> list[Fund]:
             else:
                 parser = PARSERS[fund.parser]
                 fund.holdings = parser(html)
-            fund.fetched_ok = bool(fund.holdings)
+            # Holdings are not the only thing worth fetching. A fund whose
+            # issuer publishes no holdings still has a price, a size and a
+            # distribution history; calling that a failed fetch meant carrying
+            # yesterday's record over today's and losing them.
+            fund.fetched_ok = bool(fund.holdings) or bool(fund.distributions)
             if not fund.fetched_ok:
                 log.warning("  -> no holdings parsed; keeping the rest of the page")
 
@@ -2675,7 +2679,8 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
     ok = sum(1 for f in registry if f.fetched_ok)
     with_aum = sum(1 for f in registry if f.stats.get("aum_musd"))
     with_dist = sum(1 for f in registry if f.distributions)
-    carried = [f.ticker for f in registry if f.stale and f.holdings]
+    carried = [f.ticker for f in registry
+               if f.stale and (f.holdings or f.distributions)]
     empty = [f.ticker for f in registry if not f.holdings]
     if carried:
         log.warning("Carried forward (issuer unreachable today): %s", ", ".join(carried))
