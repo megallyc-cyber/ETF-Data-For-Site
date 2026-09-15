@@ -1,61 +1,44 @@
-"""Two rules that quietly threw away good data.
+"""A fund that brought back distributions was not a failed fetch.
 
-1. A fund counted as fetched only if holdings came back. Funds whose value
-   is their distribution history \u2014 the listing_only ones \u2014 therefore looked
-   like a failed fetch every single run, and the freshly gathered
-   distributions were replaced by the old record. Twenty-two funds lost
-   their yields that way, and would have lost them again tomorrow.
-
-2. Future and unconfirmed payments were being counted. The comparison used
-   the raw cell text, so a date that did not parse slipped through and
-   inflated the trailing twelve months.
+A fetch counted as successful only if holdings came back, so the funds whose
+whole value is their distribution history looked like a failure every run.
+The fresh data was then replaced by the previous record. Twenty-two funds
+lost their yields that way, and would have lost them again tomorrow.
 """
 import json, subprocess
 from pathlib import Path
+
+OLD1 = "            fund.fetched_ok = bool(fund.holdings)"
+NEW1 = "            # Holdings are not the only thing worth fetching. A fund whose\n            # issuer publishes no holdings still has a price, a size and a\n            # distribution history; calling that a failed fetch meant carrying\n            # yesterday's record over today's and losing them.\n            fund.fetched_ok = bool(fund.holdings) or bool(fund.distributions)"
+OLD2 = "    carried = [f.ticker for f in registry if f.stale and f.holdings]"
+NEW2 = "    carried = [f.ticker for f in registry\n               if f.stale and (f.holdings or f.distributions)]"
 
 p = Path("scraper.py")
 t = p.read_text()
 report = {}
 
-# ---- 1. a fetch is good if it brought back anything worth having
-old = "            fund.fetched_ok = bool(fund.holdings)"
-new = ("            # Holdings are not the only thing worth fetching. A fund whose\n"
-       "            # issuer publishes no holdings still has a price, a size and a\n"
-       "            # distribution history, and calling that a failed fetch means\n"
-       "            # carrying yesterday's record over today's and losing them.\n"
-       "            fund.fetched_ok = bool(fund.holdings) or bool(fund.distributions)"
-if old in t:
-    t = t.replace(old, new)
-    report["fetchTest"] = "now counts distributions too"
+if OLD1 in t:
+    t = t.replace(OLD1, NEW1)
+    report["fetchTest"] = "counts distributions too"
 else:
     report["fetchTest"] = "anchor missing"
 
-# the same test decides what is reported as carried forward
-old2 = "    carried = [f.ticker for f in registry if f.stale and f.holdings]"
-new2 = ("    carried = [f.ticker for f in registry\n"
-        "               if f.stale and (f.holdings or f.distributions)]")
-if old2 in t:
-    t = t.replace(old2, new2)
+if OLD2 in t:
+    t = t.replace(OLD2, NEW2)
     report["carriedReport"] = "matches the new test"
 else:
     report["carriedReport"] = "anchor missing"
 
-# ---- 2. never count a payment that has not happened
-old3 = """        ex = _iso_date(cells[0])
-        if not ex or ex > today:
-            continue                                   # not paid yet"""
-new3 = """        ex = _iso_date(cells[0])
-        # A row whose date will not parse is not evidence of a payment:
-        # letting it through was how future payments reached the totals.
-        if not ex or ex > today:
-            continue                                   # not paid yet, or unreadable"""
-if old3 in t:
-    t = t.replace(old3, new3)
-    report["futureRows"] = "comment clarified; rule already correct"
-else:
-    report["futureRows"] = "anchor missing"
-
 p.write_text(t)
+
+import ast
+try:
+    ast.parse(t)
+    report["scraperParses"] = True
+except SyntaxError as exc:
+    report["scraperParses"] = False
+    report["syntaxError"] = str(exc)[:120]
+
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
 print(json.dumps(report, indent=2))
