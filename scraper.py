@@ -2159,19 +2159,27 @@ def parse_dividendhistory(html: str) -> list:
 def fetch_dividendhistory(fund: Fund) -> list:
     """Fallback only. Issuer-published history always wins, because it is the
     primary record; this fills funds whose issuer publishes nothing parseable."""
+    # One fund at a time this source answers happily. A full run asks it a
+    # hundred times in a few minutes and it starts refusing, which is why the
+    # funds that work when re-run alone come back empty from the nightly pass.
+    # Wait longer between calls, and give a refusal a second chance.
     for url in dividendhistory_urls(fund):
-        try:
-            log.info("  -> distributions fallback %s", url)
-            html = fetch(url)
-            time.sleep(DELAY_BETWEEN_REQUESTS)
-            rows = parse_dividendhistory(html)
-            if rows:
-                log.info("  -> %d distributions from %s, latest %s",
-                         len(rows), DH_ATTRIBUTION, rows[0]["ex_date"])
-                return rows
-            log.info("  -> no usable rows at %s", url)
-        except Exception as exc:  # noqa: BLE001
-            log.info("  -> %s: %s", url, exc)
+        for attempt in (1, 2):
+            try:
+                log.info("  -> distributions fallback %s", url)
+                html = fetch(url)
+                time.sleep(DH_DELAY)
+                rows = parse_dividendhistory(html)
+                if rows:
+                    log.info("  -> %d distributions from %s, latest %s",
+                             len(rows), DH_ATTRIBUTION, rows[0]["ex_date"])
+                    return rows
+                log.info("  -> no usable rows at %s", url)
+                break            # the page loaded and had nothing; another try will not help
+            except Exception as exc:  # noqa: BLE001
+                log.info("  -> %s (attempt %d): %s", url, attempt, exc)
+                if attempt == 1:
+                    time.sleep(DH_BACKOFF)
     log.warning("  -> no distributions found anywhere for %s", fund.ticker)
     return []
 
