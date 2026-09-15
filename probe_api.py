@@ -1,50 +1,44 @@
-"""A fund that brought back distributions was not a failed fetch.
+"""Do the Canadian listings exist at the fallback source?
 
-A fetch counted as successful only if holdings came back, so the funds whose
-whole value is their distribution history looked like a failure every run.
-The fresh data was then replaced by the previous record. Twenty-two funds
-lost their yields that way, and would have lost them again tomorrow.
+Sixty-three funds still have no calculated yield and almost all are
+Canadian. Before changing any parser, find out whether the pages are there
+at all, and under which path.
 """
-import json, subprocess
+import json, re, urllib.request
 from pathlib import Path
+from datetime import datetime, timezone
 
-OLD1 = "            fund.fetched_ok = bool(fund.holdings)"
-NEW1 = "            # Holdings are not the only thing worth fetching. A fund whose\n            # issuer publishes no holdings still has a price, a size and a\n            # distribution history; calling that a failed fetch meant carrying\n            # yesterday's record over today's and losing them.\n            fund.fetched_ok = bool(fund.holdings) or bool(fund.distributions)"
-OLD2 = "    carried = [f.ticker for f in registry if f.stale and f.holdings]"
-NEW2 = "    carried = [f.ticker for f in registry\n               if f.stale and (f.holdings or f.distributions)]"
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+TAGS = re.compile(r"<[^>]+>")
+TODAY = datetime.now(timezone.utc).date().isoformat()
 
-p = Path("scraper.py")
-t = p.read_text()
+def cells_of(row):
+    parts = re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row, re.S | re.I)
+    return [TAGS.sub("", p).replace("&nbsp;", " ").strip() for p in parts]
+
+def look(url):
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=35) as r:
+            html = r.read().decode("utf-8", "replace")
+    except Exception as exc:  # noqa: BLE001
+        return str(exc)[:40]
+    tables = re.findall(r"<table[^>]*>(.*?)</table>", html, re.S | re.I)
+    if not tables:
+        return "no table"
+    big = max(tables, key=len)
+    rows = [cells_of(r) for r in re.findall(r"<tr[^>]*>(.*?)</tr>", big, re.S | re.I)]
+    paid = [r for r in rows[1:] if len(r) > 2 and r[0] <= TODAY]
+    return str(len(paid)) + " paid rows"
+
 report = {}
-
-if OLD1 in t:
-    t = t.replace(OLD1, NEW1)
-    report["fetchTest"] = "counts distributions too"
-else:
-    report["fetchTest"] = "anchor missing"
-
-if OLD2 in t:
-    t = t.replace(OLD2, NEW2)
-    report["carriedReport"] = "matches the new test"
-else:
-    report["carriedReport"] = "anchor missing"
-
-p.write_text(t)
-
-import ast
-try:
-    ast.parse(t)
-    report["scraperParses"] = True
-except SyntaxError as exc:
-    report["scraperParses"] = False
-    report["syntaxError"] = str(exc)[:120]
+for t in ["QQCC", "USCC", "HGY", "BCCL", "MPAY", "CNCC", "BRKY", "YUNH", "TY"]:
+    report[t] = {
+        "tsx": look("https://dividendhistory.org/payout/tsx/" + t + "/"),
+        "plain": look("https://dividendhistory.org/payout/" + t + "/"),
+    }
 
 Path("data").mkdir(exist_ok=True)
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
 print(json.dumps(report, indent=2))
-
-subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
-subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
-subprocess.run(["git", "add", "-A"], check=False)
-subprocess.run(["git", "commit", "-m", "A fund that brought back distributions was not a failed fetch"], check=False)
-subprocess.run(["git", "push"], check=False)
