@@ -2278,6 +2278,7 @@ def run(registry: list[Fund]) -> list[Fund]:
     for fund in registry:
         log.info("Fetching %s (%s) from %s", fund.ticker, fund.issuer, fund.holdings_url)
         html = None
+        dh_tried = False  # the fallback is asked once per fund, not twice
         global ACTIVE_HEADERS
         ACTIVE_HEADERS = HEADERS_BY_PARSER.get(fund.parser, REQUEST_HEADERS)
         try:
@@ -2349,6 +2350,7 @@ def run(registry: list[Fund]) -> list[Fund]:
                         _d.setdefault("source", "issuer")
                     if not fund.distributions:
                         fund.distributions = fetch_dividendhistory(fund)
+                        dh_tried = True
                     if fund.distributions:
                         fund.stats["distribution_source"] = fund.distributions[0].get("source", "issuer")
                         fund.stats.update(distribution_summary(fund.distributions))
@@ -2382,11 +2384,23 @@ def run(registry: list[Fund]) -> list[Fund]:
                 fund.stats["holdings_captured"] = _seed.get("captured", "")
                 log.info("  -> %d holdings from seed file", len(fund.holdings))
 
-        if not fund.distributions:
+        if not fund.distributions and not dh_tried:
             fund.distributions = fetch_dividendhistory(fund)
             if fund.distributions:
                 fund.stats["distribution_source"] = fund.distributions[0].get("source", "issuer")
                 fund.stats.update(distribution_summary(fund.distributions))
+
+        # Never come back with less than we started with. A source refusing us
+        # today is not evidence that yesterday's payments stopped existing, and
+        # dropping them takes the yield with them (CPCC showed a 6.85% yield
+        # with no distributions behind it; 57 funds lost their yield outright).
+        if not fund.distributions:
+            prev_d = (previous.get(fund.ticker) or {}).get("distributions") or []
+            if prev_d:
+                fund.distributions = prev_d
+                fund.stats["distribution_source"] = prev_d[0].get("source", "issuer")
+                fund.stats.update(distribution_summary(prev_d))
+                log.info("  -> kept %d distributions from the previous run", len(prev_d))
         time.sleep(DELAY_BETWEEN_REQUESTS)
     return registry
 

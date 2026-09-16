@@ -1,7 +1,6 @@
 {
-  "state": "defined",
-  "dhDelayDefined": true,
-  "dhBackoffDefined": true,
-  "usedInLoop": true,
-  "parses": true
+  "applied": true,
+  "parses": true,
+  "keepsDistributions": true,
+  "singleFallback": true
 }
