@@ -1,6 +1,6 @@
 {
   "applied": true,
   "parses": true,
-  "keepsDistributions": true,
-  "singleFallback": true
+  "derivesFromPrices": true,
+  "fundPageLabel": true
 }

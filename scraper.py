@@ -2158,9 +2158,87 @@ def parse_dividendhistory(html: str) -> list:
     return out[:60]
 
 
+PRICE_DIR = Path("data/prices")
+PRICE_DERIVED_SOURCE = "adjusted price history"
+
+
+def distributions_from_prices(fund: Fund) -> list:
+    """Payments read straight out of our own price files.
+
+    Every file carries close and adjusted close. The adjustment only moves on
+    an ex-date, and it moves by exactly the payment: the ratio adj/close steps
+    from r0 to r1 and the distribution is the prior close times (1 - r0/r1).
+    Checked against issuer and dividendhistory.org figures before shipping:
+    BKCC 0.145 monthly, ZWB 0.17, JEPI 0.371. This needs no outside site, so it
+    goes first; dividendhistory.org refuses GitHub's runners after a handful of
+    requests, which left 57 funds with no yield.
+
+    Steps that come out negative are stitching between daily top-ups, not
+    payments, and are ignored.
+    """
+    path = PRICE_DIR / f"{fund.ticker}.csv"
+    if not path.exists():
+        return []
+    try:
+        lines = path.read_text().strip().splitlines()[1:]
+    except Exception:  # noqa: BLE001
+        return []
+    rows = []
+    for ln in lines:
+        parts = ln.split(",")
+        if len(parts) < 3:
+            continue
+        try:
+            close, adj = float(parts[1]), float(parts[2])
+        except ValueError:
+            continue
+        if close > 0 and adj > 0:
+            rows.append((parts[0], close, adj / close))
+    today = datetime.now(timezone.utc).date().isoformat()
+    # A split rescales the price but our older rows were never re-fetched, so
+    # the steps around it would not be payments. Leave a fund with a price
+    # jump that size to the next source rather than guess.
+    recent = [r for r in rows if r[0] >= (datetime.now(timezone.utc).date()
+                                          - timedelta(days=400)).isoformat()]
+    for (_d0, c0, _r0), (_d1, c1, _r1) in zip(recent, recent[1:]):
+        if c1 / c0 > 1.45 or c1 / c0 < 0.55:
+            return []
+    events = []
+    for (d0, c0, r0), (d1, _c1, r1) in zip(rows, rows[1:]):
+        amount = c0 * (1 - r0 / r1)
+        if amount / c0 > 0.001 and d1 <= today:
+            events.append((d1, round(amount, 4)))
+    if len(events) < 2:
+        return []
+
+    def days(a, b):
+        return abs((datetime.fromisoformat(a) - datetime.fromisoformat(b)).days)
+
+    # A monthly payer showing two steps a week apart has one real payment and
+    # one extra: a year-end capital gains distribution (QYLG's 2.78 on a $29
+    # fund, mostly reinvested, not cash) or a bad print in the price feed
+    # (every Purpose fund steps on 2026-02-09). Either would overstate the
+    # trailing yield, so keep the payment that holds the fund's rhythm. Weekly
+    # and twice-monthly payers are left alone.
+    gaps = sorted(days(a[0], b[0]) for a, b in zip(events, events[1:]))
+    monthly = gaps[len(gaps) // 2] >= 25
+    kept = []
+    for d, a in events:                      # oldest first
+        if monthly and kept and days(d, kept[-1]["ex_date"]) < 20:
+            continue
+        kept.append({"ex_date": d, "amount": a, "source": PRICE_DERIVED_SOURCE})
+    kept.sort(key=lambda r: r["ex_date"], reverse=True)
+    return kept[:60]
+
+
 def fetch_dividendhistory(fund: Fund) -> list:
     """Fallback only. Issuer-published history always wins, because it is the
     primary record; this fills funds whose issuer publishes nothing parseable."""
+    derived = distributions_from_prices(fund)
+    if derived:
+        log.info("  -> %d distributions from %s, latest %s",
+                 len(derived), PRICE_DERIVED_SOURCE, derived[0]["ex_date"])
+        return derived
     # One fund at a time this source answers happily. A full run asks it a
     # hundred times in a few minutes and it starts refusing, which is why the
     # funds that work when re-run alone come back empty from the nightly pass.
@@ -2348,6 +2426,16 @@ def run(registry: list[Fund]) -> list[Fund]:
                         fund.distributions = parse_distributions(html)
                     for _d in fund.distributions:
                         _d.setdefault("source", "issuer")
+                    # An issuer table that stopped updating is not a history.
+                    # QQQY's page still lists two payments from 2023, which
+                    # left it with no yield while it pays every month.
+                    _cut = (datetime.now(timezone.utc).date() - timedelta(days=120)).isoformat()
+                    if fund.distributions and fund.distributions[0]["ex_date"] < _cut:
+                        _newer = distributions_from_prices(fund)
+                        if _newer and _newer[0]["ex_date"] > fund.distributions[0]["ex_date"]:
+                            log.info("  -> issuer table ends %s; using price history instead",
+                                     fund.distributions[0]["ex_date"])
+                            fund.distributions = _newer
                     if not fund.distributions:
                         fund.distributions = fetch_dividendhistory(fund)
                         dh_tried = True
