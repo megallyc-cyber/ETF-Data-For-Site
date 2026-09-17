@@ -298,7 +298,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "ZWB \u2014 BMO Covered Call Canadian Banks ETF", "tickerSymbol": "ZWB", "url": "https://licentia.ca/fund/ZWB", "description": "ZWB: BMO Covered Call Canadian Banks ETF, yielding 5.2%, paid $1.5900 a share over twelve months, from BMO ETFs. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "BMO ETFs"}}</script>
 </head>
 <body>
-<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>ZWB — BMO Covered Call Canadian Banks ETF</h1><p>ZWB: BMO Covered Call Canadian Banks ETF, yielding 5.2%, paid $1.5900 a share over twelve months, from BMO ETFs. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>5.2%</b></li><li>Paid per share, twelve months: <b>$1.5900</b></li><li>Unit price: <b>$30.49</b></li><li>Manager: <b>BMO ETFs</b></li><li>Positions held: <b>7</b></li></ul></div>
+<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>ZWB — BMO Covered Call Canadian Banks ETF</h1><p>ZWB: BMO Covered Call Canadian Banks ETF, yielding 5.2%, paid $1.5900 a share over twelve months, from BMO ETFs. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>5.2%</b></li><li>Paid per share, twelve months: <b>$1.5900</b></li><li>Unit price: <b>$30.58</b></li><li>Manager: <b>BMO ETFs</b></li><li>Positions held: <b>7</b></li></ul></div>
 <script>window.__TICKER = "ZWB";</script>
 
 <nav>
@@ -978,8 +978,36 @@ function yieldContext(st){
             : "Much of this distribution is a return of capital rather than income.") + "</div>";
 }
 
+// The next payment, announced by the issuer or projected from the fund's own
+// rhythm. A projection is always labelled as one: an income investor deciding
+// whether to buy before an ex-date must not mistake a guess for a declaration.
+function nextPaymentCard(st){
+  if(!st.next_ex_date || st.next_amount === undefined) return '';
+  const fmtDay = s => new Date(s + 'T12:00:00Z').toLocaleDateString('en-CA',
+    {month:'short', day:'numeric', timeZone:'UTC'});
+  const today = new Date(); today.setUTCHours(0,0,0,0);
+  const days = Math.round((new Date(st.next_ex_date + 'T00:00:00Z') - today) / 86400000);
+  if(days < 0) return '';               // stale: the date has already passed
+  const when = days === 0 ? 'today' : days === 1 ? 'tomorrow' : 'in ' + days + ' days';
+  const announced = st.next_status === 'announced';
+  const amount = Number(st.next_amount).toFixed(4);
+  const paid = st.next_pay_date ? ' \u00b7 paid ' + fmtDay(st.next_pay_date) : '';
+  const basis = announced
+    ? 'Announced by the issuer.'
+    : 'Estimated from the last ' + (st.next_basis || 'few') + ' payments; not yet announced.';
+  return `<div class="stat" title="Hold units before the ex-date to receive this payment.">
+    <div class="stat-label">Next payment ${announced ? '' : '<span style="text-transform:none; letter-spacing:0; opacity:.75;">(expected)</span>'}</div>
+    <div class="stat-value">${announced ? '' : '~'}$${amount}</div>
+    <div class="stat-sub">ex-date ${announced ? '' : 'around '}${fmtDay(st.next_ex_date)} (${when})${paid}</div>
+    <div class="stat-sub" style="margin-top:4px;">${basis} Own it before the ex-date to be paid.</div>
+  </div>`;
+}
+
 function distributionSection(f){
-  const d = f.distributions || [];
+  // an issuer table can list the announced next payment; that is shown in its
+  // own card, so history and "latest payment" only cover payments already ex
+  const _today = new Date().toISOString().slice(0, 10);
+  const d = (f.distributions || []).filter(x => x.ex_date <= _today);
   const st = f.stats || {};
   if(!d.length){
     // A fund that pays but whose issuer doesn't publish a table still has a
@@ -1044,6 +1072,7 @@ function distributionSection(f){
         <div class="stat-value">$${d[0].amount.toFixed(4)}</div>
         <div class="stat-sub">ex-date ${d[0].ex_date}</div>
       </div>
+      ${nextPaymentCard(st)}
       ${st.ttm_total ? `<div class="stat">
         <div class="stat-label">Paid last 12 months</div>
         <div class="stat-value">$${Number(st.ttm_total).toFixed(2)}</div>
