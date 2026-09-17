@@ -813,7 +813,7 @@ function drawShareCard(showMoney){
   function money(n){ return "$" + Math.round(n).toLocaleString("en-CA"); }
 
   if (showMoney && d.value){
-    fig("Invested", money(d.value), 64, 196);
+    fig("Value today", money(d.value), 64, 196);
     fig("Income a year", money(d.income), 424, 196);
     fig("Income a month", money(d.income / 12), 784, 196);
     x.fillStyle = "#8A9099";
@@ -956,8 +956,8 @@ function openShareCard(){
       + '<div class="sm-preview" id="smPreview"></div>'
       + '<label class="sm-toggle"><input type="checkbox" id="smMoney" checked>'
         + '<span>Include the dollar amounts</span></label>'
-      + '<p class="sm-note">Off by default. The card still shows your yield, '
-        + 'Your yield, mix and holdings still show.</p>'
+      + '<p class="sm-note">On by default. Untick it and the card still shows '
+        + 'your yield, your mix and your holdings, but no dollar amounts.</p>'
       + '<div class="sm-acts">'
         + '<button class="sm-go" id="smSave">Download the image</button>'
         + '<button class="sm-alt" id="smShare">Share&hellip;</button>'

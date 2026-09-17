@@ -826,13 +826,19 @@ async function loadSeries(ticker){
     .filter(function(p){ return p.length >= 2 && p[1]; });
   if (rows.length < 10) return null;
   const steps = (RATIOS[ticker] || {}).r || null;
+  // The price files carry date,close,adj_close,volume. Reading column 1 as the
+  // adjusted close drew the price line as the total-return line and divided the
+  // price by a dividend ratio on top, so the two lines were both wrong.
+  const wide = rows[0].length >= 3 && rows[0][2];
   const pts = rows.map(function(p){
     const day = Math.round(new Date(p[0] + 'T00:00:00Z').getTime()/86400000);
-    const adj = Number(p[1]);
-    const close = steps ? adj / ratioAt(steps, day) : null;
-    return {d: p[0], day: day, adj: adj, close: close};
+    const close = Number(p[1]);
+    const adj = wide ? Number(p[2]) : close;
+    return {d: p[0], day: day,
+            adj: adj,
+            close: wide ? close : (steps ? close / ratioAt(steps, day) : null)};
   });
-  return {ticker: ticker, pts: pts, hasClose: !!steps};
+  return {ticker: ticker, pts: pts, hasClose: wide || !!steps};
 }
 
 function windowed(pts){

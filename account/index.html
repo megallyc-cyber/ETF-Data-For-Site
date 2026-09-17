@@ -898,7 +898,12 @@ licentiaFundsFetch()
     const iss = new Set(rows.map(function(f){ return f.issuer; }));
     document.getElementById('sFunds').textContent = rows.length;
     document.getElementById('sIssuers').textContent = iss.size;
-    if (ys.length) document.getElementById('sYield').textContent = ys[Math.floor(ys.length/2)].toFixed(1) + '%';
+    if (ys.length) {
+      // median: the average of the middle two when the count is even
+      const m = ys.length >> 1;
+      const med = ys.length % 2 ? ys[m] : (ys[m-1] + ys[m]) / 2;
+      document.getElementById('sYield').textContent = med.toFixed(1) + '%';
+    }
   })
   .catch(function(){});
 

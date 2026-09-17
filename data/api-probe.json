@@ -1,4 +1,7 @@
 {
-  "pagesFixed": 289,
-  "templateFixed": true
+  "applied": true,
+  "parses": true,
+  "totalReturnFromAdjusted": true,
+  "fundPage": true,
+  "median": true
 }

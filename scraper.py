@@ -2565,13 +2565,18 @@ def attach_price_and_yield(registry: list) -> None:
         # site needs both numbers side by side, not the yield alone.
         try:
             rows = [ln.split(",") for ln in csv_path.read_text().strip().splitlines()[1:]]
-            series = [(r[0], float(r[1])) for r in rows if len(r) >= 2]
+            # Column 2 is the adjusted close, which already reinvests every
+            # distribution; column 1 is the market price. Measuring return from
+            # column 1 and labelling it "distributions included" understated
+            # every fund by its own yield (HMAX: +9% instead of +80%).
+            series = [(r[0], float(r[2])) for r in rows if len(r) >= 3]
             if len(series) > 30:
                 cutoff = (datetime.now(timezone.utc).date() - timedelta(days=365)).isoformat()
                 past = [p for d0, p in series if d0 <= cutoff]
                 start = past[-1] if past else series[0][1]
+                end = series[-1][1]
                 if start > 0:
-                    fund.stats["total_return_1y"] = round((close / start - 1) * 100, 2)
+                    fund.stats["total_return_1y"] = round((end / start - 1) * 100, 2)
                     fund.stats["return_window"] = "1y" if past else "since inception"
         except Exception:  # noqa: BLE001
             pass

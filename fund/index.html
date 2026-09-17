@@ -450,7 +450,7 @@ const SECTOR_MAP = {
   "CQP":"Energy","KNTK":"Energy","HESM":"Energy","GEL":"Energy","DKL":"Energy","NEXT":"Energy",
   "CTRI":"Energy","TNK":"Energy","SU":"Energy","CNQ":"Energy","CVE":"Energy","IMO":"Energy",
   "TOU":"Energy","ARX":"Energy","WCP":"Energy","OVV":"Energy","ENB":"Energy","TRP":"Energy",
-  "PPL":"Energy","KEY":"Energy","SHEL":"Energy","BP":"Energy","TTE":"Energy","E":"Energy",
+  "PPL":"Energy","SHEL":"Energy","BP":"Energy","TTE":"Energy","E":"Energy",
   "EQNR":"Energy","PBR":"Energy","YPF":"Energy","SSL":"Energy","TS":"Energy","CCJ":"Energy",
   "CCO":"Energy",
 
@@ -491,7 +491,7 @@ const SECTOR_MAP = {
   "TSN":"Consumer Staples","ADM":"Consumer Staples","BG":"Consumer Staples","MDLZ":"Consumer Staples",
   "CL":"Consumer Staples","KMB":"Consumer Staples","CHD":"Consumer Staples","CLX":"Consumer Staples",
   "EL":"Consumer Staples","KVUE":"Consumer Staples","UL":"Consumer Staples","FMX":"Consumer Staples",
-  "MRU":"Consumer Staples","L":"Consumer Staples","WN":"Consumer Staples","SAP":"Consumer Staples",
+  "MRU":"Consumer Staples","WN":"Consumer Staples","SAP":"Consumer Staples",
 
   // --- communication services ---
   "GOOGL":"Communication Services","GOOG":"Communication Services","META":"Communication Services",
@@ -569,7 +569,7 @@ const SECTOR_MAP = {
   "DTE":"Utilities","AEE":"Utilities","CMS":"Utilities","CNP":"Utilities","NI":"Utilities",
   "LNT":"Utilities","EVRG":"Utilities","PNW":"Utilities","ATO":"Utilities","NRG":"Utilities",
   "VST":"Utilities","CEG":"Utilities","ETR":"Utilities","AES":"Utilities","AWK":"Utilities",
-  "FTS":"Utilities","EMA":"Utilities","CU":"Utilities","AQN":"Utilities","H":"Utilities",
+  "FTS":"Utilities","EMA":"Utilities","CU":"Utilities","AQN":"Utilities",
   "BIP-U":"Utilities","BEPC":"Utilities","NG/":"Utilities","UU/":"Utilities","SVT":"Utilities",
   "NTGY":"Utilities","VIE":"Utilities","ORA":"Utilities","FORTUM":"Utilities","ENLAY":"Utilities",
   "RWEOY":"Utilities","EDP":"Utilities",
@@ -841,6 +841,10 @@ function compositionPanel(f){
 
     ${distributionSection(f)}
 
+    ${!rows.length ? `
+    <div class="section-head"><h2>Portfolio shape</h2></div>
+    <div class="empty" style="padding:22px;">${f.issuer || 'The issuer'} doesn't publish this fund's
+    holdings anywhere we can read, so there is nothing to show here rather than a guess.</div>` : `
     <div class="section-head"><h2>Portfolio shape</h2></div>
     <div class="stat-strip">
       <div class="stat">
@@ -868,11 +872,12 @@ function compositionPanel(f){
         <div class="stat-value" style="font-size:20px;">${structure}</div>
         <div class="stat-sub">${isWrapper ? fmt(fundWeight/total*100,0) + '% held via other funds' : 'holds securities directly'}</div>
       </div>
-    </div>
+    </div>`}
 
     ${isWrapper ? lookthroughSection(fundHoldings, total) : ''}
-    ${sectorSection(rows, total, isWrapper)}
+    ${rows.length ? sectorSection(rows, total, isWrapper) : ''}
 
+    ${!rows.length ? '' : `
     <div class="section">
       <div class="section-head">
         <h2>All holdings</h2>
@@ -884,10 +889,12 @@ function compositionPanel(f){
         <button class="sort-btn" data-sort="ticker">A–Z</button>
       </div>
       <div id="tableWrap"></div>
-    </div>
+    </div>`}
 
     <div class="data-note">
-      Holdings are pulled straight from ${f.issuer || 'the issuer'}'s published holdings file and refreshed daily.
+      ${rows.length
+        ? `Holdings are pulled straight from ${f.issuer || 'the issuer'}'s published holdings file and refreshed daily.`
+        : `${f.issuer || 'The issuer'} publishes no holdings file we can read for this fund, so only its price, size and distributions are shown.`}
       Sector labels are our own mapping, not the issuer's — treat them as a rough shape, not a classification.
       Yield and expense labels are reproduced exactly as the issuer words them — a 30-day SEC yield and a
       trailing 12-month distribution yield are not the same number and are not comparable across issuers.
@@ -899,26 +906,32 @@ function compositionPanel(f){
   if(more){
     more.addEventListener('click', () => {
       const body = document.getElementById('distRows');
-      body.innerHTML = (f.distributions || []).map(x =>
+      body.innerHTML = d.map(x =>
         '<tr><td>' + x.ex_date + '</td><td>' + (x.pay_date || '—') +
         '</td><td class="amt">$' + x.amount.toFixed(4) + '</td></tr>').join('');
       more.remove();
     });
   }
 
-  document.getElementById('search').addEventListener('input', e => {
-    FILTER = e.target.value.trim().toUpperCase();
-    renderTable(rows, total);
-  });
-  document.querySelectorAll('.sort-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      SORT = b.dataset.sort;
+  // A fund with no published holdings has no holdings table, so there is
+  // nothing to filter or sort — and binding to it threw before the rest of
+  // the page could finish.
+  const search = document.getElementById('search');
+  if (search) {
+    search.addEventListener('input', e => {
+      FILTER = e.target.value.trim().toUpperCase();
       renderTable(rows, total);
     });
-  });
-  renderTable(rows, total);
+    document.querySelectorAll('.sort-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        SORT = b.dataset.sort;
+        renderTable(rows, total);
+      });
+    });
+    renderTable(rows, total);
+  }
 }
 
 function asOfLine(f){
@@ -976,12 +989,19 @@ function yieldContext(st){
 // The next payment, announced by the issuer or projected from the fund's own
 // rhythm. A projection is always labelled as one: an income investor deciding
 // whether to buy before an ex-date must not mistake a guess for a declaration.
+// The reader's own date. Using the UTC date made a payment that goes ex
+// tomorrow read as already paid every evening after 8pm Eastern.
+function licentiaToday(){
+  const d = new Date();
+  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+}
+
 function nextPaymentCard(st){
   if(!st.next_ex_date || st.next_amount === undefined) return '';
   const fmtDay = s => new Date(s + 'T12:00:00Z').toLocaleDateString('en-CA',
     {month:'short', day:'numeric', timeZone:'UTC'});
-  const today = new Date(); today.setUTCHours(0,0,0,0);
-  const days = Math.round((new Date(st.next_ex_date + 'T00:00:00Z') - today) / 86400000);
+  const days = Math.round((new Date(st.next_ex_date + 'T12:00:00Z')
+                           - new Date(licentiaToday() + 'T12:00:00Z')) / 86400000);
   if(days < 0) return '';               // stale: the date has already passed
   const when = days === 0 ? 'today' : days === 1 ? 'tomorrow' : 'in ' + days + ' days';
   const announced = st.next_status === 'announced';
@@ -1001,7 +1021,7 @@ function nextPaymentCard(st){
 function distributionSection(f){
   // an issuer table can list the announced next payment; that is shown in its
   // own card, so history and "latest payment" only cover payments already ex
-  const _today = new Date().toISOString().slice(0, 10);
+  const _today = licentiaToday();
   const d = (f.distributions || []).filter(x => x.ex_date <= _today);
   const st = f.stats || {};
   if(!d.length){
@@ -1073,10 +1093,12 @@ function distributionSection(f){
         <div class="stat-value">$${Number(st.ttm_total).toFixed(2)}</div>
         <div class="stat-sub">${st.ttm_payments || ''} payments</div>
       </div>` : ''}
-      ${st.total_return_1y !== undefined ? `<div class="stat">
+      ${st.total_return_1y !== undefined && st.total_return_1y !== null ? `<div class="stat">
         <div class="stat-label">Total return</div>
         <div class="stat-value">${st.total_return_1y > 0 ? "+" : ""}${st.total_return_1y}%</div>
-        <div class="stat-sub">last 12 months, distributions included</div>
+        <div class="stat-sub">${st.return_window === 'since inception'
+          ? 'since inception, distributions included'
+          : 'last 12 months, distributions included'}</div>
       </div>` : ""}
       ${st.frequency ? `<div class="stat">
         <div class="stat-label">Frequency</div>

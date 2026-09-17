@@ -516,6 +516,8 @@
 
 </main>
 <script>
+function licentiaMedian(a){ if(!a.length) return null; const m = a.length >> 1; return a.length % 2 ? a[m] : (a[m-1] + a[m]) / 2; }
+
 const FALLBACK_FUNDS = {};
 let FUNDS = {};
 
@@ -867,7 +869,7 @@ function marketStats(pred, regionKey){
   return {
     funds: list.length,
     issuers: Object.keys(counts).length,
-    medYield: ys.length ? ys[Math.floor(ys.length/2)] : null,
+    medYield: licentiaMedian(ys),
     aum: aum,
     topIssuers: Object.entries(counts).sort(function(a,b){ return b[1]-a[1]; })
                  .slice(0,5).map(function(p){ return p[0]; })
@@ -957,7 +959,7 @@ function buildAside(issuer, funds){
   paintFam(el, issuer);
   const ys = funds.map(function(f){ return (f[1].stats||{}).yield_ttm; })
                   .filter(function(v){ return v !== undefined; }).sort(function(a,b){ return a-b; });
-  const med = ys.length ? ys[Math.floor(ys.length/2)] : undefined;
+  const med = ys.length ? licentiaMedian(ys) : undefined;
   const aum = funds.reduce(function(t,f){ return t + (((f[1].stats||{}).aum_musd)||0); }, 0);
   const cad = funds.filter(function(f){ return f[1].region === 'CAD'; }).length;
   el.innerHTML =
