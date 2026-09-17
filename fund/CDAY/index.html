@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CDAY — Hamilton Enhanced Canadian Equity DayMAX ETF | Licentia</title>
-  <meta name="description" content="CDAY: Hamilton Enhanced Canadian Equity DayMAX ETF, yielding 17.3%, paid $4.6200 a share over twelve months, from Hamilton ETFs. Holdings, distributions and fund size, taken from the issuer.">
+  <meta name="description" content="CDAY: Hamilton Enhanced Canadian Equity DayMAX ETF, yielding 17.1%, paid $4.6200 a share over twelve months, from Hamilton ETFs. Holdings, distributions and fund size, taken from the issuer.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1C2230">
   <link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
@@ -295,10 +295,10 @@
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
 <link rel="canonical" href="https://licentia.ca/fund/CDAY">
 <link rel="canonical" href="https://licentia.ca/fund/CDAY">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "CDAY \u2014 Hamilton Enhanced Canadian Equity DayMAX ETF", "tickerSymbol": "CDAY", "url": "https://licentia.ca/fund/CDAY", "description": "CDAY: Hamilton Enhanced Canadian Equity DayMAX ETF, yielding 17.3%, paid $4.6200 a share over twelve months, from Hamilton ETFs. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "Hamilton ETFs"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "CDAY \u2014 Hamilton Enhanced Canadian Equity DayMAX ETF", "tickerSymbol": "CDAY", "url": "https://licentia.ca/fund/CDAY", "description": "CDAY: Hamilton Enhanced Canadian Equity DayMAX ETF, yielding 17.1%, paid $4.6200 a share over twelve months, from Hamilton ETFs. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "Hamilton ETFs"}}</script>
 </head>
 <body>
-<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>CDAY — Hamilton Enhanced Canadian Equity DayMAX ETF</h1><p>CDAY: Hamilton Enhanced Canadian Equity DayMAX ETF, yielding 17.3%, paid $4.6200 a share over twelve months, from Hamilton ETFs. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>17.3%</b></li><li>Paid per share, twelve months: <b>$4.6200</b></li><li>Unit price: <b>$26.74</b></li><li>Manager: <b>Hamilton ETFs</b></li><li>Positions held: <b>2</b></li></ul></div>
+<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>CDAY — Hamilton Enhanced Canadian Equity DayMAX ETF</h1><p>CDAY: Hamilton Enhanced Canadian Equity DayMAX ETF, yielding 17.1%, paid $4.6200 a share over twelve months, from Hamilton ETFs. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>17.1%</b></li><li>Paid per share, twelve months: <b>$4.6200</b></li><li>Unit price: <b>$26.95</b></li><li>Manager: <b>Hamilton ETFs</b></li><li>Positions held: <b>2</b></li></ul></div>
 <script>window.__TICKER = "CDAY";</script>
 
 <nav>
@@ -956,6 +956,10 @@ function titleCase(s){
 function distProvenance(f, count){
   const src = (f.stats || {}).distribution_source || 'issuer';
   if(src === 'issuer') return count + ' payments published by ' + f.issuer + '.';
+  if(src === 'adjusted price history')
+    return count + ' payments read from the fund\u2019s daily price history, where each ex-date shows up as a step ' +
+           'between the market price and the price adjusted for distributions. ' + f.issuer +
+           " doesn't publish a machine-readable history.";
   // aggregated elsewhere because the issuer publishes no parseable table
   return count + ' payments via <a href="https://dividendhistory.org" target="_blank" rel="noopener" ' +
          'style="color:var(--gold-deep);">dividendhistory.org</a>, because ' + f.issuer +

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HRIF — Harvest Diversified Equity Income ETF | Licentia</title>
-  <meta name="description" content="HRIF: Harvest Diversified Equity Income ETF, yielding 8.2%, paid $1.4800 a share over twelve months, from Harvest ETFs. Holdings, distributions and fund size, taken from the issuer.">
+  <meta name="description" content="HRIF: Harvest Diversified Equity Income ETF, yielding 8.3%, paid $1.4800 a share over twelve months, from Harvest ETFs. Holdings, distributions and fund size, taken from the issuer.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1C2230">
   <link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
@@ -295,10 +295,10 @@
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
 <link rel="canonical" href="https://licentia.ca/fund/HRIF">
 <link rel="canonical" href="https://licentia.ca/fund/HRIF">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "HRIF \u2014 Harvest Diversified Equity Income ETF", "tickerSymbol": "HRIF", "url": "https://licentia.ca/fund/HRIF", "description": "HRIF: Harvest Diversified Equity Income ETF, yielding 8.2%, paid $1.4800 a share over twelve months, from Harvest ETFs. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "Harvest ETFs"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "HRIF \u2014 Harvest Diversified Equity Income ETF", "tickerSymbol": "HRIF", "url": "https://licentia.ca/fund/HRIF", "description": "HRIF: Harvest Diversified Equity Income ETF, yielding 8.3%, paid $1.4800 a share over twelve months, from Harvest ETFs. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "Harvest ETFs"}}</script>
 </head>
 <body>
-<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>HRIF — Harvest Diversified Equity Income ETF</h1><p>HRIF: Harvest Diversified Equity Income ETF, yielding 8.2%, paid $1.4800 a share over twelve months, from Harvest ETFs. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>8.2%</b></li><li>Paid per share, twelve months: <b>$1.4800</b></li><li>Unit price: <b>$17.96</b></li><li>Manager: <b>Harvest ETFs</b></li><li>Positions held: <b>11</b></li></ul></div>
+<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>HRIF — Harvest Diversified Equity Income ETF</h1><p>HRIF: Harvest Diversified Equity Income ETF, yielding 8.3%, paid $1.4800 a share over twelve months, from Harvest ETFs. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>8.3%</b></li><li>Paid per share, twelve months: <b>$1.4800</b></li><li>Unit price: <b>$17.90</b></li><li>Manager: <b>Harvest ETFs</b></li><li>Positions held: <b>11</b></li></ul></div>
 <script>window.__TICKER = "HRIF";</script>
 
 <nav>
@@ -956,6 +956,10 @@ function titleCase(s){
 function distProvenance(f, count){
   const src = (f.stats || {}).distribution_source || 'issuer';
   if(src === 'issuer') return count + ' payments published by ' + f.issuer + '.';
+  if(src === 'adjusted price history')
+    return count + ' payments read from the fund\u2019s daily price history, where each ex-date shows up as a step ' +
+           'between the market price and the price adjusted for distributions. ' + f.issuer +
+           " doesn't publish a machine-readable history.";
   // aggregated elsewhere because the issuer publishes no parseable table
   return count + ' payments via <a href="https://dividendhistory.org" target="_blank" rel="noopener" ' +
          'style="color:var(--gold-deep);">dividendhistory.org</a>, because ' + f.issuer +
