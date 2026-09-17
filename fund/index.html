@@ -855,8 +855,8 @@ function compositionPanel(f){
       </div>
       <div class="stat">
         <div class="stat-label">Largest position</div>
-        <div class="stat-value">${rows[0][0]}</div>
-        <div class="stat-sub">${fmt(rows[0][1],2)}% weight</div>
+        <div class="stat-value">${rows.length ? rows[0][0] : '&mdash;'}</div>
+        <div class="stat-sub">${rows.length ? fmt(rows[0][1],2) + '% weight' : 'holdings not published'}</div>
       </div>
       <div class="stat">
         <div class="stat-label">Effective holdings</div>

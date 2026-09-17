@@ -1,6 +1,4 @@
 {
-  "applied": true,
-  "parses": true,
-  "selfTest": true,
-  "nextPaymentCard": true
+  "pagesFixed": 289,
+  "templateFixed": true
 }
