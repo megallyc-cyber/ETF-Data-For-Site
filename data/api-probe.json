@@ -1,6 +1,6 @@
 {
   "applied": true,
   "parses": true,
-  "derivesFromPrices": true,
-  "fundPageLabel": true
+  "selfTest": true,
+  "nextPaymentCard": true
 }

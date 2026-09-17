@@ -2162,7 +2162,7 @@ PRICE_DIR = Path("data/prices")
 PRICE_DERIVED_SOURCE = "adjusted price history"
 
 
-def distributions_from_prices(fund: Fund) -> list:
+def distributions_from_prices(fund: Fund, price_dir: Path = None) -> list:
     """Payments read straight out of our own price files.
 
     Every file carries close and adjusted close. The adjustment only moves on
@@ -2176,7 +2176,7 @@ def distributions_from_prices(fund: Fund) -> list:
     Steps that come out negative are stitching between daily top-ups, not
     payments, and are ignored.
     """
-    path = PRICE_DIR / f"{fund.ticker}.csv"
+    path = (price_dir or PRICE_DIR) / f"{fund.ticker}.csv"
     if not path.exists():
         return []
     try:
@@ -2730,12 +2730,265 @@ def write_fund_pages(registry: list) -> int:
     return written
 
 
+def next_payment(dists: list, today: str = None) -> dict:
+    """The next payment a holder can expect, as next_* fields on the stats.
+
+    Announced: the issuer's own table already lists a payment dated after
+    today. That is the real figure and always wins.
+
+    Expected: nothing announced yet, which is most of the month for most funds
+    (issuers post the next payment a week or two ahead). Project it from the
+    fund's own rhythm: monthly payers go ex at the same point relative to month
+    end (Global X Canada on the last business day, Purpose a few days before),
+    everything else repeats its usual gap. The amount is the last one paid.
+    Labelled as expected on the page, never presented as announced.
+    """
+    today = today or datetime.now(timezone.utc).date().isoformat()
+    if not dists:
+        return {}
+    ann = sorted((d for d in dists if d.get("ex_date", "") > today),
+                 key=lambda d: d["ex_date"])
+    if ann:
+        d = ann[0]
+        out = {"next_ex_date": d["ex_date"], "next_amount": d["amount"],
+               "next_status": "announced"}
+        if d.get("pay_date"):
+            out["next_pay_date"] = d["pay_date"]
+        return out
+
+    past = sorted((d for d in dists if d.get("ex_date", "") <= today),
+                  key=lambda d: d["ex_date"])[-13:]
+    if len(past) < 3:
+        return {}                       # not enough history to see a rhythm
+    D = lambda s: datetime.fromisoformat(s).date()
+    gaps = sorted((D(b["ex_date"]) - D(a["ex_date"])).days
+                  for a, b in zip(past, past[1:]))
+    gap = gaps[len(gaps) // 2]
+    last = D(past[-1]["ex_date"])
+    now = D(today)
+    if gap > 120:
+        return {}                       # annual or irregular: no honest guess
+    if (now - last).days > max(3 * gap, 45):
+        return {}                       # stopped paying (JEPY's last was July)
+
+    def weekday_back(day):
+        while day.weekday() >= 5:
+            day -= timedelta(days=1)
+        return day
+
+    if 25 <= gap <= 35 or 80 <= gap <= 100:
+        step = 1 if gap <= 35 else 3
+
+        def month_end(y, m):
+            nxt = datetime(y + (m == 12), m % 12 + 1, 1).date()
+            return nxt - timedelta(days=1)
+
+        def biz_between(a, b):          # weekdays strictly after a, up to b
+            n, cur = 0, a
+            while cur < b:
+                cur += timedelta(days=1)
+                if cur.weekday() < 5:
+                    n += 1
+            return n
+
+        # Early-month payers (GPIX on the first business day) count from the
+        # start of the month; everyone else counts back from month end.
+        doms = sorted(D(d["ex_date"]).day for d in past)
+        from_start = doms[len(doms) // 2] <= 10
+        offsets = []
+        for d in past:
+            day = D(d["ex_date"])
+            if from_start:
+                first = datetime(day.year, day.month, 1).date() - timedelta(days=1)
+                offsets.append(biz_between(first, day))
+            else:
+                offsets.append(biz_between(day, month_end(day.year, day.month)))
+        offsets.sort()
+        off = offsets[len(offsets) // 2]
+        y, m = last.year, last.month
+        guess = None
+        for _ in range(6):
+            m += step
+            while m > 12:
+                m -= 12
+                y += 1
+            if from_start:
+                day = datetime(y, m, 1).date() - timedelta(days=1)
+                k = 0
+                while k < max(off, 1):
+                    day += timedelta(days=1)
+                    if day.weekday() < 5:
+                        k += 1
+            else:
+                day = weekday_back(month_end(y, m))
+                k = 0
+                while k < off:
+                    day -= timedelta(days=1)
+                    if day.weekday() < 5:
+                        k += 1
+            if day > now:
+                guess = day
+                break
+        if guess is None:
+            return {}
+    else:
+        guess = last + timedelta(days=gap)
+        while guess <= now:
+            guess += timedelta(days=gap)
+        guess = weekday_back(guess)
+        if guess <= now:
+            guess += timedelta(days=gap)
+
+    out = {"next_ex_date": guess.isoformat(),
+           "next_amount": past[-1]["amount"],
+           "next_status": "expected",
+           "next_basis": len(past)}
+    lags = sorted((D(d["pay_date"]) - D(d["ex_date"])).days
+                  for d in past if d.get("pay_date"))
+    if lags:
+        out["next_pay_date"] = (guess + timedelta(days=lags[len(lags) // 2])).isoformat()
+    return out
+
+
+def attach_next_payment(registry: list) -> None:
+    for fund in registry:
+        for k in ("next_ex_date", "next_pay_date", "next_amount",
+                  "next_status", "next_basis"):
+            fund.stats.pop(k, None)     # never leave last week's guess behind
+        fund.stats.update(next_payment(fund.distributions))
+    n = sum(1 for f in registry if f.stats.get("next_ex_date"))
+    log.info("Next payment for %d of %d funds", n, len(registry))
+
+
+def self_test() -> None:
+    """Checks the arithmetic this site's yields depend on, before a run spends
+    thirty minutes and pushes anything. A change that breaks how payments are
+    read, filtered or projected stops the run here, with yesterday's data still
+    live, instead of quietly blanking yields across the site again."""
+    import tempfile
+    problems = []
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+
+        def write(ticker, days, pays):
+            # one bar per weekday; adjusted close steps down by each payment
+            rows, price = [], 20.0
+            start = datetime(2025, 1, 1).date()
+            dates = [start + timedelta(days=i) for i in range(days)]
+            dates = [d for d in dates if d.weekday() < 5]
+            factor = 1.0
+            adj_factors = {}
+            for d in reversed(dates):
+                adj_factors[d] = factor
+                if d.isoformat() in pays:
+                    factor *= (1 - pays[d.isoformat()] / price)
+            for d in dates:
+                rows.append(f"{d.isoformat()},{price},{round(price * adj_factors[d], 6)},100")
+            (tmp / f"{ticker}.csv").write_text("date,close,adj_close,volume\n" + "\n".join(rows))
+            return [x for x in dates]
+
+        # a monthly payer on the last business day, with a year-end special
+        # a few days after December's regular payment, as QYLG and DJIA do
+        month_last = {}
+        start = datetime(2025, 1, 1).date()
+        for i in range(400):
+            d = start + timedelta(days=i)
+            if d.weekday() < 5:
+                month_last[(d.year, d.month)] = d
+        pays = {v.isoformat(): 0.145 for v in month_last.values()}
+        pays = {k: v for k, v in pays.items() if k < "2025-12-01"}
+        pays["2025-12-22"] = 0.145
+        pays["2025-12-30"] = 0.9                       # year-end special
+        write("TSTM", 400, pays)
+        fund = Fund(ticker="TSTM", name="t", issuer="t", region="CAD",
+                    holdings_url="", parser="bmo")
+        got = distributions_from_prices(fund, price_dir=tmp)
+        amounts = {round(d["amount"], 3) for d in got}
+        if not got:
+            problems.append("monthly payer: no payments read from prices")
+        if 0.9 in amounts:
+            problems.append("monthly payer: year-end special was not filtered")
+        if got and abs(got[0]["amount"] - 0.145) > 0.002:
+            problems.append("monthly payer: amount read as %s, expected 0.145" % got[0]["amount"])
+
+        regular = [d for d in got if d["ex_date"] < "2025-12-01"]
+        nxt = next_payment(regular, today="2025-12-02")
+        if nxt.get("next_status") != "expected":
+            problems.append("monthly payer: next payment projected as %s" % nxt)
+        elif nxt["next_ex_date"] != "2025-12-31":
+            problems.append("monthly payer: expected 2025-12-31, projected %s" % nxt["next_ex_date"])
+        elif abs(nxt["next_amount"] - 0.145) > 0.002:
+            problems.append("monthly payer: expected amount %s" % nxt["next_amount"])
+
+        ann = next_payment([{"ex_date": "2026-02-27", "amount": 0.15, "pay_date": "2026-03-06"}] + got,
+                           today="2026-02-10")
+        if ann.get("next_status") != "announced" or ann.get("next_amount") != 0.15:
+            problems.append("an announced payment did not win over the estimate: %s" % ann)
+
+    if problems:
+        for pr in problems:
+            log.error("SELF-TEST: %s", pr)
+        raise SystemExit("Self-test failed; nothing was scraped or pushed.")
+    log.info("Self-test passed")
+
+
+COVERAGE_FIELDS = {
+    "yield": lambda f: (f.get("stats") or {}).get("yield_ttm") is not None,
+    "holdings": lambda f: bool(f.get("holdings")),
+    "size": lambda f: bool((f.get("stats") or {}).get("aum_musd")),
+    "distributions": lambda f: bool(f.get("distributions")),
+}
+ALLOW_DROP_FILE = Path("data/allow-coverage-drop")
+
+
+def check_coverage(previous: dict, payload: dict) -> None:
+    """Refuse to publish a run that knows less than the last one did.
+
+    Every regression this project has had looked the same from the outside: a
+    run that finished green while a column went blank across dozens of funds
+    (57 yields, weeks of stale prices). Compare what the site is about to
+    show with what it shows now, and if a field was lost for more than a
+    handful of funds, stop before the push so yesterday's data stays live and
+    the failed run says exactly which funds lost what.
+
+    A real, intended drop (funds delisted, a source retired) goes through by
+    committing an empty data/allow-coverage-drop for one run. Delete it
+    straight after, or the guard stays off.
+    """
+    if not previous:
+        return
+    lost = {}
+    for name, has in COVERAGE_FIELDS.items():
+        gone = sorted(t for t, f in payload.items()
+                      if t in previous and has(previous[t]) and not has(f))
+        if gone:
+            lost[name] = gone
+    limit = max(5, len(previous) // 50)
+    bad = {k: v for k, v in lost.items() if len(v) > limit}
+    for name, tickers in lost.items():
+        log.warning("Lost %s for %d funds: %s", name, len(tickers), ", ".join(tickers[:40]))
+    if not bad:
+        return
+    if ALLOW_DROP_FILE.exists():
+        log.warning("Coverage drop allowed once by %s", ALLOW_DROP_FILE)
+        return
+    raise PushRejected("coverage fell: " + "; ".join(
+        "%s lost for %d funds" % (k, len(v)) for k, v in bad.items())
+        + " (limit %d). Nothing was pushed." % limit)
+
+
 def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
                  merge: bool = False) -> None:
     """When only part of the registry was scraped (--only), merge into the
     existing file instead of replacing it. Writing a filtered run straight out
     would silently delete every fund we didn't ask for."""
     path.parent.mkdir(parents=True, exist_ok=True)
+    previous = {}
+    if path.exists():
+        try:
+            previous = json.loads(path.read_text())
+        except Exception:  # noqa: BLE001
+            previous = {}
     payload = {}
     if merge and path.exists():
         try:
@@ -2767,6 +3020,7 @@ def write_output(registry: list[Fund], path: Path = OUTPUT_PATH,
                 for t, v in payload.items()}
     Path("data/tickers.json").write_text(json.dumps(tickers, indent=2, sort_keys=True))
     log.info("Wrote data/tickers.json — %d tickers", len(tickers))
+    check_coverage(previous, payload)
     push_to_supabase(payload)
     # Coverage per issuer, so a parser that quietly stops working shows up in
     # the next run rather than weeks later when someone notices a total looks
@@ -2839,9 +3093,11 @@ if __name__ == "__main__":
         log.info("Scraping %d of %d funds: %s", len(registry), len(FUND_REGISTRY),
                  ", ".join(f.ticker for f in registry))
 
+    self_test()
     results = run(registry)
     try:
         attach_price_and_yield(results)
+        attach_next_payment(results)
     except Exception as exc:  # noqa: BLE001
         # thirty six minutes of scraping should not be thrown away
         # because one issuer formatted a number unusually
