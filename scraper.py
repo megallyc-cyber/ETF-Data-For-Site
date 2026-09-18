@@ -2099,6 +2099,32 @@ def distribution_summary(dists: list) -> dict:
     if ttm:
         out["ttm_total"] = round(sum(ttm), 4)
         out["ttm_payments"] = len(ttm)
+
+    # A fund that started paying four months ago has four months in its
+    # trailing total, and the site was presenting that as a year of income:
+    # BDAY's "income a year" was a quarter of its actual run rate, and its
+    # yield put it in the wrong band in the builder. Say how much of a year
+    # the history actually covers, and what a year at the current payment
+    # rate would come to.
+    oldest = min(d["ex_date"] for d in dists)
+    covered = (datetime.now(timezone.utc).date() - datetime.fromisoformat(oldest).date()).days
+    out["history_days"] = covered
+    if covered < 330:
+        out["ttm_partial"] = True
+    recent = sorted(dists, key=lambda d: d["ex_date"])[-13:]
+    if len(recent) >= 3:
+        gaps = sorted((datetime.fromisoformat(b["ex_date"]).date()
+                       - datetime.fromisoformat(a["ex_date"]).date()).days
+                      for a, b in zip(recent, recent[1:]))
+        gap = gaps[len(gaps) // 2]
+        if 1 <= gap <= 200:
+            per_year = round(365 / gap)
+            out["pay_frequency_per_year"] = per_year
+            # the median of the last three payments, not just the last one:
+            # a weekly payer's single payment swings enough to make a run rate
+            # from it meaningless
+            last3 = sorted(d["amount"] for d in recent[-3:])
+            out["pay_rate_annual"] = round(last3[len(last3) // 2] * per_year, 4)
     return out
 
 
@@ -2557,6 +2583,12 @@ def attach_price_and_yield(registry: list) -> None:
         if ttm:
             fund.stats["yield_ttm"] = round(ttm / close * 100, 2)
             done += 1
+        rate = fund.stats.get("pay_rate_annual")
+        if rate:
+            # what a year at the current payment rate is worth. For a fund
+            # with a full year behind it this lands on the trailing yield; for
+            # a young one it is the only honest annual figure.
+            fund.stats["yield_run_rate"] = round(rate / close * 100, 2)
 
         # Total return over the same window, from the adjusted series (which
         # already reinvests distributions). A very high yield paired with a

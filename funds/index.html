@@ -1048,8 +1048,15 @@ function buildCard(ticker, f){
   const aum = fmtAum(st.aum_musd);
   const pillClass = f.region === 'CAD' ? 'pill-cad' : 'pill-us';
   // Yield is what people scan for, so it carries the visual weight
-  const y = st.yield_ttm !== undefined
-    ? '<span class="fund-yield">' + st.yield_ttm.toFixed(1) + '<small>%</small></span>'
+  // a fund with less than a year of payments shows a year at its current
+  // rate, marked, rather than a partial year read as a full one
+  const runRate = st.ttm_partial && st.yield_run_rate !== undefined;
+  const shown = runRate ? st.yield_run_rate : st.yield_ttm;
+  const y = shown !== undefined
+    ? '<span class="fund-yield" title="' + (runRate
+        ? 'Less than a year of payments: a year at the current rate'
+        : 'Twelve months of payments over the latest price') + '">'
+      + shown.toFixed(1) + '<small>%' + (runRate ? ' rate' : '') + '</small></span>'
     : '<span class="fund-yield na">yield n/a</span>';
   card.innerHTML =
     '<div class="card-top"><span><span class="fund-ticker">' + ticker + '</span>' +
@@ -1076,6 +1083,6 @@ function buildCard(ticker, f){
 }
 
 </script>
-<script src="/assets/pro.js?v=abddf571"></script>
+<script src="/assets/pro.js?v=38a88396"></script>
 </body>
 </html>

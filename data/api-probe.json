@@ -1,7 +1,8 @@
 {
   "applied": true,
   "parses": true,
-  "totalReturnFromAdjusted": true,
-  "fundPage": true,
-  "median": true
+  "runRate": true,
+  "fx": true,
+  "portfolioCad": true,
+  "builderReplaces": true
 }

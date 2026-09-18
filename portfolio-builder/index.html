@@ -541,7 +541,7 @@ const SUPABASE_URL = 'https://sopzbiuwakowbuqgwpmg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_x-g6QbE71nKThHN66Mz1kQ_16NXoj5j';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Entitlement comes from the account, exactly as assets/pro.js?v=abddf571 reads it, so a
+// Entitlement comes from the account, exactly as assets/pro.js?v=38a88396 reads it, so a
 // free account can never end up wearing the paid surface. ?pro=1 stays a
 // preview for the current tab only.
 function previewPro(){
@@ -654,11 +654,19 @@ function sectorMix(tickers, weights){
 // Deterministic and explainable on purpose. Every fund that appears in a
 // result can be traced to the filters below, and nothing is invented: yield,
 // total return and holdings all come from the tracked dataset.
+// The yield to plan with: a fund that has paid for less than a year has a
+// partial trailing yield, which put it in the wrong band and understated the
+// income the builder promised. Use a year at its current payment rate.
+function planYield(f){
+  const st = (f || {}).stats || {};
+  if (st.ttm_partial && st.yield_run_rate !== undefined) return st.yield_run_rate;
+  return st.yield_ttm;
+}
 function eligible(){
   const L = TIERS[tier];
   let list = Object.entries(FUNDS).filter(function(e){
     const st = e[1].stats || {};
-    if (st.yield_ttm === undefined) return false;
+    if (planYield(FUNDS[t]) === undefined) return false;
     if (A.country === 'CAD' && e[1].region !== 'CAD') return false;
     if (A.country === 'US'  && e[1].region !== 'US')  return false;
     return true;
@@ -669,7 +677,7 @@ function eligible(){
 }
 
 function inBand(t, band){
-  const y = (FUNDS[t].stats||{}).yield_ttm;
+  const y = planYield(FUNDS[t]);
   return y >= band.lo && y < band.hi;
 }
 
@@ -702,7 +710,7 @@ function assemble(pool, count, mode){
   if (!pool.length) return [];
   const picked = [];
   const scored = pool.slice().sort(function(a,b){
-    if (mode === 'income') return (FUNDS[b].stats.yield_ttm) - (FUNDS[a].stats.yield_ttm);
+    if (mode === 'income') return planYield(FUNDS[b]) - planYield(FUNDS[a]);
     if (mode === 'sector') return sectorFit(b) - sectorFit(a);
     return quality(b) - quality(a);
   });
@@ -713,7 +721,7 @@ function assemble(pool, count, mode){
       if (picked.indexOf(cand) !== -1) continue;
       let worstOverlap = 0;
       picked.forEach(function(p){ worstOverlap = Math.max(worstOverlap, overlapPct(cand, p)); });
-      const q = mode === 'income' ? FUNDS[cand].stats.yield_ttm
+      const q = mode === 'income' ? planYield(FUNDS[cand])
               : mode === 'sector' ? sectorFit(cand)
               : quality(cand);
       const score = q - worstOverlap * 0.9;
@@ -730,7 +738,7 @@ function summarise(tickers, weights){
   tickers.forEach(function(t, i){
     const st = FUNDS[t].stats || {};
     const w = weights[i] / 100;
-    y += st.yield_ttm * w;
+    y += planYield(FUNDS[t]) * w;
     if (st.total_return_1y !== undefined && st.total_return_1y !== null){ r += st.total_return_1y * w; rCov += w; }
     if (st.mer !== undefined && st.mer !== null){ mer += st.mer * w; merCov += w; }
   });
@@ -755,7 +763,7 @@ function relaxBand(pool, band){
   for (const w of widths){
     const lo = Math.max(0, band.lo - w), hi = band.hi + w;
     const near = pool.filter(function(t){
-      const y = (FUNDS[t].stats||{}).yield_ttm;
+      const y = planYield(FUNDS[t]);
       return y >= lo && y < hi;
     });
     if (near.length >= 4) return {pool: near, how: 'widened', range: [lo, hi]};
@@ -772,7 +780,7 @@ function buildRecommendations(){
   // Someone who asked for 15-20% should never be handed a 58% fund, even if
   // the search had to widen to find enough candidates.
   const ceiling = band ? band.hi : Infinity;
-  const capped = band ? working.filter(function(t){ return (FUNDS[t].stats||{}).yield_ttm < ceiling; }) : working;
+  const capped = band ? working.filter(function(t){ return planYield(FUNDS[t]) < ceiling; }) : working;
   const incomePool = capped.length >= 3 ? capped : working;
   const cappedApplied = band && capped.length >= 3;
 
@@ -1106,21 +1114,40 @@ async function useRec(ix){
     return;
   }
   // weights become share counts at today's price, so the saved rows mean something
+  // The amount is in Canadian dollars. A US-listed fund is priced in US
+  // dollars, so dividing one by the other bought about 1.4x too many shares.
+  // cost_basis stays in the fund's own currency, which is what My Portfolio
+  // expects and converts.
   const rows = r.picks.map(function(t, i){
     const price = (FUNDS[t].stats||{}).price;
     if (!price) return null;
+    const priceCad = window.licentiaToCad ? window.licentiaToCad(price, FUNDS[t].region) : price;
+    if (!priceCad) return null;
     const dollars = A.amount * r.weights[i] / 100;
     return {user_id: s.data.session.user.id, ticker: t,
-            shares: Math.floor(dollars / price), cost_basis: price};
+            shares: Math.floor(dollars / priceCad), cost_basis: price};
   }).filter(Boolean);
   if (!rows.length){ alert('No prices available for those funds right now.'); return; }
+  // This used to insert on top of whatever was already saved, so using the
+  // builder twice left two rows for the same fund and a portfolio worth twice
+  // what was planned. It replaces the saved book now, and asks first.
+  const existing = await sb.from('portfolio_holdings').select('id');
+  const had = (existing.data || []).length;
+  if (had && !confirm('This replaces the ' + had + ' holding' + (had === 1 ? '' : 's') +
+                      ' already in My Portfolio with this plan. Continue?')) return;
+  if (had){
+    const wipe = await sb.from('portfolio_holdings')
+      .delete().eq('user_id', s.data.session.user.id);
+    if (wipe.error){ alert(wipe.error.message); return; }
+  }
   const res = await sb.from('portfolio_holdings').insert(rows);
   if (res.error){ alert(res.error.message); return; }
   window.location.href = '/portfolio';
 }
 
 Promise.all([
-  licentiaFundsFetch().then(function(r){ return r.json(); }),
+  (window.licentiaFx ? window.licentiaFx() : Promise.resolve(null))
+    .then(function(){ return licentiaFundsFetch().then(function(r){ return r.json(); }); }),
   fetch('/data/sectors.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
   fetch('/data/aum_patch.json?cb=' + Math.random()).then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
   sb.auth.getSession()
@@ -1141,6 +1168,6 @@ sb.auth.onAuthStateChange(function(_e, session){
   if (Object.keys(FUNDS).length) render();
 });
 </script>
-<script src="/assets/pro.js?v=abddf571"></script>
+<script src="/assets/pro.js?v=38a88396"></script>
 </body>
 </html>

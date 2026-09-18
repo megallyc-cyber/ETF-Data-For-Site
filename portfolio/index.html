@@ -454,31 +454,45 @@ function num(v){
   return isFinite(n) ? n : null;
 }
 
+// Everything a row contributes to a total is converted to Canadian dollars
+// first. A US-listed fund's price stays in its own currency in the price
+// column, where it is labelled; the value, income and cost columns are CAD,
+// because they are the ones that get added up.
 function derive(row){
   const f = FUNDS[row.ticker] || null;
   const st = f ? (f.stats || {}) : {};
+  const region = f ? f.region : 'CAD';
+  const cad = function(v){ return window.licentiaToCad ? window.licentiaToCad(v, region) : v; };
   // fall back to the NAV the issuer publishes when no market price is stored:
   // a holding worth nothing is a worse answer than one valued at NAV
   const price = num(st.price) !== null ? num(st.price) : num(st.nav);
   const shares = Number(row.shares) || 0;
   const cost = row.cost_basis === null || row.cost_basis === undefined ? null : Number(row.cost_basis);
-  const value = (price !== undefined && price !== null) ? shares * price : null;
+  const value = (price !== undefined && price !== null) ? cad(shares * price) : null;
   // what the fund actually paid per share over the last twelve months is a
   // better basis than a yield derived from a price we may not have
-  const ttm = num(st.ttm_total), yTtm = num(st.yield_ttm), yPub = num(st.yield);
-  const income = ttm !== null ? shares * ttm
+  // A fund younger than a year has less than a year of payments in its
+  // trailing total, so annualising it understates the income badly. Use what
+  // a year at its current payment rate comes to, and say so on the row.
+  const partial = !!st.ttm_partial;
+  const rate = num(st.pay_rate_annual);
+  const perShare = (partial && rate !== null) ? rate : num(st.ttm_total);
+  const runRate = partial && rate !== null;
+  const ttm = perShare, yTtm = runRate ? num(st.yield_run_rate) : num(st.yield_ttm), yPub = num(st.yield);
+  const income = ttm !== null ? cad(shares * ttm)
     : ((value !== null && yTtm !== null) ? value * yTtm / 100
       : ((value !== null && yPub !== null) ? value * yPub / 100 : null));
   // and show a yield even when it had to be worked out from NAV
   const yieldShown = yTtm !== null ? yTtm
     : ((ttm !== null && price) ? Math.round(ttm / price * 1000) / 10
       : (yPub !== null ? yPub : undefined));
-  const spent = (cost !== null) ? shares * cost : null;
+  const spent = (cost !== null) ? cad(shares * cost) : null;
   const pl = (value !== null && spent !== null) ? value - spent : null;
   const plPct = (pl !== null && spent) ? pl / spent * 100 : null;
   const yoc = (income !== null && spent) ? income / spent * 100 : null;
-  return {fund:f, price:price, shares:shares, cost:cost, value:value,
-          income:income, spent:spent, pl:pl, plPct:plPct, yoc:yoc, yieldNow:yieldShown};
+  return {fund:f, price:price, shares:shares, cost:cost, value:value, region:region,
+          income:income, spent:spent, pl:pl, plPct:plPct, yoc:yoc, yieldNow:yieldShown,
+          runRate:runRate};
 }
 
 function say(text, kind){
@@ -674,10 +688,13 @@ function renderRows(){
       + '<td><div class="tic">' + r.ticker + '</div><div class="nm">' + (d.fund ? d.fund.name : 'not in our data') + '</div></td>'
       + '<td class="r num"><span class="cellEdit" data-id="' + r.id + '" data-field="shares">'
         + d.shares.toLocaleString('en-US') + '</span></td>'
-      + '<td class="r num">' + (d.price !== undefined && d.price !== null ? money(d.price, 2) : '—') + '</td>'
+      + '<td class="r num">' + (d.price !== undefined && d.price !== null
+          ? (d.region === 'US' ? 'US' : '') + money(d.price, 2) : '—') + '</td>'
       + '<td class="r num">' + money(d.value) + '</td>'
       + '<td class="r num">' + pct(d.yieldNow) + '</td>'
-      + '<td class="r num">' + money(d.income) + '</td>'
+      + '<td class="r num"' + (d.runRate
+          ? ' title="Less than a year of payments. This is a year at the current rate."' : '')
+        + '>' + money(d.income) + (d.runRate ? ' <span style="opacity:.6">· rate</span>' : '') + '</td>'
       + '<td class="r num"><span class="cellEdit' + (d.cost === null || d.cost === undefined ? ' isblank' : '')
         + '" data-id="' + r.id + '" data-field="cost">'
         + (d.cost === null || d.cost === undefined ? 'add' : money(d.cost, 2)) + '</span></td>'
@@ -1207,9 +1224,19 @@ function paintTierBadge(value){
   el.textContent = t.name;
 }
 
+// "BDAY has paid for less than a year, so its income is a year at the
+// current payment rate." — and the plural when more than one is young.
+function youngNote(list){
+  const one = list.length === 1;
+  return list.join(', ') + (one ? ' has' : ' have') + ' paid for less than a year, so '
+    + (one ? 'its' : 'their') + ' income is a year at the current payment rate.';
+}
+
 function renderTotals(){
   const box = document.getElementById('totals');
   if (!box) return;
+  const oldNote = document.getElementById('fxNote');
+  if (oldNote) oldNote.remove();
   let value = 0, income = 0, spent = 0, valueKnown = false, spentKnown = false;
   ROWS.forEach(function(r){
     const d = derive(r);
@@ -1230,7 +1257,7 @@ function renderTotals(){
       + '</div>';
   }
   box.innerHTML =
-    cell(valueKnown ? money(value) : '—', 'portfolio value')
+    cell(valueKnown ? money(value) : '—', 'portfolio value (CAD)')
   + cell(income ? money(income) : '—', 'income a year')
   + cell(income ? money(income / 12) : '—', 'income a month')
   + cell(pct(yieldOnValue), 'yield on value')
@@ -1238,6 +1265,20 @@ function renderTotals(){
   + cell(pl === null ? 'add cost basis' : money(pl) + ' (' + pct(plPct) + ')', 'profit',
          pl === null ? 'small' : (pl < 0 ? 'down' : 'up'));
 
+  const young = ROWS.filter(function(r){ return ((FUNDS[r.ticker] || {}).stats || {}).ttm_partial; })
+                    .map(function(r){ return r.ticker; });
+  const holdsUS = ROWS.some(function(r){ return (FUNDS[r.ticker] || {}).region === 'US'; });
+  if (holdsUS && window.licentiaFxNote){
+    box.insertAdjacentHTML('afterend',
+      '<div class="fx-note" id="fxNote" style="margin-top:10px; font-size:12px; ' +
+      'color:var(--ink-faint); font-family:monospace;">' +
+      'All totals in Canadian dollars. ' + window.licentiaFxNote() +
+      (young.length ? ' ' + youngNote(young) : '') + '</div>');
+  } else if (young.length){
+    box.insertAdjacentHTML('afterend',
+      '<div class="fx-note" id="fxNote" style="margin-top:10px; font-size:12px; ' +
+      'color:var(--ink-faint); font-family:monospace;">' + youngNote(young) + '</div>');
+  }
   paintTierBadge(valueKnown ? value : null);
   wireSharePanel(valueKnown ? value : null);
 }
@@ -1255,7 +1296,9 @@ async function loadRows(){
 function licentiaHoldingCap(){
   var d = window.LICENTIA_DATA || {};
   if (d.tier === "pro") return true;
-  var rows = document.querySelectorAll("[data-holding-row]").length || (window.HOLDINGS||[]).length;
+  // ROWS is what this page actually holds; the old selector matched nothing,
+  // so the cap never fired and a free account could save any number.
+  var rows = (typeof ROWS !== "undefined" && ROWS) ? ROWS.length : 0;
   if (rows < 3) return true;
   var old = document.getElementById("lockModal"); if (old) old.remove();
   var w = document.createElement("div");
@@ -1444,6 +1487,7 @@ function isPreview(){
 
 async function boot(){
   if (isPreview()){
+    if (window.licentiaFx) await window.licentiaFx();
     const d = await licentiaFundsFetch().then(function(r){ return r.json(); });
     FUNDS = d;
     ROWS = buildPreviewBook();
@@ -1454,6 +1498,7 @@ async function boot(){
   const s = await sb.auth.getSession();
   session = s.data.session;
   if (!session){ gateView(); return; }
+  if (window.licentiaFx) await window.licentiaFx();
   const d = await licentiaFundsFetch().then(function(r){ return r.json(); });
   FUNDS = d;
   const patch = await fetch('/data/aum_patch.json?cb=' + Math.random())
@@ -1469,7 +1514,7 @@ async function boot(){
 sb.auth.onAuthStateChange(function(){ boot(); });
 boot();
 </script>
-<script src="/assets/pro.js?v=abddf571">
+<script src="/assets/pro.js?v=38a88396">
 
 </script>
 </body>

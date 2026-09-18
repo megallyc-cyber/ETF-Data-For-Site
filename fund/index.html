@@ -673,15 +673,22 @@ function incomeAnswer(f){
     return isFinite(x) ? x : null;
   }
   const price = n(st.price) !== null ? n(st.price) : n(st.nav);
-  const ttm = n(st.ttm_total);
-  const y = n(st.yield_ttm) !== null ? n(st.yield_ttm) : n(st.yield);
+  // a fund that has paid for less than a year: what a year at its current
+  // payment rate comes to, rather than a few months presented as a year
+  const partial = !!st.ttm_partial;
+  const ttm = partial && n(st.pay_rate_annual) !== null ? n(st.pay_rate_annual) : n(st.ttm_total);
+  const y = partial && n(st.yield_run_rate) !== null ? n(st.yield_run_rate)
+    : (n(st.yield_ttm) !== null ? n(st.yield_ttm) : n(st.yield));
   if (price === null && ttm === null && y === null) return "";
 
   const stake = 10000;
   let annual = null, basis = "";
   if (ttm !== null && price){
     annual = stake / price * ttm;
-    basis = "from the " + fmt(ttm, 4) + " a share it paid over the last twelve months";
+    basis = partial
+      ? "from the " + fmt(ttm, 4) + " a share a year at its current payment rate — it has been paying for "
+        + (st.history_days || 0) + " days, not a full year"
+      : "from the " + fmt(ttm, 4) + " a share it paid over the last twelve months";
   } else if (y !== null){
     annual = stake * y / 100;
     basis = "at the " + fmt(y, 1) + "% yield published by the issuer";
@@ -1089,9 +1096,15 @@ function distributionSection(f){
       </div>
       ${nextPaymentCard(st)}
       ${st.ttm_total ? `<div class="stat">
-        <div class="stat-label">Paid last 12 months</div>
+        <div class="stat-label">${st.ttm_partial ? 'Paid since it started' : 'Paid last 12 months'}</div>
         <div class="stat-value">$${Number(st.ttm_total).toFixed(2)}</div>
-        <div class="stat-sub">${st.ttm_payments || ''} payments</div>
+        <div class="stat-sub">${st.ttm_payments || ''} payments${st.ttm_partial
+          ? ' over ' + st.history_days + ' days' : ''}</div>
+      </div>` : ''}
+      ${st.ttm_partial && st.pay_rate_annual ? `<div class="stat">
+        <div class="stat-label">A year at this rate</div>
+        <div class="stat-value">$${Number(st.pay_rate_annual).toFixed(2)}</div>
+        <div class="stat-sub">${st.pay_frequency_per_year || ''} payments a year at the current amount</div>
       </div>` : ''}
       ${st.total_return_1y !== undefined && st.total_return_1y !== null ? `<div class="stat">
         <div class="stat-label">Total return</div>
@@ -1259,7 +1272,7 @@ function renderTable(rows, total){
   `;
 }
 </script>
-<script src="/assets/pro.js?v=abddf571"></script>
+<script src="/assets/pro.js?v=38a88396"></script>
 
 <script>
 // The ticker only exists in the query string, so the canonical and sharing tags

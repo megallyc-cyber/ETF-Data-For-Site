@@ -652,18 +652,28 @@ function currentBook(){
     // fall back to the published NAV rather than dropping the holding
     const price = num(st.price) !== null ? num(st.price) : num(st.nav);
     if (price === null) return null;
+    // a US-listed fund is priced in US dollars; everything that gets added up
+    // here is converted to Canadian dollars first
+    const region = f.region;
+    const cad = function(v){ return window.licentiaToCad ? window.licentiaToCad(v, region) : v; };
     const shares = num(r.shares) || 0;
     const cost = (r.cost_basis === null || r.cost_basis === undefined) ? null : num(r.cost_basis);
-    const value = shares * price;
+    const value = cad(shares * price);
+    if (value === null) return null;
     // what the fund paid beats a yield we may not have
-    const ttm = num(st.ttm_total), yTtm = num(st.yield_ttm), yPub = num(st.yield);
-    const income = ttm !== null ? shares * ttm
+    // a fund younger than a year: a year at its current payment rate, not a
+    // partial trailing total presented as annual income
+    const partial = !!st.ttm_partial, rate = num(st.pay_rate_annual);
+    const ttm = (partial && rate !== null) ? rate : num(st.ttm_total);
+    const yTtm = (partial && rate !== null) ? num(st.yield_run_rate) : num(st.yield_ttm);
+    const yPub = num(st.yield);
+    const income = ttm !== null ? cad(shares * ttm)
       : (yTtm !== null ? value * yTtm / 100
         : (yPub !== null ? value * yPub / 100 : 0));
     const shownYield = yTtm !== null ? yTtm
       : (ttm !== null && price ? Math.round(ttm / price * 1000) / 10 : yPub);
     return {t:r.ticker, shares:shares, price:price, yield:shownYield,
-            value: value, spent: cost === null ? null : shares * cost,
+            value: value, spent: cost === null ? null : cad(shares * cost),
             income: isFinite(income) ? income : 0};
   }).filter(Boolean);
 }
@@ -1164,7 +1174,8 @@ document.getElementById('slider').addEventListener('input', function(e){
 });
 
 Promise.all([
-  licentiaFundsFetch().then(function(r){ return r.json(); }),
+  (window.licentiaFx ? window.licentiaFx() : Promise.resolve(null))
+    .then(function(){ return licentiaFundsFetch().then(function(r){ return r.json(); }); }),
   fetch('/data/close_ratio.json?cb='+Math.random()).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }),
   sb.auth.getSession()
 ]).then(async function(res){
@@ -1173,7 +1184,7 @@ Promise.all([
   session = res[2].data.session;
   const badge = document.getElementById('tierBadge');
   if (badge){
-    // same entitlement source as assets/pro.js?v=abddf571, so the badge cannot disagree
+    // same entitlement source as assets/pro.js?v=38a88396, so the badge cannot disagree
     // with the surface the reader is looking at
     const u = session ? (session.user || {}) : null;
     const tier = u ? ((u.app_metadata && u.app_metadata.tier) ||
@@ -1195,7 +1206,7 @@ Promise.all([
   buildPicker();
   renderStress();
 });
-</script><script src="/assets/pro.js?v=abddf571"></script>
+</script><script src="/assets/pro.js?v=38a88396"></script>
 <script>
 // Tell the reader the slider is theirs to move, and stop saying so the moment
 // they do. A hint that outstays its welcome is worse than none.

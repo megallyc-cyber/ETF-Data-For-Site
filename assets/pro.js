@@ -904,3 +904,66 @@
   }
   setTimeout(build, 900);
 })();
+
+
+/* One exchange rate, for pages that add a TSX-listed fund to a US-listed one.
+
+   A portfolio page that sums $20 CAD and $20 USD into "$40" is wrong by the
+   rate, and the builder turned dollars into share counts the same way — a US
+   fund came out about 1.4x oversized. The Bank of Canada publishes the daily
+   noon rate, free and without a key, so the page asks for it directly and
+   says on screen which rate it used.
+
+   If the rate cannot be fetched, licentiaToCad returns null for a US-listed
+   fund rather than a number in the wrong currency; the pages then leave those
+   holdings out of the totals and say so. */
+(function(){
+  var KEY = 'licentia_fx_usdcad';
+  var URL = 'https://www.bankofcanada.ca/valet/observations/FXUSDCAD/json?recent=1';
+  var pending = null;
+
+  function cached(){
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return null;
+      var v = JSON.parse(raw);
+      // a rate is good for the day it was fetched; after that, ask again
+      if (!v || !v.usdcad || v.fetched !== new Date().toISOString().slice(0, 10)) return null;
+      return v;
+    } catch (e) { return null; }
+  }
+
+  window.LICENTIA_FX = cached();
+
+  window.licentiaFx = function(){
+    if (window.LICENTIA_FX) return Promise.resolve(window.LICENTIA_FX);
+    if (pending) return pending;
+    pending = fetch(URL).then(function(r){ return r.json(); }).then(function(j){
+      var obs = (j.observations || [])[0];
+      var rate = obs && obs.FXUSDCAD && parseFloat(obs.FXUSDCAD.v);
+      if (!rate || !isFinite(rate)) return null;
+      var out = {usdcad: rate, as_of: obs.d, source: 'Bank of Canada',
+                 fetched: new Date().toISOString().slice(0, 10)};
+      window.LICENTIA_FX = out;
+      try { localStorage.setItem(KEY, JSON.stringify(out)); } catch (e) {}
+      return out;
+    }).catch(function(){ return null; });
+    return pending;
+  };
+
+  // value in the fund's own currency -> Canadian dollars
+  window.licentiaToCad = function(v, region){
+    if (v === null || v === undefined || !isFinite(v)) return null;
+    if (region !== 'US') return v;
+    var fx = window.LICENTIA_FX;
+    return fx ? v * fx.usdcad : null;
+  };
+
+  // "1.3988 CAD per US$ (Bank of Canada, 2026-09-17)"
+  window.licentiaFxNote = function(){
+    var fx = window.LICENTIA_FX;
+    if (!fx) return 'US-listed funds are left out: today’s exchange rate could not be fetched.';
+    return 'US-listed funds converted at ' + fx.usdcad.toFixed(4) +
+           ' CAD per US$ (' + fx.source + ', ' + fx.as_of + ').';
+  };
+})();
