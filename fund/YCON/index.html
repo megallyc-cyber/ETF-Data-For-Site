@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YCON — Coinbase Yield Shares Purpose ETF | Licentia</title>
-  <meta name="description" content="YCON: Coinbase Yield Shares Purpose ETF, yielding 75.3%, paid $4.3000 a share over twelve months, from Purpose Investments. Holdings, distributions and fund size, taken from the issuer.">
+  <meta name="description" content="YCON: Coinbase Yield Shares Purpose ETF, yielding 73.9%, paid $4.3000 a share over twelve months, from Purpose Investments. Holdings, distributions and fund size, taken from the issuer.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1C2230">
   <link rel="icon" type="image/svg+xml" href="/assets/bird.svg">
@@ -295,10 +295,10 @@
   <link rel="stylesheet" href="/assets/pro.css?v=0d4d1c94">
 <link rel="canonical" href="https://licentia.ca/fund/YCON">
 <link rel="canonical" href="https://licentia.ca/fund/YCON">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "YCON \u2014 Coinbase Yield Shares Purpose ETF", "tickerSymbol": "YCON", "url": "https://licentia.ca/fund/YCON", "description": "YCON: Coinbase Yield Shares Purpose ETF, yielding 75.3%, paid $4.3000 a share over twelve months, from Purpose Investments. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "Purpose Investments"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FinancialProduct", "name": "YCON \u2014 Coinbase Yield Shares Purpose ETF", "tickerSymbol": "YCON", "url": "https://licentia.ca/fund/YCON", "description": "YCON: Coinbase Yield Shares Purpose ETF, yielding 73.9%, paid $4.3000 a share over twelve months, from Purpose Investments. Holdings, distributions and fund size, taken from the issuer.", "provider": {"@type": "Organization", "name": "Purpose Investments"}}</script>
 </head>
 <body>
-<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>YCON — Coinbase Yield Shares Purpose ETF</h1><p>YCON: Coinbase Yield Shares Purpose ETF, yielding 75.3%, paid $4.3000 a share over twelve months, from Purpose Investments. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>75.3%</b></li><li>Paid per share, twelve months: <b>$4.3000</b></li><li>Unit price: <b>$5.71</b></li><li>Manager: <b>Purpose Investments</b></li><li>Positions held: <b>1</b></li></ul></div>
+<div id="seo-summary" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"><h1>YCON — Coinbase Yield Shares Purpose ETF</h1><p>YCON: Coinbase Yield Shares Purpose ETF, yielding 73.9%, paid $4.3000 a share over twelve months, from Purpose Investments. Holdings, distributions and fund size, taken from the issuer.</p><ul><li>Distribution yield: <b>73.9%</b></li><li>Paid per share, twelve months: <b>$4.3000</b></li><li>Unit price: <b>$5.82</b></li><li>Manager: <b>Purpose Investments</b></li><li>Positions held: <b>1</b></li></ul></div>
 <script>window.__TICKER = "YCON";</script>
 
 <nav>
@@ -455,7 +455,7 @@ const SECTOR_MAP = {
   "CQP":"Energy","KNTK":"Energy","HESM":"Energy","GEL":"Energy","DKL":"Energy","NEXT":"Energy",
   "CTRI":"Energy","TNK":"Energy","SU":"Energy","CNQ":"Energy","CVE":"Energy","IMO":"Energy",
   "TOU":"Energy","ARX":"Energy","WCP":"Energy","OVV":"Energy","ENB":"Energy","TRP":"Energy",
-  "PPL":"Energy","KEY":"Energy","SHEL":"Energy","BP":"Energy","TTE":"Energy","E":"Energy",
+  "PPL":"Energy","SHEL":"Energy","BP":"Energy","TTE":"Energy","E":"Energy",
   "EQNR":"Energy","PBR":"Energy","YPF":"Energy","SSL":"Energy","TS":"Energy","CCJ":"Energy",
   "CCO":"Energy",
 
@@ -496,7 +496,7 @@ const SECTOR_MAP = {
   "TSN":"Consumer Staples","ADM":"Consumer Staples","BG":"Consumer Staples","MDLZ":"Consumer Staples",
   "CL":"Consumer Staples","KMB":"Consumer Staples","CHD":"Consumer Staples","CLX":"Consumer Staples",
   "EL":"Consumer Staples","KVUE":"Consumer Staples","UL":"Consumer Staples","FMX":"Consumer Staples",
-  "MRU":"Consumer Staples","L":"Consumer Staples","WN":"Consumer Staples","SAP":"Consumer Staples",
+  "MRU":"Consumer Staples","WN":"Consumer Staples","SAP":"Consumer Staples",
 
   // --- communication services ---
   "GOOGL":"Communication Services","GOOG":"Communication Services","META":"Communication Services",
@@ -574,7 +574,7 @@ const SECTOR_MAP = {
   "DTE":"Utilities","AEE":"Utilities","CMS":"Utilities","CNP":"Utilities","NI":"Utilities",
   "LNT":"Utilities","EVRG":"Utilities","PNW":"Utilities","ATO":"Utilities","NRG":"Utilities",
   "VST":"Utilities","CEG":"Utilities","ETR":"Utilities","AES":"Utilities","AWK":"Utilities",
-  "FTS":"Utilities","EMA":"Utilities","CU":"Utilities","AQN":"Utilities","H":"Utilities",
+  "FTS":"Utilities","EMA":"Utilities","CU":"Utilities","AQN":"Utilities",
   "BIP-U":"Utilities","BEPC":"Utilities","NG/":"Utilities","UU/":"Utilities","SVT":"Utilities",
   "NTGY":"Utilities","VIE":"Utilities","ORA":"Utilities","FORTUM":"Utilities","ENLAY":"Utilities",
   "RWEOY":"Utilities","EDP":"Utilities",
@@ -678,15 +678,22 @@ function incomeAnswer(f){
     return isFinite(x) ? x : null;
   }
   const price = n(st.price) !== null ? n(st.price) : n(st.nav);
-  const ttm = n(st.ttm_total);
-  const y = n(st.yield_ttm) !== null ? n(st.yield_ttm) : n(st.yield);
+  // a fund that has paid for less than a year: what a year at its current
+  // payment rate comes to, rather than a few months presented as a year
+  const partial = !!st.ttm_partial;
+  const ttm = partial && n(st.pay_rate_annual) !== null ? n(st.pay_rate_annual) : n(st.ttm_total);
+  const y = partial && n(st.yield_run_rate) !== null ? n(st.yield_run_rate)
+    : (n(st.yield_ttm) !== null ? n(st.yield_ttm) : n(st.yield));
   if (price === null && ttm === null && y === null) return "";
 
   const stake = 10000;
   let annual = null, basis = "";
   if (ttm !== null && price){
     annual = stake / price * ttm;
-    basis = "from the " + fmt(ttm, 4) + " a share it paid over the last twelve months";
+    basis = partial
+      ? "from the " + fmt(ttm, 4) + " a share a year at its current payment rate — it has been paying for "
+        + (st.history_days || 0) + " days, not a full year"
+      : "from the " + fmt(ttm, 4) + " a share it paid over the last twelve months";
   } else if (y !== null){
     annual = stake * y / 100;
     basis = "at the " + fmt(y, 1) + "% yield published by the issuer";
@@ -846,6 +853,10 @@ function compositionPanel(f){
 
     ${distributionSection(f)}
 
+    ${!rows.length ? `
+    <div class="section-head"><h2>Portfolio shape</h2></div>
+    <div class="empty" style="padding:22px;">${f.issuer || 'The issuer'} doesn't publish this fund's
+    holdings anywhere we can read, so there is nothing to show here rather than a guess.</div>` : `
     <div class="section-head"><h2>Portfolio shape</h2></div>
     <div class="stat-strip">
       <div class="stat">
@@ -873,11 +884,12 @@ function compositionPanel(f){
         <div class="stat-value" style="font-size:20px;">${structure}</div>
         <div class="stat-sub">${isWrapper ? fmt(fundWeight/total*100,0) + '% held via other funds' : 'holds securities directly'}</div>
       </div>
-    </div>
+    </div>`}
 
     ${isWrapper ? lookthroughSection(fundHoldings, total) : ''}
-    ${sectorSection(rows, total, isWrapper)}
+    ${rows.length ? sectorSection(rows, total, isWrapper) : ''}
 
+    ${!rows.length ? '' : `
     <div class="section">
       <div class="section-head">
         <h2>All holdings</h2>
@@ -889,10 +901,12 @@ function compositionPanel(f){
         <button class="sort-btn" data-sort="ticker">A–Z</button>
       </div>
       <div id="tableWrap"></div>
-    </div>
+    </div>`}
 
     <div class="data-note">
-      Holdings are pulled straight from ${f.issuer || 'the issuer'}'s published holdings file and refreshed daily.
+      ${rows.length
+        ? `Holdings are pulled straight from ${f.issuer || 'the issuer'}'s published holdings file and refreshed daily.`
+        : `${f.issuer || 'The issuer'} publishes no holdings file we can read for this fund, so only its price, size and distributions are shown.`}
       Sector labels are our own mapping, not the issuer's — treat them as a rough shape, not a classification.
       Yield and expense labels are reproduced exactly as the issuer words them — a 30-day SEC yield and a
       trailing 12-month distribution yield are not the same number and are not comparable across issuers.
@@ -904,26 +918,32 @@ function compositionPanel(f){
   if(more){
     more.addEventListener('click', () => {
       const body = document.getElementById('distRows');
-      body.innerHTML = (f.distributions || []).map(x =>
+      body.innerHTML = d.map(x =>
         '<tr><td>' + x.ex_date + '</td><td>' + (x.pay_date || '—') +
         '</td><td class="amt">$' + x.amount.toFixed(4) + '</td></tr>').join('');
       more.remove();
     });
   }
 
-  document.getElementById('search').addEventListener('input', e => {
-    FILTER = e.target.value.trim().toUpperCase();
-    renderTable(rows, total);
-  });
-  document.querySelectorAll('.sort-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      SORT = b.dataset.sort;
+  // A fund with no published holdings has no holdings table, so there is
+  // nothing to filter or sort — and binding to it threw before the rest of
+  // the page could finish.
+  const search = document.getElementById('search');
+  if (search) {
+    search.addEventListener('input', e => {
+      FILTER = e.target.value.trim().toUpperCase();
       renderTable(rows, total);
     });
-  });
-  renderTable(rows, total);
+    document.querySelectorAll('.sort-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        SORT = b.dataset.sort;
+        renderTable(rows, total);
+      });
+    });
+    renderTable(rows, total);
+  }
 }
 
 function asOfLine(f){
@@ -978,8 +998,43 @@ function yieldContext(st){
             : "Much of this distribution is a return of capital rather than income.") + "</div>";
 }
 
+// The next payment, announced by the issuer or projected from the fund's own
+// rhythm. A projection is always labelled as one: an income investor deciding
+// whether to buy before an ex-date must not mistake a guess for a declaration.
+// The reader's own date. Using the UTC date made a payment that goes ex
+// tomorrow read as already paid every evening after 8pm Eastern.
+function licentiaToday(){
+  const d = new Date();
+  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+}
+
+function nextPaymentCard(st){
+  if(!st.next_ex_date || st.next_amount === undefined) return '';
+  const fmtDay = s => new Date(s + 'T12:00:00Z').toLocaleDateString('en-CA',
+    {month:'short', day:'numeric', timeZone:'UTC'});
+  const days = Math.round((new Date(st.next_ex_date + 'T12:00:00Z')
+                           - new Date(licentiaToday() + 'T12:00:00Z')) / 86400000);
+  if(days < 0) return '';               // stale: the date has already passed
+  const when = days === 0 ? 'today' : days === 1 ? 'tomorrow' : 'in ' + days + ' days';
+  const announced = st.next_status === 'announced';
+  const amount = Number(st.next_amount).toFixed(4);
+  const paid = st.next_pay_date ? ' \u00b7 paid ' + fmtDay(st.next_pay_date) : '';
+  const basis = announced
+    ? 'Announced by the issuer.'
+    : 'Estimated from the last ' + (st.next_basis || 'few') + ' payments; not yet announced.';
+  return `<div class="stat" title="Hold units before the ex-date to receive this payment.">
+    <div class="stat-label">Next payment ${announced ? '' : '<span style="text-transform:none; letter-spacing:0; opacity:.75;">(expected)</span>'}</div>
+    <div class="stat-value">${announced ? '' : '~'}$${amount}</div>
+    <div class="stat-sub">ex-date ${announced ? '' : 'around '}${fmtDay(st.next_ex_date)} (${when})${paid}</div>
+    <div class="stat-sub" style="margin-top:4px;">${basis} Own it before the ex-date to be paid.</div>
+  </div>`;
+}
+
 function distributionSection(f){
-  const d = f.distributions || [];
+  // an issuer table can list the announced next payment; that is shown in its
+  // own card, so history and "latest payment" only cover payments already ex
+  const _today = licentiaToday();
+  const d = (f.distributions || []).filter(x => x.ex_date <= _today);
   const st = f.stats || {};
   if(!d.length){
     // A fund that pays but whose issuer doesn't publish a table still has a
@@ -1044,15 +1099,24 @@ function distributionSection(f){
         <div class="stat-value">$${d[0].amount.toFixed(4)}</div>
         <div class="stat-sub">ex-date ${d[0].ex_date}</div>
       </div>
+      ${nextPaymentCard(st)}
       ${st.ttm_total ? `<div class="stat">
-        <div class="stat-label">Paid last 12 months</div>
+        <div class="stat-label">${st.ttm_partial ? 'Paid since it started' : 'Paid last 12 months'}</div>
         <div class="stat-value">$${Number(st.ttm_total).toFixed(2)}</div>
-        <div class="stat-sub">${st.ttm_payments || ''} payments</div>
+        <div class="stat-sub">${st.ttm_payments || ''} payments${st.ttm_partial
+          ? ' over ' + st.history_days + ' days' : ''}</div>
       </div>` : ''}
-      ${st.total_return_1y !== undefined ? `<div class="stat">
+      ${st.ttm_partial && st.pay_rate_annual ? `<div class="stat">
+        <div class="stat-label">A year at this rate</div>
+        <div class="stat-value">$${Number(st.pay_rate_annual).toFixed(2)}</div>
+        <div class="stat-sub">${st.pay_frequency_per_year || ''} payments a year at the current amount</div>
+      </div>` : ''}
+      ${st.total_return_1y !== undefined && st.total_return_1y !== null ? `<div class="stat">
         <div class="stat-label">Total return</div>
         <div class="stat-value">${st.total_return_1y > 0 ? "+" : ""}${st.total_return_1y}%</div>
-        <div class="stat-sub">last 12 months, distributions included</div>
+        <div class="stat-sub">${st.return_window === 'since inception'
+          ? 'since inception, distributions included'
+          : 'last 12 months, distributions included'}</div>
       </div>` : ""}
       ${st.frequency ? `<div class="stat">
         <div class="stat-label">Frequency</div>
@@ -1213,7 +1277,7 @@ function renderTable(rows, total){
   `;
 }
 </script>
-<script src="/assets/pro.js?v=abddf571"></script>
+<script src="/assets/pro.js?v=38a88396"></script>
 
 <script>
 // The ticker only exists in the query string, so the canonical and sharing tags
