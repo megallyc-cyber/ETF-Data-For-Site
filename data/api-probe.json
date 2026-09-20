@@ -1,8 +1,6 @@
 {
   "applied": true,
-  "parses": true,
-  "runRate": true,
-  "fx": true,
-  "portfolioCad": true,
-  "builderReplaces": true
+  "fullBleed": true,
+  "biggerCards": true,
+  "biggerMarks": true
 }

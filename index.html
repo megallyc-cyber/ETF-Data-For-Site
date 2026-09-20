@@ -126,10 +126,11 @@
   @media (prefers-reduced-motion: reduce){
     .fade{animation:none; opacity:1; transform:none;}
   }
-  /* Same width as the cards beneath it, so the page reads as one column
-     rather than a full-bleed band interrupting it. */
-  .marquee{position:relative; width:100%; margin:0; padding:0; overflow:hidden;
-    border-radius:14px;
+  /* Full width of the window, not of the column: the strip is the one band
+     on this page that should run edge to edge, and at column width it left a
+     stripe of empty paper down both sides of the screen. */
+  .marquee{position:relative; width:100vw; margin-left:calc(50% - 50vw); padding:0; overflow:hidden;
+    border-radius:0;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);}
   .mq-track{display:flex; gap:clamp(12px,1.5vmin,20px); width:max-content; animation:marquee 46s linear infinite;}
@@ -137,23 +138,25 @@
   @keyframes marquee{from{transform:translateX(0);} to{transform:translateX(-50%);}}
   /* One fixed box size for every provider so the strip reads as a row of
      equals, with each mark scaled to fit inside rather than overflowing. */
-  .mq-item{flex:none; display:flex; align-items:center; justify-content:center; gap:14px;
-    width:clamp(196px,24vmin,340px); height:clamp(104px,15.5vmin,232px);
-    padding:0 clamp(16px,2vmin,26px); box-sizing:border-box;
+  .mq-item{flex:none; display:flex; align-items:center; justify-content:center; gap:18px;
+    width:clamp(230px,28vmin,420px); height:clamp(120px,18vmin,280px);
+    padding:0 clamp(18px,2.4vmin,32px); box-sizing:border-box;
     background:var(--white); border:1px solid var(--line); border-left:3px solid var(--mq);
     border-radius:10px; white-space:nowrap;
     text-decoration:none; cursor:pointer;
     transition:transform .18s, box-shadow .18s;}
   .mq-item:hover{transform:translateY(-3px); box-shadow:0 6px 16px rgba(21,32,25,0.12);}
+  /* The mark filled about a fifth of its card before, which is what made the
+     strip read as mostly empty boxes. Scale it with the card. */
   .mq-logo{display:flex; align-items:center; justify-content:center;
-    height:38px; width:132px; color:var(--mq); flex:none;}
+    height:clamp(46px,7vmin,86px); width:clamp(150px,18vmin,260px); color:var(--mq); flex:none;}
   /* both kinds of mark get the same envelope */
-  .mq-logo svg, .mq-logo img{max-height:38px; max-width:132px;
+  .mq-logo svg, .mq-logo img{max-height:clamp(46px,7vmin,86px); max-width:clamp(150px,18vmin,260px);
     height:auto; width:auto; object-fit:contain; display:block;}
-  .mq-name{font-family:'Fraunces',serif; font-size:19px; color:var(--mq); line-height:1.15;
-    text-align:center; white-space:normal; max-width:132px;}
-  .mq-n{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint);
-    flex:none; padding-left:13px; border-left:1px solid var(--line);}
+  .mq-name{font-family:'Fraunces',serif; font-size:clamp(20px,2.4vmin,30px); color:var(--mq); line-height:1.15;
+    text-align:center; white-space:normal; max-width:clamp(150px,18vmin,260px);}
+  .mq-n{font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,1.5vmin,17px); color:var(--ink-faint);
+    flex:none; padding-left:15px; border-left:1px solid var(--line);}
   .count{display:block; font-family:'IBM Plex Mono',monospace; font-size:13px;
     letter-spacing:0.08em; color:var(--ink-faint); margin-top:30px;}
   .count b{color:var(--teal-deep); font-weight:500; font-size:19px;}
