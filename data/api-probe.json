@@ -1,6 +1,5 @@
 {
   "applied": true,
-  "fullBleed": true,
-  "biggerCards": true,
-  "biggerMarks": true
+  "fills": true,
+  "envelopeKept": true
 }

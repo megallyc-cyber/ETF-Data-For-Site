@@ -151,8 +151,11 @@
   .mq-logo{display:flex; align-items:center; justify-content:center;
     height:clamp(46px,7vmin,86px); width:clamp(150px,18vmin,260px); color:var(--mq); flex:none;}
   /* both kinds of mark get the same envelope */
-  .mq-logo svg, .mq-logo img{max-height:clamp(46px,7vmin,86px); max-width:clamp(150px,18vmin,260px);
-    height:auto; width:auto; object-fit:contain; display:block;}
+  /* Fill the envelope rather than sit at the mark's own intrinsic size: a
+     viewBox-only SVG (BMO, Global X) otherwise drew at a fraction of the
+     space while NEOS filled it, so the row looked uneven. */
+  .mq-logo svg, .mq-logo img{width:100%; height:100%;
+    object-fit:contain; display:block;}
   .mq-name{font-family:'Fraunces',serif; font-size:clamp(20px,2.4vmin,30px); color:var(--mq); line-height:1.15;
     text-align:center; white-space:normal; max-width:clamp(150px,18vmin,260px);}
   .mq-n{font-family:'IBM Plex Mono',monospace; font-size:clamp(13px,1.5vmin,17px); color:var(--ink-faint);
