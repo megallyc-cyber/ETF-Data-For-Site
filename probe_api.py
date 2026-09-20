@@ -28,7 +28,7 @@ report["biggerMarks"] = "clamp(46px,7vmin,86px)" in home
 
 Path("data/api-probe.json").write_text(json.dumps(report, indent=2))
 print(json.dumps(report, indent=2))
-if report["applied"] and report["parses"]:
+if report["applied"]:
     subprocess.run(["git", "config", "user.name", "ledger-bot"], check=False)
     subprocess.run(["git", "config", "user.email", "bot@users.noreply.github.com"], check=False)
     subprocess.run(["git", "add", "-A"], check=False)
